@@ -1,0 +1,289 @@
+.tem-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #f4f4f5;
+}
+
+.tem-wrap .container {
+  margin: 0 auto;
+  padding: 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.tem-title {
+  color: #0b3a82;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  margin: 0;
+}
+
+.tem-list {
+  margin-left: 2.5rem;
+  list-style: disc;
+}
+
+.tem-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+  margin-left: auto;
+  margin-bottom: .5rem;
+}
+
+.btn-brand {
+  background-color: #0b3a82;
+  color: #fff;
+  font-weight: 700;
+  border-radius: .6rem;
+  padding: .75rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  border: 0;
+}
+.btn-brand:hover,
+.btn-brand:focus {
+  background-color: #0a3373;
+  color: #fff;
+}
+.btn-brand.btn-xs {
+  padding: .35rem .65rem;
+  font-size: .75rem;
+  border-radius: .4rem;
+}
+
+.tem-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #d1d5db;
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  min-height: 3.25rem;
+  transition: background-color .2s ease;
+  user-select: none;
+}
+.tem-item:hover {
+  background: #e5e7eb;
+}
+
+.tem-item__left {
+  flex: 1;
+  text-align: left;
+}
+
+.tem-item__right {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+
+@media (min-width: 992px) {
+  .tem-container { padding-left: 4rem; padding-right: 4rem; }
+}
+@media (min-width: 1536px) {
+  .tem-container { padding-left: 12rem; padding-right: 12rem; }
+}
+
+/* Section Cards */
+
+/* espaçamentos laterais (mx-16/32/60) */
+.section-cards .container {}
+
+/* track + slides */
+/* Carrossel: quem rola é o wrapper */
+.cards-track-wrapper {
+  position: relative;
+  overflow-x: auto;        /* <- habilita a rolagem horizontal */
+  overflow-y: hidden;
+  scroll-behavior: smooth; /* rolagem suave */
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.cards-track {
+  scroll-behavior: smooth;
+  will-change: transform;
+  transition: transform .25s ease;
+}
+
+/* cada "slide" ocupa 100% / 33.333% / 20% conforme breakpoint */
+.cards-slide {
+  flex: 0 0 100%;
+  padding-left: 1rem; /* ~ pl-4 */
+}
+@media (min-width: 768px) {   /* md */
+  .cards-slide { flex-basis: 33.3333%; }
+}
+@media (min-width: 1200px) {  /* xl */
+  .cards-slide { flex-basis: 20%; }
+}
+
+/* card visual */
+.cards-card {
+  height: 15rem; /* ~ h-60 */
+  border: 1px solid #a1a1aa; /* zinc-400 */
+  border-radius: 1rem;       /* rounded-2xl */
+  padding: 1rem;             /* p-4 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  background: #fff;
+}
+
+/* ícone redondo + badge número sobreposto */
+.icon-circle {
+  position: relative;
+  border-radius: 999px;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;          /* p-4 */
+  font-size: 2rem;        /* ~ size-9 */
+  line-height: 1;
+}
+.icon-circle i { color: #fff; }
+
+.icon-badge {
+  position: absolute;
+  bottom: -0.25rem;       /* mb-[calc(-30px+0.5rem)] equivalente aproximada */
+  left: -0.75rem;         /* -ml-6 aproximado */
+  width: 30px; height: 30px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem;
+}
+
+/* título e "chip" de status */
+.cards-title {
+  font-size: 1.25rem;     /* text-xl */
+  margin: 0;
+}
+.cards-chip {
+  height: 1.5rem;         /* h-6 */
+  display: inline-flex;
+  align-items: center;
+  padding: 0 .75rem;      /* px-4 ~ ajustado */
+  border-radius: .375rem; /* rounded */
+  border: 1px solid #27272a;       /* border-zinc-800 */
+  background: rgba(39,39,42,.3);   /* bg-zinc-800/30 */
+  color: #27272a;
+  font-weight: 700;
+  font-size: .75rem;      /* text-xs */
+}
+
+/* controles (bolinhas laterais) */
+#cardsCarousel .cards-prev,
+#cardsCarousel .cards-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.25rem; height: 2.25rem;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff;
+}
+#cardsCarousel .cards-prev { left: -1.75rem; }
+#cardsCarousel .cards-next { right: -1.75rem; }
+
+/* ===== Drag-to-scroll ===== */
+/* Carrossel: quem rola é o wrapper */
+.cards-track-wrapper{
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;      /* <- drag em tempo real */
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  user-select: none;          /* evita seleção de texto enquanto arrasta */
+  touch-action: none;         /* permite controlar o pan via JS */
+}
+.cards-track-wrapper.is-dragging{ cursor: grabbing; }
+
+/* ===== Estado selecionado ===== */
+.cards-card.is-selected {
+  border-color: #198754 !important; /* success */
+}
+.cards-card.is-selected .cards-title {
+  color: #198754 !important;        /* textos verdes */
+}
+.cards-card.is-selected .icon-circle,
+.cards-card.is-selected .icon-badge {
+  background-color: #198754 !important; /* ícone e badge verdes */
+}
+.cards-card.is-selected .icon-circle i {
+  color: #fff !important;             /* mantém ícone branco */
+}
+
+/* prev/next "fora" como no -left-12/-right-12 (ajuste em telas pequenas) */
+@media (max-width: 575.98px) {
+  #cardsCarousel .cards-prev { left: .25rem; }
+  #cardsCarousel .cards-next { right: .25rem; }
+}
+
+/* SUBSTITUA o código de botão anterior por ESTE no seu app.css */
+
+/* Resetando os padrões do Swiper (esta parte continua igual) */
+.swiper-button-prev,
+.swiper-button-next {
+    width: auto;
+    height: auto;
+    margin-top: 0;
+    background-image: none;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    display: none;
+}
+
+/* NOVO posicionamento inteligente para os botões */
+#cardsCarousel .swiper-button-prev,
+#cardsCarousel .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    /* Apenas o centramento vertical fica no transform inicial */
+    transform: translateY(-50%); 
+}
+
+#cardsCarousel .swiper-button-prev {
+    left: 0;
+    /* Move o botão para a esquerda (o seu próprio tamanho + 10px de espaço) */
+    transform: translateY(-50%) translateX(calc(-100% - 10px));
+}
+
+#cardsCarousel .swiper-button-next {
+    right: 0;
+    /* Move o botão para a direita (o seu próprio tamanho + 10px de espaço) */
+    transform: translateY(-50%) translateX(calc(100% + 10px));
+}
+
+/* O media query antigo pode ser REMOVIDO, pois esta solução é naturalmente responsiva */
+
+.c-green{
+color: rgb(21 128 61);
+}
+
+.c-black{
+  color: black;
+}
+
+.f-number{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.t-title{
+  font-weight: 700;
+  font-size: 20px;
+}
+

@@ -1,0 +1,310 @@
+/* ===========================
+   Resume / Timeline Section
+   =========================== */
+
+/* Azul brand igual aos títulos */
+.border-blue-900 {
+  border-color: #0b3a82 !important;
+}
+
+/* Caixa da timeline (equivalente a border-blue-900 border-2 rounded-xl p-2) */
+.timeline-wrapper {
+  border: 2px solid #0b3a82;
+  border-radius: 0.75rem; /* ~ rounded-xl */
+  padding: 0.5rem;
+  background-color: #ffffff;
+  max-width: 100%;
+}
+
+/* Área com rolagem horizontal (overflow) */
+.timeline-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Faixa interna que contém TODOS os itens.
+   Ela é quem define a largura total da timeline. */
+.timeline-track {
+  position: relative;
+  display: flex;
+  align-items: center;       /* centraliza verticalmente os itens */
+  gap: 1rem;                 /* espaço horizontal entre colunas */
+  padding: 3rem 4rem;        /* respiro em cima/baixo e nas laterais (~ 20px+) */
+  min-width: max-content;    /* faz a largura acompanhar o conteúdo (linha vai até o fim) */
+}
+
+/* Linha horizontal contínua passando por trás de todos os itens */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  background-color: #0b3a82; /* azul */
+  transform: translateY(-50%);
+  z-index: 0;
+}
+
+/* Cada "coluna" da timeline */
+.timeline-item {
+  top:45px;
+  position: relative;
+  display: flex;
+  flex-direction: column;   /* padrão: ano no meio, texto embaixo (primeiro item) */
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 14rem;             /* ~ w-56 */
+  min-width: 14rem;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1;               /* acima da linha */
+}
+
+/* Para os itens onde o texto fica EM CIMA do ano
+   (equivalente ao flex-col-reverse do exemplo Tailwind) */
+.timeline-item--bottom {
+  top:-35px;
+  flex-direction: column-reverse;
+}
+
+/* Cartão do ano (todos azuis, 90px de altura) */
+.timeline-card {
+  width: 80px;
+  height: 90px;               /* ajustado para 90px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #0b3a82;
+  border-radius: 999px 999px 0 0;   /* topo arredondado (primeiro item) */
+}
+
+/* Itens "de baixo" têm a bolha invertida (arredondado embaixo) */
+.timeline-item--bottom .timeline-card {
+  border-radius: 0 0 999px 999px;
+}
+
+/* Texto resumido (limitado visualmente, ~300 chars) */
+.timeline-text {
+  font-size: 0.875rem;
+  max-height: 5.25rem;        /* ~ 84px, próximo das 4 linhas do exemplo */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hover sutil no ano */
+.timeline-item:hover .timeline-card {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Pequeno ajuste em telas muito pequenas */
+@media (max-width: 575.98px) {
+  .timeline-track {
+    padding-inline: 1.5rem;
+  }
+
+  .timeline-item {
+    width: 12rem;
+    min-width: 12rem;
+  }
+}
+
+/* ===========================
+   Business Model Canvas
+   =========================== */
+
+.bmodel-board {
+  border: 2px solid #0b3a82;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 45rem; /* h-[45rem] aproximado */
+  font-weight: 700;
+  color: #0b3a82;
+}
+
+/* Topo: parte principal do canvas */
+.bmodel-top {
+  flex: 2 1 0;
+  display: flex;
+}
+
+/* Base: estrutura de custos + fontes de receita */
+.bmodel-bottom {
+  flex: 1 1 0;
+  display: flex;
+}
+
+/* Colunas principais */
+.bmodel-cell {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Colunas com duas metades (topo/baixo) */
+.bmodel-cell-split {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Metades internas (Atividades / Recursos, Relação / Canais) */
+.bmodel-cell-half {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabeçalho de cada bloco */
+.bmodel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background-color: #1d4ed8; /* azul forte (similar ao bg-blue-800) */
+  color: #ffffff;
+  border-bottom: 2px solid #0b3a82;
+  font-size: 0.95rem;
+}
+
+/* Cantos arredondados topo-esquerda e topo-direita */
+.bmodel-header-left {
+  border-top-left-radius: 0.75rem;
+}
+.bmodel-header-right {
+  border-top-right-radius: 0.75rem;
+}
+
+.bmodel-header i {
+  font-size: 1.1rem;
+}
+
+/* Corpo de cada bloco */
+.bmodel-body {
+  flex: 1 1 0;
+  padding: 0.75rem;
+  font-weight: 400;
+  color: #111827;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-y: auto;
+}
+
+/* Títulos internos (h4) */
+.bmodel-subtitle {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Divisor interno */
+.bmodel-divider {
+  margin: 0.75rem 0;
+  border: 0;
+  border-top: 2px solid #0b3a82;
+}
+
+/* Listas */
+.bmodel-body ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.bmodel-body li {
+  margin-bottom: 0.25rem;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 991.98px) {
+  .bmodel-body {
+      flex: 1 !important;
+  }
+
+  .bmodel-board {
+    height: auto;            /* deixa crescer naturalmente em telas menores */
+  }
+
+  .bmodel-top,
+  .bmodel-bottom {
+    flex-direction: column;  /* empilha as colunas no mobile */
+  }
+
+  .bmodel-cell,
+  .bmodel-cell-split {
+    border-left: 0 !important;
+    border-top: 1px solid #0b3a82;
+  }
+
+  .bmodel-header-left {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+  }
+
+  .bmodel-header-right {
+    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 0.75rem;
+  }
+}
+
+/* ===========================
+   Partnerships Section
+   =========================== */
+
+.partnership-wrapper {
+  border: 2px solid #0b3a82;
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  background: #ffffff;
+  max-width: 100%;
+}
+
+.partnership-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.partnership-track {
+  min-width: max-content;
+  padding: 3rem 4rem;
+}
+
+.partnership-item {
+  width: 13rem;
+  min-width: 13rem;
+  background: #f4f4f5;
+  border: 2px solid #0b3a82;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.partnership-item:hover {
+  transform: scale(1.08);
+}
+
+.partnership-text {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  max-height: 6rem; /* ~4 linhas */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.partnership-item h4 {
+  margin-bottom: 0.5rem;
+}
+
+.partnership-track i {
+  flex: 0 0 auto;
+}

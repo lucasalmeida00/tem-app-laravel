@@ -1,0 +1,6 @@
+@media (min-width: 1536px) { /* ~ 2xl */
+  .section-content .content-wrap {
+    padding-left: 24rem;  /* ~ px-96 */
+    padding-right: 24rem;
+  }
+}
