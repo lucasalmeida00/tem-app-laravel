@@ -91,11 +91,10 @@
 
 
     @if (!empty($isReviewer) && $isReviewer && !empty($businessResume))
-        <section class="tem-wrap">
+        <section class="tem-wrap summary-section">
             <div class="container">
                 <h2 class="tem-title mb-3">Descrição do Empreendimento</h2>
-
-                <p>{{ $businessResume }}</p>
+                <p class="summary-text">{{ $businessResume }}</p>
             </div>
         </section>
     @endif
