@@ -38,7 +38,7 @@
         // 18.2 — Avaliação de impactos (empreendimentos de impacto socioambiental)
         titleHtml:
           "<span class='c-green f-number'>18.2</span> <br/>" +
-          "<h3 class='c-black t-title'>Para casos de empreendimentos de impacto sócio ambiental, é realizada alguma avaliação de impactos do empreendimento?</h3>",
+          "<h3 class='c-black t-title'>Para casos de empreendimentos de impacto socioambiental, é realizada alguma avaliação de impactos do empreendimento?</h3>",
         color: "success",
         fields: [
           {
