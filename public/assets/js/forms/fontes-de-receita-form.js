@@ -10,7 +10,7 @@
         // 11.1 — Fontes utilizadas (a 1ª é a mais rentável)
         titleHtml:
           "<span class='c-green f-number'>11.1</span> <br/>" +
-          "<h3 class='c-black t-title'>De que forma o seu empreendimento gera receita e qual é o modelo de monetização mais importante atualmente? Escolha todas as fontes utilizadas, sendo a primeira mais rentável.</h3>",
+          "<h3 class='c-black t-title'>De que forma o seu empreendimento gera receita e qual é o modelo de monetização mais importante atualmente? Escolha todas as fontes utilizadas, sendo a primeira a mais importante.</h3>",
         color: "success",
         fields: [
           {
