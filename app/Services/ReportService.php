@@ -278,7 +278,7 @@ HTML;
 
         return <<<HTML
 <div class="summary-section">
-    <h2 class="summary-title">Resumo do Empreendimento</h2>
+    <h2 class="summary-title">Descrição do Empreendimento</h2>
     <p class="summary-text">{$this->escape($summary)}</p>
 </div>
 HTML;
