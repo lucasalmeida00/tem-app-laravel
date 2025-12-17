@@ -11,7 +11,7 @@
         // 19.1 — Marcos anuais
         titleHtml:
           "<span class='c-green f-number'>19.1</span> <br/>" +
-          "<h3 class='c-black t-title'>Informe quais são os principais marcos (anuais) do seu empreendimento conforme as opções abaixo.</h3>",
+          "<h3 class='c-black t-title'>Informe quais são os principais marcos (anuais) do seu empreendimento desde a sua criação até os dias atuais.</h3>",
         color: "success",
         fields: [
           {
