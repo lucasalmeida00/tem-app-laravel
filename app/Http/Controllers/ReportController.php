@@ -38,7 +38,7 @@ class ReportController extends Controller
      * @return Response
      */
     public function download(GenerateReportRequest $request): Response
-    {
+{
         $data = $request->validated();
 
         $pdf = $this->reportService->generatePdf($data);
