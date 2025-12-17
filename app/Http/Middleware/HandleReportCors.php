@@ -19,6 +19,7 @@ class HandleReportCors
         $allowedOrigins = [
             'https://tem.emnuvem.com.br',
             'https://tem-dev-app.emnuvem.com.br',
+            'https://tem-app-9a537bddcc3e.herokuapp.com',
             'https://fazerbem.com.br',
             'https://temapp.micilini.com',
             'http://localhost:8080',
