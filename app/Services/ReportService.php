@@ -211,13 +211,14 @@ class ReportService
 </head>
 <body>
 <header>
-  <table class="header-table">
-    <tr>
-      <td class="title-cell"><h1>{$this->escape($title)}</h1></td>
-      <td class="logo-cell"><img src="https://fazerbem.com.br/outros/tem/tem-logo.png" class="tem-logo" /></td>
-    </tr>
-  </table>
-  {$contactsHtml}
+<div class="title-cell" style="text-align: center; padding-bottom: 30px;"><h1>Relatório descritivo</h1></div>
+    <table class="header-table">
+        <tr>
+            <td class="title-cell"><h1>{$this->escape($title)}</h1></td>
+            <td class="logo-cell"><img src="https://fazerbem.com.br/outros/tem/tem-logo.png" class="tem-logo" /></td>
+        </tr>
+    </table>
+    {$contactsHtml}
 </header>
 
 <section>
