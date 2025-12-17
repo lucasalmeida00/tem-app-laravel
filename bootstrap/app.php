@@ -12,6 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
+
+        // Desabilita CSRF para rotas da API de relatórios
+        $middleware->validateCsrfTokens(except: [
+            'api/report/*',
+        ]);
+
+        // Registra o middleware de CORS para reports
+        $middleware->alias([
+            'report.cors' => \App\Http\Middleware\HandleReportCors::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

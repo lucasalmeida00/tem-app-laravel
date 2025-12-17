@@ -245,7 +245,7 @@
   }
 
   async function downloadPDF(data) {
-    const endpoint = 'https://fazerbem.com.br/outros/tem/generate.php';
+    const endpoint = window.location.origin + '/api/report/download';
 
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -302,7 +302,7 @@
         partnerships
       };
 
-      console.log('[ResumePrint] JSON enviado para generate.php:', payload);
+      console.log('[ResumePrint] JSON enviado para API Laravel:', payload);
       await downloadPDF(payload);
     } catch (err) {
       console.error('[ResumePrint] Falha ao gerar PDF:', err);
