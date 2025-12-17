@@ -89,11 +89,11 @@
     </section>
     <!-- End Section App -->
 
-   
+
     @if (!empty($isReviewer) && $isReviewer && !empty($businessResume))
         <section class="tem-wrap">
             <div class="container">
-                <h2 class="tem-title mb-3">Resumo do Empreendimento</h2>
+                <h2 class="tem-title mb-3">Descrição do Empreendimento</h2>
 
                 <p>{{ $businessResume }}</p>
             </div>
