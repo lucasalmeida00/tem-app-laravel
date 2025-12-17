@@ -32,9 +32,10 @@ class ReportService
         $businessModel = $data['BusinessModel'] ?? [];
         $contacts = $data['Contacts'] ?? [];
         $partners = $data['partnerships'] ?? [];
+        $summary = $data['summary'] ?? null;
 
         // Gera HTML
-        $html = $this->buildHtml($title, $timeline, $businessModel, $contacts, $partners);
+        $html = $this->buildHtml($title, $timeline, $businessModel, $contacts, $partners, $summary);
 
         // Renderiza PDF
         $this->dompdf->loadHtml($html, 'UTF-8');
@@ -191,12 +192,14 @@ class ReportService
      * @param array $businessModel
      * @param array $contacts
      * @param array $partners
+     * @param string|null $summary
      * @return string
      */
-    private function buildHtml(string $title, array $timeline, array $businessModel, array $contacts, array $partners): string
+    private function buildHtml(string $title, array $timeline, array $businessModel, array $contacts, array $partners, ?string $summary = null): string
     {
         $css = $this->getCss();
         $contactsHtml = $this->buildContactsHtml($contacts);
+        $summaryHtml = $this->buildSummaryHtml($summary);
         $timelineHtml = $this->buildTimelineHtml($timeline);
         $businessModelHtml = $this->buildBusinessModelHtml($businessModel);
         $partnersHtml = $this->buildPartnersHtml($partners);
@@ -211,7 +214,6 @@ class ReportService
 </head>
 <body>
 <header>
-<div class="title-cell" style="text-align: center; padding-bottom: 30px;"><h1>Relatório descritivo</h1></div>
     <table class="header-table">
         <tr>
             <td class="title-cell"><h1>{$this->escape($title)}</h1></td>
@@ -219,6 +221,7 @@ class ReportService
         </tr>
     </table>
     {$contactsHtml}
+    {$summaryHtml}
 </header>
 
 <section>
@@ -259,6 +262,26 @@ HTML;
     private function getCss(): string
     {
         return file_get_contents(resource_path('views/pdf/styles.css'));
+    }
+
+    /**
+     * Constrói HTML do resumo do empreendimento
+     *
+     * @param string|null $summary
+     * @return string
+     */
+    private function buildSummaryHtml(?string $summary): string
+    {
+        if (empty($summary)) {
+            return '';
+        }
+
+        return <<<HTML
+<div class="summary-section">
+    <h2 class="summary-title">Resumo do Empreendimento</h2>
+    <p class="summary-text">{$this->escape($summary)}</p>
+</div>
+HTML;
     }
 
     /**

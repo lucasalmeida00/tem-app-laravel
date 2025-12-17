@@ -34,6 +34,7 @@ class GenerateReportRequest extends FormRequest
             'Contacts.phone' => 'nullable|string',
             'Contacts.whatsapp' => 'nullable|string',
             'Contacts.others' => 'nullable|array',
+            'summary' => 'nullable|string|max:5000',
             'Timeline' => 'nullable|array',
             'BusinessModel' => 'nullable|array',
             'partnerships' => 'nullable|array',

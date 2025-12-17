@@ -104,6 +104,11 @@
 
   // ========== 3) Linha do tempo (nova timeline) ==========
 
+  function getSummary(){
+    const summaryEl = document.querySelector('.summary-section .summary-text');
+    return clean(summaryEl?.textContent || '') || null;
+  }
+
   function getTimeline() {
     const out = {};
     const items = document.querySelectorAll('.timeline-item');
@@ -282,10 +287,12 @@
       const Timeline = getTimeline();
       const BusinessModel = getBusinessModel();
       const partnerships = getPartnerships();
+      const summary = getSummary();
 
       const payload = {
         titleDocument,
         SiteDocument: contacts.site || null,
+        summary: summary || null,
         InstagramDocument: contacts.instagram || null,
         Contacts: {
           site: contacts.site,
