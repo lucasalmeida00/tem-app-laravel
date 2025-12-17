@@ -66,6 +66,9 @@ class ReportService
         $options->set('isRemoteEnabled', true);
         $options->set('defaultFont', 'DejaVu Sans');
 
+        // Desabilita uso de imagens/GD (importante para Heroku)
+        $options->set('isPhpEnabled', false);
+
         $this->dompdf = new Dompdf($options);
     }
 
