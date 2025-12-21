@@ -19,13 +19,13 @@ class DashboardController extends Controller
 
         if ($user->is_reviewer) {
             // Reviewer enxerga todos os empreendimentos (ajuste o filtro se quiser)
-            $businesses = Business::orderBy('created_at', 'desc')->get();
+            $businesses = Business::orderBy('business_name', 'asc')->get();
 
             return view('dashboard.reviewer', [
                 'businesses' => $businesses,
             ]);
         }
-        
+
         // 👉 Carrega o dashboard normal
         $businesses = Business::where('id_user', Auth::id())
             ->orderBy('business_name', 'asc')
@@ -61,7 +61,7 @@ class DashboardController extends Controller
     {
         $business = Business::where('url_hash', $url_hash)
             ->where('id_user', Auth::id())
-            ->first(); 
+            ->first();
 
         if (! $business) {
             return redirect()->route('dashboard');
