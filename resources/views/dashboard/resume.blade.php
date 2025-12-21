@@ -33,11 +33,7 @@
     <!-- Start Section App -->
     <section class="tem-wrap">
         <div class="container">
-            @if (!empty($isReviewer) && $isReviewer && !empty($businessResume))
-                <h1 class="tem-title text-center">Relatório Descritivo</h1>
-            @endif
-
-            <h1 class="tem-title">{{ $business->business_name }}</h1>
+            <h1 class="tem-title text-center">{{ $business->business_name }}</h1>
 
             @php
                 $card1 = $businessData['1'] ?? [];

@@ -13,8 +13,8 @@ h1 { font-size: 26px; margin: 0; color: #1e3a8a; }
 .muted { color: #475569; font-size: 12px; }
 
 /* Resumo do Empreendimento */
-.summary-section { margin: 16px 0; padding: 12px; background: #f8fafc; border-left: 4px solid #1e3a8a; border-radius: 4px; }
-.summary-title { font-size: 18px; font-weight: 700; color: #1e3a8a; margin: 0 0 8px 0; }
+.summary-section { margin: 16px 0; }
+.summary-title { font-size: 16px; margin: 18px 0 8px; color: #0f172a; }
 .summary-text { font-size: 12px; color: #0f172a; line-height: 1.6; margin: 0; }
 
 h2 { font-size: 16px; margin: 18px 0 8px; color: #0f172a; }

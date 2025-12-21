@@ -277,10 +277,8 @@ HTML;
         }
 
         return <<<HTML
-<div class="summary-section">
-    <h2 class="summary-title">Descrição do Empreendimento</h2>
-    <p class="summary-text">{$this->escape($summary)}</p>
-</div>
+<h2 class="summary-title">Descrição do Empreendimento</h2>
+<p class="summary-text">{$this->escape($summary)}</p>
 HTML;
     }
 
@@ -320,7 +318,7 @@ HTML;
             return '';
         }
 
-        return '<p class="muted">' . implode('<br /><br /> • ', $lines) . '</p>';
+        return '<p class="muted">' . implode('<br />', $lines) . '</p>';
     }
 
     /**
