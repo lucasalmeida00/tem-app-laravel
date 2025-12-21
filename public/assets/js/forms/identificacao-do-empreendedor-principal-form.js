@@ -29,7 +29,6 @@
             type: "select",
             name: "entrepreneurGender",
             placeholder: "Selecione o gênero",
-            required: true,
             options: [
               { value: "feminino",    label: "Feminino" },
               { value: "masculino",   label: "Masculino" },
@@ -47,7 +46,6 @@
             type: "text", // máscara no front: DD/MM/AAAA
             name: "entrepreneurBirthDate",
             placeholder: "DD/MM/AAAA",
-            required: false
           }
         ]
       },
@@ -60,7 +58,6 @@
             type: "select",
             name: "entrepreneurNationality",
             placeholder: "Selecione a nacionalidade",
-            required: true,
             options: window.FormOptions.countriesPt
           }
         ]
@@ -74,7 +71,6 @@
             type: "text", // máscara no front: 000.000.000-00
             name: "entrepreneurCPF",
             placeholder: "Digite seu CPF",
-            required: false
           }
         ]
       },
@@ -87,7 +83,6 @@
             type: "email",
             name: "entrepreneurEmail",
             placeholder: "Digite seu e-mail",
-            required: false
           }
         ]
       },
@@ -100,7 +95,6 @@
             type: "text", // máscara no front: (00) 0000-0000 ou (00) 0 0000-0000
             name: "entrepreneurPhone",
             placeholder: "Digite seu celular/whatsapp",
-            required: true
           }
         ]
       }

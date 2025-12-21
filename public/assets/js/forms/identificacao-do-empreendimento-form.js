@@ -135,7 +135,6 @@
                                     name: "street",
                                     label: "Endereço",
                                     placeholder: "Digite o endereço",
-                                    required: true
                                 }
                             }
                         ]
@@ -158,7 +157,6 @@
                                     name: "district",
                                     label: "Bairro",
                                     placeholder: "Informe o bairro",
-                                    required: true
                                 }
                             },
                             {
