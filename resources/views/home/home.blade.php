@@ -20,8 +20,8 @@
                     <img class="tem-logo" src="{{ asset('assets/img/tem-logo.png') }}" />
                 </a>
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="#home" class="nav-link" aria-current="page">Home</a></li>
-                    <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
+                    {{-- <li class="nav-item"><a href="#home" class="nav-link" aria-current="page">Home</a></li> --}}
+                    {{-- <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li> --}}
                     <li class="nav-item"><a href="/login" class="nav-link">Entrar</a></li>
                     <li class="nav-item"><a href="/signup" class="nav-link">Registrar-se</a></li>
                 </ul>
@@ -35,10 +35,11 @@
         <div class="hero-container d-flex flex-column justify-content-center text-white">
             <div class="hero-content col-12 col-md-6">
                 <h1 class="hero-title fw-bold display-4">Seja bem-vindo(a)</h1>
+                <h2 class="hero-subtitle fw-semibold fs-3 mb-4">
+                   Territorial Effectuation Monitoring
+                </h2>
                 <p class="hero-text fs-5">
-                    Lorem ipsum dolor sit amet consectetur adipiscing elit. Ut et massa mi.
-                    Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla,
-                    mattis ligula consectetur.
+                   Uma ferramenta de apoio à pesquisa sobre trajetórias empreendedoras
                 </p>
             </div>
         </div>
@@ -54,19 +55,14 @@
                 <h1 class="section-title">Como funciona?</h1>
                 <div class="section-text">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit
-                        urna.
-                        Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-                        vitae
-                        mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit.
+                        O empreendedor responde a um questionário estruturado, com duração aproximada de 20 minutos.
+                        Ao final, o sistema gera automaticamente um relatório descritivo, que apresenta:
                     </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit
-                        urna.
-                        Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-                        vitae
-                        mattis tellus. Nullam quis.
-                    </p>
+                    <ul class="text-start mx-auto" style="max-width: 600px;">
+                        <li>a trajetória empreendedora ao longo do tempo, com seus principais marcos;</li>
+                        <li>a configuração do modelo de negócio no momento da coleta;</li>
+                        <li>as parcerias formadas ao longo da trajetória.</li>
+                    </ul>
                 </div>
             </section>
 
@@ -75,27 +71,17 @@
                 <h1 class="section-title">Sobre o projeto</h1>
                 <div class="section-text">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit
-                        urna.
-                        Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-                        vitae
-                        mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna
-                        interdum eu.
-                        Curabitur pellentesque nibh nibh, at maximus ante fermentum sit.
+                        A TEM foi desenvolvida para apoiar pesquisas sobre as lógicas de ação empreendedora em diferentes contextos,
+                        com atenção à mobilização de recursos, às redes relacionais e à configuração dos modelos de negócios.
                     </p>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit
-                        urna.
-                        Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas
-                        vitae
-                        mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna
-                        interdum eu.
-                        Curabitur pellentesque nibh nibh, at.
+                        A ferramenta foi desenvolvida com o apoio da FAPERJ, por meio do edital Programa Favela Inteligente
+                        em Apoio às Bases para o Parque de Inovação Social e Sustentável na Rocinha.
                     </p>
                 </div>
             </section>
 
-            <!-- Três cards com ícones -->
+            {{-- <!-- Três cards com ícones -->
             <section class="feature-row">
                 <div class="row g-4">
                     <div class="col-12 col-md-4">
@@ -134,15 +120,16 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
 
             <!-- Parceiros -->
             <section class="content-block text-center">
                 <h1 class="section-title">Parceiros</h1>
                 <div class="partners">
+                    <img src="{{ asset('assets/img/logo-ltds.webp') }}" alt="LTDS" class="partner-logo">
+                    <img src="{{ asset('assets/img/logo-pep.png') }}" alt="PEP" class="partner-logo">
                     <img src="{{ asset('assets/img/logo-coppe-ufrj.webp') }}" alt="COPPE UFRJ" class="partner-logo">
                     <img src="{{ asset('assets/img/logo-faperj.webp') }}" alt="FAPERJ" class="partner-logo">
-                    <img src="{{ asset('assets/img/logo-ltds.webp') }}" alt="LTDS" class="partner-logo">
                 </div>
             </section>
 
