@@ -1,6 +1,6 @@
 * { box-sizing: border-box; }
 body { font-family: DejaVu Sans, Arial, sans-serif; color: #0f172a; margin: 20px; }
-header { border-bottom: 2px solid #1e3a8a; padding-bottom: 8px; margin-bottom: 16px; }
+header { padding-bottom: 8px; margin-bottom: 16px; }
 h1 { font-size: 26px; margin: 0; color: #1e3a8a; }
 .header-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .header-table td { vertical-align: middle; padding: 0; }
