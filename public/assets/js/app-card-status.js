@@ -43,21 +43,53 @@
             if (!input.name) return;
 
             const name = input.name;
-            let value = input.value;
+            let value = null;
 
+            // Select
+            if (input.tagName === 'SELECT') {
+                value = input.value;
+                // Se for select com opção vazia selecionada, considera como vazio
+                if (value === '' || value === null) {
+                    value = '';
+                }
+            }
             // Checkbox
-            if (input.type === 'checkbox') {
-                value = input.checked;
+            else if (input.type === 'checkbox') {
+                // Se já existe o campo, transforma em array ou adiciona ao array
+                if (formData[name] !== undefined) {
+                    if (Array.isArray(formData[name])) {
+                        if (input.checked) formData[name].push(value || true);
+                    } else {
+                        formData[name] = [formData[name], input.checked ? (value || true) : null].filter(Boolean);
+                    }
+                    return;
+                }
+                value = input.checked ? (input.value || true) : false;
             }
             // Radio
             else if (input.type === 'radio') {
                 if (input.checked) {
-                    formData[name] = value;
+                    formData[name] = input.value;
                 }
                 return;
             }
+            // File
+            else if (input.type === 'file') {
+                value = input.files && input.files.length > 0 ? input.files[0].name : '';
+            }
+            // Input normal e textarea
+            else {
+                value = input.value;
+            }
 
-            formData[name] = value;
+            // Se o campo já existe (múltiplos inputs com mesmo name), transforma em array
+            if (formData[name] !== undefined && !Array.isArray(formData[name])) {
+                formData[name] = [formData[name], value].filter(v => v !== null && v !== '');
+            } else if (formData[name] !== undefined && Array.isArray(formData[name])) {
+                if (value !== null && value !== '') formData[name].push(value);
+            } else {
+                formData[name] = value;
+            }
         });
 
         return formData;
@@ -105,6 +137,7 @@
         // Verifica quantos campos required foram preenchidos
         let requiredFilledCount = 0;
         let totalRequiredCount = 0;
+        const missingRequired = [];
 
         // Busca o schema do formulário para verificar campos required
         const formSchema = window.FormSchemas?.[String(cardId)];
@@ -122,21 +155,24 @@
                                         if (col.field && col.field.required) {
                                             totalRequiredCount++;
                                             const value = cardData[col.field.name];
+                                            let isFilled = false;
                                             if (value !== null && value !== undefined) {
                                                 if (Array.isArray(value)) {
-                                                    if (value.length > 0) requiredFilledCount++;
+                                                    if (value.length > 0) { requiredFilledCount++; isFilled = true; }
                                                 } else if (typeof value === "object") {
-                                                    if (Object.keys(value).length > 0) requiredFilledCount++;
+                                                    if (Object.keys(value).length > 0) { requiredFilledCount++; isFilled = true; }
                                                 } else {
                                                     const str = String(value).trim();
-                                                    if (str.length > 0) requiredFilledCount++;
+                                                    if (str.length > 0) { requiredFilledCount++; isFilled = true; }
                                                 }
                                             }
+                                            if (!isFilled) missingRequired.push(col.field.name);
                                         }
                                     });
                                 } else if (field.required) {
                                     totalRequiredCount++;
                                     const value = cardData[field.name];
+                                    let isFilled = false;
                                     if (value !== null && value !== undefined) {
                                         if (Array.isArray(value)) {
                                             if (value.length > 0) requiredFilledCount++;
@@ -161,6 +197,7 @@
                                 if (col.field && col.field.required) {
                                     totalRequiredCount++;
                                     const value = cardData[col.field.name];
+                                    let isFilled = false;
                                     if (value !== null && value !== undefined) {
                                         if (Array.isArray(value)) {
                                             if (value.length > 0) requiredFilledCount++;
@@ -176,24 +213,31 @@
                         } else if (field.required) {
                             totalRequiredCount++;
                             const value = cardData[field.name];
+                            let isFilled = false;
                             if (value !== null && value !== undefined) {
                                 if (Array.isArray(value)) {
-                                    if (value.length > 0) requiredFilledCount++;
+                                    if (value.length > 0) { requiredFilledCount++; isFilled = true; }
                                 } else if (typeof value === "object") {
-                                    if (Object.keys(value).length > 0) requiredFilledCount++;
+                                    if (Object.keys(value).length > 0) { requiredFilledCount++; isFilled = true; }
                                 } else {
                                     const str = String(value).trim();
-                                    if (str.length > 0) requiredFilledCount++;
+                                    if (str.length > 0) { requiredFilledCount++; isFilled = true; }
                                 }
                             }
+                            if (!isFilled) missingRequired.push(field.name);
                         }
                     });
                 }
             });
         }
 
+        if (missingRequired.length > 0) {
+            console.log(`⚠️ Card ${cardId} - Campos required não preenchidos:`, missingRequired);
+        }
+
         // Regras de status:
         // 1. Se não tem nenhum campo preenchido -> "Não iniciado"
+        //    (Cobre os casos: sem required e sem dados OU com required e sem dados)
         if (filledCount === 0) {
             return {
                 state: "not_started",
@@ -202,7 +246,16 @@
             };
         }
 
-        // 2. Se todos os campos required estão preenchidos -> "Concluído"
+        // 2. Se não tem campos required mas tem campos preenchidos -> "Concluído"
+        if (totalRequiredCount === 0 && filledCount > 0) {
+            return {
+                state: "done",
+                label: "Concluído",
+                badgeClass: "bg-success text-white"
+            };
+        }
+
+        // 3. Se todos os campos required estão preenchidos -> "Concluído"
         if (totalRequiredCount > 0 && requiredFilledCount === totalRequiredCount) {
             return {
                 state: "done",
@@ -211,7 +264,7 @@
             };
         }
 
-        // 3. Se tem algum campo preenchido mas nem todos os required -> "Em andamento"
+        // 4. Se tem algum campo preenchido mas nem todos os required -> "Em andamento"
         return {
             state: "in_progress",
             label: "Em andamento",
@@ -240,7 +293,6 @@
                         ...(allData[String(cardId)] || {}),
                         ...formData
                     };
-                    console.log('📝 Usando dados mesclados para card', cardId, dataToUse[String(cardId)]);
                 }
             }
 
@@ -299,7 +351,6 @@
             const cardEl = document.querySelector(`[data-card="${cardId}"]`);
             if (cardEl) {
                 cardEl.addEventListener('click', () => {
-                    console.log('🖱️ Card clicado:', cardId);
                     // Pequeno delay para dar tempo de renderizar o formulário
                     setTimeout(() => {
                         setupFormChangeListeners();
@@ -313,7 +364,6 @@
     // Função para configurar listeners de mudança nos campos
     function setupFormChangeListeners() {
         const formsSection = document.querySelector('.section-forms');
-        console.log('🔧 Setup listeners - section found:', !!formsSection);
 
         if (!formsSection) {
             return;
@@ -328,10 +378,8 @@
         // Cria novos listeners
         const inputListener = (e) => {
             if (e.target.matches('input, select, textarea')) {
-                console.log('⌨️ Input detectado:', e.target.name);
                 clearTimeout(window.statusDebounceTimer);
                 window.statusDebounceTimer = setTimeout(() => {
-                    console.log('� Atualizando status em tempo real...');
                     // Atualiza usando dados atuais do formulário
                     updateCardsStatuses(true);
 
@@ -345,7 +393,6 @@
 
         const changeListener = (e) => {
             if (e.target.matches('input, select, textarea')) {
-                console.log('🔄 Change detectado:', e.target.name);
                 // Atualiza usando dados atuais do formulário
                 updateCardsStatuses(true);
 
@@ -362,6 +409,5 @@
         formsSection.__inputListener = inputListener;
         formsSection.__changeListener = changeListener;
 
-        console.log('✅ Listeners configurados com sucesso');
     }
 })();

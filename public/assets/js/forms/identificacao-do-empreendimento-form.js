@@ -26,7 +26,6 @@
                 titleHtml: "<span class='c-green f-number'>1.2</span> <br/> <h3 class='c-black t-title'>CNPJ</h3>",
                 fields: [{
                     type: "text",
-                    required: true,
                     name: "cnpj",
                     placeholder: "00.000.000/0001-00"
                 }]
