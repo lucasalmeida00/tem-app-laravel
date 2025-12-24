@@ -520,7 +520,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary btn-confirm-edit">
-                    <i class="fas fa-check me-1"></i> Editar
+                    <i class="fas fa-check me-1"></i> Salvar
                 </button>
             </div>
         </div>

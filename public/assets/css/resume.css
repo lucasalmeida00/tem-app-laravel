@@ -126,7 +126,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: 45rem; /* h-[45rem] aproximado */
+  min-height: 45rem; /* altura mínima, mas pode crescer */
   font-weight: 700;
   color: #0b3a82;
 }
@@ -195,7 +195,6 @@
   color: #111827;
   font-size: 0.875rem;
   line-height: 1.5;
-  overflow-y: auto;
 }
 
 /* Títulos internos (h4) */
