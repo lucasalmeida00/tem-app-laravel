@@ -99,6 +99,15 @@
         const key = String(cardId);
         const cardData = allData[key];
 
+        // Debug para cards 4 e 5
+        // if (cardId === 4 || cardId === 5) {
+        //     console.log(`🔍 Card ${cardId} - Debug:`, {
+        //         cardData: cardData,
+        //         hasData: !!cardData,
+        //         dataKeys: cardData ? Object.keys(cardData) : []
+        //     });
+        // }
+
         if (!cardData) {
             return {
                 state: "not_started",
@@ -112,16 +121,28 @@
         Object.keys(cardData).forEach(k => {
             const v = cardData[k];
 
-            if (v === null || v === undefined) return;
+            if (v === null || v === undefined || v === '' || v === false) return;
 
             if (Array.isArray(v)) {
-                if (v.length > 0) filledCount++;
+                // Para arrays, verifica se tem elementos válidos
+                const validItems = v.filter(item => {
+                    if (item === null || item === undefined || item === '' || item === false) return false;
+                    if (typeof item === 'string' && item.trim() === '') return false;
+                    return true;
+                });
+                if (validItems.length > 0) filledCount++;
                 return;
             }
 
             if (typeof v === "object") {
                 // Ex.: milestones, partnerships, etc.
-                if (Object.keys(v).length > 0) filledCount++;
+                const validKeys = Object.keys(v).filter(objKey => {
+                    const objVal = v[objKey];
+                    if (objVal === null || objVal === undefined || objVal === '' || objVal === false) return false;
+                    if (typeof objVal === 'string' && objVal.trim() === '') return false;
+                    return true;
+                });
+                if (validKeys.length > 0) filledCount++;
                 return;
             }
 
@@ -231,9 +252,20 @@
             });
         }
 
-        if (missingRequired.length > 0) {
-            console.log(`⚠️ Card ${cardId} - Campos required não preenchidos:`, missingRequired);
-        }
+        // if (missingRequired.length > 0) {
+        //     console.log(`⚠️ Card ${cardId} - Campos required não preenchidos:`, missingRequired);
+        // }
+
+        // Debug para cards 4 e 5
+        // if (cardId === 4 || cardId === 5) {
+        //     console.log(`📊 Card ${cardId} - Status Info:`, {
+        //         filledCount,
+        //         totalRequiredCount,
+        //         requiredFilledCount,
+        //         minKeys: MIN_KEYS_BY_CARD[cardId] || 1,
+        //         hasSchema: !!window.FormSchemas?.[String(cardId)]
+        //     });
+        // }
 
         // Regras de status:
         // 1. Se não tem nenhum campo preenchido -> "Não iniciado"
@@ -246,13 +278,23 @@
             };
         }
 
-        // 2. Se não tem campos required mas tem campos preenchidos -> "Concluído"
-        if (totalRequiredCount === 0 && filledCount > 0) {
-            return {
-                state: "done",
-                label: "Concluído",
-                badgeClass: "bg-success text-white"
-            };
+        // 2. Se não tem campos required definidos no schema
+        if (totalRequiredCount === 0) {
+            // Usa MIN_KEYS_BY_CARD para determinar se está completo
+            const minKeys = MIN_KEYS_BY_CARD[cardId] || 1;
+            if (filledCount >= minKeys) {
+                return {
+                    state: "done",
+                    label: "Concluído",
+                    badgeClass: "bg-success text-white"
+                };
+            } else {
+                return {
+                    state: "in_progress",
+                    label: "Em andamento",
+                    badgeClass: "bg-warning text-dark"
+                };
+            }
         }
 
         // 3. Se todos os campos required estão preenchidos -> "Concluído"
@@ -272,8 +314,35 @@
         };
     }
 
+    // Função para identificar qual card está atualmente aberto
+    function getCurrentOpenCardId() {
+        // Procura pelo card que está ativo (tem a classe 'active' ou está visível)
+        const activeCard = document.querySelector('.tem-card.active') ||
+                          document.querySelector('.tem-card[style*="display: block"]') ||
+                          document.querySelector('.section-forms:not([style*="display: none"])');
+
+        if (activeCard) {
+            // Tenta pegar o cardId do atributo data-card ou do ID
+            const cardIdFromData = activeCard.getAttribute('data-card');
+            if (cardIdFromData) return parseInt(cardIdFromData);
+
+            const cardIdFromId = activeCard.id?.match(/card-tem-(\d+)/);
+            if (cardIdFromId) return parseInt(cardIdFromId[1]);
+        }
+
+        // Tenta pegar do formulário renderizado
+        const formsSection = document.querySelector('.section-forms');
+        if (formsSection) {
+            const cardIdAttr = formsSection.getAttribute('data-current-card');
+            if (cardIdAttr) return parseInt(cardIdAttr);
+        }
+
+        return null;
+    }
+
     function updateCardsStatuses(useCurrentFormData = false) {
         const allData = getAllDataSafe();
+        const currentOpenCardId = useCurrentFormData ? getCurrentOpenCardId() : null;
 
         for (let cardId = 1; cardId <= 20; cardId++) {
             const cardEl = document.getElementById("card-tem-" + cardId);
@@ -282,13 +351,13 @@
             const statusEl = cardEl.querySelector(".tem-card-status-label");
             if (!statusEl) continue;
 
-            // Se useCurrentFormData for true, tenta usar dados do formulário atual
+            // Se useCurrentFormData for true, só usa dados do formulário para o card que está aberto
             let dataToUse = allData;
-            if (useCurrentFormData) {
+            if (useCurrentFormData && currentOpenCardId === cardId) {
                 const formData = getCurrentFormData(cardId);
                 if (formData && Object.keys(formData).length > 0) {
                     dataToUse = { ...allData };
-                    // Mescla dados salvos com dados atuais do formulário
+                    // Mescla dados salvos com dados atuais do formulário apenas para o card aberto
                     dataToUse[String(cardId)] = {
                         ...(allData[String(cardId)] || {}),
                         ...formData
