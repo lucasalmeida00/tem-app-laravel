@@ -33,43 +33,42 @@
 
     <!-- Start Section Review -->
     <section class="content-body">
-        <div class="py-4">
-            <div class="container">
+        <div class="container py-5">
+            <div class="row g-4">
 
                 {{-- CARD 1 - Sumário Executivo --}}
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <div class="card border-0" style="background-color: #e5e7eb;">
                         <div class="card-body py-4 px-4">
                             <h2 class="h4 mb-0 text-center" style="color: #1e71bd;">
                                 Sumário Executivo
                             </h2>
-                            {{-- Conteúdo futuro do sumário executivo (por enquanto vazio) --}}
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- CARD 2 - Empreendimentos --}}
-                <div class="mb-4">
-                    <div class="card border-0" style="background-color: #e5e7eb;">
-                        <div class="card-body py-4 px-4">
-                            <h2 class="h4 mb-4 text-center" style="color: #1e71bd;">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100" style="background-color: #e5e7eb;">
+                        <div class="card-body p-4">
+                            <h2 class="h5 mb-3 text-center" style="color: #1e71bd;">
                                 Empreendimentos
                             </h2>
 
                             @forelse ($businesses as $business)
-                                <div class="d-flex justify-content-between align-items-center p-3 mb-2 rounded"
+                                <div class="d-flex justify-content-between align-items-center p-2 mb-2 rounded"
                                     style="background-color: #d1d5db;">
-                                    <span class="fw-semibold text-dark">
+                                    <span class="fw-semibold text-dark" style="font-size: 0.9rem;">
                                         {{ $business->business_name ?? $business->name ?? 'Empreendimento sem nome' }}
                                     </span>
 
                                     <a href="{{ route('dashboard.business.resume', ['url_hash' => $business->url_hash]) }}"
-                                        class="btn btn-sm btn-primary">
+                                        class="btn btn-sm btn-primary" style="font-size: 0.85rem; padding: 0.25rem 0.75rem;">
                                             Ver mais
                                     </a>
                                 </div>
                             @empty
-                                <p class="text-muted mb-0 text-center">
+                                <p class="text-muted mb-0 text-center" style="font-size: 0.9rem;">
                                     Nenhum empreendimento encontrado para avaliação.
                                 </p>
                             @endforelse
@@ -78,13 +77,26 @@
                 </div>
 
                 {{-- CARD 3 - Análises Conjuntas --}}
-                <div class="mb-4">
-                    <div class="card border-0" style="background-color: #e5e7eb;">
-                        <div class="card-body py-4 px-4">
-                            <h2 class="h4 mb-0 text-center" style="color: #1e71bd;">
-                                Análises Conjuntas
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100" style="background-color: #e5e7eb;">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h2 class="h5 mb-3 text-center" style="color: #1e71bd;">
+                                Análise Conjunta
                             </h2>
-                            {{-- Conteúdo futuro das análises conjuntas (por enquanto vazio) --}}
+                            
+                            <div class="d-flex flex-column justify-content-center align-items-center text-center flex-fill">
+                                <p class="text-dark mb-4" style="font-size: 0.95rem;">
+                                    Clique no ícone e baixe o relatório de acompanhamento do conjunto de empreendimentos
+                                </p>
+
+                                <a href="{{ asset('documents/RELATORIO DE ACOMPANHAMENTO COM ANEXOS 21 DEZ 2025.pdf') }}" 
+                                   class="btn btn-lg rounded-circle d-flex align-items-center justify-content-center"
+                                   style="width: 80px; height: 80px; background-color: #1e71bd; color: white;"
+                                   download
+                                   title="Baixar relatório">
+                                    <i class="fas fa-file-pdf fa-2x"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
