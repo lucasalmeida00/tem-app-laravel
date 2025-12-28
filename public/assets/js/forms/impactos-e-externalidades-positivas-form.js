@@ -46,6 +46,7 @@
           {
             type: "radio",
             name: "impactEvaluationPerformed",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }

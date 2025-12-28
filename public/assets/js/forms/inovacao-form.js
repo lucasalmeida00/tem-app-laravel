@@ -58,6 +58,7 @@
           {
             type: "radio",
             name: "hasInnovationAward",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }
@@ -82,6 +83,7 @@
           {
             type: "radio",
             name: "innovationLevel",
+            required: true,
             options: [
               { value: "1", label: "1 - Pouco" },
               { value: "2", label: "2" },
@@ -103,6 +105,7 @@
           {
             type: "textarea",
             name: "newProductsLaunchedLast3Years",
+            required: true,
             placeholder: "Fale sobre"
           }
         ]
@@ -118,6 +121,7 @@
           {
             type: "textarea",
             name: "newProductsRevenueShare",
+            required: true,
             placeholder: "60% - Produto A\n40% - Produto B"
           }
         ]
@@ -133,6 +137,7 @@
           {
             type: "radio",
             name: "interactsUniversities",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }
@@ -172,6 +177,7 @@
           {
             type: "radio",
             name: "revenueGrowthLevel",
+            required: true,
             options: [
               { value: "1", label: "1 - Baixo" },
               { value: "2", label: "2" },
@@ -194,6 +200,7 @@
           {
             type: "checkbox",
             name: "lossesMainAction",
+            required: true,
             options: [
               { value: "busca_novos_mercados", label: "Busca de novos mercados" },
               { value: "melhoria_desenvolvimento_produto", label: "Melhoria ou desenvolvimento de produto" },
@@ -221,6 +228,7 @@
           {
             type: "radio",
             name: "monitorTechTrends",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }
@@ -251,6 +259,7 @@
           {
             type: "radio",
             name: "usesScientificKnowledge",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }
@@ -275,6 +284,7 @@
           {
             type: "textarea",
             name: "lastActionIncreasedProfit",
+            required: true,
             placeholder: "Descreva a ação."
           }
         ]

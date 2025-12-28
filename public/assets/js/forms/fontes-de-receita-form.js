@@ -44,6 +44,7 @@
             type: "select",
             name: "monetModel1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "assinatura_recorrente", label: "Assinatura recorrente" },
               { value: "freemium", label: "Modelo Freemium (gratuito com opções pagas)" },
