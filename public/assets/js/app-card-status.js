@@ -9,7 +9,7 @@
         5: 15,  // Relações e natureza de contatos
         6: 1,   // "decisionMain" apenas (mínimo do mínimo)
         7: 4,   // Problema, diferenciais, etc.
-        8: 4,
+        8: 2,   // firstClient + segGroup1 (segGroup2 e segGroup3 são opcionais)
         9: 3,
         10: 6,
         11: 6,
@@ -99,12 +99,13 @@
         const key = String(cardId);
         const cardData = allData[key];
 
-        // Debug para cards 4 e 5
-        // if (cardId === 4 || cardId === 5) {
+        // Debug para cards 1, 4, 5 e 8
+        // if (cardId === 1 || cardId === 4 || cardId === 5 || cardId === 8) {
         //     console.log(`🔍 Card ${cardId} - Debug:`, {
         //         cardData: cardData,
         //         hasData: !!cardData,
-        //         dataKeys: cardData ? Object.keys(cardData) : []
+        //         dataKeys: cardData ? Object.keys(cardData) : [],
+        //         dataValues: cardData
         //     });
         // }
 
@@ -256,20 +257,20 @@
         //     console.log(`⚠️ Card ${cardId} - Campos required não preenchidos:`, missingRequired);
         // }
 
-        // Debug para cards 4 e 5
-        // if (cardId === 4 || cardId === 5) {
+        // Debug para cards 1, 4, 5 e 8
+        // if (cardId === 1 || cardId === 4 || cardId === 5 || cardId === 8) {
         //     console.log(`📊 Card ${cardId} - Status Info:`, {
         //         filledCount,
         //         totalRequiredCount,
         //         requiredFilledCount,
         //         minKeys: MIN_KEYS_BY_CARD[cardId] || 1,
-        //         hasSchema: !!window.FormSchemas?.[String(cardId)]
+        //         hasSchema: !!window.FormSchemas?.[String(cardId)],
+        //         willBeCompleted: totalRequiredCount === 0 ? (filledCount > 0) : (requiredFilledCount === totalRequiredCount)
         //     });
         // }
 
         // Regras de status:
         // 1. Se não tem nenhum campo preenchido -> "Não iniciado"
-        //    (Cobre os casos: sem required e sem dados OU com required e sem dados)
         if (filledCount === 0) {
             return {
                 state: "not_started",
@@ -280,21 +281,13 @@
 
         // 2. Se não tem campos required definidos no schema
         if (totalRequiredCount === 0) {
-            // Usa MIN_KEYS_BY_CARD para determinar se está completo
-            const minKeys = MIN_KEYS_BY_CARD[cardId] || 1;
-            if (filledCount >= minKeys) {
-                return {
-                    state: "done",
-                    label: "Concluído",
-                    badgeClass: "bg-success text-white"
-                };
-            } else {
-                return {
-                    state: "in_progress",
-                    label: "Em andamento",
-                    badgeClass: "bg-warning text-dark"
-                };
-            }
+            // Se tem algum campo preenchido, considera concluído
+            // (pois todos os campos são opcionais)
+            return {
+                state: "done",
+                label: "Concluído",
+                badgeClass: "bg-success text-white"
+            };
         }
 
         // 3. Se todos os campos required estão preenchidos -> "Concluído"
