@@ -11,6 +11,7 @@
                 fields: [{
                     type: "radio",
                     name: "formalizedCompany",
+                    required: true,
                     options: [{
                         value: "true",
                         label: "Formal"
@@ -47,7 +48,8 @@
             fields: [{
                 type: "text",
                 name: "companyNameOrTradeName",
-                placeholder: "Digite o nome da empresa ou nome fantasia"
+                placeholder: "Digite o nome da empresa ou nome fantasia",
+                required: true
             }]
         },
         {
@@ -57,7 +59,8 @@
             fields: [{
                 type: "number",
                 name: "yearOfEstablishment",
-                placeholder: "Ex: 2024"
+                placeholder: "Ex: 2024",
+                required: true
             }]
         },
         {
@@ -68,6 +71,7 @@
                 type: "select",
                 name: "companyNature",
                 placeholder: "Selecione a natureza da empresa",
+                required: true,
                 options: [
                     { value: "fundacao", label: "FUNDAÇÃO" },
                     { value: "instituto", label: "INSTITUTO" },
@@ -87,6 +91,7 @@
                 type: "select",
                 name: "companySector",
                 placeholder: "Selecione o setor da empresa",
+                required: true,
                 options: [
                     { value: "agro", label: "Agro" },
                     { value: "industria", label: "Indústria" },
@@ -105,6 +110,7 @@
                 type: "select",
                 name: "companyLocation",
                 placeholder: "Selecione a localização",
+                required: true,
                 options: [
                     { value: "", label: "" },
                     { value: "dentro_favela", label: "Dentro de favela/comunidade" },

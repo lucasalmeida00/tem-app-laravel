@@ -17,6 +17,7 @@
             type: "select",
             name: "costChallenging1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "contratacao_retencao_colaboradores", label: "Contratação e retenção de colaboradores qualificados" },
               { value: "custos_regulamentacoes_burocracia", label: "Custos com regulamentações e burocracia" },

@@ -17,6 +17,7 @@
           {
             type: "radio",
             name: "mainImpact",
+            required: true,
             options: [
               { value: "empoderamento_grupos_marginalizados", label: "Empoderamento de grupos marginalizados ou vulneráveis" },
               { value: "desenvolvimento_lideres_locais", label: "Desenvolvimento de líderes locais ou de novos empreendedores" },
@@ -29,6 +30,7 @@
             type: "text",
             name: "mainImpactOther",
             label: "Especifique:",
+            required: true,
             placeholder: "Descreva o impacto ou externalidade positiva"
           }
         ]

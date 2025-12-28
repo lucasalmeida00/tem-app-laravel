@@ -20,6 +20,7 @@
                 col: 6,
                 field: {
                     type: "number",
+                    required: true,
                     name: "partnershipsFormal",
                     label: "Parcerias Formais",
                     placeholder: ""
@@ -30,6 +31,7 @@
                 field: {
                     type: "number",
                     name: "partnershipsInformal",
+                    required: true,
                     label: "Parcerias Informais",
                     placeholder: ""
                 }
@@ -48,6 +50,7 @@
           {
             type: "text",
             name: "reasonSeekPartners",
+            required: true,
             placeholder: "Especifique"
           }
         ]
@@ -63,6 +66,7 @@
             type: "select",
             name: "howSeekPartners1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
             { value: "agencia_fomento", label: "Agência de Fomento" },
             { value: "associacoes_profissionais", label: "Associações Profissionais" },
@@ -104,6 +108,7 @@
             name: "partnershipsBoostSales1",
             label: "Parcerias para impulsionar vendas (escolha até 5 em ordem de importância, sendo a primeira a mais importante):",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "colaboracao_ongs_comunidade", label: "Colaboração com ONGs e Organizações Comunitárias" },
               { value: "colaboracao_organizacoes_empreendedorismo", label: "Colaboração com Organizações de Empreendedorismo" },
@@ -123,6 +128,7 @@
             name: "salesBoostOpportunities1",
             label: "Vendas para impulsionar oportunidades (escolha até 5 em ordem de importância, sendo a primeira a mais importante):",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "abordagens_diretas", label: "Abordagens Diretas" },
               { value: "amostras_gratis", label: "Distribuição de Amostras Grátis" },
@@ -162,6 +168,7 @@
             type: "select",
             name: "receptivityPartners1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "aceita_colaboracoes", label: "Aceita colaborações de potenciais parceiros" },
               { value: "aceita_sugestoes_limitacoes", label: "Aceita sugestões e parcerias, mas com limitações ou em áreas específicas do empreendimento" },

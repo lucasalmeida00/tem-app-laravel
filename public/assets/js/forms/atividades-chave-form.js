@@ -12,6 +12,7 @@
       fields: [{
         type: "select",
         name: "actKey1",
+        required: true,
         placeholder: "Selecione uma opção",
         options: [{
             value: "acoes_vendas_locais",

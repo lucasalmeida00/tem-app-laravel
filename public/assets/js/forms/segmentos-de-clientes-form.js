@@ -16,6 +16,7 @@
           {
             type: "radio",
             name: "firstClient",
+            required: true,
             options: [
               { value: "amigo_familiar", label: "Amigo ou familiar" },
               { value: "moradores_favela", label: "Moradores da favela (pessoas físicas)" },
@@ -41,6 +42,7 @@
             type: "select",
             name: "segGroup1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "faixa_etaria", label: "Consumidor final na faixa etária (jovens, adultos, idosos)" },
               { value: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },

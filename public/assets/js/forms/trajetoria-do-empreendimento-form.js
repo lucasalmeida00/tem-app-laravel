@@ -17,12 +17,14 @@
           {
             type: "textarea",
             name: "milestoneDescription",
+            required: true,
             label: "Marco (0/1000):",
             placeholder: "Especifique"
           },
           {
             type: "number",
             name: "milestoneYear",
+            required: true,
             label: "Informe o ano que ocorreu:",
             placeholder: "2025"
           }

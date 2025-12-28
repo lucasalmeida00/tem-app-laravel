@@ -17,6 +17,7 @@
             type: "select",
             name: "fidelRel1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "automacao_autoatendimento", label: "Automação e autoatendimento" },
               { value: "atendimento_personalizado", label: "Atendimento personalizado" },
@@ -40,6 +41,7 @@
             type: "select",
             name: "captaRel1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "publicidade_marketing_digital", label: "Através de publicidade e marketing digital" },
               { value: "redes_sociais_comunicacao", label: "Através de redes sociais e comunicação digital" },

@@ -16,6 +16,7 @@
           {
             type: "radio",
             name: "decisionMain",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }

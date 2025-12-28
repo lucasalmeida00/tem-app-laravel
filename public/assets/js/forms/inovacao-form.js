@@ -16,6 +16,7 @@
           {
             type: "text",
             name: "innovationDefinition",
+            required: true,
             placeholder: "Inovação é..."
           }
         ]
@@ -31,6 +32,7 @@
           {
             type: "radio",
             name: "hasPatents",
+            required: true,
             options: [
               { value: "sim", label: "Sim" },
               { value: "nao", label: "Não" }
@@ -39,6 +41,7 @@
           {
             type: "number",
             name: "patentsCount",
+            required: true,
             label: "Quantas",
             placeholder: "Quantidade de patentes"
           }

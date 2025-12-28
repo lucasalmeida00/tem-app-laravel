@@ -17,6 +17,7 @@
             type: "select",
             name: "channels1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "internet", label: "Internet" },
               { value: "anuncios", label: "Anúncios" },

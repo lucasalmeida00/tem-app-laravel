@@ -17,6 +17,7 @@
             type: "select",
             name: "revSource1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
               { value: "doacao", label: "Doação" },

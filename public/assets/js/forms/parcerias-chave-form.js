@@ -16,6 +16,7 @@
           {
             type: "textarea",
             name: "partnersShares",
+            required: true,
             placeholder: "50% - Fulano de Tal\n50% - Ciclano de Tal"
           }
         ]
@@ -31,6 +32,7 @@
             type: "select",
             name: "mainPartners1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "centros_pesquisa_pdu", label: "Centros de pesquisa e desenvolvimento (P&D) ou universidades" },
               { value: "distribuidores_revendedores", label: "Distribuidores e revendedores" },

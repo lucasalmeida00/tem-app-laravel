@@ -17,12 +17,14 @@
           {
             type: "textarea",
             name: "partnershipDescription",
+            required: true,
             label: "Parceria (0/1000):",
             placeholder: "Especifique"
           },
           {
             type: "number",
             name: "partnershipYear",
+            required: true,
             label: "Informe o ano:",
             placeholder: "2025"
           }

@@ -17,6 +17,7 @@
             type: "select",
             name: "keyRes1",
             placeholder: "Selecione uma opção",
+            required: true,
             options: [
               { value: "capital_financeiro", label: "Capital financeiro (próprio ou de investidores)" },
               { value: "conhecimento_comunidade", label: "Conhecimento sobre a comunidade e seus desafios" },
