@@ -83,13 +83,13 @@
                             <h2 class="h5 mb-3 text-center" style="color: #1e71bd;">
                                 Análise Conjunta
                             </h2>
-                            
+
                             <div class="d-flex flex-column justify-content-center align-items-center text-center flex-fill">
                                 <p class="text-dark mb-4" style="font-size: 0.95rem;">
                                     Clique no ícone e baixe o relatório de acompanhamento do conjunto de empreendimentos
                                 </p>
 
-                                <a href="{{ asset('documents/RELATORIO DE ACOMPANHAMENTO COM ANEXOS 21 DEZ 2025.pdf') }}" 
+                                <a href="{{ asset('documents/RELATORIO DE ACOMPANHAMENTO COM ANEXOS 21 DEZ 2025.pdf') }}"
                                    class="btn btn-lg rounded-circle d-flex align-items-center justify-content-center"
                                    style="width: 80px; height: 80px; background-color: #1e71bd; color: white;"
                                    download
