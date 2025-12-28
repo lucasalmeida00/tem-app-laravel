@@ -49,6 +49,7 @@ li { margin: 2px 0; line-height: 1.35; }
   border-collapse: collapse;
   table-layout: auto;
   margin: 10px 0 16px;
+  page-break-inside: avoid; /* Evita quebra dentro da tabela do ano */
 }
 
 .tl-year-header {
@@ -57,6 +58,14 @@ li { margin: 2px 0; line-height: 1.35; }
   color: #0f172a;
   font-size: 14px;
   padding-bottom: 6px;
+}
+
+.tl-year thead {
+  page-break-after: avoid; /* Evita quebra logo após o cabeçalho do ano */
+}
+
+.tl-year tbody {
+  page-break-before: avoid; /* Evita quebra antes do corpo */
 }
 
 .tl-year tbody td {
