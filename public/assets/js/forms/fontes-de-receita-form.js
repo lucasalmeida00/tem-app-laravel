@@ -20,7 +20,7 @@
             options: [
               { value: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
               { value: "doacao", label: "Doação" },
-              { value: "licensiamento", label: "Licenciamento" },
+              { value: "licenciamento", label: "Licenciamento" },
               { value: "patrocinio_direto", label: "Patrocínio direito" },
               { value: "patrocinio_lei_incentivo", label: "Patrocínio via lei de incentivo" },
               { value: "prestacao_servicos", label: "Prestação de serviços" },

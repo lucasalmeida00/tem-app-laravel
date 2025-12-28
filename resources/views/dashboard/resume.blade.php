@@ -280,7 +280,7 @@
                     'assinatura_adesao'            => 'Modelos de assinatura ou adesão',
                     'taxas_transacao_comissoes'    => 'Taxas de transação ou comissões',
                     'publicidade'                  => 'Publicidade',
-                    'licensiamento'                => 'Licensiamento',
+                    'licenciamento'                => 'Licenciamento',
                     'patrocinio_direto'            => 'Patrocínio direto',
                     'patrocinio_lei_incentivo'     => 'Patrocínio via lei de incentivo',
                     'doacao'                       => 'Doação',

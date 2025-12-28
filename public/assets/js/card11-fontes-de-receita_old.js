@@ -36,7 +36,7 @@ window.Card11 = (function () {
     { v: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
     { v: "taxas_transacao_comissoes", label: "Taxas de transação ou comissões" },
     { v: "publicidade", label: "Publicidade" },
-    { v: "licensiamento", label: "Licensiamento" },
+    { v: "licenciamento", label: "Licenciamento" },
     { v: "patrocinio_direto", label: "Patrocínio direito" },
     { v: "patrocinio_lei_incentivo", label: "Patrocínio via lei de incentivo" },
     { v: "doacao", label: "Doação" },
