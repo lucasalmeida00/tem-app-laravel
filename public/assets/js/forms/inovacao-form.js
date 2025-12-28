@@ -41,7 +41,6 @@
           {
             type: "number",
             name: "patentsCount",
-            required: true,
             label: "Quantas",
             placeholder: "Quantidade de patentes"
           }
