@@ -185,13 +185,11 @@
                 {
                     type: "number",
                     name: "invInitYear1",
-                    required: true,
                     placeholder: "Digite o ano"
                 },
                 {
                     type: "text",
                     name: "invInitName1",
-                    required: true,
                     placeholder: "Digite o nome do investidor"
                 }
             ]
