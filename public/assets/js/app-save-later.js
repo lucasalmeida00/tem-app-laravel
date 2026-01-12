@@ -555,8 +555,13 @@
                 if (!cat) continue;
 
                 // Bloco daquela categoria (inicial ou pós-inicial)
+                // Procura em todos os containers, mesmo os ocultos
                 const block = container.querySelector(`.rel-category-block[data-cat="${cat}"]`);
                 if (!block) continue;
+                
+                // Garante que o bloco esteja visível quando os dados são aplicados
+                const $block = $(block);
+                $block.removeClass("d-none");
 
                 const list = block.querySelector(".rel-items-list");
                 const btnAdd = block.querySelector(".btn-add");

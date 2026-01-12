@@ -244,3 +244,15 @@ Este projeto é um sistema **modular, organizado e otimizado** para a gestão de
 * Estrutura de acompanhamento por avaliadores (`reviewer`).
 
 A arquitetura permite que qualquer desenvolvedor familiarizado com a stack estenda e mantenha o sistema rapidamente.# tem-app-laravel
+
+## Para primeira inicialização com docker:
+
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php84-composer:latest \
+    composer install --ignore-platform-reqs
+```
+

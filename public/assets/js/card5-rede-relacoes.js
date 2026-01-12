@@ -352,23 +352,34 @@ window.Card5 = (function () {
   }
 
   function renderCategoryFor($container, cat) {
-        // Remove o bloco atual se a seleção mudou/limpou
-        const $existing = $container.find(".rel-category-block");
-        const existingCat = $existing.length ? $existing.data("cat") : null;
+        // Encontra todos os blocos existentes (não apenas o primeiro)
+        const $allExisting = $container.find(".rel-category-block");
+        const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
 
-        if (!cat) { // sem seleção: limpar
-            $existing.remove();
+        if (!cat) { 
+            // Sem seleção: oculta todos os blocos mas mantém no DOM para preservar dados
+            $allExisting.addClass("d-none");
             return;
         }
 
         if (existingCat === cat) {
-            // já está renderizado corretamente
+            // Já está renderizado corretamente, apenas mostra
+            $allExisting.removeClass("d-none");
             return;
         }
 
-        // troca o bloco
-        $existing.remove();
-        buildCategoryBlock($container, cat);
+        // Oculta todos os blocos existentes (preserva dados no DOM)
+        $allExisting.addClass("d-none");
+
+        // Verifica se já existe um bloco para esta categoria (oculto)
+        const $existingForCat = $container.find(`.rel-category-block[data-cat="${cat}"]`);
+        if ($existingForCat.length) {
+            // Já existe, apenas mostra
+            $existingForCat.removeClass("d-none");
+        } else {
+            // Cria novo bloco
+            buildCategoryBlock($container, cat);
+        }
   }
 
   //For 5.2
@@ -494,12 +505,34 @@ function buildCategoryBlockPost($blocks, cat) {
 }
 
 function renderCategoryForPost($container, cat) {
-  const $existing = $container.find(".rel-category-block");
-  const existingCat = $existing.length ? $existing.data("cat") : null;
-  if (!cat) { $existing.remove(); return; }
-  if (existingCat === cat) return;
-  $existing.remove();
-  buildCategoryBlockPost($container, cat);
+  // Encontra todos os blocos existentes (não apenas o primeiro)
+  const $allExisting = $container.find(".rel-category-block");
+  const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
+  
+  if (!cat) { 
+    // Sem seleção: oculta todos os blocos mas mantém no DOM para preservar dados
+    $allExisting.addClass("d-none");
+    return; 
+  }
+  
+  if (existingCat === cat) {
+    // Já está renderizado corretamente, apenas mostra
+    $allExisting.removeClass("d-none");
+    return;
+  }
+  
+  // Oculta todos os blocos existentes (preserva dados no DOM)
+  $allExisting.addClass("d-none");
+  
+  // Verifica se já existe um bloco para esta categoria (oculto)
+  const $existingForCat = $container.find(`.rel-category-block[data-cat="${cat}"]`);
+  if ($existingForCat.length) {
+    // Já existe, apenas mostra
+    $existingForCat.removeClass("d-none");
+  } else {
+    // Cria novo bloco
+    buildCategoryBlockPost($container, cat);
+  }
 }
 
 
