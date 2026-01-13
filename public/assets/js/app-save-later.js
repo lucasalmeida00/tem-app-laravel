@@ -126,6 +126,70 @@
             cardObj.partnerships = partnerships;
         }
 
+        // --- CARD 5: Garantir coleta de todos os blocos, mesmo os ocultos ---
+        // O querySelectorAll já pega todos os campos, mas vamos garantir explicitamente
+        // que todos os blocos (visíveis e ocultos) sejam processados
+        if (cardId === 5) {
+            // Coleta novamente todos os campos, garantindo que blocos ocultos sejam incluídos
+            // Isso é uma medida de segurança extra para o card 5
+            const allBlocks = container.querySelectorAll(".rel-category-block");
+            const processedNames = new Set();
+
+            // Primeiro, processa campos já coletados para marcar como processados
+            Object.keys(cardObj).forEach(name => {
+                if (name && (name.startsWith("rel_") || name.startsWith("relPost_"))) {
+                    processedNames.add(name);
+                }
+            });
+
+            // Agora processa todos os blocos, incluindo os ocultos
+            allBlocks.forEach(block => {
+                const blockInputs = block.querySelectorAll("input, select, textarea");
+                blockInputs.forEach(el => {
+                    const name = el.name;
+                    if (!name) return;
+
+                    // Pula se já foi processado (evita duplicação)
+                    if (processedNames.has(name)) {
+                        // Mas para checkboxes e radios, precisa processar novamente
+                        if (el.type !== "checkbox" && el.type !== "radio") {
+                            return;
+                        }
+                    }
+
+                    // RADIO: guarda só o selecionado
+                    if (el.type === "radio") {
+                        if (!el.checked) return;
+                        let v = el.value;
+                        if (v === "true") v = true;
+                        else if (v === "false") v = false;
+                        cardObj[name] = v;
+                        processedNames.add(name);
+                        return;
+                    }
+
+                    // CHECKBOX: guarda em array de valores marcados
+                    if (el.type === "checkbox") {
+                        if (!cardObj[name]) cardObj[name] = [];
+                        if (el.checked && !cardObj[name].includes(el.value)) {
+                            cardObj[name].push(el.value);
+                        }
+                        processedNames.add(name);
+                        return;
+                    }
+
+                    // Demais: text, number, select, textarea
+                    // Só atualiza se o valor não está vazio ou se ainda não foi coletado
+                    const currentValue = cardObj[name];
+                    const newValue = el.value;
+                    if (!currentValue || (newValue && newValue.trim() !== "")) {
+                        cardObj[name] = newValue;
+                    }
+                    processedNames.add(name);
+                });
+            });
+        }
+
         const allData = loadAllData();
         allData[String(cardId)] = cardObj;
         saveAllData(allData);
@@ -184,7 +248,7 @@
                 }
                 return;
             }
-            
+
             el.value = val ?? "";
             // dispara eventinho se precisar de máscaras/comportamentos
             el.dispatchEvent(new Event("input", {
@@ -558,7 +622,7 @@
                 // Procura em todos os containers, mesmo os ocultos
                 const block = container.querySelector(`.rel-category-block[data-cat="${cat}"]`);
                 if (!block) continue;
-                
+
                 // Garante que o bloco esteja visível quando os dados são aplicados
                 const $block = $(block);
                 $block.removeClass("d-none");

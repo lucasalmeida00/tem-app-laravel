@@ -4,7 +4,7 @@ window.Card5 = (function () {
   function wrapperFor($el) {
     return $el.closest(".mb-2, .col, .col-12");
   }
-  
+
   function ensureContainer($wrap, cls, asSiblingAfter = false) {
     if (!$wrap.length) return $();
     let $c;
@@ -356,7 +356,7 @@ window.Card5 = (function () {
         const $allExisting = $container.find(".rel-category-block");
         const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
 
-        if (!cat) { 
+        if (!cat) {
             // Sem seleção: oculta todos os blocos mas mantém no DOM para preservar dados
             $allExisting.addClass("d-none");
             return;
@@ -508,22 +508,22 @@ function renderCategoryForPost($container, cat) {
   // Encontra todos os blocos existentes (não apenas o primeiro)
   const $allExisting = $container.find(".rel-category-block");
   const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
-  
-  if (!cat) { 
+
+  if (!cat) {
     // Sem seleção: oculta todos os blocos mas mantém no DOM para preservar dados
     $allExisting.addClass("d-none");
-    return; 
+    return;
   }
-  
+
   if (existingCat === cat) {
     // Já está renderizado corretamente, apenas mostra
     $allExisting.removeClass("d-none");
     return;
   }
-  
+
   // Oculta todos os blocos existentes (preserva dados no DOM)
   $allExisting.addClass("d-none");
-  
+
   // Verifica se já existe um bloco para esta categoria (oculto)
   const $existingForCat = $container.find(`.rel-category-block[data-cat="${cat}"]`);
   if ($existingForCat.length) {
