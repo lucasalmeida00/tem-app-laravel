@@ -41,19 +41,47 @@ window.Card8 = (function () {
     const $rad = $root.find(`input[name="${N.first}"]`);
     if (!$rad.length) return;
 
-    const $wrap = wrapperFor($rad.first());
-    const $extra = ensureContainer($wrap, "first-client-extra", true);
+    // Encontra o radio button "outro"
+    const $outroRadio = $root.find(`input[name="${N.first}"][value="outro"]`);
+    if (!$outroRadio.length) return;
 
     function render() {
       const v = $root.find(`input[name="${N.first}"]:checked`).val();
+      
       if (v === "outro") {
-        $extra.html(`
-          <div class="mt-2">
-            <input type="text" class="form-control" name="firstClientOther" placeholder="Especifique" />
-          </div>
-        `);
+        // Encontra o container .form-check que contém o radio "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        
+        if ($formCheck.length) {
+          // Estrutura padrão: .form-check contém input e label como irmãos
+          // Adiciona o input ao lado do label dentro do .form-check
+          let $inlineHolder = $formCheck.find(".first-client-other-inline");
+          if (!$inlineHolder.length) {
+            $inlineHolder = $(`<span class="first-client-other-inline ms-2 d-inline-block"></span>`);
+            // Adiciona após o label
+            $formCheck.find("label").after($inlineHolder);
+          }
+          
+          $inlineHolder.html(
+            `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="firstClientOther" placeholder="Especifique" />`
+          );
+        } else {
+          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
+          const $outroLabel = $outroRadio.closest("label");
+          if ($outroLabel.length) {
+            let $inlineHolder = $outroLabel.find(".first-client-other-inline");
+            if (!$inlineHolder.length) {
+              $inlineHolder = $(`<span class="first-client-other-inline ms-2 d-inline-block"></span>`);
+              $outroLabel.append($inlineHolder);
+            }
+            $inlineHolder.html(
+              `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="firstClientOther" placeholder="Especifique" />`
+            );
+          }
+        }
       } else {
-        $extra.empty();
+        // Remove o holder inline quando outro radio é selecionado
+        $root.find(".first-client-other-inline").remove();
       }
     }
 
@@ -64,12 +92,18 @@ window.Card8 = (function () {
   // ==== 8.2 — 3 selects encadeados com "Outro" permanente ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 sc-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 sc-other-box d-none"></div>
+      <div class="mb-3 sc-select-wrap">
+        <div class="row g-2">
+          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+            <select class="form-select" name="${name}">
+              <option value="" disabled selected hidden>Selecione uma opção</option>
+              ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
+            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          </div>
+        </div>
       </div>
     `);
   }
@@ -88,14 +122,13 @@ window.Card8 = (function () {
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".sc-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $box.addClass("d-none");
       }
     }
     $wrap.off("change.scOther").on("change.scOther", "select", renderOther);
@@ -109,10 +142,20 @@ window.Card8 = (function () {
     // garante wrapper para s1 (sem duplicar select)
     let $w1 = $s1.closest(".sc-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 sc-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-3 sc-select-wrap"></div>`);
+      const $rowDiv = $(`<div class="row g-2"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 sc-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col-auto extra-${N.s1}-other-inline d-none" style="min-width: 250px;"></div>`);
+      $colOther.html(`<input class="form-control" name="${N.s1}__other" placeholder="Especifique" />`);
+      
+      $rowDiv.append($colSelect, $colOther);
+      $w1.append($rowDiv);
     }
 
     const $wrap1 = wrapperFor($s1);
