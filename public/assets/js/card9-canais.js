@@ -56,7 +56,7 @@ window.Card9 = (function () {
   function buildSelect(name) {
     return $(`
       <div class="mb-3 cn-select-wrap">
-        <div class="row g-2">
+        <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
@@ -64,6 +64,11 @@ window.Card9 = (function () {
                 (o) => `<option value="${o.v}">${o.label}</option>`
               ).join("")}
             </select>
+          </div>
+          <div class="col-auto cn-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
+            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
             <input class="form-control" name="${name}__other" placeholder="Especifique" />
@@ -76,21 +81,17 @@ window.Card9 = (function () {
 
   /**
    * Preenche um <select> com as opções disponíveis:
-   * - Nenhuma opção (exceto "outro") pode ser repetida entre selects.
-   * - "outro" NUNCA é removido, pode ser escolhido infinitas vezes.
+   * - Nenhuma opção pode ser repetida entre selects (incluindo "outro").
+   * - Se uma opção já foi escolhida em outro select, só aparece se for o valor atual deste select.
+   * Retorna true se há opções disponíveis, false caso contrário.
    */
-  function fillSelectDynamic($sel, chosenNonOutroSet, currentValue) {
+  function fillSelectDynamic($sel, chosenSet, currentValue) {
     const placeholder =
       '<option value="" disabled hidden>Selecione uma opção</option>';
 
     const optionsHtml = CH_OPTIONS.map((o) => {
-      if (o.v === "outro") {
-        // "outro" sempre disponível
-        return `<option value="${o.v}">${o.label}</option>`;
-      }
-
       // se já foi escolhido em outro select, só deixa se for o valor atual
-      if (chosenNonOutroSet.has(o.v) && o.v !== currentValue) {
+      if (chosenSet.has(o.v) && o.v !== currentValue) {
         return "";
       }
       return `<option value="${o.v}">${o.label}</option>`;
@@ -103,6 +104,10 @@ window.Card9 = (function () {
     } else {
       $sel.val("");
     }
+
+    // Verifica se há opções disponíveis (além do placeholder)
+    const hasOptions = $sel.find('option:not([value=""])').length > 0;
+    return hasOptions;
   }
 
   function renderSocialsBox($wrap, on) {
@@ -199,18 +204,22 @@ window.Card9 = (function () {
     let $w1 = $s1.closest(".cn-select-wrap");
     if (!$w1.length) {
       $w1 = $(`<div class="mb-3 cn-select-wrap"></div>`);
-      const $rowDiv = $(`<div class="row g-2"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
       const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
       
+      // Botão X para limpar
+      const $colClear = $(`<div class="col-auto cn-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
+      $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
+      
       // Coluna do input "outro"
       const $colOther = $(`<div class="col-auto extra-${N.c1}-other-inline d-none" style="min-width: 250px;"></div>`);
       $colOther.html(`<input class="form-control" name="${N.c1}__other" placeholder="Especifique" />`);
       
-      $rowDiv.append($colSelect, $colOther);
+      $rowDiv.append($colSelect, $colClear, $colOther);
       $w1.append($rowDiv);
       $w1.append(`<div class="mt-2 cn-socials-box d-none"></div>`);
     }
@@ -290,10 +299,10 @@ window.Card9 = (function () {
         preservedValues.push(savedValues[idx] || "");
       });
 
-      // 4) Calcula quais opções (exceto "outro") já foram usadas
-      const chosenNonOutro = new Set();
+      // 4) Calcula quais opções já foram usadas (incluindo "outro")
+      const chosen = new Set();
       preservedValues.forEach(v => {
-        if (v && v !== "outro") chosenNonOutro.add(v);
+        if (v) chosen.add(v);
       });
 
       // 5) Cria nova linha se o último select tiver valor
@@ -308,12 +317,28 @@ window.Card9 = (function () {
         preservedValues.push("");
       }
 
-      // 6) Preenche opções de todos os selects respeitando chosenNonOutro
+      // 6) Preenche opções de todos os selects respeitando chosen (incluindo "outro")
       // e restaura os valores preservados
       $wraps.each(function (idx) {
-        const $sel = $(this).find("select");
+        const $wrap = $(this);
+        const $sel = $wrap.find("select");
         const savedValue = preservedValues[idx] || "";
-        fillSelectDynamic($sel, chosenNonOutro, savedValue);
+        const hasOptions = fillSelectDynamic($sel, chosen, savedValue);
+        
+        // Mostra/oculta botão X baseado no valor selecionado
+        const $clearBtn = $wrap.find(".cn-clear-btn");
+        if (savedValue) {
+          $clearBtn.removeClass("d-none");
+        } else {
+          $clearBtn.addClass("d-none");
+        }
+        
+        // Oculta o wrapper se não houver opções disponíveis
+        if (!hasOptions) {
+          $wrap.hide();
+        } else {
+          $wrap.show();
+        }
       });
 
       // 7) Atualiza caixas de "Redes sociais" e "Outro" em todos
@@ -346,6 +371,17 @@ window.Card9 = (function () {
     $root
       .off("change.cn_all")
       .on("change.cn_all", "select[name^='channels']", function () {
+        fullSync();
+      });
+
+    // Bind para o botão X (limpar seleção)
+    $root
+      .off("click.cn_clear")
+      .on("click.cn_clear", ".cn-clear-btn button", function (e) {
+        e.preventDefault();
+        const $wrap = $(this).closest(".cn-select-wrap");
+        const $sel = $wrap.find("select");
+        $sel.val("");
         fullSync();
       });
   }
