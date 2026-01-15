@@ -38,12 +38,18 @@ window.Card6 = (function () {
   // ==== Builders dos selects + “Especifique” quando for “outro” ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 dm-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 dm-other-box d-none"></div>
+      <div class="mb-3 dm-select-wrap">
+        <div class="row g-2">
+          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+            <select class="form-select" name="${name}">
+              <option value="" disabled selected hidden>Selecione uma opção</option>
+              ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
+            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          </div>
+        </div>
       </div>
     `);
   }
@@ -70,25 +76,22 @@ function fillSelect($sel, chosenSet) {
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".dm-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
 
     $wrap.off("change.dmOther").on("change.dmOther", "select", function () {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $box.addClass("d-none");
       }
     });
 
     // estado inicial (edição)
     if ($sel.val() === "outro") {
-      $box.removeClass("d-none").html(
-        `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-      );
+      $box.removeClass("d-none");
     } else {
-      $box.addClass("d-none").empty();
+      $box.addClass("d-none");
     }
   }
 
@@ -135,9 +138,9 @@ function fillSelect($sel, chosenSet) {
       if (!isNo) {
         // Se marcou “Sim”, limpa estado
         $s1.val(""); $s2.val(""); $s3.val("");
-        $w1.find(".dm-other-box").addClass("d-none").empty();
-        $w2.find(".dm-other-box").addClass("d-none").empty();
-        $w3.find(".dm-other-box").addClass("d-none").empty();
+        $w1.find(`.extra-${N.who1}-other-inline`).addClass("d-none");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none");
         $w2.hide();
         $w3.hide();
         return;
