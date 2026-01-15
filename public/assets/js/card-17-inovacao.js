@@ -73,6 +73,7 @@ window.Card17 = (function () {
 
     const $howWrap = wrapperFor($howRadios.first());
     const $otherWrap = wrapperFor($otherInput);
+    const $outroRadio = $howRadios.filter('[value="outro"]');
 
     function sync() {
       const mainVal = $mainRadios.filter(":checked").val();
@@ -84,14 +85,57 @@ window.Card17 = (function () {
         $howRadios.prop("checked", false);
         $otherWrap.hide();
         $otherInput.val("");
+        // Remove o input inline se existir
+        $root.find(".university-interaction-other-inline").remove();
         return;
       }
 
       const detailVal = $howRadios.filter(":checked").val();
       const showOther = detailVal === "outro";
 
-      $otherWrap.toggle(!!showOther);
-      if (!showOther) {
+      if (showOther) {
+        // Esconde o wrapper original
+        $otherWrap.hide();
+        
+        // Encontra o .form-check que contém o radio "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        if ($formCheck.length) {
+          // Cria ou atualiza o span inline
+          let $inlineHolder = $formCheck.find(".university-interaction-other-inline");
+          if (!$inlineHolder.length) {
+            $inlineHolder = $(`<span class="university-interaction-other-inline ms-2 d-inline-block"></span>`);
+            // Adiciona após o label
+            $formCheck.find("label").after($inlineHolder);
+          }
+          
+          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="universityInteractionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          $inlineHolder.html($inlineInput);
+          
+          // Sincroniza valores entre input inline e input original
+          $inlineInput.off("input.card17_univ_sync").on("input.card17_univ_sync", function() {
+            $otherInput.val($(this).val());
+          });
+        } else {
+          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
+          const $outroLabel = $outroRadio.closest("label");
+          if ($outroLabel.length) {
+            let $inlineHolder = $outroLabel.find(".university-interaction-other-inline");
+            if (!$inlineHolder.length) {
+              $inlineHolder = $(`<span class="university-interaction-other-inline ms-2 d-inline-block"></span>`);
+              $outroLabel.append($inlineHolder);
+            }
+            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="universityInteractionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            $inlineHolder.html($inlineInput);
+            
+            // Sincroniza valores entre input inline e input original
+            $inlineInput.off("input.card17_univ_sync").on("input.card17_univ_sync", function() {
+              $otherInput.val($(this).val());
+            });
+          }
+        }
+      } else {
+        // Remove o input inline quando outro radio é selecionado
+        $root.find(".university-interaction-other-inline").remove();
         $otherInput.val("");
       }
     }
@@ -108,11 +152,54 @@ window.Card17 = (function () {
     if (!$checks.length || !$otherInput.length) return;
 
     const $otherWrap = wrapperFor($otherInput);
+    const $outroCheck = $checks.filter('[value="outro"]');
 
     function sync() {
-      const outroChecked = $checks.filter('[value="outro"]').is(":checked");
-      $otherWrap.toggle(outroChecked);
-      if (!outroChecked) {
+      const outroChecked = $outroCheck.is(":checked");
+      
+      if (outroChecked) {
+        // Esconde o wrapper original
+        $otherWrap.hide();
+        
+        // Encontra o .form-check que contém o checkbox "outro"
+        const $formCheck = $outroCheck.closest(".form-check");
+        if ($formCheck.length) {
+          // Cria ou atualiza o span inline
+          let $inlineHolder = $formCheck.find(".losses-other-inline");
+          if (!$inlineHolder.length) {
+            $inlineHolder = $(`<span class="losses-other-inline ms-2 d-inline-block"></span>`);
+            // Adiciona após o label
+            $formCheck.find("label").after($inlineHolder);
+          }
+          
+          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="lossesMainActionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          $inlineHolder.html($inlineInput);
+          
+          // Sincroniza valores entre input inline e input original
+          $inlineInput.off("input.card17_losses_sync").on("input.card17_losses_sync", function() {
+            $otherInput.val($(this).val());
+          });
+        } else {
+          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
+          const $outroLabel = $outroCheck.closest("label");
+          if ($outroLabel.length) {
+            let $inlineHolder = $outroLabel.find(".losses-other-inline");
+            if (!$inlineHolder.length) {
+              $inlineHolder = $(`<span class="losses-other-inline ms-2 d-inline-block"></span>`);
+              $outroLabel.append($inlineHolder);
+            }
+            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="lossesMainActionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            $inlineHolder.html($inlineInput);
+            
+            // Sincroniza valores entre input inline e input original
+            $inlineInput.off("input.card17_losses_sync").on("input.card17_losses_sync", function() {
+              $otherInput.val($(this).val());
+            });
+          }
+        }
+      } else {
+        // Remove o input inline quando "outro" é desmarcado
+        $root.find(".losses-other-inline").remove();
         $otherInput.val("");
       }
     }
