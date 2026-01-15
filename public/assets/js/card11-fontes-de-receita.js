@@ -357,6 +357,9 @@ window.Card11 = (function () {
         const $wrap = $(this).closest(".fr-select-wrap");
         const $sel = $wrap.find("select");
         $sel.val("");
+        // Oculta o input "outro" imediatamente
+        const name = $sel.attr("name");
+        $wrap.find(`.extra-${name}-other-inline`).addClass("d-none");
         fullSync();
       });
 

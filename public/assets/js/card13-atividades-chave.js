@@ -43,38 +43,49 @@ window.Card13 = (function () {
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 ak-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${AK_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 ak-other-box d-none"></div>
+      <div class="mb-3 ak-select-wrap">
+        <div class="row g-2 align-items-center">
+          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+            <select class="form-select" name="${name}">
+              <option value="" disabled selected hidden>Selecione uma opção</option>
+              ${AK_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col-auto ak-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
+            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
+            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          </div>
+        </div>
       </div>
     `);
   }
 
-  // “outro” permanece sempre disponível
+  // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
     $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
     AK_OPTIONS.forEach(o => {
-      if (!chosenSet.has(o.v) || o.v === "outro") {
+      // se já foi escolhido em outro select, só deixa se for o valor atual
+      if (!chosenSet.has(o.v) || o.v === keep) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
       }
     });
-    if (keep && (!chosenSet.has(keep) || keep === "outro")) $sel.val(keep);
+    if (keep && (!chosenSet.has(keep) || keep === $sel.val())) $sel.val(keep);
   }
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".ak-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $box.addClass("d-none");
       }
     }
     $wrap.off("change.akOther").on("change.akOther", "select", renderOther);
@@ -89,10 +100,24 @@ window.Card13 = (function () {
     // garante wrapper para s1 (sem duplicar o select)
     let $w1 = $s1.closest(".ak-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 ak-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-3 ak-select-wrap"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 ak-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Botão X para limpar
+      const $colClear = $(`<div class="col-auto ak-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
+      $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
+      
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col-auto extra-${N.a1}-other-inline d-none" style="min-width: 250px;"></div>`);
+      $colOther.html(`<input class="form-control" name="${N.a1}__other" placeholder="Especifique" />`);
+      
+      $rowDiv.append($colSelect, $colClear, $colOther);
+      $w1.append($rowDiv);
     }
 
     const $wrap1 = wrapperFor($s1);
@@ -134,6 +159,17 @@ window.Card13 = (function () {
       $w3.toggle(!!$s2.val());
       if (!$s2.val()) $s3.val("");
 
+      // Mostra/oculta botão X baseado no valor selecionado
+      [$w1, $w2, $w3].forEach(($wrap) => {
+        const $sel = $wrap.find("select");
+        const $clearBtn = $wrap.find(".ak-clear-btn");
+        if ($sel.val()) {
+          $clearBtn.removeClass("d-none");
+        } else {
+          $clearBtn.addClass("d-none");
+        }
+      });
+
       // atualiza “Especifique”
       $w1.triggerHandler("change.akOther");
       $w2.triggerHandler("change.akOther");
@@ -150,6 +186,20 @@ window.Card13 = (function () {
     // binds
     $s1.off("change.ak_s1").on("change.ak_s1", sync);
     $selects.off("change.ak").on("change.ak", "select[name^='actKey']", sync);
+
+    // Bind para o botão X (limpar seleção)
+    $root
+      .off("click.ak_clear")
+      .on("click.ak_clear", `.ak-select-wrap:has(select[name^="actKey"]) .ak-clear-btn button`, function (e) {
+        e.preventDefault();
+        const $wrap = $(this).closest(".ak-select-wrap");
+        const $sel = $wrap.find("select");
+        $sel.val("");
+        // Oculta o input "outro" imediatamente
+        const name = $sel.attr("name");
+        $wrap.find(`.extra-${name}-other-inline`).addClass("d-none");
+        sync();
+      });
 
     // primeira sincronização
     sync();
