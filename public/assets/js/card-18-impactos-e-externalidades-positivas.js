@@ -29,13 +29,56 @@ window.Card18 = (function () {
     if (!$radios.length || !$otherInput.length) return;
 
     const $otherWrap = wrapperFor($otherInput);
+    const $outroRadio = $radios.filter('[value="outro"]');
 
     function sync() {
       const val = $radios.filter(":checked").val();
       const show = val === "outro";
 
-      $otherWrap.toggle(!!show);
-      if (!show) {
+      if (show) {
+        // Esconde o wrapper original
+        $otherWrap.hide();
+        
+        // Encontra o .form-check que contém o radio "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        if ($formCheck.length) {
+          // Cria ou atualiza o span inline
+          let $inlineHolder = $formCheck.find(".main-impact-other-inline");
+          if (!$inlineHolder.length) {
+            $inlineHolder = $(`<span class="main-impact-other-inline ms-2 d-inline-block"></span>`);
+            // Adiciona após o label
+            $formCheck.find("label").after($inlineHolder);
+          }
+          
+          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="mainImpactOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          $inlineHolder.html($inlineInput);
+          
+          // Sincroniza valores entre input inline e input original
+          $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+            $otherInput.val($(this).val());
+          });
+        } else {
+          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
+          const $outroLabel = $outroRadio.closest("label");
+          if ($outroLabel.length) {
+            let $inlineHolder = $outroLabel.find(".main-impact-other-inline");
+            if (!$inlineHolder.length) {
+              $inlineHolder = $(`<span class="main-impact-other-inline ms-2 d-inline-block"></span>`);
+              $outroLabel.append($inlineHolder);
+            }
+            
+            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="mainImpactOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            $inlineHolder.html($inlineInput);
+            
+            // Sincroniza valores entre input inline e input original
+            $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+              $otherInput.val($(this).val());
+            });
+          }
+        }
+      } else {
+        // Remove o input inline quando outro radio é selecionado
+        $root.find(".main-impact-other-inline").remove();
         $otherInput.val("");
       }
     }
