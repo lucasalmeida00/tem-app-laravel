@@ -383,12 +383,20 @@ window.Card9 = (function () {
         e.preventDefault();
         const $wrap = $(this).closest(".cn-select-wrap");
         const $sel = $wrap.find("select");
-        $sel.val("");
-        // Oculta o input "outro" imediatamente e limpa o valor
+        const $clearBtn = $wrap.find(".cn-clear-btn");
         const name = $sel.attr("name");
+        $sel.val("");
+        // Oculta o botão X imediatamente
+        $clearBtn.addClass("d-none");
+        // Oculta o input "outro" imediatamente e limpa o valor
         const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
         $otherInput.addClass("d-none");
         $otherInput.find("input").val("");
+        // Oculta e limpa a caixa de "redes sociais"
+        const $socialsBox = $wrap.find(".cn-socials-box");
+        $socialsBox.addClass("d-none");
+        $socialsBox.find("input[type='checkbox']").prop("checked", false);
+        // Dispara a sincronização para atualizar a interface
         fullSync();
       });
   }
