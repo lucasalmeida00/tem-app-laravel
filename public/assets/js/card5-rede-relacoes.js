@@ -228,6 +228,14 @@ window.Card5 = (function () {
     const radiosHtml = meta.collab
       .map(opt => {
         const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+        const isOutro = v === "outro";
+        // Para "outro", cria um wrapper inline que permite o input ao lado
+        if (isOutro) {
+          return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                    <input type="radio" name="${radioName}" value="${v}"> ${opt}
+                    <span class="rel-radio-outro-inline"></span>
+                  </label>`;
+        }
         return `<label class="me-3 mb-2"><input type="radio" name="${radioName}" value="${v}"> ${opt}</label>`;
       })
       .join("");
@@ -235,6 +243,14 @@ window.Card5 = (function () {
     const checksHtml = meta.nature
       .map(opt => {
         const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+        const isOutro = v === "outro" || v === "outro_setor";
+        // Para "outro" ou "outro_setor", cria um wrapper inline que permite o input ao lado
+        if (isOutro) {
+          return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                    <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
+                    <span class="rel-check-outro-inline"></span>
+                  </label>`;
+        }
         return `<label class="me-3 mb-2 d-inline-flex align-items-center">
                   <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
                 </label>`;
@@ -253,13 +269,13 @@ window.Card5 = (function () {
         <div class="mb-2">
           <label class="form-label">Tipo de Colaboração:</label><br/>
           ${radiosHtml}
-          <div class="mt-2 rel-radio-outro"></div>
+          <div class="mt-2 rel-radio-outro d-none"></div>
         </div>
 
         <div class="mb-1">
           <label class="form-label">Natureza de Recursos:</label><br/>
           ${checksHtml}
-          <div class="mt-2 rel-check-outro"></div>
+          <div class="mt-2 rel-check-outro d-none"></div>
         </div>
       </div>
     `;
@@ -275,29 +291,50 @@ window.Card5 = (function () {
     const $radioOutroHolder = $item.find(".rel-radio-outro");
     const $checkOutroHolder = $item.find(".rel-check-outro");
 
-    // Radio "Outro" -> text
+    // Radio "Outro" -> text (ao lado direito da opção)
     $item.off("change.relRadio").on("change.relRadio", `input[name="${radioName}"]`, function () {
       const val = (this.value || "").toLowerCase();
+      const $inlineHolder = $(this).closest("label").find(".rel-radio-outro-inline");
+
       if (val === "outro") {
-        $radioOutroHolder.html(
-          `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique">`
+        // Coloca o input inline ao lado direito da opção "Outro"
+        $inlineHolder.html(
+          `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherRadioName}" placeholder="Especifique">`
         );
+        $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
       } else {
+        $inlineHolder.empty();
         $radioOutroHolder.empty();
       }
     });
 
-    // Checkbox "outro"/"outro_setor" -> text
+    // Checkbox "outro"/"outro_setor" -> text (ao lado direito da opção)
     $item.off("change.relCheck").on("change.relCheck", `input[name='${checksName}']`, function () {
       const vals = $item
         .find(`input[name='${checksName}']:checked`)
         .map(function () { return this.value; })
         .get();
       const needsOther = vals.some(v => v === "outro" || v === "outro_setor");
+
+      // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
+      $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
+        const $label = $(this).closest("label");
+        const $inlineHolder = $label.find(".rel-check-outro-inline");
+        const isChecked = $(this).is(":checked");
+
+        if (isChecked && needsOther) {
+          // Coloca o input inline ao lado direito da opção
+          $inlineHolder.html(
+            `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherCheckName}" placeholder="Especifique">`
+          );
+        } else {
+          $inlineHolder.empty();
+        }
+      });
+
+      // Limpa o holder antigo (compatibilidade)
       if (needsOther) {
-        $checkOutroHolder.html(
-          `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique">`
-        );
+        $checkOutroHolder.empty();
       } else {
         $checkOutroHolder.empty();
       }
@@ -418,11 +455,27 @@ window.Card5 = (function () {
 
   const radiosHtml = meta.collab.map(opt => {
     const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+    const isOutro = v === "outro";
+    // Para "outro", cria um wrapper inline que permite o input ao lado
+    if (isOutro) {
+      return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                <input type="radio" name="${radioName}" value="${v}"> ${opt}
+                <span class="rel-radio-outro-inline"></span>
+              </label>`;
+    }
     return `<label class="me-3 mb-2"><input type="radio" name="${radioName}" value="${v}"> ${opt}</label>`;
   }).join("");
 
   const checksHtml = meta.nature.map(opt => {
     const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+    const isOutro = v === "outro" || v === "outro_setor";
+    // Para "outro" ou "outro_setor", cria um wrapper inline que permite o input ao lado
+    if (isOutro) {
+      return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
+                <span class="rel-check-outro-inline"></span>
+              </label>`;
+    }
     return `<label class="me-3 mb-2 d-inline-flex align-items-center">
               <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
             </label>`;
@@ -440,13 +493,13 @@ window.Card5 = (function () {
       <div class="mb-2">
         <label class="form-label">Tipo de Colaboração:</label><br/>
         ${radiosHtml}
-        <div class="mt-2 rel-radio-outro"></div>
+        <div class="mt-2 rel-radio-outro d-none"></div>
       </div>
 
       <div class="mb-1">
         <label class="form-label">Natureza de Recursos:</label><br/>
         ${checksHtml}
-        <div class="mt-2 rel-check-outro"></div>
+        <div class="mt-2 rel-check-outro d-none"></div>
       </div>
     </div>
   `;
@@ -464,9 +517,16 @@ function wireItemBehaviorsPost($item, cat, idx) {
 
   $item.off("change.relRadioPost").on("change.relRadioPost", `input[name="${radioName}"]`, function () {
     const val = (this.value || "").toLowerCase();
+    const $inlineHolder = $(this).closest("label").find(".rel-radio-outro-inline");
+
     if (val === "outro") {
-      $radioOutroHolder.html(`<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique">`);
+      // Coloca o input inline ao lado direito da opção "Outro"
+      $inlineHolder.html(
+        `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherRadioName}" placeholder="Especifique">`
+      );
+      $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
     } else {
+      $inlineHolder.empty();
       $radioOutroHolder.empty();
     }
   });
@@ -474,8 +534,26 @@ function wireItemBehaviorsPost($item, cat, idx) {
   $item.off("change.relCheckPost").on("change.relCheckPost", `input[name='${checksName}']`, function () {
     const vals = $item.find(`input[name='${checksName}']:checked`).map(function(){return this.value;}).get();
     const needsOther = vals.some(v => v === "outro" || v === "outro_setor");
+
+    // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
+    $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
+      const $label = $(this).closest("label");
+      const $inlineHolder = $label.find(".rel-check-outro-inline");
+      const isChecked = $(this).is(":checked");
+
+      if (isChecked && needsOther) {
+        // Coloca o input inline ao lado direito da opção
+        $inlineHolder.html(
+          `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherCheckName}" placeholder="Especifique">`
+        );
+      } else {
+        $inlineHolder.empty();
+      }
+    });
+
+    // Limpa o holder antigo (compatibilidade)
     if (needsOther) {
-      $checkOutroHolder.html(`<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique">`);
+      $checkOutroHolder.empty();
     } else {
       $checkOutroHolder.empty();
     }
