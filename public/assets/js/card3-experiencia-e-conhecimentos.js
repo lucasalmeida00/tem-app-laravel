@@ -60,7 +60,7 @@ window.Card3 = (function () {
     
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <input type="text" class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique" />
+        <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique" rows="3"></textarea>
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -88,11 +88,11 @@ window.Card3 = (function () {
         if ($outroLabel.length) {
           let $inlineHolder = $outroLabel.find(".extra-specify-functions-inline");
           if (!$inlineHolder.length) {
-            $inlineHolder = $(`<span class="extra-specify-functions-inline ms-2"></span>`);
-            $outroLabel.append($inlineHolder);
+            $inlineHolder = $(`<div class="extra-specify-functions-inline mt-2"></div>`);
+            $outroLabel.after($inlineHolder);
           }
           $inlineHolder.html(`
-            <input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${N.functions}__other" placeholder="Especifique" />
+            <textarea class="form-control mx-auto" name="${N.functions}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>
           `);
         }
       } else {
@@ -100,13 +100,13 @@ window.Card3 = (function () {
         // Adiciona o input ao lado do label dentro do .form-check
         let $inlineHolder = $formCheck.find(".extra-specify-functions-inline");
         if (!$inlineHolder.length) {
-          $inlineHolder = $(`<span class="extra-specify-functions-inline ms-2 d-inline-block"></span>`);
-          // Adiciona após o label
-          $formCheck.find("label").after($inlineHolder);
+          $inlineHolder = $(`<div class="extra-specify-functions-inline mt-2"></div>`);
+          // Adiciona após o .form-check (abaixo do checkbox)
+          $formCheck.after($inlineHolder);
         }
         
         $inlineHolder.html(`
-          <input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${N.functions}__other" placeholder="Especifique" />
+          <textarea class="form-control mx-auto" name="${N.functions}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>
         `);
       }
       
@@ -264,7 +264,7 @@ window.Card3 = (function () {
     
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <input type="text" class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}__other" placeholder="Especifique" />
+        <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}__other" placeholder="Especifique" rows="3"></textarea>
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -454,7 +454,7 @@ window.Card3 = (function () {
 
       if (isOther) {
         $extra1.removeClass("d-none").html(`
-          <input type="text" class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="firstSteps1__other" placeholder="Especifique" />
+          <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="firstSteps1__other" placeholder="Especifique" rows="3"></textarea>
         `);
       } else {
         $extra1.addClass("d-none").empty();

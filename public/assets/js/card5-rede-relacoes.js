@@ -299,7 +299,7 @@ window.Card5 = (function () {
       if (val === "outro") {
         // Coloca o input inline ao lado direito da opção "Outro"
         $inlineHolder.html(
-          `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherRadioName}" placeholder="Especifique">`
+          `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 500px;"></textarea>`
         );
         $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
       } else {
@@ -325,7 +325,7 @@ window.Card5 = (function () {
         if (isChecked && needsOther) {
           // Coloca o input inline ao lado direito da opção
           $inlineHolder.html(
-            `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherCheckName}" placeholder="Especifique">`
+            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 500px;"></textarea>`
           );
         } else {
           $inlineHolder.empty();
@@ -520,10 +520,10 @@ function wireItemBehaviorsPost($item, cat, idx) {
     const $inlineHolder = $(this).closest("label").find(".rel-radio-outro-inline");
 
     if (val === "outro") {
-      // Coloca o input inline ao lado direito da opção "Outro"
-      $inlineHolder.html(
-        `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherRadioName}" placeholder="Especifique">`
-      );
+      // Coloca o textarea abaixo da opção "Outro"
+        $inlineHolder.html(
+          `<textarea class="form-control mx-auto" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
+        );
       $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
     } else {
       $inlineHolder.empty();
@@ -542,10 +542,10 @@ function wireItemBehaviorsPost($item, cat, idx) {
       const isChecked = $(this).is(":checked");
 
       if (isChecked && needsOther) {
-        // Coloca o input inline ao lado direito da opção
-        $inlineHolder.html(
-          `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${otherCheckName}" placeholder="Especifique">`
-        );
+          // Coloca o textarea abaixo da opção
+          $inlineHolder.html(
+            `<textarea class="form-control mx-auto" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
+          );
       } else {
         $inlineHolder.empty();
       }

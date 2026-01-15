@@ -383,8 +383,8 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                     // Adiciona o input inline ao lado do checkbox "outro"
                     let $inlineHolder = $formCheck.find(".nf-special-other-inline");
                     if (!$inlineHolder.length) {
-                        $inlineHolder = $(`<span class="nf-special-other-inline ms-2 d-inline-block"></span>`);
-                        $formCheck.find("label").after($inlineHolder);
+                        $inlineHolder = $(`<div class="nf-special-other-inline mt-2"></div>`);
+                        $formCheck.after($inlineHolder);
                     }
                     
                     const name = isEquip
@@ -394,7 +394,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                         : "nf_infra_outro";
                     
                     $inlineHolder.html(`
-                        <input class="form-control form-control-sm d-inline-block" style="width: 200px;" name="${name}" placeholder="Especifique">
+                        <textarea class="form-control mx-auto" name="${name}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>
                     `);
                 }
                 
@@ -914,12 +914,12 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                     // Cria ou atualiza o span inline
                     let $inlineHolder = $formCheck.find(".viability-other-inline");
                     if (!$inlineHolder.length) {
-                        $inlineHolder = $(`<span class="viability-other-inline ms-2 d-inline-block"></span>`);
-                        // Adiciona após o label
-                        $formCheck.find("label").after($inlineHolder);
+                        $inlineHolder = $(`<div class="viability-other-inline mt-2"></div>`);
+                        // Adiciona após o .form-check (abaixo do radio)
+                        $formCheck.after($inlineHolder);
                     }
                     
-                    const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="viabilityOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
+                    const $inlineInput = $(`<textarea class="form-control mx-auto" name="viabilityOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
                     $inlineHolder.html($inlineInput);
                     
                     // Sincroniza valores entre input inline e input original
@@ -932,11 +932,11 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                     if ($outroLabel.length) {
                         let $inlineHolder = $outroLabel.find(".viability-other-inline");
                         if (!$inlineHolder.length) {
-                            $inlineHolder = $(`<span class="viability-other-inline ms-2 d-inline-block"></span>`);
-                            $outroLabel.append($inlineHolder);
+                            $inlineHolder = $(`<div class="viability-other-inline mt-2"></div>`);
+                            $outroLabel.after($inlineHolder);
                         }
                         
-                        const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="viabilityOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
+                        const $inlineInput = $(`<textarea class="form-control mx-auto" name="viabilityOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
                         $inlineHolder.html($inlineInput);
                         
                         // Sincroniza valores entre input inline e input original

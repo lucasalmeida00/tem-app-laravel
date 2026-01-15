@@ -45,12 +45,12 @@ window.Card18 = (function () {
           // Cria ou atualiza o span inline
           let $inlineHolder = $formCheck.find(".main-impact-other-inline");
           if (!$inlineHolder.length) {
-            $inlineHolder = $(`<span class="main-impact-other-inline ms-2 d-inline-block"></span>`);
-            // Adiciona após o label
-            $formCheck.find("label").after($inlineHolder);
+            $inlineHolder = $(`<div class="main-impact-other-inline mt-2"></div>`);
+            // Adiciona após o .form-check (abaixo do radio)
+            $formCheck.after($inlineHolder);
           }
           
-          const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="mainImpactOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
+          const $inlineInput = $(`<textarea class="form-control mx-auto" name="mainImpactOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
           $inlineHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
@@ -63,11 +63,11 @@ window.Card18 = (function () {
           if ($outroLabel.length) {
             let $inlineHolder = $outroLabel.find(".main-impact-other-inline");
             if (!$inlineHolder.length) {
-              $inlineHolder = $(`<span class="main-impact-other-inline ms-2 d-inline-block"></span>`);
-              $outroLabel.append($inlineHolder);
+              $inlineHolder = $(`<div class="main-impact-other-inline mt-2"></div>`);
+              $outroLabel.after($inlineHolder);
             }
             
-            const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="mainImpactOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
+            const $inlineInput = $(`<textarea class="form-control mx-auto" name="mainImpactOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
             $inlineHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original

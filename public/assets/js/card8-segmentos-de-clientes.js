@@ -57,13 +57,13 @@ window.Card8 = (function () {
           // Adiciona o input ao lado do label dentro do .form-check
           let $inlineHolder = $formCheck.find(".first-client-other-inline");
           if (!$inlineHolder.length) {
-            $inlineHolder = $(`<span class="first-client-other-inline ms-2 d-inline-block"></span>`);
-            // Adiciona após o label
-            $formCheck.find("label").after($inlineHolder);
+            $inlineHolder = $(`<div class="first-client-other-inline mt-2"></div>`);
+            // Adiciona após o .form-check (abaixo do radio)
+            $formCheck.after($inlineHolder);
           }
           
           $inlineHolder.html(
-            `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="firstClientOther" placeholder="Especifique" />`
+            `<textarea class="form-control mx-auto" name="firstClientOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
           );
         } else {
           // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
@@ -71,11 +71,11 @@ window.Card8 = (function () {
           if ($outroLabel.length) {
             let $inlineHolder = $outroLabel.find(".first-client-other-inline");
             if (!$inlineHolder.length) {
-              $inlineHolder = $(`<span class="first-client-other-inline ms-2 d-inline-block"></span>`);
-              $outroLabel.append($inlineHolder);
+              $inlineHolder = $(`<div class="first-client-other-inline mt-2"></div>`);
+              $outroLabel.after($inlineHolder);
             }
             $inlineHolder.html(
-              `<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="firstClientOther" placeholder="Especifique" />`
+              `<textarea class="form-control" name="firstClientOther" placeholder="Especifique" rows="3" style="max-width: 500px;"></textarea>`
             );
           }
         }
