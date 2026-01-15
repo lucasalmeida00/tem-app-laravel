@@ -352,6 +352,17 @@ window.Card5 = (function () {
   }
 
   function renderCategoryFor($container, cat) {
+        // 🔥 CRÍTICO: Salva os dados ANTES de fazer qualquer mudança de estado
+        // Isso garante que todos os dados sejam preservados mesmo se houver mudança rápida
+        if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+            // Força salvamento síncrono dos dados atuais antes de ocultar blocos
+            try {
+                window.temPerformSave();
+            } catch (e) {
+                console.warn("Erro ao salvar antes de mudar categoria:", e);
+            }
+        }
+
         // Encontra todos os blocos existentes (não apenas o primeiro)
         const $allExisting = $container.find(".rel-category-block");
         const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
@@ -379,6 +390,18 @@ window.Card5 = (function () {
         } else {
             // Cria novo bloco
             buildCategoryBlock($container, cat);
+        }
+
+        // 🔥 Salva novamente após a mudança para garantir que tudo está sincronizado
+        if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+            // Usa setTimeout para garantir que o DOM foi atualizado
+            setTimeout(() => {
+                try {
+                    window.temPerformSave();
+                } catch (e) {
+                    console.warn("Erro ao salvar após mudar categoria:", e);
+                }
+            }, 100);
         }
   }
 
@@ -505,6 +528,17 @@ function buildCategoryBlockPost($blocks, cat) {
 }
 
 function renderCategoryForPost($container, cat) {
+  // 🔥 CRÍTICO: Salva os dados ANTES de fazer qualquer mudança de estado
+  // Isso garante que todos os dados sejam preservados mesmo se houver mudança rápida
+  if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+    // Força salvamento síncrono dos dados atuais antes de ocultar blocos
+    try {
+      window.temPerformSave();
+    } catch (e) {
+      console.warn("Erro ao salvar antes de mudar categoria:", e);
+    }
+  }
+
   // Encontra todos os blocos existentes (não apenas o primeiro)
   const $allExisting = $container.find(".rel-category-block");
   const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
@@ -532,6 +566,18 @@ function renderCategoryForPost($container, cat) {
   } else {
     // Cria novo bloco
     buildCategoryBlockPost($container, cat);
+  }
+
+  // 🔥 Salva novamente após a mudança para garantir que tudo está sincronizado
+  if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+    // Usa setTimeout para garantir que o DOM foi atualizado
+    setTimeout(() => {
+      try {
+        window.temPerformSave();
+      } catch (e) {
+        console.warn("Erro ao salvar após mudar categoria:", e);
+      }
+    }, 100);
   }
 }
 
@@ -565,6 +611,15 @@ function renderCategoryForPost($container, cat) {
   }
 
   function sync() {
+    // 🔥 Salva dados ANTES de qualquer mudança
+    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+      try {
+        window.temPerformSave();
+      } catch (e) {
+        console.warn("Erro ao salvar antes de sync (5.1):", e);
+      }
+    }
+
     const chosen = getChosen();
 
     // Não refaça as opções do select 1 aqui, para não perder a seleção do usuário
@@ -586,6 +641,17 @@ function renderCategoryForPost($container, cat) {
     renderCategoryFor($blocks1, v1);
     renderCategoryFor($blocks2, v2);
     renderCategoryFor($blocks3, v3);
+
+    // 🔥 Salva novamente após todas as mudanças
+    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+      setTimeout(() => {
+        try {
+          window.temPerformSave();
+        } catch (e) {
+          console.warn("Erro ao salvar após sync (5.1):", e);
+        }
+      }, 150);
+    }
   }
 
   // estado inicial
@@ -631,6 +697,15 @@ function renderCategoryForPost($container, cat) {
   }
 
   function sync() {
+    // 🔥 Salva dados ANTES de qualquer mudança
+    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+      try {
+        window.temPerformSave();
+      } catch (e) {
+        console.warn("Erro ao salvar antes de sync (5.2):", e);
+      }
+    }
+
     const chosen = getChosen();
 
     // não mexa nas opções do s1; apenas s2/s3 excluem já escolhidos
@@ -649,6 +724,17 @@ function renderCategoryForPost($container, cat) {
     renderCategoryForPost($blocks1, v1);
     renderCategoryForPost($blocks2, v2);
     renderCategoryForPost($blocks3, v3);
+
+    // 🔥 Salva novamente após todas as mudanças
+    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+      setTimeout(() => {
+        try {
+          window.temPerformSave();
+        } catch (e) {
+          console.warn("Erro ao salvar após sync (5.2):", e);
+        }
+      }, 150);
+    }
   }
 
   // estado inicial
@@ -680,6 +766,25 @@ function renderCategoryForPost($container, cat) {
 
     // 5.2 (pós-inicial)
     initRelationsPost($root);
+
+    // 🔥 Listener adicional para garantir salvamento quando há mudanças nos campos
+    // Isso é uma camada extra de proteção para o card 5
+    $root.off("input.card5save change.card5save").on("input.card5save change.card5save",
+      "input, select, textarea",
+      function() {
+        // Debounce para evitar salvamentos excessivos
+        clearTimeout(window.card5SaveTimer);
+        window.card5SaveTimer = setTimeout(() => {
+          if (window.temPerformSave && typeof window.temPerformSave === 'function') {
+            try {
+              window.temPerformSave();
+            } catch (e) {
+              console.warn("Erro ao salvar no card 5:", e);
+            }
+          }
+        }, 500); // 500ms de debounce
+      }
+    );
   }
 
 

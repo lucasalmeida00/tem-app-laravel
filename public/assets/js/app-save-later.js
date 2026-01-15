@@ -127,66 +127,86 @@
         }
 
         // --- CARD 5: Garantir coleta de todos os blocos, mesmo os ocultos ---
-        // O querySelectorAll já pega todos os campos, mas vamos garantir explicitamente
-        // que todos os blocos (visíveis e ocultos) sejam processados
+        // 🔥 CRÍTICO: Coleta explícita e robusta para o card 5
+        // Isso garante que mesmo em casos de timing ou mudanças rápidas, todos os dados sejam preservados
         if (cardId === 5) {
-            // Coleta novamente todos os campos, garantindo que blocos ocultos sejam incluídos
-            // Isso é uma medida de segurança extra para o card 5
+            // Primeiro, garante que todos os blocos estejam acessíveis (remove temporariamente d-none)
             const allBlocks = container.querySelectorAll(".rel-category-block");
-            const processedNames = new Set();
+            const hiddenBlocks = [];
 
-            // Primeiro, processa campos já coletados para marcar como processados
-            Object.keys(cardObj).forEach(name => {
-                if (name && (name.startsWith("rel_") || name.startsWith("relPost_"))) {
-                    processedNames.add(name);
+            // Remove temporariamente a classe d-none de blocos ocultos para garantir coleta
+            allBlocks.forEach(block => {
+                if (block.classList.contains("d-none")) {
+                    hiddenBlocks.push(block);
+                    block.classList.remove("d-none");
                 }
             });
 
-            // Agora processa todos os blocos, incluindo os ocultos
-            allBlocks.forEach(block => {
-                const blockInputs = block.querySelectorAll("input, select, textarea");
-                blockInputs.forEach(el => {
-                    const name = el.name;
-                    if (!name) return;
+            // Coleta TODOS os campos novamente, incluindo os que estavam ocultos
+            const allInputs = container.querySelectorAll("input, select, textarea");
+            const card5Data = {};
 
-                    // Pula se já foi processado (evita duplicação)
-                    if (processedNames.has(name)) {
-                        // Mas para checkboxes e radios, precisa processar novamente
-                        if (el.type !== "checkbox" && el.type !== "radio") {
-                            return;
-                        }
-                    }
+            allInputs.forEach(el => {
+                const name = el.name;
+                if (!name) return;
 
-                    // RADIO: guarda só o selecionado
-                    if (el.type === "radio") {
-                        if (!el.checked) return;
-                        let v = el.value;
-                        if (v === "true") v = true;
-                        else if (v === "false") v = false;
-                        cardObj[name] = v;
-                        processedNames.add(name);
-                        return;
-                    }
+                // Foca apenas em campos relacionados ao card 5
+                if (!name.startsWith("rel_") && !name.startsWith("relPost_") &&
+                    !name.startsWith("relSelect") && !name.startsWith("relPostSelect")) {
+                    return;
+                }
 
-                    // CHECKBOX: guarda em array de valores marcados
-                    if (el.type === "checkbox") {
-                        if (!cardObj[name]) cardObj[name] = [];
-                        if (el.checked && !cardObj[name].includes(el.value)) {
-                            cardObj[name].push(el.value);
-                        }
-                        processedNames.add(name);
-                        return;
-                    }
+                // RADIO: guarda só o selecionado
+                if (el.type === "radio") {
+                    if (!el.checked) return;
+                    let v = el.value;
+                    if (v === "true") v = true;
+                    else if (v === "false") v = false;
+                    card5Data[name] = v;
+                    return;
+                }
 
-                    // Demais: text, number, select, textarea
-                    // Só atualiza se o valor não está vazio ou se ainda não foi coletado
-                    const currentValue = cardObj[name];
-                    const newValue = el.value;
-                    if (!currentValue || (newValue && newValue.trim() !== "")) {
-                        cardObj[name] = newValue;
+                // CHECKBOX: guarda em array de valores marcados
+                if (el.type === "checkbox") {
+                    if (!card5Data[name]) card5Data[name] = [];
+                    if (el.checked && !card5Data[name].includes(el.value)) {
+                        card5Data[name].push(el.value);
                     }
-                    processedNames.add(name);
-                });
+                    return;
+                }
+
+                // Demais: text, number, select, textarea
+                // Prioriza valores não vazios
+                const value = el.value;
+                if (value !== null && value !== undefined && value !== "") {
+                    card5Data[name] = value;
+                } else if (!(name in card5Data)) {
+                    // Se não existe, guarda mesmo vazio para manter estrutura
+                    card5Data[name] = value || "";
+                }
+            });
+
+            // Mescla os dados coletados com os já existentes, priorizando valores não vazios
+            Object.keys(card5Data).forEach(name => {
+                const newValue = card5Data[name];
+                const currentValue = cardObj[name];
+
+                // Para arrays (checkboxes), mescla
+                if (Array.isArray(newValue) && Array.isArray(currentValue)) {
+                    const merged = [...new Set([...currentValue, ...newValue])];
+                    cardObj[name] = merged.length > 0 ? merged : newValue;
+                }
+                // Para outros tipos, prioriza valores não vazios
+                else if (newValue !== null && newValue !== undefined && newValue !== "") {
+                    cardObj[name] = newValue;
+                } else if (!currentValue || currentValue === "") {
+                    cardObj[name] = newValue;
+                }
+            });
+
+            // Restaura a classe d-none nos blocos que estavam ocultos
+            hiddenBlocks.forEach(block => {
+                block.classList.add("d-none");
             });
         }
 
