@@ -41,12 +41,18 @@ window.Card7 = (function () {
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 vp-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${DIFF_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 vp-other-box d-none"></div>
+      <div class="mb-3 vp-select-wrap">
+        <div class="row g-2">
+          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+            <select class="form-select" name="${name}">
+              <option value="" disabled selected hidden>Selecione uma opção</option>
+              ${DIFF_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
+            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          </div>
+        </div>
       </div>
     `);
   }
@@ -67,14 +73,13 @@ window.Card7 = (function () {
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".vp-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $box.addClass("d-none");
       }
     }
     $wrap.off("change.vpOther").on("change.vpOther", "select", renderOther);
@@ -89,10 +94,20 @@ window.Card7 = (function () {
   // Garante que o s1 tenha um wrapper .vp-select-wrap (sem criar um novo select)
   let $w1 = $s1.closest('.vp-select-wrap');
   if (!$w1.length) {
-    $w1 = $(`<div class="mb-2 vp-select-wrap"></div>`);
+    $w1 = $(`<div class="mb-3 vp-select-wrap"></div>`);
+    const $rowDiv = $(`<div class="row g-2"></div>`);
+    
+    // Coluna do select
+    const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
     $s1.after($w1);           // insere o wrapper logo após o s1
-    $w1.append($s1);          // move o s1 para dentro do wrapper
-    $w1.append(`<div class="mt-2 vp-other-box d-none"></div>`);
+    $s1.appendTo($colSelect); // move o s1 para dentro da coluna
+    
+    // Coluna do input "outro"
+    const $colOther = $(`<div class="col-auto extra-${N.d1}-other-inline d-none" style="min-width: 250px;"></div>`);
+    $colOther.html(`<input class="form-control" name="${N.d1}__other" placeholder="Especifique" />`);
+    
+    $rowDiv.append($colSelect, $colOther);
+    $w1.append($rowDiv);
   }
 
   const $wrap1 = wrapperFor($s1);
