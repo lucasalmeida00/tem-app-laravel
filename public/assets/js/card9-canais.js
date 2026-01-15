@@ -70,8 +70,8 @@ window.Card9 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
         <div class="mt-2 cn-socials-box d-none"></div>
@@ -152,7 +152,7 @@ window.Card9 = (function () {
         } else {
             $box.addClass("d-none");
             // Limpa o valor do input quando "outro" é desmarcado
-            $box.find("input").val("");
+            $box.find("textarea").val("");
         }
     }
 
@@ -219,7 +219,7 @@ window.Card9 = (function () {
       
       // Coluna do input "outro"
       const $colOther = $(`<div class="col-auto extra-${N.c1}-other-inline d-none" style="min-width: 250px;"></div>`);
-      $colOther.html(`<input class="form-control" name="${N.c1}__other" placeholder="Especifique" />`);
+      $colOther.html(`<textarea class="form-control" name="${N.c1}__other" placeholder="Especifique" rows="3"></textarea>`);
       
       $rowDiv.append($colSelect, $colClear, $colOther);
       $w1.append($rowDiv);
@@ -391,7 +391,7 @@ window.Card9 = (function () {
         // Oculta o input "outro" imediatamente e limpa o valor
         const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
         $otherInput.addClass("d-none");
-        $otherInput.find("input").val("");
+        $otherInput.find("textarea").val("");
         // Oculta e limpa a caixa de "redes sociais"
         const $socialsBox = $wrap.find(".cn-socials-box");
         $socialsBox.addClass("d-none");

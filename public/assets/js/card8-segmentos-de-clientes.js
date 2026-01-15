@@ -100,8 +100,8 @@ window.Card8 = (function () {
               ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
       </div>
@@ -130,7 +130,7 @@ window.Card8 = (function () {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("input").val("");
+        $box.find("textarea").val("");
       }
     }
     $wrap.off("change.scOther").on("change.scOther", "select", renderOther);
@@ -154,7 +154,7 @@ window.Card8 = (function () {
       
       // Coluna do input "outro"
       const $colOther = $(`<div class="col-auto extra-${N.s1}-other-inline d-none" style="min-width: 250px;"></div>`);
-      $colOther.html(`<input class="form-control" name="${N.s1}__other" placeholder="Especifique" />`);
+      $colOther.html(`<textarea class="form-control" name="${N.s1}__other" placeholder="Especifique" rows="3"></textarea>`);
       
       $rowDiv.append($colSelect, $colOther);
       $w1.append($rowDiv);

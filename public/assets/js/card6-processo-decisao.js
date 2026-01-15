@@ -51,8 +51,8 @@ window.Card6 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ function fillSelect($sel, chosenSet) {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("input").val("");
+        $box.find("textarea").val("");
       }
     });
 
@@ -146,8 +146,8 @@ function fillSelect($sel, chosenSet) {
         // Se marcou “Sim”, limpa estado
         $s1.val(""); $s2.val(""); $s3.val("");
         $w1.find(`.extra-${N.who1}-other-inline`).addClass("d-none").find("input").val("");
-        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
-        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("textarea").val("");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("textarea").val("");
         // Oculta os botões X
         $w1.find(".dm-clear-btn").addClass("d-none");
         $w2.find(".dm-clear-btn").addClass("d-none");
@@ -191,14 +191,14 @@ function fillSelect($sel, chosenSet) {
       if (!$s1.val()) {
         $s2.val("");
         // Limpa o input "outro" do select 2 quando o select 1 é limpo
-        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("textarea").val("");
       }
 
       $w3.toggle(!!$s2.val());
       if (!$s2.val()) {
         $s3.val("");
         // Limpa o input "outro" do select 3 quando o select 2 é limpo
-        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("textarea").val("");
       }
 
       // atualizar campos “Especifique” caso algum seja “outro”
@@ -234,7 +234,7 @@ function fillSelect($sel, chosenSet) {
         // Oculta o input "outro" imediatamente e limpa o valor
         const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
         $otherInput.addClass("d-none");
-        $otherInput.find("input").val("");
+        $otherInput.find("textarea").val("");
         // Dispara o evento change para atualizar a interface
         $sel.trigger("change.dmSelects");
       });

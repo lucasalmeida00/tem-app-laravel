@@ -54,8 +54,8 @@ window.Card7 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ window.Card7 = (function () {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("input").val("");
+        $box.find("textarea").val("");
       }
     }
     $wrap.off("change.vpOther").on("change.vpOther", "select", renderOther);
@@ -117,7 +117,7 @@ window.Card7 = (function () {
     
     // Coluna do input "outro"
     const $colOther = $(`<div class="col-auto extra-${N.d1}-other-inline d-none" style="min-width: 250px;"></div>`);
-    $colOther.html(`<input class="form-control" name="${N.d1}__other" placeholder="Especifique" />`);
+    $colOther.html(`<textarea class="form-control" name="${N.d1}__other" placeholder="Especifique" rows="3"></textarea>`);
     
     $rowDiv.append($colSelect, $colClear, $colOther);
     $w1.append($rowDiv);
@@ -189,7 +189,7 @@ window.Card7 = (function () {
     if (!$s1.val() && $s2.val()) {
       $s2.val("");
       // Limpa o input "outro" do select 2 quando o select 1 é limpo
-      $w2.find(`.extra-${N.d2}-other-inline`).addClass("d-none").find("input").val("");
+      $w2.find(`.extra-${N.d2}-other-inline`).addClass("d-none").find("textarea").val("");
     }
 
     // Mostra/oculta select 3 baseado no select 2, mas não limpa o valor
@@ -199,7 +199,7 @@ window.Card7 = (function () {
     if (!$s2.val() && $s3.val()) {
       $s3.val("");
       // Limpa o input "outro" do select 3 quando o select 2 é limpo
-      $w3.find(`.extra-${N.d3}-other-inline`).addClass("d-none").find("input").val("");
+      $w3.find(`.extra-${N.d3}-other-inline`).addClass("d-none").find("textarea").val("");
     }
 
     // Atualiza “Especifique” dos 3 selects
@@ -234,7 +234,7 @@ window.Card7 = (function () {
       // Oculta o input "outro" imediatamente e limpa o valor
       const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
       $otherInput.addClass("d-none");
-      $otherInput.find("input").val("");
+      $otherInput.find("textarea").val("");
       // Dispara o evento change para atualizar a interface
       if (name === N.d1) {
         $sel.trigger("change.vp_s1");

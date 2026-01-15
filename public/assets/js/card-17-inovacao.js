@@ -108,7 +108,7 @@ window.Card17 = (function () {
             $formCheck.find("label").after($inlineHolder);
           }
           
-          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="universityInteractionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="universityInteractionOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
           $inlineHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
@@ -124,7 +124,7 @@ window.Card17 = (function () {
               $inlineHolder = $(`<span class="university-interaction-other-inline ms-2 d-inline-block"></span>`);
               $outroLabel.append($inlineHolder);
             }
-            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="universityInteractionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="universityInteractionOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
             $inlineHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
@@ -172,7 +172,7 @@ window.Card17 = (function () {
             $formCheck.find("label").after($inlineHolder);
           }
           
-          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="lossesMainActionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="lossesMainActionOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
           $inlineHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
@@ -188,7 +188,7 @@ window.Card17 = (function () {
               $inlineHolder = $(`<span class="losses-other-inline ms-2 d-inline-block"></span>`);
               $outroLabel.append($inlineHolder);
             }
-            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="lossesMainActionOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="lossesMainActionOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
             $inlineHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original

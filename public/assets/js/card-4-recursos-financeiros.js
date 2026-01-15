@@ -131,8 +131,8 @@ window.Card4 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${base}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
         <div class="extra-${base}-special mt-2"></div>
@@ -157,7 +157,7 @@ window.Card4 = (function () {
             } else {
                 $extra.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
-                $extra.find("input").val("");
+                $extra.find("textarea").val("");
             }
         }
 
@@ -446,7 +446,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 
                 // Coluna do input "outro"
                 const $colOther = $(`<div class="col-auto extra-nfSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
-                $colOther.html(`<input class="form-control" name="nfSelect1__other" placeholder="Especifique" />`);
+                $colOther.html(`<textarea class="form-control" name="nfSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
                 
                 $rowDiv.append($colSelect, $colClear, $colOther);
                 $select1Item.append($rowDiv);
@@ -502,7 +502,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Oculta o input "outro" imediatamente e limpa o valor
                 const $otherInput = $selectWrap.find(`.extra-${name}-other-inline`);
                 $otherInput.addClass("d-none");
-                $otherInput.find("input").val("");
+                $otherInput.find("textarea").val("");
                 // Dispara o evento change correto (nf1 para o primeiro, nf para os outros)
                 if (name === "nfSelect1") {
                     $sel.trigger("change.nf1");
@@ -588,8 +588,8 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${base}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
           <div class="col-auto extra-${base}-inv-inline d-none" style="min-width: 250px;">
             <div>
@@ -620,13 +620,13 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 $extraOther.addClass("d-none");
                 $extraInv.removeClass("d-none");
                 // Limpa o valor do input "outro" quando muda para investimento
-                $extraOther.find("input").val("");
+                $extraOther.find("textarea").val("");
             } else {
                 $extraOther.addClass("d-none");
                 $extraInv.addClass("d-none");
                 // Limpa os valores dos inputs quando outra opção é selecionada
-                $extraOther.find("input").val("");
-                $extraInv.find("input").val("");
+                $extraOther.find("textarea").val("");
+                $extraInv.find("textarea").val("");
             }
         }
 
@@ -699,7 +699,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 
                 // Coluna do input "outro"
                 const $colOther = $(`<div class="col-auto extra-fSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
-                $colOther.html(`<input class="form-control" name="fSelect1__other" placeholder="Especifique" />`);
+                $colOther.html(`<textarea class="form-control" name="fSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
                 
                 // Coluna do investimento
                 const $colInv = $(`<div class="col-auto extra-fSelect1-inv-inline d-none" style="min-width: 250px;"></div>`);
@@ -725,18 +725,18 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 $extraOther.removeClass("d-none");
                 $extraInv.addClass("d-none");
                 // Limpa o valor do input de investimento quando muda para "outro"
-                $extraInv.find("input").val("");
+                $extraInv.find("textarea").val("");
             } else if (v === "investimento_terceiros") {
                 $extraOther.addClass("d-none");
                 $extraInv.removeClass("d-none");
                 // Limpa o valor do input "outro" quando muda para investimento
-                $extraOther.find("input").val("");
+                $extraOther.find("textarea").val("");
             } else {
                 $extraOther.addClass("d-none");
                 $extraInv.addClass("d-none");
                 // Limpa os valores dos inputs quando outra opção é selecionada
-                $extraOther.find("input").val("");
-                $extraInv.find("input").val("");
+                $extraOther.find("textarea").val("");
+                $extraInv.find("textarea").val("");
             }
             
             // Mostra/oculta botão X do select 1
@@ -769,7 +769,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 const $invInput = $selectWrap.find(`.extra-${name}-inv-inline`);
                 $otherInput.addClass("d-none");
                 $invInput.addClass("d-none");
-                $otherInput.find("input").val("");
+                $otherInput.find("textarea").val("");
                 $invInput.find("input").val("");
                 // Dispara o evento change correto (f1 para o primeiro, f para os outros)
                 if (name === "fSelect1") {
@@ -919,7 +919,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                         $formCheck.find("label").after($inlineHolder);
                     }
                     
-                    const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="viabilityOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+                    const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="viabilityOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
                     $inlineHolder.html($inlineInput);
                     
                     // Sincroniza valores entre input inline e input original
@@ -936,7 +936,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                             $outroLabel.append($inlineHolder);
                         }
                         
-                        const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="viabilityOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+                        const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="viabilityOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
                         $inlineHolder.html($inlineInput);
                         
                         // Sincroniza valores entre input inline e input original
@@ -1017,8 +1017,8 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${base}__other" placeholder="Especifique" />
+          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+            <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
       `);
@@ -1040,7 +1040,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             } else {
                 $extra.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
-                $extra.find("input").val("");
+                $extra.find("textarea").val("");
             }
         }
 
@@ -1116,7 +1116,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 
                 // Coluna do input "outro"
                 const $colOther = $(`<div class="col-auto extra-riskInvSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
-                $colOther.html(`<input class="form-control" name="riskInvSelect1__other" placeholder="Especifique" />`);
+                $colOther.html(`<textarea class="form-control" name="riskInvSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
                 
                 $rowDiv.append($colSelect, $colClear, $colOther);
                 $select1Item.append($rowDiv);
@@ -1163,7 +1163,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Oculta o input "outro" imediatamente e limpa o valor
                 const $otherInput = $selectWrap.find(`.extra-${name}-other-inline`);
                 $otherInput.addClass("d-none");
-                $otherInput.find("input").val("");
+                $otherInput.find("textarea").val("");
                 // Dispara o evento change correto (risk1 para o primeiro, risk para os outros)
                 if (name === "riskInvSelect1") {
                     $sel.trigger("change.risk1");

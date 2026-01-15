@@ -59,7 +59,7 @@ window.Card16 = (function () {
             </button>
           </div>
           <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ window.Card16 = (function () {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("input").val("");
+        $box.find("textarea").val("");
       }
     }
 
@@ -122,7 +122,7 @@ window.Card16 = (function () {
       
       // Coluna do input "outro"
       const $colOther = $(`<div class="col-auto extra-${N.c1}-other-inline d-none" style="min-width: 250px;"></div>`);
-      $colOther.html(`<input class="form-control" name="${N.c1}__other" placeholder="Especifique" />`);
+      $colOther.html(`<textarea class="form-control" name="${N.c1}__other" placeholder="Especifique" rows="3"></textarea>`);
       
       $rowDiv.append($colSelect, $colClear, $colOther);
       $w1.append($rowDiv);
@@ -216,7 +216,7 @@ window.Card16 = (function () {
         const name = $sel.attr("name");
         const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
         $otherInput.addClass("d-none");
-        $otherInput.find("input").val("");
+        $otherInput.find("textarea").val("");
         sync();
       });
 

@@ -50,7 +50,7 @@ window.Card18 = (function () {
             $formCheck.find("label").after($inlineHolder);
           }
           
-          const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="mainImpactOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+          const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="mainImpactOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
           $inlineHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
@@ -67,7 +67,7 @@ window.Card18 = (function () {
               $outroLabel.append($inlineHolder);
             }
             
-            const $inlineInput = $(`<input type="text" class="form-control form-control-sm d-inline-block" style="width: 200px;" name="mainImpactOther" placeholder="Especifique" value="${$otherInput.val() || ""}" />`);
+            const $inlineInput = $(`<textarea class="form-control form-control-sm d-inline-block" style="width: 250px; min-height: 60px;" name="mainImpactOther" placeholder="Especifique" rows="2">${$otherInput.val() || ""}</textarea>`);
             $inlineHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
