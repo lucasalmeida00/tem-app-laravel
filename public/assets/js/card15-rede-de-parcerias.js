@@ -224,44 +224,53 @@ window.Card15 = (function () {
   // ==== Builder genérico de select ====
   function buildSelect(name, options) {
     return $(`
-      <div class="mb-2 pk-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${options.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 pk-other-box d-none"></div>
+      <div class="mb-3 pk-select-wrap">
+        <div class="row g-2 align-items-center">
+          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+            <select class="form-select" name="${name}">
+              <option value="" disabled selected hidden>Selecione uma opção</option>
+              ${options.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col-auto pk-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
+            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
+            <input class="form-control" name="${name}__other" placeholder="Especifique" />
+          </div>
+        </div>
       </div>
     `);
   }
 
-  // “Outro” NUNCA sai da lista
+  // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet, options) {
     const keep = $sel.val();
     $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
     options.forEach(o => {
-      if (!chosenSet.has(o.v) || o.v === "outro") {
+      // se já foi escolhido em outro select, só deixa se for o valor atual
+      if (!chosenSet.has(o.v) || o.v === keep) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
       }
     });
-    if (keep && (!chosenSet.has(keep) || keep === "outro")) {
+    if (keep && (!chosenSet.has(keep) || keep === $sel.val())) {
       $sel.val(keep);
     }
   }
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".pk-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box
-          .removeClass("d-none")
-          .html(
-            `<input type="text" class="form-control" name="${$sel.attr(
-              "name"
-            )}__other" placeholder="Especifique" />`
-          );
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.pkOther").on("change.pkOther", "select", renderOther);
@@ -279,10 +288,24 @@ window.Card15 = (function () {
     // 1) garante wrapper pro s1
     let $w1 = $s1.closest(".pk-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 pk-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-3 pk-select-wrap"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 pk-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Botão X para limpar
+      const $colClear = $(`<div class="col-auto pk-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
+      $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
+      
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col-auto extra-${firstName}-other-inline d-none" style="min-width: 250px;"></div>`);
+      $colOther.html(`<input class="form-control" name="${firstName}__other" placeholder="Especifique" />`);
+      
+      $rowDiv.append($colSelect, $colClear, $colOther);
+      $w1.append($rowDiv);
     }
 
     // 2) container dos filhos, ancorado no wrapper do s1
@@ -303,7 +326,7 @@ window.Card15 = (function () {
       selects.push($sel);
     }
 
-    // 4) “Outro” -> campo Especifique para todos
+    // 4) "Outro" -> campo Especifique para todos
     wrappers.forEach(wireOtherFor);
 
     function getChosen() {
@@ -331,11 +354,23 @@ window.Card15 = (function () {
         wrappers[i].toggle(hasPrev);
         if (!hasPrev) {
           selects[i].val("");
-          wrappers[i].find(".pk-other-box").addClass("d-none").empty();
+          const name = selects[i].attr("name");
+          wrappers[i].find(`.extra-${name}-other-inline`).addClass("d-none");
         }
       }
 
-      // atualiza “Especifique” em todos
+      // Mostra/oculta botão X baseado no valor selecionado
+      wrappers.forEach(($wrap) => {
+        const $sel = $wrap.find("select");
+        const $clearBtn = $wrap.find(".pk-clear-btn");
+        if ($sel.val()) {
+          $clearBtn.removeClass("d-none");
+        } else {
+          $clearBtn.addClass("d-none");
+        }
+      });
+
+      // atualiza "Especifique" em todos
       wrappers.forEach($w => $w.triggerHandler("change.pkOther"));
     }
 
@@ -361,7 +396,23 @@ window.Card15 = (function () {
         sync
       );
 
-    // 7) primeira sync
+    // 7) Bind para o botão X (limpar seleção)
+    $root
+      .off(`click.${nsKey}_clear`)
+      .on(`click.${nsKey}_clear`, `.pk-select-wrap:has(select[name^="${firstName.replace(/1$/, "")}"]) .pk-clear-btn button`, function (e) {
+        e.preventDefault();
+        const $wrap = $(this).closest(".pk-select-wrap");
+        const $sel = $wrap.find("select");
+        $sel.val("");
+        // Oculta o input "outro" imediatamente e limpa o valor
+        const name = $sel.attr("name");
+        const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
+        $otherInput.addClass("d-none");
+        $otherInput.find("input").val("");
+        sync();
+      });
+
+    // 8) primeira sync
     sync();
   }
 

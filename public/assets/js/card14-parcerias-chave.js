@@ -91,6 +91,8 @@ window.Card14 = (function () {
         $box.removeClass("d-none");
       } else {
         $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.pkOther").on("change.pkOther", "select", renderOther);
@@ -205,9 +207,11 @@ window.Card14 = (function () {
       const $wrap = $(this).closest(".pk-select-wrap");
       const $sel = $wrap.find("select");
       $sel.val("");
-      // Oculta o input "outro" imediatamente
+      // Oculta o input "outro" imediatamente e limpa o valor
       const name = $sel.attr("name");
-      $wrap.find(`.extra-${name}-other-inline`).addClass("d-none");
+      const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
+      $otherInput.addClass("d-none");
+      $otherInput.find("input").val("");
       sync();
     });
 

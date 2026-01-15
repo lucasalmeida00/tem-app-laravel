@@ -80,6 +80,8 @@ window.Card7 = (function () {
         $box.removeClass("d-none");
       } else {
         $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.vpOther").on("change.vpOther", "select", renderOther);
