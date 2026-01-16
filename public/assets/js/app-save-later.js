@@ -271,6 +271,14 @@
             resolveCard4Fixes(cardData);
         }
 
+        // === Ajustes HARDCODED específicos do CARD 5 (Rede de Relações) ===
+        if (cardId === 5) {
+            setTimeout(() => {
+                const allData = loadAllData();
+                const cardData = allData[String(cardId)] || {};
+                resolveCard5ExtraItems(cardData);
+            }, 300);
+        }
 
         // === Ajustes HARDCODED específicos do CARD 19 (Trajetória) ===
         if (cardId === 19 && typeof resolveCard19Fixes === "function") {
@@ -609,6 +617,127 @@
         });
 
         // O próprio addPartnershipFromInputs limpa os campos no final
+    }
+
+    // ======================================================================
+    // HARDCODED: Correções específicas do CARD 5 (Rede de Relações) 😎
+    // ======================================================================
+    function resolveCard5ExtraItems(cardData) {
+        const container = document.querySelector(".section-forms .container");
+        if (!container || !cardData) return;
+
+        const categories = [
+            "amigos", "colegas", "familiares", "mentores", "empregador",
+            "outrosEmpreendedores", "nenhumPrevio", "parceirosFornecedores", "outrasRelacoes"
+        ];
+
+        categories.forEach(cat => {
+            // Verifica 5.1 (fase inicial)
+            createExtraItemsFor(container, cardData, cat, `rel_${cat}`);
+            // Verifica 5.2 (fase pós-inicial)
+            createExtraItemsFor(container, cardData, cat, `relPost_${cat}`);
+        });
+    }
+
+    function createExtraItemsFor(container, cardData, cat, prefix) {
+        // Descobre quantos itens existem nos dados salvos
+        let maxIdx = 0;
+        for (let i = 1; i <= 10; i++) {
+            const key = `${prefix}_origem_${i}`;
+            if (cardData[key] && String(cardData[key]).trim() !== "") {
+                maxIdx = i;
+            }
+        }
+
+        if (maxIdx <= 1) return; // Só 1 item ou nenhum, não precisa criar extras
+
+        // Procura o bloco desta categoria
+        const $block = $(container).find(`.rel-category-block[data-cat="${cat}"]`);
+        if (!$block.length || $block.hasClass("d-none")) return; // Bloco não existe ou está oculto
+
+        const $list = $block.find(".rel-items-list");
+        const $btnAdd = $block.find(".btn-add");
+        if (!$list.length || !$btnAdd.length) return;
+
+        // Conta quantos itens já existem
+        const currentCount = $list.find(".rel-item").length;
+
+        // Cria os itens faltantes
+        for (let i = currentCount + 1; i <= maxIdx; i++) {
+            $btnAdd[0].click(); // Clica no botão "Adicionar Contato"
+        }
+
+        // 🔥 REAPLICA OS DADOS APÓS CRIAR OS ITENS EXTRAS
+        if (currentCount < maxIdx) {
+            setTimeout(() => {
+                fillExtraItemsData(container, cardData, cat, prefix, maxIdx);
+            }, 100);
+        }
+    }
+
+    function fillExtraItemsData(container, cardData, cat, prefix, maxIdx) {
+        // Preenche os dados de cada item criado (sem disparar change para evitar loops)
+        for (let idx = 2; idx <= maxIdx; idx++) {
+            // Origem
+            const origemKey = `${prefix}_origem_${idx}`;
+            const origemVal = cardData[origemKey];
+            if (origemVal) {
+                const $origemInput = $(container).find(`input[name="${origemKey}"]`);
+                if ($origemInput.length) {
+                    $origemInput.val(origemVal);
+                }
+            }
+
+            // Tipo de colaboração (radio) - SEM trigger de change
+            const tipoKey = `${prefix}_tipo_${idx}`;
+            const tipoVal = cardData[tipoKey];
+            if (tipoVal) {
+                const $tipoRadio = $(container).find(`input[name="${tipoKey}"][value="${tipoVal}"]`);
+                if ($tipoRadio.length) {
+                    $tipoRadio.prop("checked", true);
+                    // Dispara change só para mostrar campos condicionais
+                    setTimeout(() => $tipoRadio.trigger("change"), 50);
+                }
+            }
+
+            // Tipo outro (textarea)
+            const tipoOutroKey = `${prefix}_tipoOutro_${idx}`;
+            const tipoOutroVal = cardData[tipoOutroKey];
+            if (tipoOutroVal) {
+                setTimeout(() => {
+                    const $tipoOutroText = $(container).find(`textarea[name="${tipoOutroKey}"]`);
+                    if ($tipoOutroText.length) {
+                        $tipoOutroText.val(tipoOutroVal);
+                    }
+                }, 100);
+            }
+
+            // Natureza (checkboxes) - SEM trigger de change
+            const naturezaKey = `${prefix}_natureza_${idx}[]`;
+            const naturezaVal = cardData[naturezaKey];
+            if (Array.isArray(naturezaVal)) {
+                naturezaVal.forEach(v => {
+                    const $naturezaCheck = $(container).find(`input[name="${naturezaKey}"][value="${v}"]`);
+                    if ($naturezaCheck.length) {
+                        $naturezaCheck.prop("checked", true);
+                        // Dispara change só para mostrar campos condicionais
+                        setTimeout(() => $naturezaCheck.trigger("change"), 50);
+                    }
+                });
+            }
+
+            // Natureza outro (textarea)
+            const naturezaOutroKey = `${prefix}_naturezaOutro_${idx}`;
+            const naturezaOutroVal = cardData[naturezaOutroKey];
+            if (naturezaOutroVal) {
+                setTimeout(() => {
+                    const $naturezaOutroText = $(container).find(`textarea[name="${naturezaOutroKey}"]`);
+                    if ($naturezaOutroText.length) {
+                        $naturezaOutroText.val(naturezaOutroVal);
+                    }
+                }, 100);
+            }
+        }
     }
 
     // ======================================================================
