@@ -131,7 +131,7 @@ window.Card4 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+          <div class="col extra-${base}-other-inline d-none">
             <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
@@ -151,7 +151,7 @@ window.Card4 = (function () {
             const $selectWrap = $selLocal.closest(".nf-select-item");
             const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
             const isOther = String($selLocal.val()) === "outro";
-            
+
             if (isOther) {
                 $extra.removeClass("d-none");
             } else {
@@ -163,7 +163,7 @@ window.Card4 = (function () {
 
         $sel.off("change.nf").on("change.nf", function () {
             ensureNfOther($sel, base);
-            
+
             // Mostra/oculta botão X baseado no valor selecionado
             const $selectWrap = $sel.closest(".nf-select-item");
             const $clearBtn = $selectWrap.find(".nf-clear-btn");
@@ -201,7 +201,7 @@ window.Card4 = (function () {
 
         // estado inicial "Outro"
         ensureNfOther($sel, base);
-        
+
         // Mostra/oculta botão X baseado no valor inicial
         const $selectWrap = $sel.closest(".nf-select-item");
         const $clearBtn = $selectWrap.find(".nf-clear-btn");
@@ -225,11 +225,11 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         // Encontra o container .nf-select-item ou .nf-select1-item
         let $selectItem = $sel.closest(".nf-select-item, .nf-select1-item");
         if (!$selectItem.length) return;
-        
+
         // O container especial fica dentro de .extra-{base}-special
         const specialClass = `extra-${base}-special`;
         let $below = $selectItem.find(`.${specialClass}`);
-        
+
         if (!$below.length) {
             // Se não encontrou, cria um
             $below = $(`<div class="${specialClass} mt-2"></div>`);
@@ -378,7 +378,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Encontra o checkbox "outro" e seu container .form-check
                 const $outroCheckbox = $b.find('input[type="checkbox"][value="outro"]');
                 const $formCheck = $outroCheckbox.closest(".form-check");
-                
+
                 if ($formCheck.length) {
                     // Adiciona o input inline ao lado do checkbox "outro"
                     let $inlineHolder = $formCheck.find(".nf-special-other-inline");
@@ -386,18 +386,18 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                         $inlineHolder = $(`<div class="nf-special-other-inline mt-2"></div>`);
                         $formCheck.after($inlineHolder);
                     }
-                    
+
                     const name = isEquip
                         ? "nf_equip_outro"
                         : isRede
                         ? "nf_rede_outro"
                         : "nf_infra_outro";
-                    
+
                     $inlineHolder.html(`
                         <textarea class="form-control mx-auto" name="${name}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>
                     `);
                 }
-                
+
                 // Remove o target antigo (compatibilidade)
                 $target.empty();
             } else {
@@ -435,25 +435,25 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             if (!$select1Item.length) {
                 $select1Item = $(`<div class="mb-3 nf-select1-item"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
-                
+
                 // Coluna do select
                 const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
                 $s1.appendTo($colSelect);
-                
+
                 // Botão X para limpar
                 const $colClear = $(`<div class="col-auto nf-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
                 $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
-                
+
                 // Coluna do input "outro"
-                const $colOther = $(`<div class="col-auto extra-nfSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
+                const $colOther = $(`<div class="col extra-nfSelect1-other-inline d-none"></div>`);
                 $colOther.html(`<textarea class="form-control" name="nfSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
-                
+
                 $rowDiv.append($colSelect, $colClear, $colOther);
                 $select1Item.append($rowDiv);
-                
+
                 // Container para checkboxes especiais
                 $select1Item.append(`<div class="extra-nfSelect1-special mt-2"></div>`);
-                
+
                 // Insere antes do holder
                 $holder.before($select1Item);
             }
@@ -468,7 +468,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra1.find("input").val("");
             }
-            
+
             // Mostra/oculta botão X do select 1
             const $clearBtn1 = $wrap.find(".nf-select1-item .nf-clear-btn");
             if (v) {
@@ -588,10 +588,10 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+          <div class="col extra-${base}-other-inline d-none">
             <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
-          <div class="col-auto extra-${base}-inv-inline d-none" style="min-width: 250px;">
+          <div class="col extra-${base}-inv-inline d-none">
             <div>
               <label class="form-label fw-semibold">Especifique o Investimento:</label>
               <input class="form-control" name="${base}__inv_terceiros" placeholder="Descreva" />
@@ -633,7 +633,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         $sel.off("change.f").on("change.f", function () {
             const v = $(this).val();
             ensureFOther($sel, base);
-            
+
             // Mostra/oculta botão X baseado no valor selecionado
             const $selectWrap = $sel.closest(".f-select-item");
             const $clearBtn = $selectWrap.find(".f-clear-btn");
@@ -659,7 +659,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         });
 
         ensureFOther($sel, base);
-        
+
         // Mostra/oculta botão X baseado no valor inicial
         const $selectWrap = $sel.closest(".f-select-item");
         const $clearBtn = $selectWrap.find(".f-clear-btn");
@@ -688,31 +688,31 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             if (!$select1Item.length) {
                 $select1Item = $(`<div class="mb-3 f-select1-item"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
-                
+
                 // Coluna do select
                 const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
                 $s1.appendTo($colSelect);
-                
+
                 // Botão X para limpar
                 const $colClear = $(`<div class="col-auto f-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
                 $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
-                
+
                 // Coluna do input "outro"
-                const $colOther = $(`<div class="col-auto extra-fSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
+                const $colOther = $(`<div class="col extra-fSelect1-other-inline d-none"></div>`);
                 $colOther.html(`<textarea class="form-control" name="fSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
-                
+
                 // Coluna do investimento
-                const $colInv = $(`<div class="col-auto extra-fSelect1-inv-inline d-none" style="min-width: 250px;"></div>`);
+                const $colInv = $(`<div class="col extra-fSelect1-inv-inline d-none"></div>`);
                 $colInv.html(`
                     <div>
                         <label class="form-label fw-semibold">Especifique o Investimento:</label>
                         <input class="form-control" name="fSelect1__inv_terceiros" placeholder="Descreva" />
                     </div>
                 `);
-                
+
                 $rowDiv.append($colSelect, $colClear, $colOther, $colInv);
                 $select1Item.append($rowDiv);
-                
+
                 // Insere antes do holder
                 $holder.before($select1Item);
             }
@@ -720,7 +720,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             // Mostra/esconde os inputs do select 1
             const $extraOther = $wrap.find(".extra-fSelect1-other-inline");
             const $extraInv = $wrap.find(".extra-fSelect1-inv-inline");
-            
+
             if (v === "outro") {
                 $extraOther.removeClass("d-none");
                 $extraInv.addClass("d-none");
@@ -738,7 +738,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 $extraOther.find("textarea").val("");
                 $extraInv.find("textarea").val("");
             }
-            
+
             // Mostra/oculta botão X do select 1
             const $clearBtn1 = $wrap.find(".f-select1-item .f-clear-btn");
             if (v) {
@@ -907,40 +907,35 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             if (v === "outro") {
                 // Esconde o wrapper original
                 $extra.hide();
+
+                // Encontra o label ou .form-check que contém o radio "outro"
+                let $radioContainer = $outroRadio.closest("label");
+                if (!$radioContainer.length) {
+                    $radioContainer = $outroRadio.closest(".form-check");
+                }
                 
-                // Encontra o .form-check que contém o radio "outro"
-                const $formCheck = $outroRadio.closest(".form-check");
-                if ($formCheck.length) {
-                    // Cria ou atualiza o span inline
-                    let $inlineHolder = $formCheck.find(".viability-other-inline");
-                    if (!$inlineHolder.length) {
-                        $inlineHolder = $(`<div class="viability-other-inline mt-2"></div>`);
-                        // Adiciona após o .form-check (abaixo do radio)
-                        $formCheck.after($inlineHolder);
-                    }
+                if ($radioContainer.length) {
+                    // Encontra o wrapper pai que contém todos os radios
+                    const $parentWrapper = $radioContainer.closest(".mb-2, .col, .col-12");
                     
-                    const $inlineInput = $(`<textarea class="form-control mx-auto" name="viabilityOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
-                    $inlineHolder.html($inlineInput);
-                    
-                    // Sincroniza valores entre input inline e input original
-                    $inlineInput.off("input.card4_viab_sync").on("input.card4_viab_sync", function() {
-                        $otherInput.val($(this).val());
-                    });
-                } else {
-                    // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
-                    const $outroLabel = $outroRadio.closest("label");
-                    if ($outroLabel.length) {
-                        let $inlineHolder = $outroLabel.find(".viability-other-inline");
-                        if (!$inlineHolder.length) {
-                            $inlineHolder = $(`<div class="viability-other-inline mt-2"></div>`);
-                            $outroLabel.after($inlineHolder);
+                    if ($parentWrapper.length) {
+                        // Garante que o wrapper seja flex
+                        if (!$parentWrapper.hasClass("d-flex")) {
+                            $parentWrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
                         }
                         
-                        const $inlineInput = $(`<textarea class="form-control mx-auto" name="viabilityOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
+                        // Procura ou cria o container do textarea
+                        let $inlineHolder = $parentWrapper.find(".viability-other-inline");
+                        if (!$inlineHolder.length) {
+                            $inlineHolder = $(`<div class="viability-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
+                            $parentWrapper.append($inlineHolder);
+                        }
+                        
+                        const $inlineInput = $(`<textarea class="form-control" name="viabilityOther" placeholder="Especifique" rows="2" style="width: 100%; resize: vertical;">${$otherInput.val() || ""}</textarea>`);
                         $inlineHolder.html($inlineInput);
                         
                         // Sincroniza valores entre input inline e input original
-                        $inlineInput.off("input.card4_viab_sync").on("input.card4_viab_sync", function() {
+                        $inlineInput.off("input").on("input", function() {
                             $otherInput.val($(this).val());
                         });
                     }
@@ -949,6 +944,12 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Remove o input inline quando outro radio é selecionado
                 $root.find(".viability-other-inline").remove();
                 $otherInput.val("");
+                
+                // Remove as classes flex do wrapper se existirem
+                const $parentWrapper = $rad.first().closest(".mb-2, .col, .col-12");
+                if ($parentWrapper.hasClass("d-flex")) {
+                    $parentWrapper.removeClass("d-flex align-items-center gap-2 flex-wrap");
+                }
             }
         }
 
@@ -1017,7 +1018,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${base}-other-inline d-none" style="min-width: 300px;">
+          <div class="col extra-${base}-other-inline d-none">
             <textarea class="form-control" name="${base}__other" placeholder="Especifique" rows="3"></textarea>
           </div>
         </div>
@@ -1034,7 +1035,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             const $selectWrap = $selLocal.closest(".risk-select-item");
             const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
             const isOther = String($selLocal.val()) === "outro";
-            
+
             if (isOther) {
                 $extra.removeClass("d-none");
             } else {
@@ -1046,7 +1047,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
         $sel.off("change.risk").on("change.risk", function () {
             ensureOther($sel, base);
-            
+
             // Mostra/oculta botão X baseado no valor selecionado
             const $selectWrap = $sel.closest(".risk-select-item");
             const $clearBtn = $selectWrap.find(".risk-clear-btn");
@@ -1075,7 +1076,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
         // estado inicial "Outro"
         ensureOther($sel, base);
-        
+
         // Mostra/oculta botão X baseado no valor inicial
         const $selectWrap = $sel.closest(".risk-select-item");
         const $clearBtn = $selectWrap.find(".risk-clear-btn");
@@ -1105,22 +1106,22 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             if (!$select1Item.length) {
                 $select1Item = $(`<div class="mb-3 risk-select1-item"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
-                
+
                 // Coluna do select
                 const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
                 $s1.appendTo($colSelect);
-                
+
                 // Botão X para limpar
                 const $colClear = $(`<div class="col-auto risk-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
                 $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
-                
+
                 // Coluna do input "outro"
-                const $colOther = $(`<div class="col-auto extra-riskInvSelect1-other-inline d-none" style="min-width: 250px;"></div>`);
+                const $colOther = $(`<div class="col extra-riskInvSelect1-other-inline d-none"></div>`);
                 $colOther.html(`<textarea class="form-control" name="riskInvSelect1__other" placeholder="Especifique" rows="3"></textarea>`);
-                
+
                 $rowDiv.append($colSelect, $colClear, $colOther);
                 $select1Item.append($rowDiv);
-                
+
                 // Insere antes do holder
                 $holder.before($select1Item);
             }
@@ -1135,7 +1136,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra1.find("input").val("");
             }
-            
+
             // Mostra/oculta botão X do select 1
             const $clearBtn1 = $wrap.find(".risk-select1-item .risk-clear-btn");
             if (v) {

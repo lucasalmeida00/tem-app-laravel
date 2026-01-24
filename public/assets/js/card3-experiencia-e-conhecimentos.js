@@ -15,7 +15,7 @@ window.Card3 = (function () {
   function ensureContainer($wrapper, cls) {
     let $extra = $wrapper.find(`.${cls}`).first();
     if (!$extra.length) {
-      $extra = $(`<div class="${cls} mt-2"></div>`);
+      $extra = $(`<div class="${cls} mt-2 w-100"></div>`);
       $wrapper.append($extra);
     }
     return $extra;
@@ -33,12 +33,12 @@ window.Card3 = (function () {
   function ensureSpecifySelect($select, label = "Especifique o cargo", nameSuffix = "__other") {
     const $wrapper = wrapperFor($select);
     if (!$wrapper.length) return;
-    
+
     // Garante que o wrapper seja flex para alinhar o input ao lado
     if (!$wrapper.hasClass("d-flex")) {
       $wrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
     }
-    
+
     // Ajusta o select para ter largura menor quando "outro" for selecionado
     const isOther = isOtherValue($select.val());
     if (isOther) {
@@ -52,15 +52,15 @@ window.Card3 = (function () {
         "flex": ""
       });
     }
-    
+
     const $extra = ensureContainer($wrapper, "extra-specify-container");
     if (!$extra.hasClass("d-flex")) {
-      $extra.css("flex", "1 1 auto").css("min-width", "200px");
+      $extra.css("flex", "1 1 0").css("min-width", "250px");
     }
-    
+
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique" rows="3"></textarea>
+        <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique"></textarea>
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -72,56 +72,42 @@ window.Card3 = (function () {
     const $first = $root.find(`input[type="checkbox"][name="${N.functions}"]`).first();
     if (!$first.length) return;
 
-    // container que agrupa TODOS os checkboxes
-    const $boxes = $first.closest(".d-flex.flex-wrap.gap-3");
-
-    // Encontra o checkbox "outro" e coloca o input ao lado dele
+    // Encontra o checkbox "outro"
     const $outroCheckbox = $root.find(`input[type="checkbox"][name="${N.functions}"][value="outro"]`);
     const outroChecked = $outroCheckbox.is(":checked");
 
+    // Remove qualquer holder inline existente antes
+    $root.find(".extra-specify-functions-inline").remove();
+
     if (outroChecked) {
-      // Encontra o container .form-check que contém o checkbox "outro"
-      const $formCheck = $outroCheckbox.closest(".form-check");
-      if (!$formCheck.length) {
-        // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
-        const $outroLabel = $outroCheckbox.closest("label");
-        if ($outroLabel.length) {
-          let $inlineHolder = $outroLabel.find(".extra-specify-functions-inline");
-          if (!$inlineHolder.length) {
-            $inlineHolder = $(`<div class="extra-specify-functions-inline mt-2"></div>`);
-            $outroLabel.after($inlineHolder);
-          }
-          $inlineHolder.html(`
-            <textarea class="form-control mx-auto" name="${N.functions}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>
-          `);
+      // Procura o container flex que contém os checkboxes
+      // Sobe na hierarquia até encontrar um .d-flex que agrupa os checkboxes
+      let $checkboxContainer = $first.closest(".d-flex");
+
+      // Se não encontrou ou se o d-flex é de um form-check individual, sobe mais
+      if (!$checkboxContainer.length || $checkboxContainer.hasClass("align-items-center")) {
+        $checkboxContainer = $first.closest(".mb-2, .col, .col-12").find(".d-flex.flex-wrap, .d-flex").first();
+      }
+
+      if (!$checkboxContainer.length) {
+        // Último recurso: pega o wrapper do primeiro checkbox
+        $checkboxContainer = $first.closest(".mb-2, .col, .col-12");
+      }
+
+      if ($checkboxContainer.length) {
+        // Garante que o container tenha flex-wrap
+        if (!$checkboxContainer.hasClass("flex-wrap")) {
+          $checkboxContainer.addClass("flex-wrap");
         }
-      } else {
-        // Estrutura padrão: .form-check contém input e label como irmãos
-        // Adiciona o input ao lado do label dentro do .form-check
-        let $inlineHolder = $formCheck.find(".extra-specify-functions-inline");
-        if (!$inlineHolder.length) {
-          $inlineHolder = $(`<div class="extra-specify-functions-inline mt-2"></div>`);
-          // Adiciona após o .form-check (abaixo do checkbox)
-          $formCheck.after($inlineHolder);
-        }
-        
+
+        // Cria o container do textarea DENTRO do mesmo container dos checkboxes
+        const $inlineHolder = $(`<div class="extra-specify-functions-inline" style="flex: 1 1 0; min-width: 250px; max-width: 100%;"></div>`);
         $inlineHolder.html(`
-          <textarea class="form-control mx-auto" name="${N.functions}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>
+          <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${N.functions}__other" placeholder="Especifique"></textarea>
         `);
-      }
-      
-      // Remove o holder antigo se existir (compatibilidade)
-      const $oldExtra = $boxes.next(".extra-specify-functions");
-      if ($oldExtra.length) {
-        $oldExtra.remove();
-      }
-    } else {
-      // Remove o holder inline
-      $root.find(".extra-specify-functions-inline").remove();
-      // Remove o holder antigo se existir
-      const $oldExtra = $boxes.next(".extra-specify-functions");
-      if ($oldExtra.length) {
-        $oldExtra.remove();
+
+        // Adiciona DENTRO do container de checkboxes
+        $checkboxContainer.append($inlineHolder);
       }
     }
   }
@@ -237,12 +223,12 @@ window.Card3 = (function () {
   function ensureSpecifySituation($select) {
     const $wrapper = wrapperFor($select);
     if (!$wrapper.length) return;
-    
+
     // Garante que o wrapper seja flex para alinhar o input ao lado
     if (!$wrapper.hasClass("d-flex")) {
       $wrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
     }
-    
+
     // Ajusta o select para ter largura menor quando "outro" for selecionado
     const isOther = isOtherValue($select.val());
     if (isOther) {
@@ -256,15 +242,15 @@ window.Card3 = (function () {
         "flex": ""
       });
     }
-    
+
     const $extra = ensureContainer($wrapper, "extra-specify-situation");
     if (!$extra.hasClass("d-flex")) {
-      $extra.css("flex", "1 1 auto").css("min-width", "200px");
+      $extra.css("flex", "1 1 0").css("min-width", "250px");
     }
-    
+
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="${$select.attr("name")}__other" placeholder="Especifique" rows="3"></textarea>
+        <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${$select.attr("name")}__other" placeholder="Especifique"></textarea>
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -272,60 +258,54 @@ window.Card3 = (function () {
   }
 
   function ensureOtherForStep($select, baseName) {
-    // Encontra o wrapper do select
-    const $wrapper = $select.closest(".mb-2, .extra-steps-container");
-    if (!$wrapper.length) {
-      // Fallback: pega a caixa extra que está logo DEPOIS do select atual
-      const $extra = $select.nextAll(`.extra-${baseName}-other`).first();
-      if (!$extra.length) return;
+    // Encontra o wrapper do select (o .mb-2 que contém o select)
+    const $wrapper = $select.closest(".mb-2");
+    if (!$wrapper.length) return;
 
-      if (String($select.val()) === "outro") {
-        $extra.html(`
-          <input type="text" class="form-control form-control-sm" style="width: 200px;"
-                name="${baseName}__other"
-                placeholder="Especifique" />
-        `);
-      } else {
-        $extra.empty();
-      }
-      return;
-    }
-
-    // Garante que o wrapper seja flex para alinhar o input ao lado
+    // Garante que o wrapper seja flex para alinhar o textarea ao lado
     if (!$wrapper.hasClass("d-flex")) {
       $wrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
     }
 
-    // Ajusta o select para ter largura menor quando "outro" for selecionado
+    // Verifica se "outro" está selecionado
     const isOther = String($select.val()) === "outro";
+
+    // Ajusta o select para ter largura menor quando "outro" for selecionado
     if (isOther) {
       $select.css({
         "max-width": "250px",
-        "flex": "0 0 auto"
+        "flex": "0 0 auto",
+        "width": "250px"
       });
     } else {
       $select.css({
         "max-width": "",
-        "flex": ""
+        "flex": "",
+        "width": ""
       });
     }
 
-    // Encontra ou cria o container do input
+    // Procura ou cria o container do textarea
     let $extra = $wrapper.find(`.extra-${baseName}-other`).first();
     if (!$extra.length) {
-      $extra = $(`<div class="extra-${baseName}-other" style="flex: 1 1 auto; min-width: 200px;"></div>`);
-      $select.after($extra);
+      // Remove min-width para permitir expansão máxima, usa flex: 1 1 auto
+      $extra = $(`<div class="extra-${baseName}-other" style="flex: 1 1 auto;"></div>`);
+      $wrapper.append($extra);
+    } else {
+      // Garante que o estilo flex está aplicado sem min-width
+      $extra.attr('style', 'flex: 1 1 auto;');
     }
 
-    if (isOther) {
-      $extra.removeClass("d-none").html(`
-        <input type="text" class="form-control form-control-sm" style="width: 100%; max-width: 300px;"
-              name="${baseName}__other"
-              placeholder="Especifique" />
-      `);
-    } else {
+    if (!isOther) {
       $extra.addClass("d-none").empty();
+      return;
     }
+
+    $extra.removeClass("d-none").html(`
+      <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;"
+             name="${baseName}__other"
+             placeholder="Especifique"></textarea>
+    `);
   }
 
 
@@ -363,13 +343,12 @@ window.Card3 = (function () {
     // cria o select se não existir
     let $sel = $container.find(`select[name="${baseName}"]`);
     if (!$sel.length) {
-      // Cria um wrapper flex para cada select
-      const $selectWrap = $(`<div class="mb-2 d-flex align-items-center gap-2 flex-wrap"></div>`);
+      // Cria um wrapper SIMPLES com flex direto (sem Bootstrap grid)
+      const $selectWrap = $(`<div class="mb-2"></div>`);
       $selectWrap.append(`
-        <select class="form-select" name="${baseName}" style="flex: 0 0 auto; min-width: 200px;">
+        <select class="form-select" name="${baseName}">
           <option value="" disabled selected hidden>${placeholders[idx]}</option>
         </select>
-        <div class="extra-${baseName}-other" style="flex: 1 1 auto; min-width: 200px;"></div>
       `);
       $container.append($selectWrap);
       $sel = $selectWrap.find(`select[name="${baseName}"]`);
@@ -394,7 +373,7 @@ window.Card3 = (function () {
     $sel.off("change.step").on("change.step", function () {
       const v = $(this).val();
       $sel.data("lastVal", v || "");
-      
+
        ensureOtherForStep($sel, baseName);
 
       // recalcula conjunto e renderiza o próximo
@@ -443,7 +422,7 @@ window.Card3 = (function () {
 
       let $extra1 = $container.find(`.extra-firstSteps1-other`);
       if (!$extra1.length) {
-        $extra1 = $(`<div class="extra-firstSteps1-other" style="flex: 1 1 auto; min-width: 200px;"></div>`);
+        $extra1 = $(`<div class="extra-firstSteps1-other" style="flex: 1 1 0; min-width: 250px;"></div>`);
         // Se o select 1 está dentro de um wrapper, adiciona ao wrapper, senão ao container
         if ($sel1Wrap.length) {
           $sel1.after($extra1);
@@ -454,7 +433,7 @@ window.Card3 = (function () {
 
       if (isOther) {
         $extra1.removeClass("d-none").html(`
-          <textarea class="form-control form-control-sm" style="width: 100%; max-width: 300px;" name="firstSteps1__other" placeholder="Especifique" rows="3"></textarea>
+          <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="firstSteps1__other" placeholder="Especifique"></textarea>
         `);
       } else {
         $extra1.addClass("d-none").empty();

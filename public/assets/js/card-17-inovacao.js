@@ -108,7 +108,7 @@ window.Card17 = (function () {
             $formCheck.after($inlineHolder);
           }
           
-          const $inlineInput = $(`<textarea class="form-control mx-auto" name="universityInteractionOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
+          const $inlineInput = $(`<textarea class="form-control" name="universityInteractionOther" placeholder="Especifique" rows="3" style="width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
           $inlineHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
@@ -124,7 +124,7 @@ window.Card17 = (function () {
               $inlineHolder = $(`<div class="university-interaction-other-inline mt-2"></div>`);
               $outroLabel.after($inlineHolder);
             }
-            const $inlineInput = $(`<textarea class="form-control mx-auto" name="universityInteractionOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
+            const $inlineInput = $(`<textarea class="form-control" name="universityInteractionOther" placeholder="Especifique" rows="3" style="width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
             $inlineHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
@@ -161,35 +161,36 @@ window.Card17 = (function () {
         // Esconde o wrapper original
         $otherWrap.hide();
         
-        // Encontra o .form-check que contém o checkbox "outro"
-        const $formCheck = $outroCheck.closest(".form-check");
-        if ($formCheck.length) {
-          // Cria ou atualiza o span inline
-          let $inlineHolder = $formCheck.find(".losses-other-inline");
-          if (!$inlineHolder.length) {
-            $inlineHolder = $(`<div class="losses-other-inline mt-2"></div>`);
-            // Adiciona após o .form-check (abaixo do checkbox)
-            $formCheck.after($inlineHolder);
+        // Encontra o label do checkbox
+        const $outroLabel = $outroCheck.closest("label");
+        
+        if ($outroLabel.length) {
+          // Cria ou atualiza o holder externo (após o label)
+          let $externalHolder = $outroLabel.nextAll(".losses-check-outro-external").first();
+          if (!$externalHolder.length) {
+            $externalHolder = $(`<div class="losses-check-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+            $outroLabel.after($externalHolder);
           }
           
-          const $inlineInput = $(`<textarea class="form-control mx-auto" name="lossesMainActionOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
-          $inlineHolder.html($inlineInput);
+          const $inlineInput = $(`<textarea class="form-control" name="lossesMainActionOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+          $externalHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
           $inlineInput.off("input.card17_losses_sync").on("input.card17_losses_sync", function() {
             $otherInput.val($(this).val());
           });
         } else {
-          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
-          const $outroLabel = $outroCheck.closest("label");
-          if ($outroLabel.length) {
-            let $inlineHolder = $outroLabel.find(".losses-other-inline");
-            if (!$inlineHolder.length) {
-              $inlineHolder = $(`<div class="losses-other-inline mt-2"></div>`);
-              $outroLabel.after($inlineHolder);
+          // Fallback: tenta encontrar o .form-check
+          const $formCheck = $outroCheck.closest(".form-check");
+          if ($formCheck.length) {
+            let $externalHolder = $formCheck.nextAll(".losses-check-outro-external").first();
+            if (!$externalHolder.length) {
+              $externalHolder = $(`<div class="losses-check-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+              $formCheck.after($externalHolder);
             }
-            const $inlineInput = $(`<textarea class="form-control mx-auto" name="lossesMainActionOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
-            $inlineHolder.html($inlineInput);
+            
+            const $inlineInput = $(`<textarea class="form-control" name="lossesMainActionOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+            $externalHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
             $inlineInput.off("input.card17_losses_sync").on("input.card17_losses_sync", function() {
@@ -198,8 +199,8 @@ window.Card17 = (function () {
           }
         }
       } else {
-        // Remove o input inline quando "outro" é desmarcado
-        $root.find(".losses-other-inline").remove();
+        // Remove o holder externo quando "outro" é desmarcado
+        $root.find(".losses-check-outro-external").remove();
         $otherInput.val("");
       }
     }

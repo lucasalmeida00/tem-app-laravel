@@ -85,7 +85,7 @@ window.Card1 = (function () {
 
     let $extra = $wrapper.find(".extra-specify-container").first();
     if (!$extra.length) {
-      $extra = $(`<div class="extra-specify-container" style="flex: 1 1 auto; min-width: 200px;"></div>`);
+      $extra = $(`<div class="extra-specify-container" style="flex: 1 1 0; min-width: 250px;"></div>`);
       $wrapper.append($extra);
     }
 
@@ -95,9 +95,9 @@ window.Card1 = (function () {
     }
 
     $extra.removeClass("d-none").html(`
-      <input type="text" class="form-control form-control-sm" style="width: 100%; max-width: 300px;"
+      <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;"
              name="${$select.attr("name")}__other"
-             placeholder="Especifique" />
+             placeholder="Especifique"></textarea>
     `);
   }
 

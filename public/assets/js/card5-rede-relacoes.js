@@ -294,19 +294,46 @@ window.Card5 = (function () {
     // Radio "Outro" -> text (ao lado direito da opção)
     $item.off("change.relRadio").on("change.relRadio", `input[name="${radioName}"]`, function () {
       const val = (this.value || "").toLowerCase();
-      const $inlineHolder = $(this).closest("label").find(".rel-radio-outro-inline");
+      const $radio = $(this);
+
+      // Limpa todos os holders externos de radio deste grupo
+      $item.find(`input[name="${radioName}"]`).each(function() {
+        const $lbl = $(this).closest("label");
+        const $ext = $lbl.next(".rel-radio-outro-external");
+        if ($ext.length) {
+          $ext.remove();
+        }
+      });
 
       if (val === "outro") {
-        // Coloca o textarea abaixo da opção "Outro"
-        $inlineHolder.html(
-          `<textarea class="form-control mx-auto" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
+        const $label = $radio.closest("label");
+        // Cria um holder EXTERNO ao label (depois dele) apenas para "outro"
+        const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+
+        // Coloca o textarea no holder externo
+        $externalHolder.html(
+          `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
         );
         $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
       } else {
-        $inlineHolder.empty();
         $radioOutroHolder.empty();
       }
     });
+
+    // Verifica estado inicial do radio para aplicar CSS se já estiver selecionado "outro"
+    const $checkedRadio = $item.find(`input[name="${radioName}"]:checked`);
+    if ($checkedRadio.length && ($checkedRadio.val() || "").toLowerCase() === "outro") {
+      const $label = $checkedRadio.closest("label");
+
+      // Cria um holder EXTERNO ao label apenas para "outro"
+      const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+      $label.after($externalHolder);
+
+      $externalHolder.html(
+        `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+      );
+    }
 
     // Checkbox "outro"/"outro_setor" -> text (ao lado direito da opção)
     $item.off("change.relCheck").on("change.relCheck", `input[name='${checksName}']`, function () {
@@ -318,18 +345,25 @@ window.Card5 = (function () {
 
       // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
       $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
-        const $label = $(this).closest("label");
-        const $inlineHolder = $label.find(".rel-check-outro-inline");
-        const isChecked = $(this).is(":checked");
+        const $checkbox = $(this);
+        const $label = $checkbox.closest("label");
+        const isChecked = $checkbox.is(":checked");
 
-        if (isChecked && needsOther) {
-          // Coloca o textarea abaixo da opção
-          $inlineHolder.html(
-            `<textarea class="form-control mx-auto" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
-          );
-        } else {
-          $inlineHolder.empty();
+        // Busca ou cria um holder EXTERNO ao label (ao lado dele)
+        let $externalHolder = $label.next(".rel-check-outro-external");
+        if (!$externalHolder.length) {
+          $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+          $label.after($externalHolder);
         }
+
+      if (isChecked && needsOther) {
+          // Coloca o textarea no holder externo
+          $externalHolder.html(
+            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+          );
+      } else {
+        $externalHolder.empty();
+      }
       });
 
       // Limpa o holder antigo (compatibilidade)
@@ -339,6 +373,31 @@ window.Card5 = (function () {
         $checkOutroHolder.empty();
       }
     });
+
+    // Verifica estado inicial dos checkboxes para aplicar CSS se já tiverem "outro" marcado
+    const checkedVals = $item.find(`input[name='${checksName}']:checked`).map(function() {
+      return this.value;
+    }).get();
+    if (checkedVals.some(v => v === "outro" || v === "outro_setor")) {
+      $item.find(`input[name='${checksName}'][value="outro"]:checked, input[name='${checksName}'][value="outro_setor"]:checked`).each(function() {
+        const $checkbox = $(this);
+        const $label = $checkbox.closest("label");
+
+        // Busca ou cria um holder EXTERNO ao label
+        let $externalHolder = $label.next(".rel-check-outro-external");
+        if (!$externalHolder.length) {
+          $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+          $label.after($externalHolder);
+        }
+
+        // Se já tem textarea, garante que está visível
+        if ($externalHolder.find("textarea").length === 0) {
+          $externalHolder.html(
+            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+          );
+        }
+      });
+    }
   }
 
   function buildCategoryBlock($blocks, cat) {
@@ -494,19 +553,46 @@ function wireItemBehaviorsPost($item, cat, idx) {
 
   $item.off("change.relRadioPost").on("change.relRadioPost", `input[name="${radioName}"]`, function () {
     const val = (this.value || "").toLowerCase();
-    const $inlineHolder = $(this).closest("label").find(".rel-radio-outro-inline");
+    const $radio = $(this);
+
+    // Limpa todos os holders externos de radio deste grupo
+    $item.find(`input[name="${radioName}"]`).each(function() {
+      const $lbl = $(this).closest("label");
+      const $ext = $lbl.next(".rel-radio-outro-external");
+      if ($ext.length) {
+        $ext.remove();
+      }
+    });
 
     if (val === "outro") {
-      // Coloca o textarea abaixo da opção "Outro"
-        $inlineHolder.html(
-          `<textarea class="form-control mx-auto" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
-        );
+      const $label = $radio.closest("label");
+      // Cria um holder EXTERNO ao label (depois dele) apenas para "outro"
+      const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+      $label.after($externalHolder);
+
+      // Coloca o textarea no holder externo
+      $externalHolder.html(
+        `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+      );
       $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
     } else {
-      $inlineHolder.empty();
       $radioOutroHolder.empty();
     }
   });
+
+  // Verifica estado inicial do radio para aplicar CSS se já estiver selecionado "outro"
+  const $checkedRadio = $item.find(`input[name="${radioName}"]:checked`);
+  if ($checkedRadio.length && ($checkedRadio.val() || "").toLowerCase() === "outro") {
+    const $label = $checkedRadio.closest("label");
+
+    // Cria um holder EXTERNO ao label apenas para "outro"
+    const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+    $label.after($externalHolder);
+
+    $externalHolder.html(
+      `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+    );
+  }
 
   $item.off("change.relCheckPost").on("change.relCheckPost", `input[name='${checksName}']`, function () {
     const vals = $item.find(`input[name='${checksName}']:checked`).map(function(){return this.value;}).get();
@@ -514,17 +600,24 @@ function wireItemBehaviorsPost($item, cat, idx) {
 
     // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
     $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
-      const $label = $(this).closest("label");
-      const $inlineHolder = $label.find(".rel-check-outro-inline");
-      const isChecked = $(this).is(":checked");
+      const $checkbox = $(this);
+      const $label = $checkbox.closest("label");
+      const isChecked = $checkbox.is(":checked");
+
+      // Busca ou cria um holder EXTERNO ao label (ao lado dele)
+      let $externalHolder = $label.next(".rel-check-outro-external");
+      if (!$externalHolder.length) {
+        $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+      }
 
       if (isChecked && needsOther) {
-          // Coloca o textarea abaixo da opção
-          $inlineHolder.html(
-            `<textarea class="form-control mx-auto" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block; margin-top: 0.5rem;"></textarea>`
+          // Coloca o textarea no holder externo
+          $externalHolder.html(
+            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
           );
       } else {
-        $inlineHolder.empty();
+        $externalHolder.empty();
       }
     });
 
@@ -535,6 +628,31 @@ function wireItemBehaviorsPost($item, cat, idx) {
       $checkOutroHolder.empty();
     }
   });
+
+  // Verifica estado inicial dos checkboxes para aplicar CSS se já tiverem "outro" marcado
+  const checkedVals = $item.find(`input[name='${checksName}']:checked`).map(function() {
+    return this.value;
+  }).get();
+  if (checkedVals.some(v => v === "outro" || v === "outro_setor")) {
+    $item.find(`input[name='${checksName}'][value="outro"]:checked, input[name='${checksName}'][value="outro_setor"]:checked`).each(function() {
+      const $checkbox = $(this);
+      const $label = $checkbox.closest("label");
+
+      // Busca ou cria um holder EXTERNO ao label
+      let $externalHolder = $label.next(".rel-check-outro-external");
+      if (!$externalHolder.length) {
+        $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+      }
+
+      // Se já tem textarea, garante que está visível
+      if ($externalHolder.find("textarea").length === 0) {
+        $externalHolder.html(
+          `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+        );
+      }
+    });
+  }
 }
 
 function buildCategoryBlockPost($blocks, cat) {

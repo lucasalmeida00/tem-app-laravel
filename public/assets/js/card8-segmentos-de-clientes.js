@@ -53,35 +53,50 @@ window.Card8 = (function () {
         const $formCheck = $outroRadio.closest(".form-check");
         
         if ($formCheck.length) {
-          // Estrutura padrão: .form-check contém input e label como irmãos
-          // Adiciona o input ao lado do label dentro do .form-check
-          let $inlineHolder = $formCheck.find(".first-client-other-inline");
+          // Transforma o parent do .form-check em flex container
+          const $parent = $formCheck.parent();
+          if (!$parent.hasClass("d-flex")) {
+            $parent.addClass("d-flex align-items-start gap-2 flex-wrap");
+          }
+          
+          // Cria ou encontra o holder inline
+          let $inlineHolder = $parent.find(".first-client-other-inline");
           if (!$inlineHolder.length) {
-            $inlineHolder = $(`<div class="first-client-other-inline mt-2"></div>`);
-            // Adiciona após o .form-check (abaixo do radio)
+            $inlineHolder = $(`<div class="first-client-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
             $formCheck.after($inlineHolder);
           }
           
           $inlineHolder.html(
-            `<textarea class="form-control mx-auto" name="firstClientOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+            `<textarea class="form-control" name="firstClientOther" placeholder="Especifique" rows="3" style="width: 100%; display: block;"></textarea>`
           );
         } else {
           // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
           const $outroLabel = $outroRadio.closest("label");
           if ($outroLabel.length) {
-            let $inlineHolder = $outroLabel.find(".first-client-other-inline");
+            const $parent = $outroLabel.parent();
+            if (!$parent.hasClass("d-flex")) {
+              $parent.addClass("d-flex align-items-start gap-2 flex-wrap");
+            }
+            
+            let $inlineHolder = $parent.find(".first-client-other-inline");
             if (!$inlineHolder.length) {
-              $inlineHolder = $(`<div class="first-client-other-inline mt-2"></div>`);
+              $inlineHolder = $(`<div class="first-client-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
               $outroLabel.after($inlineHolder);
             }
             $inlineHolder.html(
-              `<textarea class="form-control" name="firstClientOther" placeholder="Especifique" rows="3" style="max-width: 500px;"></textarea>`
+              `<textarea class="form-control" name="firstClientOther" placeholder="Especifique" rows="3" style="width: 100%; display: block;"></textarea>`
             );
           }
         }
       } else {
-        // Remove o holder inline quando outro radio é selecionado
+        // Remove o holder inline e as classes flex quando outro radio é selecionado
         $root.find(".first-client-other-inline").remove();
+        // Remove as classes flex do parent se não for "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        if ($formCheck.length) {
+          const $parent = $formCheck.parent();
+          $parent.removeClass("d-flex align-items-start gap-2 flex-wrap");
+        }
       }
     }
 
@@ -93,15 +108,20 @@ window.Card8 = (function () {
   function buildSelect(name) {
     return $(`
       <div class="mb-3 sc-select-wrap">
-        <div class="row g-2">
+        <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
               ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
+          <div class="col-auto sc-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
+            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>
           </div>
         </div>
       </div>
@@ -145,18 +165,22 @@ window.Card8 = (function () {
     let $w1 = $s1.closest(".sc-select-wrap");
     if (!$w1.length) {
       $w1 = $(`<div class="mb-3 sc-select-wrap"></div>`);
-      const $rowDiv = $(`<div class="row g-2"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
       const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
       
-      // Coluna do input "outro"
-      const $colOther = $(`<div class="col-auto extra-${N.s1}-other-inline d-none" style="min-width: 250px;"></div>`);
-      $colOther.html(`<textarea class="form-control" name="${N.s1}__other" placeholder="Especifique" rows="3"></textarea>`);
+      // Botão X para limpar
+      const $colClear = $(`<div class="col-auto sc-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
+      $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
       
-      $rowDiv.append($colSelect, $colOther);
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col extra-${N.s1}-other-inline d-none"></div>`);
+      $colOther.html(`<textarea class="form-control" name="${N.s1}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>`);
+      
+      $rowDiv.append($colSelect, $colClear, $colOther);
       $w1.append($rowDiv);
     }
 
@@ -193,10 +217,21 @@ window.Card8 = (function () {
 
       // encadeamento visual
       $w2.toggle(!!$s1.val());
-      if (!$s1.val()) $s2.val("");
+      if (!$s1.val()) {
+        $s2.val("");
+        $w2.find(`.extra-${N.s2}-other-inline`).addClass("d-none").find("textarea").val("");
+      }
 
       $w3.toggle(!!$s2.val());
-      if (!$s2.val()) $s3.val("");
+      if (!$s2.val()) {
+        $s3.val("");
+        $w3.find(`.extra-${N.s3}-other-inline`).addClass("d-none").find("textarea").val("");
+      }
+
+      // Mostra/oculta botão X baseado no valor selecionado
+      $w1.find(".sc-clear-btn").toggleClass("d-none", !$s1.val());
+      $w2.find(".sc-clear-btn").toggleClass("d-none", !$s2.val());
+      $w3.find(".sc-clear-btn").toggleClass("d-none", !$s3.val());
 
       // atualiza “Especifique”
       $w1.triggerHandler("change.scOther");
@@ -214,6 +249,45 @@ window.Card8 = (function () {
     // binds
     $s1.off("change.sc_s1").on("change.sc_s1", sync);
     $selects.off("change.sc").on("change.sc", "select[name^='segGroup']", sync);
+
+    // Bind para o botão X (limpar seleção)
+    $root
+      .off("click.sc_clear")
+      .on("click.sc_clear", ".sc-clear-btn button", function (e) {
+        e.preventDefault();
+        const $wrap = $(this).closest(".sc-select-wrap");
+        const $sel = $wrap.find("select");
+        const $clearBtn = $wrap.find(".sc-clear-btn");
+        const name = $sel.attr("name");
+        
+        // Limpa apenas este select
+        $sel.val("");
+        $clearBtn.addClass("d-none");
+        
+        // Limpa o textarea "outro" deste select
+        const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
+        $otherInput.addClass("d-none");
+        $otherInput.find("textarea").val("");
+        
+        // Se for o select 1, limpa os dependentes (2 e 3)
+        if (name === N.s1) {
+          $s2.val("");
+          $s3.val("");
+          $w2.find(`.extra-${N.s2}-other-inline`).addClass("d-none").find("textarea").val("");
+          $w3.find(`.extra-${N.s3}-other-inline`).addClass("d-none").find("textarea").val("");
+          $sel.trigger("change.sc_s1");
+        }
+        // Se for o select 2, limpa apenas o 3
+        else if (name === N.s2) {
+          $s3.val("");
+          $w3.find(`.extra-${N.s3}-other-inline`).addClass("d-none").find("textarea").val("");
+          $sel.trigger("change.sc");
+        }
+        // Se for o select 3, não limpa ninguém
+        else {
+          $sel.trigger("change.sc");
+        }
+      });
 
     sync();
   }

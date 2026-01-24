@@ -237,8 +237,8 @@ window.Card15 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 250px;">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
+          <div class="col extra-${name}-other-inline d-none">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>
           </div>
         </div>
       </div>
@@ -301,8 +301,8 @@ window.Card15 = (function () {
       $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
       
       // Coluna do input "outro"
-      const $colOther = $(`<div class="col-auto extra-${firstName}-other-inline d-none" style="min-width: 250px;"></div>`);
-      $colOther.html(`<textarea class="form-control" name="${firstName}__other" placeholder="Especifique" rows="3"></textarea>`);
+      const $colOther = $(`<div class="col extra-${firstName}-other-inline d-none"></div>`);
+      $colOther.html(`<textarea class="form-control" name="${firstName}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>`);
       
       $rowDiv.append($colSelect, $colClear, $colOther);
       $w1.append($rowDiv);

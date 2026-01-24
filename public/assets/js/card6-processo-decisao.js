@@ -51,8 +51,8 @@ window.Card6 = (function () {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="col-auto extra-${name}-other-inline d-none" style="min-width: 300px;">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3"></textarea>
+          <div class="col extra-${name}-other-inline d-none">
+            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%;"></textarea>
           </div>
         </div>
       </div>

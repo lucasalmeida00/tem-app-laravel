@@ -39,36 +39,36 @@ window.Card18 = (function () {
         // Esconde o wrapper original
         $otherWrap.hide();
         
-        // Encontra o .form-check que contém o radio "outro"
-        const $formCheck = $outroRadio.closest(".form-check");
-        if ($formCheck.length) {
-          // Cria ou atualiza o span inline
-          let $inlineHolder = $formCheck.find(".main-impact-other-inline");
-          if (!$inlineHolder.length) {
-            $inlineHolder = $(`<div class="main-impact-other-inline mt-2"></div>`);
-            // Adiciona após o .form-check (abaixo do radio)
-            $formCheck.after($inlineHolder);
+        // Encontra o label do radio button
+        const $outroLabel = $outroRadio.closest("label");
+        
+        if ($outroLabel.length) {
+          // Cria ou atualiza o holder externo (após o label)
+          let $externalHolder = $outroLabel.nextAll(".main-impact-radio-outro-external").first();
+          if (!$externalHolder.length) {
+            $externalHolder = $(`<div class="main-impact-radio-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+            $outroLabel.after($externalHolder);
           }
           
-          const $inlineInput = $(`<textarea class="form-control mx-auto" name="mainImpactOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
-          $inlineHolder.html($inlineInput);
+          const $inlineInput = $(`<textarea class="form-control" name="mainImpactOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+          $externalHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
           $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
             $otherInput.val($(this).val());
           });
         } else {
-          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
-          const $outroLabel = $outroRadio.closest("label");
-          if ($outroLabel.length) {
-            let $inlineHolder = $outroLabel.find(".main-impact-other-inline");
-            if (!$inlineHolder.length) {
-              $inlineHolder = $(`<div class="main-impact-other-inline mt-2"></div>`);
-              $outroLabel.after($inlineHolder);
+          // Fallback: tenta encontrar o .form-check
+          const $formCheck = $outroRadio.closest(".form-check");
+          if ($formCheck.length) {
+            let $externalHolder = $formCheck.nextAll(".main-impact-radio-outro-external").first();
+            if (!$externalHolder.length) {
+              $externalHolder = $(`<div class="main-impact-radio-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+              $formCheck.after($externalHolder);
             }
             
-            const $inlineInput = $(`<textarea class="form-control mx-auto" name="mainImpactOther" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;">${$otherInput.val() || ""}</textarea>`);
-            $inlineHolder.html($inlineInput);
+            const $inlineInput = $(`<textarea class="form-control" name="mainImpactOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+            $externalHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
             $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
@@ -77,8 +77,8 @@ window.Card18 = (function () {
           }
         }
       } else {
-        // Remove o input inline quando outro radio é selecionado
-        $root.find(".main-impact-other-inline").remove();
+        // Remove o holder externo quando outro radio é selecionado
+        $root.find(".main-impact-radio-outro-external").remove();
         $otherInput.val("");
       }
     }
