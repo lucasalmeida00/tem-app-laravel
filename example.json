@@ -1,413 +1,457 @@
 {
-  "1": {
-    "formalizedCompany": true,
-    "cnpj": "53.071.895\/0001-11",
-    "corporateName": "GRUPO CARTEIRO AMIGO LTDA",
-    "companyNameOrTradeName": "Carteiro Amigo",
-    "yearOfEstablishment": "2000",
-    "companyNature": "ltda",
-    "companySector": "servico",
-    "companyLocation": "outro",
-    "companyLocation__other": "Favela da Rocinha",
-    "zipCode": "22.451-264",
-    "street": "Estrada da Gávea",
-    "complement": "Loja C, Número 558",
-    "district": "Rocinha",
-    "city": "Rio de Janeiro",
-    "state": "RJ",
-    "companyAgeYears": "24",
-    "operatingArea": "outro",
-    "operatingArea__other": "Logística",
-    "partnersCount": null,
-    "directEmployeesRange": "10-19",
-    "annualRevenueLevel": "acima_360k",
-    "operationMode": "hibrido",
-    "website": "https:\/\/carteiroamigo.com.br\/",
-    "linkedin": "https:\/\/www.linkedin.com\/company\/carteiro-amigo-express\/?viewAsMember=true",
-    "instagram": "https:\/\/www.instagram.com\/carteiroamigoexpress\/",
-    "facebook": "https:\/\/www.facebook.com\/profile.php?id=61567466022806&locale=pt_BR",
-    "email": "contato@carteiroamigo.com.br",
-    "phone": "(21) 9 7522-0764"
-  },
-  "2": {
-    "entrepreneurFullName": "ELAINE RAMOS VIEIRA DA SILVA",
-    "entrepreneurGender": "feminino",
-    "entrepreneurBirthDate": null,
-    "entrepreneurNationality": "brasil",
-    "entrepreneurNationality__naturalidade": "rj",
-    "entrepreneurCPF": null,
-    "entrepreneurEmail": null,
-    "entrepreneurPhone": "(21) 9 8095-1575"
-  },
-  "3": {
-    "entrepreneurEducation": "segundo_grau",
-    "entrepreneurRole": "socio",
-    "entrepreneurFunctions": [
-      "administracao"
-    ],
-    "hasEntrepreneurExperience": "nao",
-    "experienceCommentNao": "Atuação, junto com a família, na criação da organização Pedrinho Social, voltada ao apoio a moradores da Rocinha por meio de ações como distribuição de cestas básicas e vales-gás.",
-    "startMotivation": "identifiquei_problema",
-    "startMotivationJustification": "Eles decidiram criar o Carteiro Amigo após identificarem um problema recorrente na comunidade: a dificuldade de receber cartas e encomendas devido à ausência de CEPs nos endereços na Rocinha.",
-    "situationWhenStarted": "emprego_formal",
-    "firstSteps1": "conversei_amigos_familiares",
-    "firstSteps2": "outro",
-    "firstSteps2__other": "Decidi largar o emprego e investir o seguro desemprego",
-    "firstSteps3": "informal_ate_formalizar",
-    "postCreationInnovation": "Em 2004, o Carteiro Amigo recebeu uma visita de averiguação dos Correios devido ao grande volume de cartas endereçadas para o mesmo local. Os empreendedores explicaram que haviam criado um serviço de entrega de cartas dentro da favela, porque os Correios não realizavam entregas ali por falta de CEP. Após entender a situação, os Correios aprovaram o Carteiro Amigo e se tornaram parceiros, entregando todas as cartas destinadas à Rocinha diretamente para o serviço."
-  },
-  "4": {
-    "nfSelect1": null,
-    "fSelect1": null,
-    "volunteerType": null,
-    "riskInvSelect1": null,
-    "invInitYear1": null,
-    "invInitName1": null,
-    "invCurrYear1": null,
-    "invCurrName1": null
-  },
-  "5": {
-    "relSelect1": "familiares",
-    "rel_familiares_origem_1": "Marido",
-    "rel_familiares_tipo_1": "sócio",
-    "rel_familiares_natureza_1[]": [
-      "contribuição_com_trabalho_não_remunerado",
-      "rede_de_contatos",
-      "conversa_ou_troca_de_ideias"
-    ],
-    "relSelect2": "outrosEmpreendedores",
-    "rel_outrosEmpreendedores_origem_1": "Pequenos comércios na Rocinha",
-    "rel_outrosEmpreendedores_tipo_1": "outro",
-    "rel_outrosEmpreendedores_natureza_1[]": [
-      "parcerias_comerciais_ou_operacionais",
-      "outro"
-    ],
-    "relSelect3": "outrasRelacoes",
-    "rel_outrasRelacoes_origem_1": "Igreja",
-    "rel_outrasRelacoes_tipo_1": "outro",
-    "rel_outrasRelacoes_natureza_1[]": [
-      "conexões_facilitadas_por_redes_sociais\/profissionais"
-    ],
-    "relPostSelect1": "amigos",
-    "relPost_amigos_origem_1": "Thiago Monsores",
-    "relPost_amigos_tipo_1": "sócio",
-    "relPost_amigos_natureza_1[]": [
-      "habilidades_ou_conhecimentos_técnicos",
-      "conversa_ou_troca_de_ideias",
-      "conhecimento_de_mercado_e_de_potencias_clientes_e_parceiros",
-      "mentoria_e_aconselhamento",
-      "conhecimento_e_experiência_de_gestão",
-      "outro"
-    ],
-    "relPostSelect2": "familiares",
-    "relPost_familiares_origem_1": "Filho e sucessor do Carteiro Amigo",
-    "relPost_familiares_tipo_1": "sócio",
-    "relPost_familiares_natureza_1[]": [
-      "ajuda_com_infraestrutura_(espaço,_ferramentas)",
-      "outro"
-    ],
-    "relPostSelect3": "outrasRelacoes",
-    "relPost_outrasRelacoes_origem_1": "FAPERJ",
-    "relPost_outrasRelacoes_tipo_1": "parceiro",
-    "relPost_outrasRelacoes_natureza_1[]": [
-      "parcerias_institucionais_(como_com_órgãos_públicos,_privados,_coletivos_ou_ongs)",
-      "edital_de_fomento",
-      "fomento_não_reembolsável",
-      "outro"
-    ],
-    "relPost_outrasRelacoes_origem_2": "6 investidores Shark Tank",
-    "relPost_outrasRelacoes_tipo_2": "outro",
-    "relPost_outrasRelacoes_tipoOutro_2": "Sócio - investidor de capital de risco",
-    "relPost_outrasRelacoes_natureza_2[]": [
-      "parcerias_institucionais_(como_com_órgãos_públicos,_privados,_coletivos_ou_ongs)",
-      "colaboração_em_projetos_específicos",
-      "outro"
-    ],
-    "relPost_outrasRelacoes_naturezaOutro_2": "Capital de capital de risco através de 6 investidores através do Shark Tank."
-  },
-  "6": {
-    "decisionMain": "nao",
-    "decisionWho1": "socios",
-    "decisionWho1__other": null,
-    "decisionWho2": null,
-    "decisionWho2__other": null,
-    "decisionWho3": null,
-    "decisionWho3__other": null
-  },
-  "7": {
-    "vpProblem": "A falta de CEP dos moradores de favela que os impede de receber entregas em casa.",
-    "valueDiff1": "nao_ofertado_favela",
-    "valueDiff2": "solucao_mais_rapida",
-    "valueDiff3": "nicho_especifico"
-  },
-  "8": {
-    "firstClient": "moradores_favela",
-    "segGroup1": "outro",
-    "segGroup1__other": "Morador de favela",
-    "segGroup2": "grandes_empresas",
-    "segGroup3": "pequenas_empresas"
-  },
-  "9": {
-    "channels1": "outro",
-    "channels1__other": "Aplicativo web no site da empresa",
-    "channels3": "outro",
-    "channels3__other": "B2C - Assinatura individualizada via aplicativo web",
-    "channels4": "outro",
-    "channels4__other": "B2B - Contratos com grandes empresas do varejo",
-    "channels5": "internet",
-    "channels6": "redes_sociais",
-    "channels6__socials[]": [
-      "facebook",
-      "instagram",
-      "whatsapp"
-    ],
-    "channels7": "lojas_franquias_marketing",
-    "channels8": null
-  },
-  "10": {
-    "fidelRel1": "atendimento_personalizado",
-    "fidelRel2": "boca_a_boca",
-    "fidelRel3": "automacao_autoatendimento",
-    "fidelRel4": null,
-    "captaRel1": "por_meio_atendimento",
-    "captaRel2": "parcerias_locais",
-    "captaRel3": "parcerias_indicacoes",
-    "captaRel4": "outros",
-    "captaRel4__other": "Eventos de tecnologia, logística, rede de contatos dos sócios e dos investidores",
-    "captaRel5": null
-  },
-  "11": {
-    "revSource1": "assinatura_adesao",
-    "revSource2": "outro",
-    "revSource2__other": "Contratos B2B com grandes empresas de varejo",
-    "revSource3": "outro",
-    "revSource3__other": "Assinatura B2C",
-    "revSource4": null,
-    "monetModel1": "assinatura_recorrente",
-    "monetModel2": "taxa_transacao_uso",
-    "monetModel3": null
-  },
-  "12": {
-    "keyRes1": "tecnologia",
-    "keyRes2": "outro",
-    "keyRes2__other": "Rede de entregadores",
-    "keyRes3": "infraestrutura",
-    "keyRes4": null
-  },
-  "13": {
-    "actKey1": "logistica_distribuicao",
-    "actKey2": "marketing_vendas",
-    "actKey3": "servicos_educacao_saude"
-  },
-  "14": {
-    "partnersShares": "Com a entrada da FAPERJ e a sucessão como CEO de Carlos Pedro Jr. foi criada em 2023, a Carteiro Amigo Express com 3 sócios - Silas Vieira da Silva, Thiago Monsores Portes e Carlos Pedro Jr., sendo Carlos Pedro Jr. o sócio majoritário. Em 2024, entraram 6 sócios investidores  por 30% da empresa. Na empresa GCA Tecnologias e Serviços são os mesmos três sócios.",
-    "mainPartners1": "logistica",
-    "mainPartners2": "outro",
-    "mainPartners2__other": "Grandes empresas do varejo",
-    "mainPartners3": "entrada_socios"
-  },
-  "15": {
-    "partnershipsFormal": "8",
-    "partnershipsInformal": "3",
-    "reasonSeekPartners": "Buscar recursos, vendas, clientes, expandir",
-    "howSeekPartners1": "conhecidos_rede_profissional",
-    "howSeekPartners2": "feiras_exposicoes",
-    "howSeekPartners3": "programas_mentoria",
-    "howSeekPartners4": "eventos_setor",
-    "howSeekPartners5": null,
-    "partnershipsBoostSales1": "outro",
-    "partnershipsBoostSales1__other": "Empresas de varejo",
-    "partnershipsBoostSales2": "promocoes_lancamento_parcerias",
-    "partnershipsBoostSales3": null,
-    "partnershipsBoostSales4": null,
-    "partnershipsBoostSales5": null,
-    "salesBoostOpportunities1": "outro",
-    "salesBoostOpportunities1__other": "Abordagem de grandes empresas varejistas",
-    "salesBoostOpportunities2": "eventos_setor",
-    "salesBoostOpportunities3": "feiras_exposicoes",
-    "salesBoostOpportunities4": "campanhas_marketing_digital",
-    "salesBoostOpportunities5": null,
-    "receptivityPartners1": "aceita_sugestoes_limitacoes",
-    "receptivityPartners2": "aceita_colaboracoes",
-    "receptivityPartners3": "avalia_novos_desenvolvimentos"
-  },
-  "16": {
-    "costChallenging1": "investimento_logistica",
-    "costChallenging2": "tecnologia_infraestrutura",
-    "costChallenging3": "marketing_publicidade"
-  },
-  "17": {
-    "innovationDefinition": "Melhorar um sistema que antes era limitado, com a ajuda de aportes como o da Faperj e a entrada de pessoas com uma mentalidade nova, como o Pedro Júnior e o Thiago, que trouxeram a visão de que, para crescer, precisamos mudar. É usar tecnologia, redes sociais e novas ideias para facilitar processos e criar algo melhor e mais alinhado ao futuro.",
-    "hasPatents": "nao",
-    "patentsCount": null,
-    "hasInnovationAward": "sim",
-    "innovationAwardDescription": "FAPERJ edital Favela Inteligente",
-    "innovationLevel": "4",
-    "newProductsLaunchedLast3Years": "1",
-    "newProductsRevenueShare": "50%",
-    "interactsUniversities": "nao",
-    "universityInteractionOther": null,
-    "revenueGrowthLevel": "4",
-    "lossesMainAction": [
-      "busca_novos_mercados",
-      "melhoria_desenvolvimento_produto",
-      "mudanca_processo_produtivo"
-    ],
-    "lossesMainActionOther": null,
-    "monitorTechTrends": "sim",
-    "monitorTechLevel": "5",
-    "usesScientificKnowledge": "nao",
-    "scientificKnowledgeSource": null,
-    "lastActionIncreasedProfit": "Entrada do sócio Thiago, dos investidores Shark e fechamento de contratos de logística com grandes varejistas como Boticário e Magazine Luiza"
-  },
-  "18": {
-    "mainImpact": "outro",
-    "mainImpactOther": "Garantia de direito básico de recebimento de encomendas em áreas de favela e\/ou difícil acesso através de cep digital.",
-    "impactEvaluationPerformed": "sim",
-    "impactEvaluationType": "informal"
-  },
-  "19": {
-    "milestoneDescription": null,
-    "milestoneYear": null,
-    "milestones": [
-      {
-        "year": "2000",
-        "description": "Três membros de uma família da Rocinha, ao trabalhar como recenseadores do IBGE, identificaram a dificuldade dos moradores em receber cartas devido à falta de endereços e CEP na favela, originando o empreendimento."
-      },
-      {
-        "year": "2000",
-        "description": "Sem recursos, um sócio manteve trabalho parcial e dois se dedicaram integralmente, utilizando o dinheiro da demissão para alugar um pequeno espaço para o negócio."
-      },
-      {
-        "year": "2000",
-        "description": "Início do cadastro dos moradores da Rocinha, com 30 dias grátis para receber cartas; após esse período, o serviço custa R\\$3,00 por residência."
-      },
-      {
-        "year": "2000",
-        "description": "A primeira entrega foi uma carta sobre a aposentadoria de uma moradora, que já havia retornado duas vezes, bloqueando seu acesso ao benefício."
-      },
-      {
-        "year": "2000",
-        "description": "As cartas eram recebidas em biroscas, armazenadas em caixas e recolhidas pelos Correios. Com a parceria, o Carteiro Amigo passou a recolher, separar e entregar as correspondências."
-      },
-      {
-        "year": "2002",
-        "description": "Os dois sócios deixaram seus empregos para se dedicar integralmente ao negócio."
-      },
-      {
-        "year": "2004",
-        "description": "Os Correios visitaram o Carteiro Amigo para entender o uso do mesmo endereço em milhares de cartas e, desde então, passaram a entregá-las diretamente na loja, que chegou a endereçar 13 mil cartas por dia."
-      },
-      {
-        "year": "2009",
-        "description": "O Carteiro Amigo abriu uma loja na favela Rio das Pedras, próxima à Rocinha, onde os sócios estavam morando."
-      },
-      {
-        "year": "2010",
-        "description": "Em 2010, firmou parceria com o SEBRAE-RJ para capacitação e desenvolvimento de um plano de negócios de expansão, abrindo 11 franquias em associações de moradores de 11 favelas do Rio."
-      },
-      {
-        "year": "2010",
-        "description": "Por conta da divulgação em âmbito nacional e a abertura de franquias, decidiu mudar para um espaço maior na Rocinha e abriu a loja no Nosso Shopping."
-      },
-      {
-        "year": "2012",
-        "description": "Para viabilizar a expansão, era necessário captar investidores. O Sebrae articulou reportagens em revista e TV de alcance nacional, destacando o CA como a primeira franquia de favela da América Latina, após a abertura da loja em Rio das Pedras em 2009."
-      },
-      {
-        "year": "2012",
-        "description": "O modelo de franquias fracassou após a abertura e fechamento de 11 unidades em um ano e meio, sem prejuízos, mas gerando importante aprendizado para os empreendedores."
-      },
-      {
-        "year": "2013",
-        "description": "Após encerramento da operação franquia, empreendedores se concentram nas lojas da Rocinha e Rio das Pedras."
-      },
-      {
-        "year": "2016",
-        "description": "Com a queda nas cartas e o aumento das encomendas eletrônicas, o CA ampliou sua loja e passou a entregar encomendas maiores, iniciando sua transformação em empresa de logística."
-      },
-      {
-        "year": "2020",
-        "description": "A queda nas correspondências e na receita levou o CA a mudar o modelo de cobrança para individual e focar na entrega de mercadorias, devido ao avanço tecnológico e à pandemia."
-      },
-      {
-        "year": "2021",
-        "description": "O Carteiro Amigo foi selecionado no Edital Favela Inteligente da FAPERJ e recebeu um aporte financeiro não-reembolsável."
-      },
-      {
-        "year": "2022",
-        "description": "O filho, sucessor, assumiu a operação do novo modelo de negócios do empreendimento."
-      },
-      {
-        "year": "2022",
-        "description": "Thiago entrou na empresa em 2022 e se tornou sócio em 2023, trazendo um reforço estratégico ao Carteiro Amigo com sua experiência em produto e inovação, liderando parcerias e soluções para o novo modelo de negócios da empresa."
-      },
-      {
-        "year": "2022",
-        "description": "Com a entrada do novo sócio, foi criado um conselho profissional com experiência no mercado internacional de logística."
-      },
-      {
-        "year": "2022",
-        "description": "O Carteiro Amigo buscou o Sebrae para reformular o modelo de franquia e inaugurou uma loja piloto na Cidade de Deus."
-      },
-      {
-        "year": "2023",
-        "description": "A empresa original, Carteiro Amigo, virou GCA Ventures e criou a spin-off Carteiro Amigo Express para captar investidores."
-      },
-      {
-        "year": "2024",
-        "description": "A Carteiro Amigo Express obteve R$ 1 milhão por 30% da empresa no Shark Tank, com aporte dividido entre seis investidores."
-      },
-      {
-        "year": "2024",
-        "description": "Apresentação do planejamento estratégico para clientes, parceiros e conselho."
-      },
-      {
-        "year": "2024",
-        "description": "Com a entrada dos investidores, o foco passou a ser o crescimento na Rocinha, com loja em Rio das Pedras e loja vitrine na Cidade de Deus, além da criação de uma plataforma de serviços, novas parcerias, criação de um novo conselho, contrato com grandes empresas varejista, faturamento triplicado e planejamento de expansão para outras regiões por meio de novas parcerias."
-      }
-    ]
-  },
-  "20": {
-    "partnershipDescription": null,
-    "partnershipYear": null,
-    "partnerships": [
-      {
-        "year": "2000",
-        "description": "Parcerias informais com pequenos comerciantes da Rocinha para receber cartas dos Correios e apoiar na divulgação."
-      },
-      {
-        "year": "2004",
-        "description": "Parceria informal com os Correios, que passaram a entregar todas as cartas da Rocinha diretamente no Carteiro Amigo."
-      },
-      {
-        "year": "2009",
-        "description": "Parceria com o Sebrae para capacitação e elaboração do plano de expansão via franquias."
-      },
-      {
-        "year": "2021",
-        "description": "Parceria com a FAPERJ, via edital Favela Inteligente, com aporte financeiro não reembolsável."
-      },
-      {
-        "year": "2022",
-        "description": "Parceria com novo sócio da empresa de logística Vai Fácil, trazendo expertise e fortalecimento operacional."
-      },
-      {
-        "year": "2022",
-        "description": "Parcerias para criação de conselho profissional."
-      },
-      {
-        "year": "2024",
-        "description": "A ONG Pedrinho Social, dos sócios fundadores, é parceira de impacto social, usando a base do Carteiro Amigo para oferecer casamentos gratuitos."
-      },
-      {
-        "year": "2024",
-        "description": "Entrada de seis investidores pelo Shark Tank, com aporte de R$ 1 milhão por 30% da empresa e suporte estratégico."
-      },
-      {
-        "year": "2024",
-        "description": "Parceria com a Mandar para que moradores e negócios da Rocinha enviem encomendas para fora da favela."
-      }
-    ]
-  }
+    "1": {
+        "formalizedCompany": true,
+        "cnpj": "53.071.895\/0001-11",
+        "corporateName": "GRUPO CARTEIRO AMIGO LTDA",
+        "companyNameOrTradeName": "Carteiro Amigo",
+        "yearOfEstablishment": "2000",
+        "companyNature": "ltda",
+        "companySector": "servico",
+        "companyLocation": "outro",
+        "companyLocation__other": null,
+        "zipCode": "22.451-264",
+        "street": "Estrada da Gávea",
+        "complement": "Loja C, Número 558",
+        "district": "Rocinha",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "companyAgeYears": "24",
+        "operatingArea": "outro",
+        "operatingArea__other": null,
+        "partnersCount": null,
+        "directEmployeesRange": "10-19",
+        "annualRevenueLevel": "acima_360k",
+        "operationMode": "hibrido",
+        "website": "https:\/\/carteiroamigo.com.br\/",
+        "linkedin": "https:\/\/www.linkedin.com\/company\/carteiro-amigo-express\/?viewAsMember=true",
+        "instagram": "https:\/\/www.instagram.com\/carteiroamigoexpress\/",
+        "facebook": "https:\/\/www.facebook.com\/profile.php?id=61567466022806&locale=pt_BR",
+        "email": "contato@carteiroamigo.com.br",
+        "phone": "(21) 9 7522-0764"
+    },
+    "2": {
+        "entrepreneurFullName": "ELAINE RAMOS VIEIRA DA SILVA",
+        "entrepreneurGender": "feminino",
+        "entrepreneurBirthDate": null,
+        "entrepreneurNationality": "brasil",
+        "entrepreneurNationality__naturalidade": "rj",
+        "entrepreneurCPF": null,
+        "entrepreneurEmail": null,
+        "entrepreneurPhone": "(21) 9 8095-1575"
+    },
+    "3": {
+        "entrepreneurEducation": "segundo_grau",
+        "entrepreneurRole": "socio",
+        "entrepreneurFunctions": [
+            "administracao",
+            "outro"
+        ],
+        "entrepreneurFunctions__other": null,
+        "hasEntrepreneurExperience": "nao",
+        "experienceCommentNao": "Atuação, junto com a família, na criação da organização Pedrinho Social, voltada ao apoio a moradores da Rocinha por meio de ações como distribuição de cestas básicas e vales-gás.",
+        "startMotivation": "identifiquei_problema",
+        "startMotivationJustification": "Eles decidiram criar o Carteiro Amigo após identificarem um problema recorrente na comunidade: a dificuldade de receber cartas e encomendas devido à ausência de CEPs nos endereços na Rocinha.",
+        "situationWhenStarted": "emprego_formal",
+        "firstSteps1": "conversei_amigos_familiares",
+        "firstSteps2": "outro",
+        "firstSteps2__other": null,
+        "firstSteps3": "outro",
+        "firstSteps3__other": null,
+        "postCreationInnovation": "Em 2004, o Carteiro Amigo recebeu uma visita de averiguação dos Correios devido ao grande volume de cartas endereçadas para o mesmo local. Os empreendedores explicaram que haviam criado um serviço de entrega de cartas dentro da favela, porque os Correios não realizavam entregas ali por falta de CEP. Após entender a situação, os Correios aprovaram o Carteiro Amigo e se tornaram parceiros, entregando todas as cartas destinadas à Rocinha diretamente para o serviço."
+    },
+    "4": {
+        "nfSelect1": null,
+        "nfSelect1__other": null,
+        "fSelect1": null,
+        "fSelect1__other": null,
+        "fSelect1__inv_terceiros": null,
+        "volunteerType": null,
+        "riskInvSelect1": null,
+        "riskInvSelect1__other": null,
+        "invInitYear1": null,
+        "invInitName1": null,
+        "invCurrYear1": null,
+        "invCurrName1": null
+    },
+    "5": {
+        "relSelect1": "familiares",
+        "rel_familiares_origem_1": "Marido",
+        "rel_familiares_tipo_1": "somente_uma_conversa",
+        "rel_familiares_natureza_1[]": [
+            "contribuição_com_trabalho_não_remunerado",
+            "rede_de_contatos",
+            "conversa_ou_troca_de_ideias"
+        ],
+        "relSelect2": "outrosEmpreendedores",
+        "rel_outrosEmpreendedores_origem_1": "Pequenos comércios na Rocinha",
+        "rel_outrosEmpreendedores_tipo_1": "outro",
+        "rel_outrosEmpreendedores_tipoOutro_1": null,
+        "rel_outrosEmpreendedores_natureza_1[]": [
+            "parcerias_comerciais_ou_operacionais",
+            "outro"
+        ],
+        "rel_outrosEmpreendedores_naturezaOutro_1": null,
+        "relSelect3": "outrasRelacoes",
+        "rel_outrasRelacoes_origem_1": "Igreja",
+        "rel_outrasRelacoes_tipo_1": "outro",
+        "rel_outrasRelacoes_tipoOutro_1": null,
+        "rel_outrasRelacoes_natureza_1[]": [
+            "conexões_facilitadas_por_redes_sociais\/profissionais"
+        ],
+        "relPostSelect1": "amigos",
+        "relPost_amigos_origem_1": "Thiago Monsores",
+        "relPost_amigos_tipo_1": "sócio",
+        "relPost_amigos_natureza_1[]": [
+            "habilidades_ou_conhecimentos_técnicos",
+            "conversa_ou_troca_de_ideias",
+            "conhecimento_de_mercado_e_de_potencias_clientes_e_parceiros",
+            "mentoria_e_aconselhamento",
+            "conhecimento_e_experiência_de_gestão",
+            "outro"
+        ],
+        "relPost_amigos_naturezaOutro_1": null,
+        "relPostSelect2": "familiares",
+        "relPost_familiares_origem_1": "Filho e sucessor do Carteiro Amigo",
+        "relPost_familiares_tipo_1": "sócio",
+        "relPost_familiares_natureza_1[]": [
+            "ajuda_com_infraestrutura_(espaço,_ferramentas)",
+            "outro"
+        ],
+        "relPostSelect3": "outrasRelacoes",
+        "relPost_outrasRelacoes_origem_1": "FAPERJ",
+        "relPost_outrasRelacoes_tipo_1": "parceiro",
+        "relPost_outrasRelacoes_natureza_1[]": [
+            "parcerias_institucionais_(como_com_órgãos_públicos,_privados,_coletivos_ou_ongs)",
+            "edital_de_fomento",
+            "fomento_não_reembolsável",
+            "outro"
+        ],
+        "relPost_outrasRelacoes_origem_2": "shark tank",
+        "relPost_outrasRelacoes_tipo_2": "somente_uma_conversa",
+        "relPost_outrasRelacoes_natureza_2[]": [
+            "parcerias_institucionais_(como_com_órgãos_públicos,_privados,_coletivos_ou_ongs)",
+            "aceleradoras"
+        ]
+    },
+    "6": {
+        "decisionMain": "nao",
+        "decisionWho1": "socios",
+        "decisionWho1__other": null,
+        "decisionWho2": "outro",
+        "decisionWho2__other": null,
+        "decisionWho3": null,
+        "decisionWho3__other": null
+    },
+    "7": {
+        "vpProblem": "A falta de CEP dos moradores de favela que os impede de receber entregas em casa.",
+        "valueDiff1": "nao_ofertado_favela",
+        "valueDiff1__other": null,
+        "valueDiff2": "solucao_mais_rapida",
+        "valueDiff2__other": null,
+        "valueDiff3": "nicho_especifico",
+        "valueDiff3__other": null
+    },
+    "8": {
+        "firstClient": "moradores_favela",
+        "segGroup1": "tipo_renda",
+        "segGroup1__other": null,
+        "segGroup2": null,
+        "segGroup2__other": null,
+        "segGroup3": null,
+        "segGroup3__other": null
+    },
+    "9": {
+        "channels1": "outro",
+        "channels1__other": "Aplicativo web no site da empresa",
+        "channels3": "lojas_franquias_marketing",
+        "channels3__other": null,
+        "channels4": "vendas_diretas_feiras_parcerias",
+        "channels4__other": null,
+        "channels5": "anuncios",
+        "channels5__other": null,
+        "channels6": "redes_sociais",
+        "channels6__other": null,
+        "channels6__socials[]": [],
+        "channels7": "internet",
+        "channels7__other": null,
+        "channels8": null,
+        "channels8__other": null
+    },
+    "10": {
+        "fidelRel1": "atendimento_personalizado",
+        "fidelRel2": "boca_a_boca",
+        "fidelRel3": "automacao_autoatendimento",
+        "fidelRel4": null,
+        "captaRel1": "por_meio_atendimento",
+        "captaRel2": "parcerias_locais",
+        "captaRel3": "parcerias_indicacoes",
+        "captaRel4": "outros",
+        "captaRel4__other": "Eventos de tecnologia, logística, rede de contatos dos sócios e dos investidores",
+        "captaRel5": null
+    },
+    "11": {
+        "revSource1": "assinatura_adesao",
+        "revSource1__other": null,
+        "revSource2": "outro",
+        "revSource2__other": "Contratos B2B com grandes empresas de varejo",
+        "revSource3": null,
+        "revSource3__other": "Assinatura B2C",
+        "monetModel1": "assinatura_recorrente",
+        "monetModel1__other": null,
+        "monetModel2": "taxa_transacao_uso",
+        "monetModel2__other": null,
+        "monetModel3": null,
+        "monetModel3__other": null
+    },
+    "12": {
+        "keyRes1": "tecnologia",
+        "keyRes1__other": null,
+        "keyRes2": "outro",
+        "keyRes2__other": "Rede de entregadores",
+        "keyRes3": "infraestrutura",
+        "keyRes3__other": null,
+        "keyRes4": null,
+        "keyRes4__other": null
+    },
+    "13": {
+        "actKey1": "logistica_distribuicao",
+        "actKey1__other": null,
+        "actKey2": "marketing_vendas",
+        "actKey2__other": null,
+        "actKey3": "outro",
+        "actKey3__other": null
+    },
+    "14": {
+        "partnersShares": "Com a entrada da FAPERJ e a sucessão como CEO de Carlos Pedro Jr. foi criada em 2023, a Carteiro Amigo Express com 3 sócios - Silas Vieira da Silva, Thiago Monsores Portes e Carlos Pedro Jr., sendo Carlos Pedro Jr. o sócio majoritário. Em 2024, entraram 6 sócios investidores  por 30% da empresa. Na empresa GCA Tecnologias e Serviços são os mesmos três sócios.",
+        "mainPartners1": "logistica",
+        "mainPartners1__other": null,
+        "mainPartners2": "outro",
+        "mainPartners2__other": "Grandes empresas do varejo",
+        "mainPartners3": "entrada_socios",
+        "mainPartners3__other": null
+    },
+    "15": {
+        "partnershipsFormal": "8",
+        "partnershipsInformal": "3",
+        "reasonSeekPartners": "Buscar recursos, vendas, clientes, expandir",
+        "howSeekPartners1": "conhecidos_rede_profissional",
+        "howSeekPartners1__other": null,
+        "howSeekPartners2": "feiras_exposicoes",
+        "howSeekPartners2__other": null,
+        "howSeekPartners3": "programas_mentoria",
+        "howSeekPartners3__other": null,
+        "howSeekPartners4": "eventos_setor",
+        "howSeekPartners4__other": null,
+        "howSeekPartners5": "outro",
+        "howSeekPartners5__other": null,
+        "partnershipsBoostSales1": "outro",
+        "partnershipsBoostSales1__other": "Empresas de varejo",
+        "partnershipsBoostSales2": "promocoes_lancamento_parcerias",
+        "partnershipsBoostSales2__other": null,
+        "partnershipsBoostSales3": null,
+        "partnershipsBoostSales3__other": null,
+        "partnershipsBoostSales4": null,
+        "partnershipsBoostSales4__other": null,
+        "partnershipsBoostSales5": null,
+        "partnershipsBoostSales5__other": null,
+        "salesBoostOpportunities1": "outro",
+        "salesBoostOpportunities1__other": "Abordagem de grandes empresas varejistas",
+        "salesBoostOpportunities2": "eventos_setor",
+        "salesBoostOpportunities2__other": null,
+        "salesBoostOpportunities3": "feiras_exposicoes",
+        "salesBoostOpportunities3__other": null,
+        "salesBoostOpportunities4": "campanhas_marketing_digital",
+        "salesBoostOpportunities4__other": null,
+        "salesBoostOpportunities5": null,
+        "salesBoostOpportunities5__other": null,
+        "receptivityPartners1": "aceita_sugestoes_limitacoes",
+        "receptivityPartners1__other": null,
+        "receptivityPartners2": "outro",
+        "receptivityPartners2__other": null,
+        "receptivityPartners3": "avalia_novos_desenvolvimentos",
+        "receptivityPartners3__other": null
+    },
+    "16": {
+        "costChallenging1": "outro",
+        "costChallenging1__other": null,
+        "costChallenging2": "tecnologia_infraestrutura",
+        "costChallenging2__other": null,
+        "costChallenging3": "marketing_publicidade",
+        "costChallenging3__other": null
+    },
+    "17": {
+        "innovationDefinition": "Melhorar um sistema que antes era limitado, com a ajuda de aportes como o da Faperj e a entrada de pessoas com uma mentalidade nova, como o Pedro Júnior e o Thiago, que trouxeram a visão de que, para crescer, precisamos mudar. É usar tecnologia, redes sociais e novas ideias para facilitar processos e criar algo melhor e mais alinhado ao futuro.",
+        "hasPatents": "nao",
+        "patentsCount": null,
+        "hasInnovationAward": "sim",
+        "innovationAwardDescription": "FAPERJ edital Favela Inteligente",
+        "innovationLevel": "4",
+        "newProductsLaunchedLast3Years": "1",
+        "newProductsRevenueShare": "50%",
+        "interactsUniversities": "nao",
+        "universityInteractionOther": null,
+        "revenueGrowthLevel": "4",
+        "lossesMainAction": [
+            "busca_novos_mercados",
+            "melhoria_desenvolvimento_produto",
+            "mudanca_processo_produtivo",
+            "reducao_custo"
+        ],
+        "lossesMainActionOther": null,
+        "monitorTechTrends": "sim",
+        "monitorTechLevel": "5",
+        "usesScientificKnowledge": "nao",
+        "scientificKnowledgeSource": null,
+        "lastActionIncreasedProfit": "Entrada do sócio Thiago, dos investidores Shark e fechamento de contratos de logística com grandes varejistas como Boticário e Magazine Luiza"
+    },
+    "18": {
+        "mainImpact": "outro",
+        "mainImpactOther": "Garantia de direito básico de recebimento de encomendas em áreas de favela e\/ou difícil acesso através de cep digital.",
+        "impactEvaluationPerformed": "sim",
+        "impactEvaluationType": "informal"
+    },
+    "19": {
+        "milestoneDescription": null,
+        "milestoneYear": null,
+        "milestones": [
+            {
+                "year": "2000",
+                "description": "Três membros de uma família da Rocinha, ao trabalhar como recenseadores do IBGE, identificaram a dificuldade dos moradores em receber cartas devido à falta de endereços e CEP na favela, originando o empreendimento."
+            },
+            {
+                "year": "2000",
+                "description": "Sem recursos, um sócio manteve trabalho parcial e dois se dedicaram integralmente, utilizando o dinheiro da demissão para alugar um pequeno espaço para o negócio."
+            },
+            {
+                "year": "2000",
+                "description": "Início do cadastro dos moradores da Rocinha, com 30 dias grátis para receber cartas; após esse período, o serviço custa R\\$3,00 por residência."
+            },
+            {
+                "year": "2000",
+                "description": "A primeira entrega foi uma carta sobre a aposentadoria de uma moradora, que já havia retornado duas vezes, bloqueando seu acesso ao benefício."
+            },
+            {
+                "year": "2000",
+                "description": "As cartas eram recebidas em biroscas, armazenadas em caixas e recolhidas pelos Correios. Com a parceria, o Carteiro Amigo passou a recolher, separar e entregar as correspondências."
+            },
+            {
+                "year": "2002",
+                "description": "Os dois sócios deixaram seus empregos para se dedicar integralmente ao negócio."
+            },
+            {
+                "year": "2004",
+                "description": "Os Correios visitaram o Carteiro Amigo para entender o uso do mesmo endereço em milhares de cartas e, desde então, passaram a entregá-las diretamente na loja, que chegou a endereçar 13 mil cartas por dia."
+            },
+            {
+                "year": "2009",
+                "description": "O Carteiro Amigo abriu uma loja na favela Rio das Pedras, próxima à Rocinha, onde os sócios estavam morando."
+            },
+            {
+                "year": "2010",
+                "description": "Em 2010, firmou parceria com o SEBRAE-RJ para capacitação e desenvolvimento de um plano de negócios de expansão, abrindo 11 franquias em associações de moradores de 11 favelas do Rio."
+            },
+            {
+                "year": "2010",
+                "description": "Por conta da divulgação em âmbito nacional e a abertura de franquias, decidiu mudar para um espaço maior na Rocinha e abriu a loja no Nosso Shopping."
+            },
+            {
+                "year": "2012",
+                "description": "Para viabilizar a expansão, era necessário captar investidores. O Sebrae articulou reportagens em revista e TV de alcance nacional, destacando o CA como a primeira franquia de favela da América Latina, após a abertura da loja em Rio das Pedras em 2009."
+            },
+            {
+                "year": "2012",
+                "description": "O modelo de franquias fracassou após a abertura e fechamento de 11 unidades em um ano e meio, sem prejuízos, mas gerando importante aprendizado para os empreendedores."
+            },
+            {
+                "year": "2013",
+                "description": "Após encerramento da operação franquia, empreendedores se concentram nas lojas da Rocinha e Rio das Pedras."
+            },
+            {
+                "year": "2016",
+                "description": "Com a queda nas cartas e o aumento das encomendas eletrônicas, o CA ampliou sua loja e passou a entregar encomendas maiores, iniciando sua transformação em empresa de logística."
+            },
+            {
+                "year": "2020",
+                "description": "A queda nas correspondências e na receita levou o CA a mudar o modelo de cobrança para individual e focar na entrega de mercadorias, devido ao avanço tecnológico e à pandemia."
+            },
+            {
+                "year": "2021",
+                "description": "O Carteiro Amigo foi selecionado no Edital Favela Inteligente da FAPERJ e recebeu um aporte financeiro não-reembolsável."
+            },
+            {
+                "year": "2022",
+                "description": "O filho, sucessor, assumiu a operação do novo modelo de negócios do empreendimento."
+            },
+            {
+                "year": "2022",
+                "description": "Thiago entrou na empresa em 2022 e se tornou sócio em 2023, trazendo um reforço estratégico ao Carteiro Amigo com sua experiência em produto e inovação, liderando parcerias e soluções para o novo modelo de negócios da empresa."
+            },
+            {
+                "year": "2022",
+                "description": "Com a entrada do novo sócio, foi criado um conselho profissional com experiência no mercado internacional de logística."
+            },
+            {
+                "year": "2022",
+                "description": "O Carteiro Amigo buscou o Sebrae para reformular o modelo de franquia e inaugurou uma loja piloto na Cidade de Deus."
+            },
+            {
+                "year": "2023",
+                "description": "A empresa original, Carteiro Amigo, virou GCA Ventures e criou a spin-off Carteiro Amigo Express para captar investidores."
+            },
+            {
+                "year": "2024",
+                "description": "A Carteiro Amigo Express obteve R$ 1 milhão por 30% da empresa no Shark Tank, com aporte dividido entre seis investidores."
+            },
+            {
+                "year": "2024",
+                "description": "Apresentação do planejamento estratégico para clientes, parceiros e conselho."
+            },
+            {
+                "year": "2024",
+                "description": "Com a entrada dos investidores, o foco passou a ser o crescimento na Rocinha, com loja em Rio das Pedras e loja vitrine na Cidade de Deus, além da criação de uma plataforma de serviços, novas parcerias, criação de um novo conselho, contrato com grandes empresas varejista, faturamento triplicado e planejamento de expansão para outras regiões por meio de novas parcerias."
+            }
+        ]
+    },
+    "20": {
+        "partnershipDescription": null,
+        "partnershipYear": null,
+        "partnerships": [
+            {
+                "year": "2000",
+                "description": "Parcerias informais com pequenos comerciantes da Rocinha para receber cartas dos Correios e apoiar na divulgação."
+            },
+            {
+                "year": "2004",
+                "description": "Parceria informal com os Correios, que passaram a entregar todas as cartas da Rocinha diretamente no Carteiro Amigo."
+            },
+            {
+                "year": "2009",
+                "description": "Parceria com o Sebrae para capacitação e elaboração do plano de expansão via franquias."
+            },
+            {
+                "year": "2021",
+                "description": "Parceria com a FAPERJ, via edital Favela Inteligente, com aporte financeiro não reembolsável."
+            },
+            {
+                "year": "2022",
+                "description": "Parceria com novo sócio da empresa de logística Vai Fácil, trazendo expertise e fortalecimento operacional."
+            },
+            {
+                "year": "2022",
+                "description": "Parcerias para criação de conselho profissional."
+            },
+            {
+                "year": "2024",
+                "description": "A ONG Pedrinho Social, dos sócios fundadores, é parceira de impacto social, usando a base do Carteiro Amigo para oferecer casamentos gratuitos."
+            },
+            {
+                "year": "2024",
+                "description": "Entrada de seis investidores pelo Shark Tank, com aporte de R$ 1 milhão por 30% da empresa e suporte estratégico."
+            },
+            {
+                "year": "2024",
+                "description": "Parceria com a Mandar para que moradores e negócios da Rocinha enviem encomendas para fora da favela."
+            }
+        ]
+    }
 }

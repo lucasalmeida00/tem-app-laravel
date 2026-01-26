@@ -277,7 +277,8 @@
         if (cardId === 5 && typeof resolveCard5Fixes === "function") {
             const allData = loadAllData();
             const cardData = allData[String(cardId)] || {};
-            // Aguarda um pouco para garantir que applyCardData tenha preenchido os selects
+            // Aguarda mais tempo para garantir que Card5.bind() tenha terminado de inicializar
+            // e que applyCardData tenha preenchido os selects
             setTimeout(() => {
                 resolveCard5Fixes(cardData);
                 // Depois de criar os blocos e preencher os campos básicos, 
@@ -286,8 +287,8 @@
                     if (typeof resolveCard5ExtraItems === "function") {
                         resolveCard5ExtraItems(cardData);
                     }
-                }, 500);
-            }, 100);
+                }, 1000);
+            }, 500);
         }
 
         // === Ajustes HARDCODED específicos do CARD 19 (Trajetória) ===
@@ -559,14 +560,43 @@
         const container = document.querySelector(".section-forms .container");
         if (!container || !cardData) return;
 
+        // Recarrega os dados diretamente do localStorage para garantir que temos os dados mais atualizados
+        const allData = loadAllData();
+        const freshCardData = allData["5"] || cardData;
+        
+        console.log(`[Card5] resolveCard5Fixes chamado`);
+        console.log(`[Card5] cardData original tem ${Object.keys(cardData).length} campos`);
+        console.log(`[Card5] freshCardData tem ${Object.keys(freshCardData).length} campos`);
+        
+        // Usa os dados mais atualizados
+        const finalCardData = freshCardData;
+        
+        // Verifica TODOS os campos relacionados a outrasRelacoes
+        const todasOutrasRelacoesKeys = Object.keys(finalCardData).filter(k => k.includes('outrasRelacoes'));
+        console.log(`[Card5] TODOS os campos outrasRelacoes encontrados (${todasOutrasRelacoesKeys.length}):`, todasOutrasRelacoesKeys);
+        todasOutrasRelacoesKeys.forEach(k => {
+            console.log(`[Card5]   ${k} =`, finalCardData[k]);
+        });
+        
+        // Verifica especificamente os campos com índice 2
+        const outrasRelacoes2Keys = Object.keys(finalCardData).filter(k => k.includes('outrasRelacoes') && (k.includes('_2') || k.match(/\[2\]/)));
+        console.log(`[Card5] Campos outrasRelacoes com índice 2:`, outrasRelacoes2Keys);
+        if (outrasRelacoes2Keys.length === 0) {
+            console.warn(`[Card5] ⚠️ NENHUM campo com índice 2 encontrado para outrasRelacoes!`);
+        } else {
+            console.log(`[Card5] ✅ Encontrados ${outrasRelacoes2Keys.length} campos com índice 2!`);
+        }
+
         // Helper genérico: garante quantidade de itens e preenche campos
         function ensureRelations(prefixBase, selectBase) {
+            // Usa finalCardData em vez de cardData
+            const dataToUse = finalCardData;
             // PASSO 1: Preenche os selects na ordem (1, depois 2, depois 3)
             // Isso é importante porque o select 2 só aparece se o 1 tiver valor, etc.
             const selectsToFill = [];
             for (let i = 1; i <= 3; i++) {
                 const selKey = `${selectBase}${i}`;   // ex: relSelect1, relPostSelect2
-                const cat = cardData[selKey];
+                const cat = dataToUse[selKey];
                 if (!cat) continue;
 
                 const select = container.querySelector(`select[name="${selKey}"]`);
@@ -580,7 +610,7 @@
                 if (index >= selectsToFill.length) {
                     // Todos os selects foram preenchidos, agora popula os campos
                     setTimeout(() => {
-                        populateAllBlockFields(prefixBase, selectBase, cardData);
+                        populateAllBlockFields(prefixBase, selectBase, dataToUse);
                     }, 300);
                     return;
                 }
@@ -612,28 +642,51 @@
             } else {
                 // Se não há selects para preencher, tenta popular campos de qualquer forma
                 setTimeout(() => {
-                    populateAllBlockFields(prefixBase, selectBase, cardData);
+                    populateAllBlockFields(prefixBase, selectBase, dataToUse);
                 }, 300);
             }
         }
 
         // Função auxiliar para popular todos os blocos de campos
         function populateAllBlockFields(prefixBase, selectBase, cardData) {
+            console.log(`[Card5] populateAllBlockFields chamado: prefixBase=${prefixBase}, selectBase=${selectBase}`);
+            console.log(`[Card5] Dados disponíveis:`, Object.keys(cardData).filter(k => k.startsWith(prefixBase) || k.startsWith(selectBase)));
+            
+            // Determina qual é o prefixo dos containers de blocos baseado no selectBase
+            const isPost = selectBase.startsWith("relPostSelect");
+            const blocksContainerPrefix = isPost ? "rel-post-blocks-s" : "rel-blocks-s";
+            
             // Itera sobre os 3 selects possíveis
             for (let i = 1; i <= 3; i++) {
                 const selKey = `${selectBase}${i}`;   // ex: relSelect1, relPostSelect2
                 const cat = cardData[selKey];
-                if (!cat) continue;
+                if (!cat) {
+                    console.log(`[Card5] Select ${selKey} não tem categoria selecionada`);
+                    continue;
+                }
+                console.log(`[Card5] Processando select ${selKey} com categoria: ${cat}`);
 
                 // Função recursiva para tentar encontrar/criar o bloco
                 function tryPopulateBlock(attempts = 0) {
-                    if (attempts > 5) {
-                        console.warn(`Não foi possível criar o bloco para ${cat} após ${attempts} tentativas`);
+                    if (attempts > 10) {
+                        console.warn(`[Card5] Não foi possível criar o bloco para ${cat} (${selKey}) após ${attempts} tentativas`);
                         return;
                     }
 
-                    // Tenta encontrar o bloco (pode estar oculto)
-                    let block = container.querySelector(`.rel-category-block[data-cat="${cat}"]`);
+                    // Tenta encontrar o bloco no container específico deste select
+                    // Para 5.1: rel-blocks-s1, rel-blocks-s2, rel-blocks-s3
+                    // Para 5.2: rel-post-blocks-s1, rel-post-blocks-s2, rel-post-blocks-s3
+                    const blocksContainerSelector = `.${blocksContainerPrefix}${i}`;
+                    const blocksContainer = container.querySelector(blocksContainerSelector);
+                    
+                    let block = null;
+                    if (blocksContainer) {
+                        // Procura o bloco dentro do container específico
+                        block = blocksContainer.querySelector(`.rel-category-block[data-cat="${cat}"]`);
+                    } else {
+                        // Fallback: procura em todo o container (para compatibilidade)
+                        block = container.querySelector(`.rel-category-block[data-cat="${cat}"]`);
+                    }
                     
                     // Se não encontrou, tenta forçar a criação novamente
                     if (!block) {
@@ -646,10 +699,10 @@
                             // SEMPRE dispara change para criar o bloco, mesmo se o valor já estava correto
                             select.dispatchEvent(new Event("change", { bubbles: true }));
                         }
-                        // Aguarda um pouco e tenta novamente
+                        // Aguarda um pouco mais para garantir que o bloco seja criado
                         setTimeout(() => {
                             tryPopulateBlock(attempts + 1);
-                        }, 200);
+                        }, 300);
                         return;
                     }
 
@@ -657,7 +710,9 @@
                     const $block = $(block);
                     $block.removeClass("d-none");
 
-                    // Popula os campos do bloco
+                    console.log(`[Card5] Bloco encontrado para ${cat} (${selKey}) no container ${blocksContainerSelector}, populando campos...`);
+
+                    // Popula os campos do bloco (usa cardData passado como parâmetro)
                     populateBlockFields(prefixBase, cat, cardData, block);
                 }
 
@@ -667,6 +722,7 @@
         }
 
         // Função auxiliar para popular os campos de um bloco específico
+        // ABORDAGEM SIMPLIFICADA: Apenas cria itens clicando no botão e depois usa applyCardData
         function populateBlockFields(prefixBase, cat, cardData, block) {
             if (!block) return;
 
@@ -674,105 +730,224 @@
             const btnAdd = block.querySelector(".btn-add");
             if (!list || !btnAdd) return;
 
-            const base = `${prefixBase}${cat}`;   // ex: rel_amigos, relPost_colegas
+            const base = `${prefixBase}${cat}`;
 
-            // Descobre até qual índice (1..3) temos dados no JSON
+            // Descobre quantos itens são necessários - VERIFICA TODOS OS ÍNDICES DISPONÍVEIS (não apenas 1-3)
             let needed = 0;
-            for (let idx = 1; idx <= 3; idx++) {
+            // Verifica índices de 1 até 10 para cobrir todos os casos possíveis
+            for (let idx = 1; idx <= 10; idx++) {
                 const originKey = `${base}_origem_${idx}`;
                 const tipoKey   = `${base}_tipo_${idx}`;
                 const natKey    = `${base}_natureza_${idx}[]`;
+                const tipoOutroKey = `${base}_tipoOutro_${idx}`;
+                const natOutroKey = `${base}_naturezaOutro_${idx}`;
 
-                const hasOrigin = cardData[originKey] != null && String(cardData[originKey]).trim() !== "";
-                const hasTipo   = cardData[tipoKey]   != null && String(cardData[tipoKey]).trim()   !== "";
-                const hasNat    = Array.isArray(cardData[natKey]) && cardData[natKey].length > 0;
+                const originVal = cardData[originKey];
+                const tipoVal = cardData[tipoKey];
+                const tipoOutroVal = cardData[tipoOutroKey];
+                const natVal = cardData[natKey];
+                const natOutroVal = cardData[natOutroKey];
 
-                if (hasOrigin || hasTipo || hasNat) {
-                    needed = idx;
+                const hasData = (originVal != null && String(originVal).trim() !== "") ||
+                               (tipoVal != null && String(tipoVal).trim() !== "") ||
+                               (tipoOutroVal != null && String(tipoOutroVal).trim() !== "") ||
+                               (Array.isArray(natVal) && natVal.length > 0) ||
+                               (natOutroVal != null && String(natOutroVal).trim() !== "");
+
+                if (hasData) {
+                    needed = Math.max(needed, idx);
                 }
             }
 
             if (!needed) return;
 
-            const countItems = () => list.querySelectorAll(".rel-item").length;
+            console.log(`[Card5] Bloco ${cat} (${prefixBase}): precisamos de ${needed} itens`);
 
-            // Cria contatos adicionais (2,3) se necessário clicando em "Adicionar Contato"
-            while (countItems() < needed) {
-                btnAdd.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+            // Conta itens existentes
+            const currentCount = list.querySelectorAll(".rel-item").length;
+            const itemsToCreate = needed - currentCount;
+
+            if (itemsToCreate <= 0) {
+                console.log(`[Card5] Todos os itens já existem, aplicando dados diretamente...`);
+                // Todos os itens já existem, aplica os dados diretamente
+                applyBlockFieldsDirectly(prefixBase, cat, cardData, block, needed);
+                return;
             }
 
-            // Aguarda um pouco para os itens serem criados
-            setTimeout(() => {
-                // Agora preenche cada contato com o que veio do JSON
-                for (let idx = 1; idx <= needed; idx++) {
-                    const originKey      = `${base}_origem_${idx}`;
-                    const tipoKey        = `${base}_tipo_${idx}`;
-                    const tipoOutroKey   = `${base}_tipoOutro_${idx}`;
-                    const natKey         = `${base}_natureza_${idx}[]`;
-                    const natOutroKey    = `${base}_naturezaOutro_${idx}`;
+            console.log(`[Card5] Criando ${itemsToCreate} itens adicionais`);
 
-                    const originVal    = cardData[originKey];
-                    const tipoVal      = cardData[tipoKey];
-                    const tipoOutroVal = cardData[tipoOutroKey];
-                    const natVal       = cardData[natKey];
-                    const natOutroVal  = cardData[natOutroKey];
-
-                    // Usa um pequeno delay para cada item para garantir que os campos sejam encontrados
+            // Cria os itens faltantes clicando no botão
+            let created = 0;
+            function createNextItem() {
+                if (created >= itemsToCreate) {
+                    console.log(`[Card5] Todos os itens criados, verificando e aplicando dados...`);
+                    // Aguarda um pouco mais para garantir que todos os itens estejam no DOM
+                    // e então verifica se todos os itens necessários existem antes de aplicar
                     setTimeout(() => {
-                        // Origem
-                        if (originVal != null && String(originVal).trim() !== "") {
-                            const originInput = container.querySelector(`input[name="${originKey}"]`);
-                            if (originInput) {
-                                originInput.value = originVal;
-                            }
+                        // Verifica se todos os itens necessários foram criados
+                        const finalCount = list.querySelectorAll(".rel-item").length;
+                        console.log(`[Card5] Itens criados: ${finalCount}, necessários: ${needed}`);
+                        
+                        if (finalCount >= needed) {
+                            console.log(`[Card5] Todos os itens estão prontos, aplicando dados...`);
+                            applyBlockFieldsDirectly(prefixBase, cat, cardData, block, needed);
+                        } else {
+                            console.warn(`[Card5] Ainda faltam itens (${finalCount} < ${needed}), tentando novamente...`);
+                            // Tenta aplicar mesmo assim, a função tem retry interno
+                            applyBlockFieldsDirectly(prefixBase, cat, cardData, block, needed);
                         }
-
-                        // Tipo (radio)
-                        if (tipoVal != null && String(tipoVal).trim() !== "") {
-                            const radio = container.querySelector(`input[name="${tipoKey}"][value="${tipoVal}"]`);
-                            if (radio) {
-                                radio.checked = true;
-                                // SEMPRE dispara change para garantir recriação do campo *_tipoOutro_ se for "outro"
-                                radio.dispatchEvent(new Event("change", { bubbles: true }));
-                                
-                                // TipoOutro (text) - precisa aguardar um pouco para o campo ser criado
-                                if (tipoOutroVal != null && String(tipoOutroVal).trim() !== "") {
-                                    setTimeout(() => {
-                                        const outroInput = container.querySelector(`input[name="${tipoOutroKey}"]`);
-                                        if (outroInput) {
-                                            outroInput.value = tipoOutroVal;
-                                        }
-                                    }, 100);
-                                }
-                            }
-                        }
-
-                        // Natureza (checkboxes)
-                        if (Array.isArray(natVal) && natVal.length > 0) {
-                            natVal.forEach((v, checkIdx) => {
-                                setTimeout(() => {
-                                    const cb = container.querySelector(`input[name='${natKey}'][value='${v}']`);
-                                    if (cb) {
-                                        cb.checked = true;
-                                        // SEMPRE dispara change pra garantir recriação do campo *_naturezaOutro_
-                                        // quando houver "outro" ou "outro_setor"
-                                        cb.dispatchEvent(new Event("change", { bubbles: true }));
-                                    }
-                                }, checkIdx * 50);
-                            });
-                            
-                            // NaturezaOutro (text) - precisa aguardar um pouco para o campo ser criado
-                            if (natOutroVal != null && String(natOutroVal).trim() !== "") {
-                                setTimeout(() => {
-                                    const natOutInput = container.querySelector(`input[name="${natOutroKey}"]`);
-                                    if (natOutInput) {
-                                        natOutInput.value = natOutroVal;
-                                    }
-                                }, 200);
-                            }
-                        }
-                    }, idx * 50); // Delay escalonado para cada item
+                    }, 800);
+                    return;
                 }
+
+                console.log(`[Card5] Criando item ${created + 1} de ${itemsToCreate}`);
+                btnAdd.click(); // Clica no botão
+                created++;
+
+                // Aguarda antes de criar o próximo (aumentado o delay para garantir renderização)
+                setTimeout(createNextItem, 400);
+            }
+
+            // Inicia a criação
+            createNextItem();
+        }
+
+        // Função auxiliar para aplicar dados diretamente nos campos do bloco
+        function applyBlockFieldsDirectly(prefixBase, cat, cardData, block, maxIdx) {
+            const base = `${prefixBase}${cat}`;
+            const container = document.querySelector(".section-forms .container");
+            
+            console.log(`[Card5] Aplicando dados diretamente para ${base}, maxIdx=${maxIdx}`);
+            
+            // Busca os campos dentro do bloco específico, não no container principal
+            const searchScope = block || container;
+            
+            // Função recursiva para aplicar dados com retry caso os campos não estejam prontos
+            function applyDataForIndex(idx, attempt = 0) {
+                if (idx > maxIdx) {
+                    console.log(`[Card5] ✅ Todos os dados aplicados para ${base}`);
+                    return;
+                }
+                
+                if (attempt > 15) {
+                    console.warn(`[Card5] ⚠️ Não foi possível aplicar dados para índice ${idx} após ${attempt} tentativas`);
+                    // Continua para o próximo índice mesmo se este falhou
+                    setTimeout(() => applyDataForIndex(idx + 1, 0), 100);
+                    return;
+                }
+                
+                const originKey = `${base}_origem_${idx}`;
+                const tipoKey   = `${base}_tipo_${idx}`;
+                const natKey    = `${base}_natureza_${idx}[]`;
+                const tipoOutroKey = `${base}_tipoOutro_${idx}`;
+                const natOutroKey = `${base}_naturezaOutro_${idx}`;
+
+                // Verifica se o item existe no DOM (procura dentro do bloco)
+                const item = searchScope.querySelector(`.rel-item[data-idx="${idx}"]`);
+                if (!item) {
+                    // Tenta encontrar pelo índice numérico também (pode estar como string)
+                    const allItems = searchScope.querySelectorAll(`.rel-item`);
+                    let foundItem = null;
+                    allItems.forEach(it => {
+                        const itemIdx = parseInt(it.getAttribute("data-idx")) || 0;
+                        if (itemIdx === idx) {
+                            foundItem = it;
+                        }
+                    });
+                    
+                    if (!foundItem && attempt < 8) {
+                        // Item ainda não foi criado, tenta novamente
+                        setTimeout(() => applyDataForIndex(idx, attempt + 1), 150);
+                        return;
+                    }
+                }
+
+                const targetItem = item || foundItem;
+                if (!targetItem && attempt >= 8) {
+                    // Se ainda não encontrou após várias tentativas, tenta aplicar mesmo assim
+                    console.warn(`[Card5] Item ${idx} não encontrado, tentando aplicar dados mesmo assim...`);
+                }
+
+                // Origem - procura dentro do item ou no bloco
+                const originVal = cardData[originKey];
+                if (originVal != null && String(originVal).trim() !== "") {
+                    const originInput = targetItem 
+                        ? targetItem.querySelector(`input[name="${originKey}"]`)
+                        : searchScope.querySelector(`input[name="${originKey}"]`);
+                    if (originInput) {
+                        originInput.value = originVal;
+                        originInput.dispatchEvent(new Event("input", { bubbles: true }));
+                        console.log(`[Card5] ✅ Aplicado origem ${idx}: ${originVal}`);
+                    } else if (attempt < 8) {
+                        setTimeout(() => applyDataForIndex(idx, attempt + 1), 150);
+                        return;
+                    }
+                }
+
+                // Tipo (radio) - procura dentro do item ou no bloco
+                const tipoVal = cardData[tipoKey];
+                if (tipoVal != null && String(tipoVal).trim() !== "") {
+                    const tipoRadio = targetItem
+                        ? targetItem.querySelector(`input[name="${tipoKey}"][value="${tipoVal}"]`)
+                        : searchScope.querySelector(`input[name="${tipoKey}"][value="${tipoVal}"]`);
+                    if (tipoRadio) {
+                        tipoRadio.checked = true;
+                        tipoRadio.dispatchEvent(new Event("change", { bubbles: true }));
+                        console.log(`[Card5] ✅ Aplicado tipo ${idx}: ${tipoVal}`);
+                    } else if (attempt < 8) {
+                        setTimeout(() => applyDataForIndex(idx, attempt + 1), 150);
+                        return;
+                    }
+                }
+
+                // Tipo Outro (textarea) - aguarda um pouco para o textarea ser criado após o change do radio
+                const tipoOutroVal = cardData[tipoOutroKey];
+                if (tipoOutroVal != null && String(tipoOutroVal).trim() !== "") {
+                    setTimeout(() => {
+                        const tipoOutroTextarea = searchScope.querySelector(`textarea[name="${tipoOutroKey}"]`);
+                        if (tipoOutroTextarea) {
+                            tipoOutroTextarea.value = tipoOutroVal;
+                            tipoOutroTextarea.dispatchEvent(new Event("input", { bubbles: true }));
+                            console.log(`[Card5] ✅ Aplicado tipoOutro ${idx}: ${tipoOutroVal}`);
+                        }
+                    }, 200);
+                }
+
+                // Natureza (checkboxes) - procura dentro do item ou no bloco
+                const natVal = cardData[natKey];
+                if (Array.isArray(natVal) && natVal.length > 0) {
+                    natVal.forEach(nat => {
+                        const natCheckbox = targetItem
+                            ? targetItem.querySelector(`input[name="${natKey}"][value="${nat}"]`)
+                            : searchScope.querySelector(`input[name="${natKey}"][value="${nat}"]`);
+                        if (natCheckbox) {
+                            natCheckbox.checked = true;
+                            natCheckbox.dispatchEvent(new Event("change", { bubbles: true }));
+                            console.log(`[Card5] ✅ Aplicado natureza ${idx}: ${nat}`);
+                        }
+                    });
+                }
+
+                // Natureza Outro (textarea) - aguarda um pouco para o textarea ser criado após o change dos checkboxes
+                const natOutroVal = cardData[natOutroKey];
+                if (natOutroVal != null && String(natOutroVal).trim() !== "") {
+                    setTimeout(() => {
+                        const natOutroTextarea = searchScope.querySelector(`textarea[name="${natOutroKey}"]`);
+                        if (natOutroTextarea) {
+                            natOutroTextarea.value = natOutroVal;
+                            natOutroTextarea.dispatchEvent(new Event("input", { bubbles: true }));
+                            console.log(`[Card5] ✅ Aplicado naturezaOutro ${idx}: ${natOutroVal}`);
+                        }
+                    }, 300);
+                }
+
+                // Aguarda um pouco antes de processar o próximo índice
+                setTimeout(() => applyDataForIndex(idx + 1, 0), 100);
+            }
+            
+            // Inicia a aplicação dos dados após um pequeno delay para garantir que os itens estejam no DOM
+            setTimeout(() => {
+                applyDataForIndex(1, 0);
             }, 200);
         }
 
