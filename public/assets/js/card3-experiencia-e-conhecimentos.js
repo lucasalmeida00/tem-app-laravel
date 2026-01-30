@@ -60,7 +60,7 @@ window.Card3 = (function () {
 
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique"></textarea>
+        <input type="text" class="form-control" style="width: 100%;" name="${$select.attr("name")}${nameSuffix}" placeholder="Especifique">
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -103,7 +103,7 @@ window.Card3 = (function () {
         // Cria o container do textarea DENTRO do mesmo container dos checkboxes
         const $inlineHolder = $(`<div class="extra-specify-functions-inline" style="flex: 1 1 0; min-width: 250px; max-width: 100%;"></div>`);
         $inlineHolder.html(`
-          <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${N.functions}__other" placeholder="Especifique"></textarea>
+          <input type="text" class="form-control" style="width: 100%;" name="${N.functions}__other" placeholder="Especifique">
         `);
 
         // Adiciona DENTRO do container de checkboxes
@@ -250,7 +250,7 @@ window.Card3 = (function () {
 
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="${$select.attr("name")}__other" placeholder="Especifique"></textarea>
+        <input type="text" class="form-control" style="width: 100%;" name="${$select.attr("name")}__other" placeholder="Especifique">
       `);
     } else {
       $extra.addClass("d-none").empty();
@@ -302,9 +302,9 @@ window.Card3 = (function () {
     }
 
     $extra.removeClass("d-none").html(`
-      <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;"
+      <input type="text" class="form-control" style="width: 100%;"
              name="${baseName}__other"
-             placeholder="Especifique"></textarea>
+             placeholder="Especifique">
     `);
   }
 
@@ -433,7 +433,7 @@ window.Card3 = (function () {
 
       if (isOther) {
         $extra1.removeClass("d-none").html(`
-          <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;" name="firstSteps1__other" placeholder="Especifique"></textarea>
+          <input type="text" class="form-control" style="width: 100%;" name="firstSteps1__other" placeholder="Especifique">
         `);
       } else {
         $extra1.addClass("d-none").empty();

@@ -95,9 +95,9 @@ window.Card1 = (function () {
     }
 
     $extra.removeClass("d-none").html(`
-      <textarea class="form-control" rows="2" style="width: 100%; resize: vertical;"
+      <input type="text" class="form-control" style="width: 100%;"
              name="${$select.attr("name")}__other"
-             placeholder="Especifique"></textarea>
+             placeholder="Especifique">
     `);
   }
 

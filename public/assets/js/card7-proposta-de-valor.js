@@ -49,13 +49,8 @@ window.Card7 = (function () {
               ${DIFF_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
-          <div class="col-auto vp-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
-            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="col extra-${name}-other-inline d-none">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%;"></textarea>
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">
           </div>
         </div>
       </div>
@@ -88,7 +83,7 @@ window.Card7 = (function () {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("textarea").val("");
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.vpOther").on("change.vpOther", "select", renderOther);
@@ -111,15 +106,11 @@ window.Card7 = (function () {
     $s1.after($w1);           // insere o wrapper logo após o s1
     $s1.appendTo($colSelect); // move o s1 para dentro da coluna
     
-    // Botão X para limpar
-    const $colClear = $(`<div class="col-auto vp-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
-    $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
-    
     // Coluna do input "outro"
     const $colOther = $(`<div class="col extra-${N.d1}-other-inline d-none"></div>`);
-    $colOther.html(`<textarea class="form-control" name="${N.d1}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%;"></textarea>`);
+    $colOther.html(`<input type="text" class="form-control" name="${N.d1}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">`);
     
-    $rowDiv.append($colSelect, $colClear, $colOther);
+    $rowDiv.append($colSelect, $colOther);
     $w1.append($rowDiv);
   }
 
@@ -158,29 +149,6 @@ window.Card7 = (function () {
     fillSelect($s2, new Set([$s1.val(), $s3.val()].filter(Boolean)));
     fillSelect($s3, new Set([$s1.val(), $s2.val()].filter(Boolean)));
 
-    // Mostra/oculta botão X baseado no valor selecionado
-    const $clearBtn1 = $w1.find(".vp-clear-btn");
-    const $clearBtn2 = $w2.find(".vp-clear-btn");
-    const $clearBtn3 = $w3.find(".vp-clear-btn");
-    
-    if ($s1.val()) {
-      $clearBtn1.removeClass("d-none");
-    } else {
-      $clearBtn1.addClass("d-none");
-    }
-    
-    if ($s2.val()) {
-      $clearBtn2.removeClass("d-none");
-    } else {
-      $clearBtn2.addClass("d-none");
-    }
-    
-    if ($s3.val()) {
-      $clearBtn3.removeClass("d-none");
-    } else {
-      $clearBtn3.addClass("d-none");
-    }
-
     // Encadeamento (usa SEMPRE $s1, não query global)
     // Mostra/oculta select 2 baseado no select 1, mas não limpa o valor
     $w2.toggle(!!$s1.val());
@@ -189,7 +157,7 @@ window.Card7 = (function () {
     if (!$s1.val() && $s2.val()) {
       $s2.val("");
       // Limpa o input "outro" do select 2 quando o select 1 é limpo
-      $w2.find(`.extra-${N.d2}-other-inline`).addClass("d-none").find("textarea").val("");
+      $w2.find(`.extra-${N.d2}-other-inline`).addClass("d-none").find("input").val("");
     }
 
     // Mostra/oculta select 3 baseado no select 2, mas não limpa o valor
@@ -199,7 +167,7 @@ window.Card7 = (function () {
     if (!$s2.val() && $s3.val()) {
       $s3.val("");
       // Limpa o input "outro" do select 3 quando o select 2 é limpo
-      $w3.find(`.extra-${N.d3}-other-inline`).addClass("d-none").find("textarea").val("");
+      $w3.find(`.extra-${N.d3}-other-inline`).addClass("d-none").find("input").val("");
     }
 
     // Atualiza “Especifique” dos 3 selects
@@ -218,30 +186,6 @@ window.Card7 = (function () {
   // Binds
   $s1.off("change.vp_s1").on("change.vp_s1", sync);                         // bind direto no s1 real
   $selects.off("change.vp").on("change.vp", "select[name^='valueDiff']", sync);
-
-  // Bind para o botão X (limpar seleção)
-  $root
-    .off("click.vp_clear")
-    .on("click.vp_clear", ".vp-clear-btn button", function (e) {
-      e.preventDefault();
-      const $wrap = $(this).closest(".vp-select-wrap");
-      const $sel = $wrap.find("select");
-      const $clearBtn = $wrap.find(".vp-clear-btn");
-      const name = $sel.attr("name");
-      $sel.val("");
-      // Oculta o botão X imediatamente
-      $clearBtn.addClass("d-none");
-      // Oculta o input "outro" imediatamente e limpa o valor
-      const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
-      $otherInput.addClass("d-none");
-      $otherInput.find("textarea").val("");
-      // Dispara o evento change para atualizar a interface
-      if (name === N.d1) {
-        $sel.trigger("change.vp_s1");
-      } else {
-        $sel.trigger("change.vp");
-      }
-    });
 
   // Primeira sincronização
   sync();

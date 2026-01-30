@@ -50,11 +50,12 @@ window.Card18 = (function () {
             $outroLabel.after($externalHolder);
           }
           
-          const $inlineInput = $(`<textarea class="form-control" name="mainImpactOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+          const $inlineInput = $(`<input type="text" class="form-control" name="mainImpactOther" placeholder="Especifique" style="width: 100%; display: block;">`);
+          $inlineInput.val($otherInput.val() || "");
           $externalHolder.html($inlineInput);
           
           // Sincroniza valores entre input inline e input original
-          $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+          $externalHolder.find("input").off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
             $otherInput.val($(this).val());
           });
         } else {
@@ -67,11 +68,12 @@ window.Card18 = (function () {
               $formCheck.after($externalHolder);
             }
             
-            const $inlineInput = $(`<textarea class="form-control" name="mainImpactOther" placeholder="Especifique" rows="3" style="width: 100%; resize: vertical; display: block;">${$otherInput.val() || ""}</textarea>`);
+            const $inlineInput = $(`<input type="text" class="form-control" name="mainImpactOther" placeholder="Especifique" style="width: 100%; display: block;">`);
+            $inlineInput.val($otherInput.val() || "");
             $externalHolder.html($inlineInput);
             
             // Sincroniza valores entre input inline e input original
-            $inlineInput.off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+            $externalHolder.find("input").off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
               $otherInput.val($(this).val());
             });
           }

@@ -53,13 +53,8 @@ window.Card16 = (function () {
               ${CS_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
-          <div class="col-auto cs-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
-            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="col extra-${name}-other-inline d-none">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="width: 100%;">
           </div>
         </div>
       </div>
@@ -92,7 +87,7 @@ window.Card16 = (function () {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("textarea").val("");
+        $box.find("input").val("");
       }
     }
 
@@ -117,14 +112,11 @@ window.Card16 = (function () {
       $s1.appendTo($colSelect);
       
       // Botão X para limpar
-      const $colClear = $(`<div class="col-auto cs-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção"></div>`);
-      $colClear.html(`<button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;"><span aria-hidden="true">&times;</span></button>`);
-      
       // Coluna do input "outro"
       const $colOther = $(`<div class="col extra-${N.c1}-other-inline d-none"></div>`);
-      $colOther.html(`<textarea class="form-control" name="${N.c1}__other" placeholder="Especifique" rows="3" style="width: 100%;"></textarea>`);
+      $colOther.html(`<input type="text" class="form-control" name="${N.c1}__other" placeholder="Especifique" style="width: 100%;">`);
       
-      $rowDiv.append($colSelect, $colClear, $colOther);
+      $rowDiv.append($colSelect, $colOther);
       $w1.append($rowDiv);
     }
 
@@ -176,17 +168,6 @@ window.Card16 = (function () {
         $w3.find(`.extra-${name3}-other-inline`).addClass("d-none");
       }
 
-      // Mostra/oculta botão X baseado no valor selecionado
-      [$w1, $w2, $w3].forEach(($wrap) => {
-        const $sel = $wrap.find("select");
-        const $clearBtn = $wrap.find(".cs-clear-btn");
-        if ($sel.val()) {
-          $clearBtn.removeClass("d-none");
-        } else {
-          $clearBtn.addClass("d-none");
-        }
-      });
-
       // atualiza campos "Especifique" de Outro
       $w1.triggerHandler("change.csOther");
       $w2.triggerHandler("change.csOther");
@@ -203,22 +184,6 @@ window.Card16 = (function () {
     // binds
     $s1.off("change.cs_s1").on("change.cs_s1", sync);
     $selects.off("change.cs").on("change.cs", "select[name^='costChallenging']", sync);
-
-    // Bind para o botão X (limpar seleção)
-    $root
-      .off("click.cs_clear")
-      .on("click.cs_clear", `.cs-select-wrap:has(select[name^="costChallenging"]) .cs-clear-btn button`, function (e) {
-        e.preventDefault();
-        const $wrap = $(this).closest(".cs-select-wrap");
-        const $sel = $wrap.find("select");
-        $sel.val("");
-        // Oculta o input "outro" imediatamente e limpa o valor
-        const name = $sel.attr("name");
-        const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
-        $otherInput.addClass("d-none");
-        $otherInput.find("textarea").val("");
-        sync();
-      });
 
     // primeira sincronização
     sync();

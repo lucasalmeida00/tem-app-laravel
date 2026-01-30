@@ -313,7 +313,7 @@ window.Card5 = (function () {
 
         // Coloca o textarea no holder externo
         $externalHolder.html(
-          `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+          `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
         );
         $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
       } else {
@@ -331,7 +331,7 @@ window.Card5 = (function () {
       $label.after($externalHolder);
 
       $externalHolder.html(
-        `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+        `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
       );
     }
 
@@ -359,7 +359,7 @@ window.Card5 = (function () {
       if (isChecked && needsOther) {
           // Coloca o textarea no holder externo
           $externalHolder.html(
-            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
           );
       } else {
         $externalHolder.empty();
@@ -391,9 +391,9 @@ window.Card5 = (function () {
         }
 
         // Se já tem textarea, garante que está visível
-        if ($externalHolder.find("textarea").length === 0) {
+        if ($externalHolder.find("input").length === 0) {
           $externalHolder.html(
-            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
           );
         }
       });
@@ -572,7 +572,7 @@ function wireItemBehaviorsPost($item, cat, idx) {
 
       // Coloca o textarea no holder externo
       $externalHolder.html(
-        `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+        `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
       );
       $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
     } else {
@@ -590,7 +590,7 @@ function wireItemBehaviorsPost($item, cat, idx) {
     $label.after($externalHolder);
 
     $externalHolder.html(
-      `<textarea class="form-control" name="${otherRadioName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+      `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
     );
   }
 
@@ -614,7 +614,7 @@ function wireItemBehaviorsPost($item, cat, idx) {
       if (isChecked && needsOther) {
           // Coloca o textarea no holder externo
           $externalHolder.html(
-            `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
           );
       } else {
         $externalHolder.empty();
@@ -646,9 +646,9 @@ function wireItemBehaviorsPost($item, cat, idx) {
       }
 
       // Se já tem textarea, garante que está visível
-      if ($externalHolder.find("textarea").length === 0) {
+      if ($externalHolder.find("input").length === 0) {
         $externalHolder.html(
-          `<textarea class="form-control" name="${otherCheckName}" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%; display: block;"></textarea>`
+          `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
         );
       }
     });

@@ -46,13 +46,8 @@ window.Card6 = (function () {
               ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
-          <div class="col-auto dm-clear-btn d-none" style="cursor: pointer;" title="Limpar seleção">
-            <button type="button" class="btn btn-sm btn-outline-danger" style="padding: 0.25rem 0.5rem;">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="col extra-${name}-other-inline d-none">
-            <textarea class="form-control" name="${name}__other" placeholder="Especifique" rows="3" style="max-width: 700px; width: 100%;"></textarea>
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">
           </div>
         </div>
       </div>
@@ -90,7 +85,7 @@ function fillSelect($sel, chosenSet) {
       } else {
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
-        $box.find("textarea").val("");
+        $box.find("input").val("");
       }
     });
 
@@ -146,12 +141,8 @@ function fillSelect($sel, chosenSet) {
         // Se marcou “Sim”, limpa estado
         $s1.val(""); $s2.val(""); $s3.val("");
         $w1.find(`.extra-${N.who1}-other-inline`).addClass("d-none").find("input").val("");
-        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("textarea").val("");
-        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("textarea").val("");
-        // Oculta os botões X
-        $w1.find(".dm-clear-btn").addClass("d-none");
-        $w2.find(".dm-clear-btn").addClass("d-none");
-        $w3.find(".dm-clear-btn").addClass("d-none");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
         $w2.hide();
         $w3.hide();
         return;
@@ -163,42 +154,19 @@ function fillSelect($sel, chosenSet) {
       fillSelect($s2, new Set([...chosen].filter(v => v !== $s2.val())));
       fillSelect($s3, new Set([...chosen].filter(v => v !== $s3.val())));
 
-      // Mostra/oculta botão X baseado no valor selecionado
-      const $clearBtn1 = $w1.find(".dm-clear-btn");
-      const $clearBtn2 = $w2.find(".dm-clear-btn");
-      const $clearBtn3 = $w3.find(".dm-clear-btn");
-      
-      if ($s1.val()) {
-        $clearBtn1.removeClass("d-none");
-      } else {
-        $clearBtn1.addClass("d-none");
-      }
-      
-      if ($s2.val()) {
-        $clearBtn2.removeClass("d-none");
-      } else {
-        $clearBtn2.addClass("d-none");
-      }
-      
-      if ($s3.val()) {
-        $clearBtn3.removeClass("d-none");
-      } else {
-        $clearBtn3.addClass("d-none");
-      }
-
       // encadeamento visual
       $w2.toggle(!!$s1.val());
       if (!$s1.val()) {
         $s2.val("");
         // Limpa o input "outro" do select 2 quando o select 1 é limpo
-        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("textarea").val("");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
       }
 
       $w3.toggle(!!$s2.val());
       if (!$s2.val()) {
         $s3.val("");
         // Limpa o input "outro" do select 3 quando o select 2 é limpo
-        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("textarea").val("");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
       }
 
       // atualizar campos “Especifique” caso algum seja “outro”
@@ -218,26 +186,6 @@ function fillSelect($sel, chosenSet) {
     // Binds
     $root.off("change.dmRadio").on("change.dmRadio", `input[name="${N.main}"]`, sync);
     $holder.off("change.dmSelects").on("change.dmSelects", "select[name^='decisionWho']", sync);
-
-    // Bind para o botão X (limpar seleção)
-    $root
-      .off("click.dm_clear")
-      .on("click.dm_clear", ".dm-clear-btn button", function (e) {
-        e.preventDefault();
-        const $wrap = $(this).closest(".dm-select-wrap");
-        const $sel = $wrap.find("select");
-        const $clearBtn = $wrap.find(".dm-clear-btn");
-        const name = $sel.attr("name");
-        $sel.val("");
-        // Oculta o botão X imediatamente
-        $clearBtn.addClass("d-none");
-        // Oculta o input "outro" imediatamente e limpa o valor
-        const $otherInput = $wrap.find(`.extra-${name}-other-inline`);
-        $otherInput.addClass("d-none");
-        $otherInput.find("textarea").val("");
-        // Dispara o evento change para atualizar a interface
-        $sel.trigger("change.dmSelects");
-      });
 
     // Primeira sincronização
     sync();
