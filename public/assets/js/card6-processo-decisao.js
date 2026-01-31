@@ -38,7 +38,7 @@ window.Card6 = (function () {
   // ==== Builders dos selects + “Especifique” quando for “outro” ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-3 dm-select-wrap">
+      <div class="mb-1 dm-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">

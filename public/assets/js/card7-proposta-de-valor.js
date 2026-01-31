@@ -41,7 +41,7 @@ window.Card7 = (function () {
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-3 vp-select-wrap">
+      <div class="mb-1 vp-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">
@@ -98,7 +98,7 @@ window.Card7 = (function () {
   // Garante que o s1 tenha um wrapper .vp-select-wrap (sem criar um novo select)
   let $w1 = $s1.closest('.vp-select-wrap');
   if (!$w1.length) {
-    $w1 = $(`<div class="mb-3 vp-select-wrap"></div>`);
+    $w1 = $(`<div class="mb-1 vp-select-wrap card-select-row"></div>`);
     const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
     
     // Coluna do select
@@ -115,6 +115,7 @@ window.Card7 = (function () {
   }
 
   const $wrap1 = wrapperFor($s1);
+  $wrap1.removeClass("mb-2").addClass("mb-1"); // gap-1 entre a div dos selects (form-renderer usa mb-2)
   // Container para s2 e s3, logo abaixo do primeiro
   const $selects = ensureContainer($wrap1, "vp-selects-container", true);
 

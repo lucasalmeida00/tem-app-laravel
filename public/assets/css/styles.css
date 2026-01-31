@@ -170,3 +170,11 @@ body{
     from { opacity: 1; }
     to   { opacity: 0; visibility: hidden; }
 }
+
+/* Selects empilhados nos cards: mesma altura, largura fixa e gap-1 entre linhas */
+.card-select-row .form-select {
+  width: 350px !important;
+  max-width: 100% !important;
+  height: 2.375rem !important;
+  min-height: 2.375rem !important;
+}

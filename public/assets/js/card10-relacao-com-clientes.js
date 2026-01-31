@@ -65,7 +65,7 @@ window.Card10 = (function () {
   // ==== Builders ===========================================================
   function buildSelect(name) {
     return $(`
-      <div class="mb-3 rc-select-wrap">
+      <div class="mb-1 rc-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">
@@ -148,7 +148,7 @@ window.Card10 = (function () {
     // Garante wrapper consistente pro primeiro select
     let $w1 = $s1.closest(".rc-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-3 rc-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-1 rc-select-wrap card-select-row"></div>`);
       const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
@@ -165,6 +165,7 @@ window.Card10 = (function () {
     }
 
     const $wrap1 = wrapperFor($s1);
+    $wrap1.removeClass("mb-2").addClass("mb-1");
     const $container = ensureContainer($wrap1, containerClass, true);
 
     function allWraps() {

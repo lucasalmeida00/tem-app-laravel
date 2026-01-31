@@ -224,7 +224,7 @@ window.Card15 = (function () {
   // ==== Builder genérico de select ====
   function buildSelect(name, options) {
     return $(`
-      <div class="mb-3 pk-select-wrap">
+      <div class="mb-1 pk-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
           <div class="col-auto" style="min-width: 250px; max-width: 350px;">
             <select class="form-select" name="${name}">
@@ -283,7 +283,7 @@ window.Card15 = (function () {
     // 1) garante wrapper pro s1
     let $w1 = $s1.closest(".pk-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-3 pk-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-1 pk-select-wrap card-select-row"></div>`);
       const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
@@ -299,6 +299,7 @@ window.Card15 = (function () {
       $rowDiv.append($colSelect, $colOther);
       $w1.append($rowDiv);
     }
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // 2) container dos filhos, ancorado no wrapper do s1
     const $selectsContainer = ensureContainer($w1, `pk-selects-container-${nsKey}`, true);

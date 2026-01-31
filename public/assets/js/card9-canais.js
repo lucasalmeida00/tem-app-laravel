@@ -55,8 +55,8 @@ window.Card9 = (function () {
 
   function buildSelect(name) {
     return $(`
-      <div class="mb-3 cn-select-wrap">
-        <div class="row g-2 align-items-center">
+      <div class="mb-1 cn-select-wrap card-select-row">
+        <div class="row g-1 align-items-center">
           <div class="col-auto" style="flex: 0 0 auto; min-width: 400px; max-width: 550px;">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
@@ -200,24 +200,25 @@ window.Card9 = (function () {
     // Garante wrapper próprio para s1
     let $w1 = $s1.closest(".cn-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-3 cn-select-wrap"></div>`);
-      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
-      
+      $w1 = $(`<div class="mb-1 cn-select-wrap card-select-row"></div>`);
+      const $rowDiv = $(`<div class="row g-1 align-items-center"></div>`);
+
       // Coluna do select
-      const $colSelect = $(`<div class="col-auto" style="flex: 0 0 auto; min-width: 400px; max-width: 550px;"></div>`);
+      const $colSelect = $(`<div class="col-auto" style="flex: 0 0 auto; min-width: 360px; max-width: 550px;"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
-      
+
       // Coluna do input "outro"
       const $colOther = $(`<div class="col extra-${N.c1}-other-inline d-none"></div>`);
       $colOther.html(`<input type="text" class="form-control" name="${N.c1}__other" placeholder="Especifique" style="width: 100%;">`);
-      
+
       $rowDiv.append($colSelect, $colOther);
       $w1.append($rowDiv);
       $w1.append(`<div class="mt-2 cn-socials-box d-none"></div>`);
     }
 
     const $wrap1 = wrapperFor($s1); // card / bloco
+    $wrap1.removeClass("mb-2").addClass("mb-1");
     const $dynContainer = ensureContainer(
       $wrap1,
       "cn-selects-container",
@@ -284,7 +285,7 @@ window.Card9 = (function () {
 
       // 2) Limpa sobras vazias (após preservar valores)
       $wraps = cleanupTrailingEmpties();
-      
+
       // 3) Recalcula savedValues após limpeza (mantém apenas os valores dos selects que restaram)
       const preservedValues = [];
       $wraps.each(function (idx) {
@@ -317,7 +318,7 @@ window.Card9 = (function () {
         const $sel = $wrap.find("select");
         const savedValue = preservedValues[idx] || "";
         const hasOptions = fillSelectDynamic($sel, chosen, savedValue);
-        
+
         // Oculta o wrapper se não houver opções disponíveis
         if (!hasOptions) {
           $wrap.hide();
