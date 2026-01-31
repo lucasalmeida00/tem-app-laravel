@@ -125,9 +125,9 @@ window.Card16 = (function () {
       $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    $wrap1.removeClass("mb-2").addClass("mb-1");
-    const $selects = ensureContainer($wrap1, "cs-selects-container", true);
+    // Container para s2/s3, logo abaixo da primeira row (não dentro dela)
+    const $selects = ensureContainer($w1, "cs-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // cria s2/s3
     let $w2 = $selects.find(`.cs-select-wrap:has(select[name="${N.c2}"])`);
@@ -175,9 +175,9 @@ window.Card16 = (function () {
       }
 
       // atualiza campos "Especifique" de Outro
-      $w1.triggerHandler("change.csOther");
-      $w2.triggerHandler("change.csOther");
-      $w3.triggerHandler("change.csOther");
+      $s1.trigger("change.csOther");
+      $s2.trigger("change.csOther");
+      $s3.trigger("change.csOther");
     }
 
     // estado inicial

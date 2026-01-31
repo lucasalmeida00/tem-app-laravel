@@ -169,10 +169,10 @@ window.Card14 = (function () {
     $w3.toggle(hasS2);
     if (!hasS2) $s3.val("");
 
-    // atualiza campos "Especifique" quando "Outro"
-    $w1.triggerHandler("change.pkOther");
-    $w2.triggerHandler("change.pkOther");
-    $w3.triggerHandler("change.pkOther");
+    // atualiza "Especifique" e estado has-other/col (disparar no select para o handler delegado rodar)
+    $s1.trigger("change.pkOther");
+    $s2.trigger("change.pkOther");
+    $s3.trigger("change.pkOther");
   }
 
   // 5) estado inicial

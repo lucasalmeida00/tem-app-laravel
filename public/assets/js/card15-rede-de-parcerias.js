@@ -357,8 +357,8 @@ window.Card15 = (function () {
         }
       }
 
-      // atualiza "Especifique" em todos
-      wrappers.forEach($w => $w.triggerHandler("change.pkOther"));
+      // atualiza "Especifique" e estado has-other/col (disparar no select para o handler delegado rodar)
+      selects.forEach($s => $s.trigger("change.pkOther"));
     }
 
     // 5) estado inicial

@@ -119,9 +119,9 @@ window.Card13 = (function () {
       $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    $wrap1.removeClass("mb-2").addClass("mb-1");
-    const $selects = ensureContainer($wrap1, "ak-selects-container", true);
+    // Container para s2/s3, logo abaixo da primeira row (não dentro dela)
+    const $selects = ensureContainer($w1, "ak-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // cria s2/s3
     let $w2 = $selects.find(`.ak-select-wrap:has(select[name="${N.a2}"])`);
@@ -161,9 +161,9 @@ window.Card13 = (function () {
 
 
       // atualiza “Especifique”
-      $w1.triggerHandler("change.akOther");
-      $w2.triggerHandler("change.akOther");
-      $w3.triggerHandler("change.akOther");
+      $s1.trigger("change.akOther");
+      $s2.trigger("change.akOther");
+      $s3.trigger("change.akOther");
     }
 
     // estado inicial

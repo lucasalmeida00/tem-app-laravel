@@ -152,9 +152,9 @@ window.Card12 = (function () {
       $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    $wrap1.removeClass("mb-2").addClass("mb-1");
-    const $container = ensureContainer($wrap1, "rk-selects-container", true);
+    // Container para selects dinâmicos, logo abaixo da primeira row (não dentro dela)
+    const $container = ensureContainer($w1, "rk-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     function allWraps() {
       return $w1.add($container.find(".rk-select-wrap"));
