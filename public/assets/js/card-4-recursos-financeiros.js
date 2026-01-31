@@ -118,10 +118,10 @@ window.Card4 = (function () {
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
             // Estrutura simples: select em uma linha, botão X, input "outro" na linha abaixo
-            const $selectWrap = $(`<div class="mb-3 nf-select-item"></div>`);
+            const $selectWrap = $(`<div class="mb-3 nf-select-item card-select-row"></div>`);
             $selectWrap.append(`
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${base}">
               <option value="" disabled selected hidden>selecione uma opção</option>
             </select>
@@ -145,11 +145,16 @@ window.Card4 = (function () {
         function ensureNfOther($selLocal, name) {
             const $selectWrap = $selLocal.closest(".nf-select-item");
             const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
             const isOther = String($selLocal.val()) === "outro";
 
             if (isOther) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
                 $extra.removeClass("d-none");
             } else {
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
                 $extra.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra.find("input").val("");
@@ -413,11 +418,11 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             // Cria estrutura para o select 1 se não existir
             let $select1Item = $wrap.find(".nf-select1-item");
             if (!$select1Item.length) {
-                $select1Item = $(`<div class="mb-3 nf-select1-item"></div>`);
+                $select1Item = $(`<div class="mb-3 nf-select1-item card-select-row"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
 
                 // Coluna do select
-                const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
                 $s1.appendTo($colSelect);
 
                 // Coluna do input "outro"
@@ -436,10 +441,15 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
             // Mostra/esconde o input "outro" do select 1
             const $extra1 = $wrap.find(".extra-nfSelect1-other-inline");
+            const $colSelect1 = $wrap.find(".nf-select1-item .card-select-col");
             const isOther = v === "outro";
             if (isOther) {
+                $wrap.find(".nf-select1-item").addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
                 $extra1.removeClass("d-none");
             } else {
+                $wrap.find(".nf-select1-item").removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
                 $extra1.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra1.find("input").val("");
@@ -519,10 +529,10 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
             // Estrutura Bootstrap Grid (igual ao 4.1)
-            const $selectWrap = $(`<div class="mb-3 f-select-item"></div>`);
+            const $selectWrap = $(`<div class="mb-3 f-select-item card-select-row"></div>`);
             $selectWrap.append(`
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${base}">
               <option value="" disabled selected hidden>selecione uma opção</option>
             </select>
@@ -550,8 +560,17 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             const $selectWrap = $selLocal.closest(".f-select-item");
             const $extraOther = $selectWrap.find(`.extra-${name}-other-inline`);
             const $extraInv = $selectWrap.find(`.extra-${name}-inv-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
             const v = $selLocal.val();
+            const hasOtherOrInv = v === "outro" || v === "investimento_terceiros";
 
+            if (hasOtherOrInv) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+            } else {
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+            }
             if (v === "outro") {
                 $extraOther.removeClass("d-none");
                 $extraInv.addClass("d-none");
@@ -610,11 +629,11 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             // Cria estrutura para o select 1 se não existir
             let $select1Item = $wrap.find(".f-select1-item");
             if (!$select1Item.length) {
-                $select1Item = $(`<div class="mb-3 f-select1-item"></div>`);
+                $select1Item = $(`<div class="mb-3 f-select1-item card-select-row"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
 
                 // Coluna do select
-                const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
                 $s1.appendTo($colSelect);
 
                 // Coluna do input "outro"
@@ -640,7 +659,16 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             // Mostra/esconde os inputs do select 1
             const $extraOther = $wrap.find(".extra-fSelect1-other-inline");
             const $extraInv = $wrap.find(".extra-fSelect1-inv-inline");
+            const $colSelect1 = $wrap.find(".f-select1-item .card-select-col");
+            const hasOtherOrInv = v === "outro" || v === "investimento_terceiros";
 
+            if (hasOtherOrInv) {
+                $wrap.find(".f-select1-item").addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
+            } else {
+                $wrap.find(".f-select1-item").removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
+            }
             if (v === "outro") {
                 $extraOther.removeClass("d-none");
                 $extraInv.addClass("d-none");
@@ -891,10 +919,10 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
             // Estrutura Bootstrap Grid (igual ao 4.1)
-            const $selectWrap = $(`<div class="mb-3 risk-select-item"></div>`);
+            const $selectWrap = $(`<div class="mb-3 risk-select-item card-select-row"></div>`);
             $selectWrap.append(`
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${base}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
             </select>
@@ -915,11 +943,16 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         function ensureOther($selLocal, name) {
             const $selectWrap = $selLocal.closest(".risk-select-item");
             const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
             const isOther = String($selLocal.val()) === "outro";
 
             if (isOther) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
                 $extra.removeClass("d-none");
             } else {
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
                 $extra.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra.find("input").val("");
@@ -970,11 +1003,11 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             // Cria estrutura para o select 1 se não existir
             let $select1Item = $wrap.find(".risk-select1-item");
             if (!$select1Item.length) {
-                $select1Item = $(`<div class="mb-3 risk-select1-item"></div>`);
+                $select1Item = $(`<div class="mb-3 risk-select1-item card-select-row"></div>`);
                 const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
 
                 // Coluna do select
-                const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
                 $s1.appendTo($colSelect);
 
                 // Coluna do input "outro"
@@ -990,10 +1023,15 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
             // Mostra/esconde o input "outro" do select 1
             const $extra1 = $wrap.find(".extra-riskInvSelect1-other-inline");
+            const $colSelect1 = $wrap.find(".risk-select1-item .card-select-col");
             const isOther = v === "outro";
             if (isOther) {
+                $wrap.find(".risk-select1-item").addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
                 $extra1.removeClass("d-none");
             } else {
+                $wrap.find(".risk-select1-item").removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
                 $extra1.addClass("d-none");
                 // Limpa o valor do input quando "outro" é desmarcado
                 $extra1.find("input").val("");

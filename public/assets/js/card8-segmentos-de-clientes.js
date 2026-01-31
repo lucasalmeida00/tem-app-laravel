@@ -109,7 +109,7 @@ window.Card8 = (function () {
     return $(`
       <div class="mb-1 sc-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
               ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
@@ -139,10 +139,15 @@ window.Card8 = (function () {
     const $sel = $wrap.find("select");
     const name = $sel.attr("name");
     const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
     function renderOther() {
       if ($sel.val() === "outro") {
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
         $box.removeClass("d-none");
       } else {
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
         $box.find("input").val("");
@@ -163,7 +168,7 @@ window.Card8 = (function () {
       const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
-      const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
+      const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
       
@@ -175,9 +180,9 @@ window.Card8 = (function () {
       $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    $wrap1.removeClass("mb-2").addClass("mb-1");
-    const $selects = ensureContainer($wrap1, "sc-selects-container", true);
+    // Container para s2/s3, logo abaixo da primeira row (não dentro dela)
+    const $selects = ensureContainer($w1, "sc-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // cria s2/s3
     let $w2 = $selects.find(`.sc-select-wrap:has(select[name="${N.s2}"])`);
@@ -222,9 +227,9 @@ window.Card8 = (function () {
 
 
       // atualiza “Especifique”
-      $w1.triggerHandler("change.scOther");
-      $w2.triggerHandler("change.scOther");
-      $w3.triggerHandler("change.scOther");
+      $s1.trigger("change.scOther");
+      $s2.trigger("change.scOther");
+      $s3.trigger("change.scOther");
     }
 
     // estado inicial

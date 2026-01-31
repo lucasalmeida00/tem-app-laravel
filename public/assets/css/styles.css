@@ -171,10 +171,23 @@ body{
     to   { opacity: 0; visibility: hidden; }
 }
 
-/* Selects empilhados nos cards: mesma altura, largura fixa e gap-1 entre linhas */
+/*
+ * Padrão dos selects com "Outro" (cards 4, 6–16):
+ * - Wrapper da row: classe .card-select-row (e .has-other quando "Outro" ativo).
+ * - Coluna do select: .col.card-select-col (100% da linha); com "Outro" o JS troca para
+ *   .col-auto + max-width 350px para o input "Especifique" ficar ao lado.
+ * - Ao limpar/ocultar "Outro": remover .has-other e restaurar .col na coluna (e disparar
+ *   o handler ou resetar manualmente para não deixar estado inconsistente).
+ */
+.card-select-row .row {
+  flex-wrap: nowrap;
+}
 .card-select-row .form-select {
-  width: 350px !important;
+  width: 100% !important;
   max-width: 100% !important;
   height: 2.375rem !important;
   min-height: 2.375rem !important;
+}
+.card-select-row.has-other .form-select {
+  max-width: 350px !important;
 }

@@ -40,7 +40,7 @@ window.Card6 = (function () {
     return $(`
       <div class="mb-1 dm-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
               ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
@@ -78,11 +78,16 @@ function fillSelect($sel, chosenSet) {
     const $sel = $wrap.find("select");
     const name = $sel.attr("name");
     const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
 
     $wrap.off("change.dmOther").on("change.dmOther", "select", function () {
       if ($sel.val() === "outro") {
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
         $box.removeClass("d-none");
       } else {
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
         $box.addClass("d-none");
         // Limpa o valor do input quando "outro" é desmarcado
         $box.find("input").val("");
@@ -91,8 +96,12 @@ function fillSelect($sel, chosenSet) {
 
     // estado inicial (edição)
     if ($sel.val() === "outro") {
+      $wrap.addClass("has-other");
+      $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
       $box.removeClass("d-none");
     } else {
+      $wrap.removeClass("has-other");
+      $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
       $box.addClass("d-none");
     }
   }
@@ -143,6 +152,9 @@ function fillSelect($sel, chosenSet) {
         $w1.find(`.extra-${N.who1}-other-inline`).addClass("d-none").find("input").val("");
         $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
         $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
+        $s1.trigger("change.dmOther");
+        $s2.trigger("change.dmOther");
+        $s3.trigger("change.dmOther");
         $w2.hide();
         $w3.hide();
         return;
@@ -170,9 +182,9 @@ function fillSelect($sel, chosenSet) {
       }
 
       // atualizar campos “Especifique” caso algum seja “outro”
-      $w1.triggerHandler("change.dmOther");
-      $w2.triggerHandler("change.dmOther");
-      $w3.triggerHandler("change.dmOther");
+      $s1.trigger("change.dmOther");
+      $s2.trigger("change.dmOther");
+      $s3.trigger("change.dmOther");
     }
 
     // Estado inicial

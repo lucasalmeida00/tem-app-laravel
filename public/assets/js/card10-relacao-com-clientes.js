@@ -67,7 +67,7 @@ window.Card10 = (function () {
     return $(`
       <div class="mb-1 rc-select-wrap card-select-row">
         <div class="row g-2 align-items-center">
-          <div class="col-auto" style="min-width: 250px; max-width: 350px;">
+          <div class="col card-select-col">
             <select class="form-select" name="${name}">
               <option value="" disabled selected hidden>Selecione uma opção</option>
             </select>
@@ -118,10 +118,15 @@ window.Card10 = (function () {
     const $sel = $wrap.find("select");
     const name = $sel.attr("name");
     const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
 
     if (on) {
+      $wrap.addClass("has-other");
+      $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
       $box.removeClass("d-none");
     } else {
+      $wrap.removeClass("has-other");
+      $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
       $box.addClass("d-none");
       // Limpa o valor do input quando "outro" é desmarcado
       $box.find("input").val("");
@@ -152,7 +157,7 @@ window.Card10 = (function () {
       const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
       
       // Coluna do select
-      const $colSelect = $(`<div class="col-auto" style="min-width: 250px; max-width: 350px;"></div>`);
+      const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
       
@@ -164,9 +169,9 @@ window.Card10 = (function () {
       $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    $wrap1.removeClass("mb-2").addClass("mb-1");
-    const $container = ensureContainer($wrap1, containerClass, true);
+    // Container para selects dinâmicos, logo abaixo da primeira row (não dentro dela)
+    const $container = ensureContainer($w1, containerClass, true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     function allWraps() {
       return $w1.add($container.find(".rc-select-wrap"));
