@@ -224,9 +224,11 @@ window.Card3 = (function () {
     const $wrapper = wrapperFor($select);
     if (!$wrapper.length) return;
 
-    // Garante que o wrapper seja flex para alinhar o input ao lado
+    // gap-1 = espaçamento pequeno; align-items-stretch = mesma altura entre select e input
     if (!$wrapper.hasClass("d-flex")) {
-      $wrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
+      $wrapper.addClass("d-flex align-items-stretch gap-1 flex-wrap");
+    } else {
+      $wrapper.removeClass("gap-2 gap-3").addClass("gap-1").addClass("align-items-stretch");
     }
 
     // Ajusta o select para ter largura menor quando "outro" for selecionado
@@ -244,13 +246,14 @@ window.Card3 = (function () {
     }
 
     const $extra = ensureContainer($wrapper, "extra-specify-situation");
+    $extra.removeClass("mt-2 ms-3"); // mt-2 quebra alinhamento; gap-1 já dá o espaço
     if (!$extra.hasClass("d-flex")) {
       $extra.css("flex", "1 1 0").css("min-width", "250px");
     }
 
     if (isOther) {
       $extra.removeClass("d-none").html(`
-        <input type="text" class="form-control" style="width: 100%;" name="${$select.attr("name")}__other" placeholder="Especifique">
+        <input type="text" class="form-control h-100" style="width: 100%;" name="${$select.attr("name")}__other" placeholder="Especifique">
       `);
     } else {
       $extra.addClass("d-none").empty();
