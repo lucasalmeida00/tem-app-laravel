@@ -188,6 +188,15 @@ body{
   height: 2.375rem !important;
   min-height: 2.375rem !important;
 }
+/* Inputs ao lado do select (Especifique / Investimento) mesma altura e alinhamento */
+.card-select-row .card-select-col + .col .form-control,
+.card-select-row .card-select-col ~ .col .form-control {
+  height: 2.375rem;
+  min-height: 2.375rem;
+}
+.card-select-row .card-select-col ~ .col {
+  min-width: 0;
+}
 .card-select-row.has-other .form-select {
   max-width: 350px !important;
 }
