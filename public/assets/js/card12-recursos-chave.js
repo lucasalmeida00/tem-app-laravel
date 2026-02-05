@@ -51,7 +51,7 @@ window.Card12 = (function () {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${name}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
             </select>
           </div>
           <div class="col extra-${name}-other-inline d-none">
@@ -70,7 +70,7 @@ window.Card12 = (function () {
    */
   function fillSelectDynamic($sel, chosenSet, currentValue) {
     const placeholder =
-      '<option value="" disabled hidden>Selecione uma opção</option>';
+      '<option value="">-- Selecione --</option>';
 
     const html = RC_OPTIONS
       .map((o) => {

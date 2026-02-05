@@ -42,7 +42,7 @@ window.Card6 = (function () {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${name}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
               ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
@@ -58,7 +58,7 @@ function fillSelect($sel, chosenSet) {
   const keep = $sel.val();
 
   // reset mantendo o placeholder
-  $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+  $sel.html(`<option value="">-- Selecione --</option>`);
 
   WHO_OPTIONS.forEach(o => {
     // “outro” NUNCA sai da lista, mesmo que esteja em chosenSet

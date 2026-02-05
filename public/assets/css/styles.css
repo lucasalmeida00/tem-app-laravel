@@ -200,3 +200,11 @@ body{
 .card-select-row.has-other .form-select {
   max-width: 350px !important;
 }
+
+/* Alinhamento dos blocos especiais 4.1 (Rede de contatos, Equipamentos, Infraestrutura) */
+.nf-block-rede,
+.nf-block-equip,
+.nf-block-infra {
+  margin-left: 0;
+  padding-left: 0;
+}

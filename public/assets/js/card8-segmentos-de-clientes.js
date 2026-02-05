@@ -111,7 +111,7 @@ window.Card8 = (function () {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${name}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
               ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
@@ -126,7 +126,7 @@ window.Card8 = (function () {
   // “outro” nunca some (mesma regra dos cards 6/7)
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     SEG_OPTIONS.forEach(o => {
       if (!chosenSet.has(o.v) || o.v === "outro") {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);

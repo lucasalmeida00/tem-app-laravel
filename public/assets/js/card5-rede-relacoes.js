@@ -189,7 +189,7 @@ window.Card5 = (function () {
   function buildSelect($holder, name) {
     const $sel = $(
       `<select class="form-select mb-2" name="${name}">
-        <option value="" disabled selected hidden>Selecione uma opção</option>
+        <option value="">-- Selecione --</option>
       </select>`
     );
     $holder.append($sel);
@@ -198,7 +198,7 @@ window.Card5 = (function () {
 
   function fillSelect($sel, chosenSet) {
     const current = $sel.val();
-    $sel.empty().append(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.empty().append(`<option value="">-- Selecione --</option>`);
     REL_OPTIONS.forEach(o => {
       if (!chosenSet.has(o.v)) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);

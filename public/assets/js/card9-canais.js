@@ -59,7 +59,7 @@ window.Card9 = (function () {
         <div class="row g-1 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${name}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
               ${CH_OPTIONS.map(
                 (o) => `<option value="${o.v}">${o.label}</option>`
               ).join("")}
@@ -82,7 +82,7 @@ window.Card9 = (function () {
    */
   function fillSelectDynamic($sel, chosenSet, currentValue) {
     const placeholder =
-      '<option value="" disabled hidden>Selecione uma opção</option>';
+      '<option value="">-- Selecione --</option>';
 
     const optionsHtml = CH_OPTIONS.map((o) => {
       // se já foi escolhido em outro select, só deixa se for o valor atual

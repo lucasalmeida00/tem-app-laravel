@@ -228,7 +228,7 @@ window.Card15 = (function () {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${name}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
               ${options.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
             </select>
           </div>
@@ -243,7 +243,7 @@ window.Card15 = (function () {
   // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet, options) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     options.forEach(o => {
       // se já foi escolhido em outro select, só deixa se for o valor atual
       if (!chosenSet.has(o.v) || o.v === keep) {

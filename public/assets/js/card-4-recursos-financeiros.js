@@ -123,7 +123,7 @@ window.Card4 = (function () {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${base}">
-              <option value="" disabled selected hidden>selecione uma opção</option>
+              <option value="">-- Selecione --</option>
             </select>
           </div>
           <div class="col extra-${base}-other-inline d-none">
@@ -138,7 +138,7 @@ window.Card4 = (function () {
 
         // popula com opções disponíveis (exceto já escolhidas, mantendo "outro")
         const options = NF_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
         // estado "Outro" / sub-checkboxes especiais
@@ -534,7 +534,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${base}">
-              <option value="" disabled selected hidden>selecione uma opção</option>
+              <option value="">-- Selecione --</option>
             </select>
           </div>
           <div class="col extra-${base}-other-inline d-none">
@@ -550,7 +550,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         }
 
         const options = F_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
         function ensureFOther($selLocal, name) {
@@ -909,7 +909,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         <div class="row g-2 align-items-center">
           <div class="col card-select-col">
             <select class="form-select" name="${base}">
-              <option value="" disabled selected hidden>Selecione uma opção</option>
+              <option value="">-- Selecione --</option>
             </select>
           </div>
           <div class="col extra-${base}-other-inline d-none">
@@ -922,7 +922,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         }
 
         const options = RISK_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
         function ensureOther($selLocal, name) {

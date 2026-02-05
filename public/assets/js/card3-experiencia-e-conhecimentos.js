@@ -350,7 +350,7 @@ window.Card3 = (function () {
       const $selectWrap = $(`<div class="mb-2"></div>`);
       $selectWrap.append(`
         <select class="form-select" name="${baseName}">
-          <option value="" disabled selected hidden>${placeholders[idx]}</option>
+          <option value="">-- Selecione --</option>
         </select>
       `);
       $container.append($selectWrap);
@@ -359,7 +359,7 @@ window.Card3 = (function () {
 
     // monta options filtrando os já escolhidos (exceto "outro")
     const options = STEP_OPTIONS.filter(o => !chosenSet.has(o.value) || o.value === "outro");
-    $sel.empty().append(`<option value="" disabled selected hidden>${placeholders[idx]}</option>`);
+    $sel.empty().append(`<option value="">-- Selecione --</option>`);
     options.forEach(o => $sel.append(`<option value="${o.value}">${o.label}</option>`));
 
     // preserva valor se ainda existir

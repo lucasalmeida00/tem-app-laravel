@@ -900,14 +900,14 @@
                     }
                 }
 
-                // Tipo Outro (textarea) - aguarda um pouco para o textarea ser criado após o change do radio
+                // Tipo Outro (input) - aguarda um pouco para o input ser criado após o change do radio
                 const tipoOutroVal = cardData[tipoOutroKey];
                 if (tipoOutroVal != null && String(tipoOutroVal).trim() !== "") {
                     setTimeout(() => {
-                        const tipoOutroTextarea = searchScope.querySelector(`textarea[name="${tipoOutroKey}"]`);
-                        if (tipoOutroTextarea) {
-                            tipoOutroTextarea.value = tipoOutroVal;
-                            tipoOutroTextarea.dispatchEvent(new Event("input", { bubbles: true }));
+                        const tipoOutroInput = searchScope.querySelector(`input[name="${tipoOutroKey}"]`);
+                        if (tipoOutroInput) {
+                            tipoOutroInput.value = tipoOutroVal;
+                            tipoOutroInput.dispatchEvent(new Event("input", { bubbles: true }));
                             console.log(`[Card5] ✅ Aplicado tipoOutro ${idx}: ${tipoOutroVal}`);
                         }
                     }, 200);
@@ -928,14 +928,14 @@
                     });
                 }
 
-                // Natureza Outro (textarea) - aguarda um pouco para o textarea ser criado após o change dos checkboxes
+                // Natureza Outro (input) - aguarda um pouco para o input ser criado após o change dos checkboxes
                 const natOutroVal = cardData[natOutroKey];
                 if (natOutroVal != null && String(natOutroVal).trim() !== "") {
                     setTimeout(() => {
-                        const natOutroTextarea = searchScope.querySelector(`textarea[name="${natOutroKey}"]`);
-                        if (natOutroTextarea) {
-                            natOutroTextarea.value = natOutroVal;
-                            natOutroTextarea.dispatchEvent(new Event("input", { bubbles: true }));
+                        const natOutroInput = searchScope.querySelector(`input[name="${natOutroKey}"]`);
+                        if (natOutroInput) {
+                            natOutroInput.value = natOutroVal;
+                            natOutroInput.dispatchEvent(new Event("input", { bubbles: true }));
                             console.log(`[Card5] ✅ Aplicado naturezaOutro ${idx}: ${natOutroVal}`);
                         }
                     }, 300);
