@@ -241,7 +241,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             html = `
         <div class="mb-3 nf-block-equip">
           <label class="form-label fw-semibold d-block">Especifique o equipamento:</label>
-          <div class="d-flex flex-wrap gap-3">
+          <div class="d-flex flex-wrap gap-3 justify-content-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_equip_doados" value="doados" id="nf_equip_doados">
@@ -275,7 +275,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             html = `
         <div class="mb-3 nf-block-rede">
           <label class="form-label fw-semibold d-block">Especifique a rede de contatos:</label>
-          <div class="d-flex flex-wrap gap-3">
+          <div class="d-flex flex-wrap gap-3 align-items-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
@@ -368,7 +368,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                     // Adiciona o input inline ao lado do checkbox "outro"
                     let $inlineHolder = $formCheck.find(".nf-special-other-inline");
                     if (!$inlineHolder.length) {
-                        $inlineHolder = $(`<div class="nf-special-other-inline mt-2"></div>`);
+                        $inlineHolder = $(`<div class="nf-special-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
                         $formCheck.after($inlineHolder);
                     }
 
@@ -379,7 +379,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
                         : "nf_infra_outro";
 
                     $inlineHolder.html(`
-                        <input type="text" class="form-control mx-auto" name="${name}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">
+                        <input type="text" class="form-control" name="${name}" placeholder="Especifique" style="width: 100%; display: block; box-sizing: border-box;">
                     `);
                 }
 
