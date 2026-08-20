@@ -36,10 +36,10 @@
             <div class="hero-content col-12 col-md-6">
                 <h1 class="hero-title fw-bold display-4">Seja bem-vindo(a)</h1>
                 <h2 class="hero-subtitle fw-semibold fs-3 mb-4">
-                   Territorial Effectuation Monitoring
+                    Territorial Effectuation Monitoring
                 </h2>
                 <p class="hero-text fs-5">
-                   Uma ferramenta de apoio à pesquisa sobre trajetórias empreendedoras
+                    Uma ferramenta de apoio à pesquisa sobre trajetórias empreendedoras
                 </p>
             </div>
         </div>
@@ -55,13 +55,13 @@
                 <h1 class="section-title">Como funciona?</h1>
                 <div class="section-text">
                     <p>
-                        O empreendedor responde a um questionário estruturado, com duração aproximada de 20 minutos.
+                        O empreendedor responde a um questionário estruturado, com duração aproximada de 30 minutos.
                         Ao final, o sistema gera automaticamente um relatório descritivo, que apresenta:
                     </p>
                     <ul class="text-start mx-auto" style="max-width: 600px;">
                         <li>a trajetória empreendedora ao longo do tempo, com seus principais marcos;</li>
-                        <li>a configuração do modelo de negócio no momento da coleta;</li>
-                        <li>as parcerias formadas ao longo da trajetória.</li>
+                        <li>a configuração do modelo de negócio no momento da coleta de dados;</li>
+                        <li>as principais parcerias formadas ao longo da trajetória.</li>
                     </ul>
                 </div>
             </section>
@@ -75,8 +75,10 @@
                         com atenção à mobilização de recursos, às redes relacionais e à configuração dos modelos de negócios.
                     </p>
                     <p>
-                        A ferramenta foi desenvolvida com o apoio da FAPERJ, por meio do edital Programa Favela Inteligente
-                        em Apoio às Bases para o Parque de Inovação Social e Sustentável na Rocinha.
+                        A ferramenta foi desenvolvida pela pesquisadora Aline Brufato, sob a coordenação do
+                        professor Roberto Bartholo, com apoio da FAPERJ, por meio do edital Programa
+                        Favela Inteligente em Apoio às Bases para o Parque de Inovação Social e Sustentável na
+                        Rocinha.
                     </p>
                 </div>
             </section>
