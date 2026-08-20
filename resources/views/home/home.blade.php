@@ -25,6 +25,9 @@
                     <li class="nav-item"><a href="/login" class="nav-link">Entrar</a></li>
                     <li class="nav-item"><a href="/signup" class="nav-link">Registrar-se</a></li>
                 </ul>
+                <div class="ms-3 d-flex align-items-center">
+                    @include('partials.google-translate')
+                </div>
             </header>
         </div>
     </section>

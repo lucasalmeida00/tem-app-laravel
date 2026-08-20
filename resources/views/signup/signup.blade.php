@@ -16,6 +16,10 @@
 
 <body>
 
+    <div class="text-center pt-3">
+        @include('partials.google-translate')
+    </div>
+
     <div class="login-page">
         <div class="form">
             <form class="login-form" id="signup-form">
