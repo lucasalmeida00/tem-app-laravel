@@ -18,6 +18,7 @@ class SignupRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'lgpd_consent' => ['required', 'accepted'],
             'recaptcha_token' => ['required', new \App\Rules\RecaptchaRule('signup')],
         ];
     }
@@ -32,6 +33,8 @@ class SignupRequest extends FormRequest
             'password.required' => 'A senha é obrigatória.',
             'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
             'password.confirmed' => 'As senhas não conferem.',
+            'lgpd_consent.required' => 'É necessário aceitar os termos da LGPD para se cadastrar.',
+            'lgpd_consent.accepted' => 'É necessário aceitar os termos da LGPD para se cadastrar.',
         ];
     }
 }

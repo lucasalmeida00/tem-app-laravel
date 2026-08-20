@@ -88,7 +88,7 @@
                 options: [
                     { value: "divide_tempo", label: "Divide tempo com outro trabalho em paralelo com o empreendimento" },
                     { value: "integral", label: "Tempo dedicado integralmente" },
-                    { value: "parcial", label: "Tempo parcialmente ao empreendimento" }
+                    { value: "parcial", label: "Tempo parcialmente dedicado ao empreendimento" }
                 ]
             }]
         },
@@ -168,7 +168,7 @@
                     { value: "buscou_parceiros", label: "Buscou parceiros" },
                     { value: "contratou_emprestimo", label: "Contratou emprestimo" },
                     { value: "investiu_capital_proprio", label: "Investiu capital próprio" },
-                    { value: "investiu_apenas_que_poderia_perder", label: "Investiu somente o que vocêr poderia arriscar e perder" },
+                    { value: "investiu_apenas_que_poderia_perder", label: "Investiu somente o que você poderia arriscar e perder" },
                     { value: "nao_investiu_dinheiro", label: "Não investiu dinheiro inicial" },
                     { value: "outro", label: "Outro" }
                 ]

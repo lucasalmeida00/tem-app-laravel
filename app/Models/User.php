@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_reviewer',
+        'lgpd_accepted_at',
     ];
 
     /**
@@ -45,6 +46,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'lgpd_accepted_at' => 'datetime',
         ];
     }
 }

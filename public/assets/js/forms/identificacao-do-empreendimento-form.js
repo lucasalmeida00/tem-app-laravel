@@ -36,7 +36,7 @@
                 fields: [{
                     type: "text",
                     name: "corporateName",
-                    placeholder: "Digite a Razão Social de sua empresa"
+                    placeholder: "Digite a Razão social de sua empresa"
                 }]
             }
             ]
@@ -379,26 +379,55 @@
         },
 
         {
-            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Número de faturamento Anual</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Qual é o faturamento anual aproximado do empreendimento</h3>",
             "color": "success",
             "fields": [{
                 "type": "select",
                 "name": "annualRevenueLevel",
                 "placeholder": "Selecione o nível",
                 "required": true,
-                "options": [{
-                    "value": "ate_360k",
-                    "label": "Até 360,000.00 mil reais"
-                },
-                {
-                    "value": "acima_360k",
-                    "label": "Acima de 360,000.00 mil reais"
-                }
+                "options": [
+                    {
+                        "value": "ate_24k",
+                        "label": "Até R$ 24.000"
+                    },
+                    {
+                        "value": "de_24k_a_60k",
+                        "label": "De R$ 24.001 a R$ 60.000"
+                    },
+                    {
+                        "value": "de_60k_a_120k",
+                        "label": "De R$ 60.001 a R$ 120.000"
+                    },
+                    {
+                        "value": "de_120k_a_240k",
+                        "label": "De R$ 120.001 a R$ 240.000"
+                    },
+                    {
+                        "value": "de_240k_a_600k",
+                        "label": "De R$ 240.001 a R$ 600.000"
+                    },
+                    {
+                        "value": "de_600k_a_1200k",
+                        "label": "De R$ 600.001 a R$ 1.200.000"
+                    },
+                    {
+                        "value": "de_1200k_a_3000k",
+                        "label": "De R$ 1.200.001 a R$ 3.000.000"
+                    },
+                    {
+                        "value": "de_3000k_a_6000k",
+                        "label": "De R$ 3.000.001 a R$ 6.000.000"
+                    },
+                    {
+                        "value": "acima_6000k",
+                        "label": "Acima de R$ 6.000.000"
+                    },
                 ]
             }]
         },
         {
-            "titleHtml": "<span class='c-green f-number'>1.15</span> <br/> <h3 class='c-black t-title'>O empreendimento é de natureza Online, Presencial ou Híbrido?</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.15</span> <br/> <h3 class='c-black t-title'>O empreendimento é de natureza online, presencial ou híbrido?</h3>",
             "color": "success",
             "fields": [{
                 "type": "select",
@@ -421,7 +450,7 @@
             }]
         },
         {
-            "titleHtml": "<span class='c-green f-number'>1.16</span> <br/> <h3 class='c-black t-title'>Redes Sociais</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.16</span> <br/> <h3 class='c-black t-title'>Redes sociais</h3>",
             "color": "success",
             "fields": [{
                 "type": "row",

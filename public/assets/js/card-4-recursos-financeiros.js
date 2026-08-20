@@ -279,27 +279,27 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
-              <label class="form-check-label" for="nf_rede_mentores">Mentores</label>
+              <label class="form-check-label" for="nf_rede_mentores">1. Mentores</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_parceiros" value="parceiros" id="nf_rede_parceiros">
-              <label class="form-check-label" for="nf_rede_parceiros">Parceiros</label>
+              <label class="form-check-label" for="nf_rede_parceiros">2. Parceiros</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_amigos" value="amigos" id="nf_rede_amigos">
-              <label class="form-check-label" for="nf_rede_amigos">Amigos</label>
+              <label class="form-check-label" for="nf_rede_amigos">3. Amigos</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_familiares" value="familiares" id="nf_rede_familiares">
-              <label class="form-check-label" for="nf_rede_familiares">Familiares</label>
+              <label class="form-check-label" for="nf_rede_familiares">4. Familiares</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_outro" value="outro" id="nf_rede_outro">
-              <label class="form-check-label" for="nf_rede_outro">Outro</label>
+              <label class="form-check-label" for="nf_rede_outro">5. Outro</label>
             </div>
           </div>
           <div class="nf-rede-other mt-2"></div>
@@ -1133,7 +1133,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         // 1) Usa o wrapper do "Ano" como âncora para inserir o bloco dinâmico
         renderInvestorsBlock($wrapY, {
             prefix: "invInit",
-            max: 3,
+            max: 5,
             blockClass: "investors-init-block"
         });
 
