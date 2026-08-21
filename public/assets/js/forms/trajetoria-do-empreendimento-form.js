@@ -11,7 +11,15 @@
         // 19.1 — Marcos anuais
         titleHtml:
           "<span class='c-green f-number'>19.1</span> <br/>" +
-          "<h3 class='c-black t-title'>Informe quais são os principais marcos (anuais) do seu empreendimento desde a sua criação até os dias atuais.</h3>",
+          "<h3 class='c-black t-title'>Informe quais são os principais marcos (anuais) do seu empreendimento desde a sua criação até os dias atuais.</h3>" +
+          "<button type='button' class='btn btn-link btn-sm p-0 align-baseline trajectory-order-hint-btn' " +
+          "aria-expanded='false' aria-controls='trajectoryOrderHintText' " +
+          "aria-label='Aviso sobre a ordem dos marcos'>" +
+          "<i class='fas fa-info-circle'></i> Pode informar em qualquer ordem" +
+          "</button>" +
+          "<div id='trajectoryOrderHintText' class='trajectory-order-hint-text alert alert-info mt-2 mb-0 p-2 small d-none'>" +
+          "Você pode informar os marcos em qualquer ordem de ano — o sistema organiza automaticamente do mais antigo para o mais recente." +
+          "</div>",
         color: "success",
         fields: [
           {

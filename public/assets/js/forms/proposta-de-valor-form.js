@@ -30,14 +30,14 @@
                         placeholder: "Selecione uma opção",
                         required: true,
                         options: [
+                            { value: "nicho_especifico", label: "Atende a um nicho específico" },
                             { value: "facilidade_acesso", label: "Facilidade de acesso (presença local, sem necessidade de deslocamento)" },
                             { value: "facilidade_uso", label: "Facilidade de Uso" },
                             { value: "eficiencia_rapidez", label: "Maior eficiência ou rapidez" },
-                            { value: "nicho_especifico", label: "Atende a um nicho específico" },
-                            { value: "nao_ofertado_favela", label: "Produto não ofertado na favela" },
                             { value: "preco_acessivel", label: "Preço mais acessível" },
-                            { value: "qualidade_superior", label: "Qualidade Superior" },
+                            { value: "nao_ofertado_favela", label: "Produto não ofertado na favela" },
                             { value: "melhor_qualidade", label: "Produto/Serviço de melhor qualidade" },
+                            { value: "qualidade_superior", label: "Qualidade Superior" },
                             { value: "solucao_mais_rapida", label: "Solução mais rápida ou eficiente" },
                             { value: "outro", label: "Outro" }
                         ]

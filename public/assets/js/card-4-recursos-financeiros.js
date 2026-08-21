@@ -58,36 +58,32 @@ window.Card4 = (function () {
 
     // ---------- 4.1 NÃO FINANCEIROS ----------
     const NF_OPTIONS = [{
-            v: "conhecimento_experiencia",
-            l: "Conhecimento ou experiência"
+            v: "conhecimento_territorio",
+            l: "Conhecimento de território/mercado/setor"
         },
         {
-            v: "experiencia_pratica",
-            l: "Experiência prática como empreendedor"
+            v: "conhecimento_experiencia",
+            l: "Conhecimento ou experiência"
         },
         {
             v: "equipamentos",
             l: "Equipamentos"
         },
         {
-            v: "rede_contatos",
-            l: "Rede de Contatos"
+            v: "experiencia_pratica",
+            l: "Experiência prática como empreendedor"
         },
         {
             v: "infraestrutura",
             l: "Infraestrutura"
         },
         {
-            v: "conhecimento_territorio",
-            l: "Conhecimento de território/mercado/setor"
-        },
-        {
             v: "parcerias_locais",
             l: "Parcerias com empresas locais e/ou outras"
         },
         {
-            v: "trabalho_voluntario_terceiros",
-            l: "Trabalho voluntário de terceiros"
+            v: "rede_contatos",
+            l: "Rede de Contatos"
         },
         {
             v: "tempo_integral",
@@ -100,6 +96,10 @@ window.Card4 = (function () {
         {
             v: "trabalho_nao_remunerado_socios",
             l: "Trabalho não remunerado dos sócios"
+        },
+        {
+            v: "trabalho_voluntario_terceiros",
+            l: "Trabalho voluntário de terceiros"
         },
         {
             v: "outro",
@@ -244,23 +244,23 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
           <div class="d-flex flex-wrap gap-3 justify-content-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_equip_doados" value="doados" id="nf_equip_doados">
-              <label class="form-check-label" for="nf_equip_doados">Doados</label>
-            </div>
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
                      name="nf_equip_comprados" value="comprados" id="nf_equip_comprados">
               <label class="form-check-label" for="nf_equip_comprados">Comprados</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_equip_materiais_proprios" value="materiais_proprios" id="nf_equip_materiais_proprios">
-              <label class="form-check-label" for="nf_equip_materiais_proprios">Materiais próprios</label>
+                     name="nf_equip_conhecimento_experiencia" value="conhecimento_experiencia" id="nf_equip_conhecimento_experiencia">
+              <label class="form-check-label" for="nf_equip_conhecimento_experiencia">Conhecimento ou experiência</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_equip_conhecimento_experiencia" value="conhecimento_experiencia" id="nf_equip_conhecimento_experiencia">
-              <label class="form-check-label" for="nf_equip_conhecimento_experiencia">Conhecimento ou experiência</label>
+                     name="nf_equip_doados" value="doados" id="nf_equip_doados">
+              <label class="form-check-label" for="nf_equip_doados">Doados</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_equip_materiais_proprios" value="materiais_proprios" id="nf_equip_materiais_proprios">
+              <label class="form-check-label" for="nf_equip_materiais_proprios">Materiais próprios</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
@@ -278,23 +278,23 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
           <div class="d-flex flex-wrap gap-3 align-items-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
-              <label class="form-check-label" for="nf_rede_mentores">1. Mentores</label>
-            </div>
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
-                     name="nf_rede_parceiros" value="parceiros" id="nf_rede_parceiros">
-              <label class="form-check-label" for="nf_rede_parceiros">2. Parceiros</label>
-            </div>
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
                      name="nf_rede_amigos" value="amigos" id="nf_rede_amigos">
-              <label class="form-check-label" for="nf_rede_amigos">3. Amigos</label>
+              <label class="form-check-label" for="nf_rede_amigos">1. Amigos</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_familiares" value="familiares" id="nf_rede_familiares">
-              <label class="form-check-label" for="nf_rede_familiares">4. Familiares</label>
+              <label class="form-check-label" for="nf_rede_familiares">2. Familiares</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
+              <label class="form-check-label" for="nf_rede_mentores">3. Mentores</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_rede_parceiros" value="parceiros" id="nf_rede_parceiros">
+              <label class="form-check-label" for="nf_rede_parceiros">4. Parceiros</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
@@ -479,26 +479,6 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Empréstimo bancário"
         },
         {
-            v: "investimento_terceiros",
-            l: "Investimento de terceiros"
-        },
-        {
-            v: "investimento_informal",
-            l: "Investimento Informal"
-        },
-        {
-            v: "recursos_pessoais",
-            l: "Recursos financeiros pessoais"
-        },
-        {
-            v: "fgts",
-            l: "FGTS"
-        },
-        {
-            v: "seguro_desemprego",
-            l: "Seguro desemprego"
-        },
-        {
             v: "emprestimo_amigos",
             l: "Empréstimo com amigos"
         },
@@ -507,12 +487,36 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Empréstimo com familiares"
         },
         {
+            v: "equipamento",
+            l: "Equipamento"
+        },
+        {
+            v: "fgts",
+            l: "FGTS"
+        },
+        {
             v: "infraestrutura",
             l: "Infraestrutura"
         },
         {
-            v: "equipamento",
-            l: "Equipamento"
+            v: "investimento_terceiros",
+            l: "Investimento de terceiros"
+        },
+        {
+            v: "investimento_informal",
+            l: "Investimento Informal"
+        },
+        {
+            v: "investimento_proprios",
+            l: "Investimento próprios"
+        },
+        {
+            v: "recursos_pessoais",
+            l: "Recursos financeiros pessoais"
+        },
+        {
+            v: "seguro_desemprego",
+            l: "Seguro desemprego"
         },
         {
             v: "outro",
@@ -858,20 +862,8 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
     // ---------- 4.7 RISCOS & INVESTIMENTOS (3 selects) ----------
     const RISK_OPTIONS = [{
-            v: "investiu_capital_proprio",
-            l: "Investiu capital próprio"
-        },
-        {
-            v: "investiu_apenas_que_poderia_perder",
-            l: "Investiu somente o que vocêr poderia arriscar e perder"
-        },
-        {
-            v: "nao_investiu_dinheiro",
-            l: "Não investiu dinheiro inicial"
-        },
-        {
-            v: "contratou_emprestimo",
-            l: "Contratou emprestimo"
+            v: "buscou_amigos_familiares",
+            l: "Buscou amigos e familiares"
         },
         {
             v: "buscou_edital",
@@ -886,8 +878,20 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Buscou parceiros"
         },
         {
-            v: "buscou_amigos_familiares",
-            l: "Buscou amigos e familiares"
+            v: "contratou_emprestimo",
+            l: "Contratou emprestimo"
+        },
+        {
+            v: "investiu_capital_proprio",
+            l: "Investiu capital próprio"
+        },
+        {
+            v: "investiu_apenas_que_poderia_perder",
+            l: "Investiu somente o que vocêr poderia arriscar e perder"
+        },
+        {
+            v: "nao_investiu_dinheiro",
+            l: "Não investiu dinheiro inicial"
         },
         {
             v: "outro",

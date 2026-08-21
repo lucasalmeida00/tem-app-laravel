@@ -19,8 +19,8 @@
             name: "mainImpact",
             required: true,
             options: [
-              { value: "empoderamento_grupos_marginalizados", label: "Empoderamento de grupos marginalizados ou vulneráveis" },
               { value: "desenvolvimento_lideres_locais", label: "Desenvolvimento de líderes locais ou de novos empreendedores" },
+              { value: "empoderamento_grupos_marginalizados", label: "Empoderamento de grupos marginalizados ou vulneráveis" },
               { value: "geracao_trabalho_renda", label: "Geração de trabalho e renda" },
               { value: "melhoria_qualidade_vida_local", label: "Melhoria na qualidade de vida local (saúde, segurança, educação)" },
               { value: "outro", label: "Outro" }

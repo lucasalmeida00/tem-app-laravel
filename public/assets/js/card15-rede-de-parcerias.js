@@ -20,44 +20,60 @@ window.Card15 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const HOW_PARTNER_OPTIONS = [
-    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
-    { v: "eventos_setor", label: "Eventos do Setor" },
-    { v: "hackathons_competicoes", label: "Hackathons e Competições" },
-    { v: "conhecidos_rede_profissional", label: "Conhecidos e Rede Profissional" },
-    { v: "familia_amigos", label: "Família e Amigos" },
-    { v: "midias_sociais", label: "Mídias Sociais" },
-    { v: "comunidade_religiosa", label: "Comunidade Religiosa" },
-    { v: "novos_parceiros", label: "Novos Parceiros" },
-    { v: "incubadoras_aceleradoras", label: "Incubadoras e Aceleradoras" },
-    { v: "associacoes_profissionais", label: "Associações Profissionais" },
-    { v: "universidades_pesquisa", label: "Universidades e centros de pesquisa" },
-    { v: "consultorias", label: "Consultorias" },
     { v: "agencia_fomento", label: "Agência de Fomento" },
-    {
-      v: "coworking_espacos_compartilhados",
-      label: "Coworking e Espaços de trabalho compartilhado"
-    },
+    { v: "associacoes_profissionais", label: "Associações Profissionais" },
+    { v: "clientes_ex_clientes", label: "Clientes e Ex-Clientes" },
+    { v: "comunidade_religiosa", label: "Comunidade Religiosa" },
     {
       v: "comunidades_foruns_online",
       label: "Comunidades e Fóruns Online"
     },
-    { v: "eventos_networking", label: "Eventos de Networking" },
-    { v: "clientes_ex_clientes", label: "Clientes e Ex-Clientes" },
+    { v: "conhecidos_rede_profissional", label: "Conhecidos e Rede Profissional" },
+    { v: "consultorias", label: "Consultorias" },
     {
-      v: "grupos_associacoes_comunitaria",
-      label: "Grupos e Associações Comunitária"
+      v: "coworking_espacos_compartilhados",
+      label: "Coworking e Espaços de trabalho compartilhado"
     },
-    { v: "programas_mentoria", label: "Programas de Mentoria" },
+    { v: "eventos_networking", label: "Eventos de Networking" },
+    { v: "eventos_setor", label: "Eventos do Setor" },
+    { v: "familia_amigos", label: "Família e Amigos" },
+    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
     {
       v: "fundos_investimento_capital_risco",
       label: "Fundos de Investimento e Capital de Risco"
     },
+    {
+      v: "grupos_associacoes_comunitaria",
+      label: "Grupos e Associações Comunitária"
+    },
+    { v: "hackathons_competicoes", label: "Hackathons e Competições" },
+    { v: "incubadoras_aceleradoras", label: "Incubadoras e Aceleradoras" },
+    { v: "midias_sociais", label: "Mídias Sociais" },
+    { v: "novos_parceiros", label: "Novos Parceiros" },
+    { v: "programas_mentoria", label: "Programas de Mentoria" },
     { v: "programas_televisao", label: "Programas de Televisão" },
     { v: "redes_sociais", label: "Redes Sociais" },
+    { v: "universidades_pesquisa", label: "Universidades e centros de pesquisa" },
     { v: "outro", label: "Outro" }
   ];
 
   const PARTNERSHIPS_BOOST_SALES_OPTIONS = [
+    {
+      v: "colaboracao_ongs_comunidade",
+      label: "Colaboração com ONGs e Organizações Comunitárias"
+    },
+    {
+      v: "colaboracao_organizacoes_empreendedorismo",
+      label: "Colaboração com Organizações de Empreendedorismo"
+    },
+    {
+      v: "descontos_beneficios_vizinhos",
+      label: "Descontos ou Benefícios para Vizinhos e Famílias do Bairro"
+    },
+    {
+      v: "parcerias_escolas_associacoes_igrejas",
+      label: "Parcerias com Escolas, Associações de Moradores, Igrejas"
+    },
     {
       v: "parcerias_influenciadores",
       label: "Parcerias com Influenciadores"
@@ -67,29 +83,13 @@ window.Card15 = (function () {
       label: "Parcerias com Outros Empreendimentos para Vendas Conjuntas"
     },
     {
-      v: "colaboracao_ongs_comunidade",
-      label: "Colaboração com ONGs e Organizações Comunitárias"
-    },
-    {
       v: "eventos_capacitacao_empoderamento",
       label: "Participação em Eventos de Capitalização e Empoderamento Comunitário"
-    },
-    {
-      v: "parcerias_escolas_associacoes_igrejas",
-      label: "Parcerias com Escolas, Associações de Moradores, Igrejas"
-    },
-    {
-      v: "descontos_beneficios_vizinhos",
-      label: "Descontos ou Benefícios para Vizinhos e Famílias do Bairro"
     },
     {
       v: "promocoes_lancamento_parcerias",
       label:
         "Promoções de Lançamento de Produtos/Serviços (parcerias com organizações ou outros negócios)"
-    },
-    {
-      v: "colaboracao_organizacoes_empreendedorismo",
-      label: "Colaboração com Organizações de Empreendedorismo"
     },
     {
       v: "venda_grupos_compras_coletivas",
@@ -99,87 +99,87 @@ window.Card15 = (function () {
   ];
 
   const SALES_BOOST_OPPORTUNITIES_OPTIONS = [
-    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
-    { v: "eventos_setor", label: "Eventos do Setor" },
     {
-      v: "promocoes_clientes_atuais",
-      label: "Promoções junto aos clientes atuais"
+      v: "abordagens_diretas",
+      label: "Abordagens Diretas"
+    },
+    { v: "anuncios_publicidade", label: "Anúncios" },
+    {
+      v: "boca_a_boca_indicacao",
+      label: "Boca a Boca e Indicação de Clientes"
     },
     {
       v: "campanhas_marketing_digital",
       label: "Campanhas de Marketing Digital"
     },
     {
-      v: "publicidade_redes_sociais",
-      label: "Publicidade em Redes Sociais"
-    },
-    {
-      v: "email_whatsapp_marketing",
-      label: "E-mail Marketing e Whatsapp Marketing"
+      v: "conteudo_digital",
+      label: "Criação de Conteúdo Digital (Blog, Youtube, Podcasts)"
     },
     {
       v: "descontos_promocoes_sazonais",
       label: "Descontos e Promoções Sazonais"
     },
     {
-      v: "programa_indicacao",
-      label: "Programa de Indicação (Indique e Ganhe)"
-    },
-    { v: "anuncios_publicidade", label: "Anúncios" },
-    {
-      v: "publicidade_revistas_jornais_radio",
-      label:
-        "Publicidade em Revistas, Jornais e Rádio (incluindo rádios comunitárias)"
+      v: "amostras_gratis",
+      label: "Distribuição de Amostras Grátis"
     },
     {
-      v: "conteudo_digital",
-      label: "Criação de Conteúdo Digital (Blog, Youtube, Podcasts)"
+      v: "email_whatsapp_marketing",
+      label: "E-mail Marketing e Whatsapp Marketing"
+    },
+    {
+      v: "equipe_vendas_ativa",
+      label: "Equipe de Vendas Ativa"
+    },
+    { v: "eventos_setor", label: "Eventos do Setor" },
+    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
+    {
+      v: "panfletagem_alto_movimento",
+      label: "Panfletagem em Locais de Alto Movimento"
     },
     {
       v: "conferencias_congressos",
       label: "Participação em Conferências e Congressos"
     },
     {
+      v: "grupos_comunidades_online",
+      label: "Participação em Grupos e Comunidades Online"
+    },
+    {
       v: "hackathon_aceleracao",
       label: "Participação em Hackathon e Programas de Aceleração"
     },
     {
-      v: "amostras_gratis",
-      label: "Distribuição de Amostras Grátis"
+      v: "licitacoes_concorrencias_publicas",
+      label: "Participação em Licitações e Concorrências Públicas"
+    },
+    {
+      v: "programa_indicacao",
+      label: "Programa de Indicação (Indique e Ganhe)"
+    },
+    {
+      v: "promocoes_clientes_atuais",
+      label: "Promoções junto aos clientes atuais"
     },
     {
       v: "promocoes_personalizadas",
       label: "Promoções Personalizadas (baseadas em dados de clientes)"
     },
     {
+      v: "publicidade_redes_sociais",
+      label: "Publicidade em Redes Sociais"
+    },
+    {
+      v: "publicidade_revistas_jornais_radio",
+      label:
+        "Publicidade em Revistas, Jornais e Rádio (incluindo rádios comunitárias)"
+    },
+    {
       v: "testes_gratuitos_novos_clientes",
       label: "Testes Gratuitos para Novos Clientes"
     },
     { v: "webinares_lives", label: "Webinares e Lives" },
-    {
-      v: "grupos_comunidades_online",
-      label: "Participação em Grupos e Comunidades Online"
-    },
-    {
-      v: "panfletagem_alto_movimento",
-      label: "Panfletagem em Locais de Alto Movimento"
-    },
-    {
-      v: "boca_a_boca_indicacao",
-      label: "Boca a Boca e Indicação de Clientes"
-    },
-    {
-      v: "abordagens_diretas",
-      label: "Abordagens Diretas"
-    },
-    {
-      v: "equipe_vendas_ativa",
-      label: "Equipe de Vendas Ativa"
-    },
-    {
-      v: "licitacoes_concorrencias_publicas",
-      label: "Participação em Licitações e Concorrências Públicas"
-    },
     { v: "outro", label: "Outro" }
   ];
 
@@ -189,25 +189,13 @@ window.Card15 = (function () {
       label: "Aceita Colaborações de potenciais parceiros"
     },
     {
-      v: "reune_incorpora_informacoes",
-      label: "Reúne e incorpora Novas Informações"
+      v: "aceita_sugestoes_limitacoes",
+      label:
+        "Aceita sugestões e parcerias, mas com limitações ou em áreas específicas do empreendimento"
     },
     {
       v: "avalia_novos_desenvolvimentos",
       label: "Avalia e considera novos desenvolvimentos"
-    },
-    {
-      v: "mais_resistente_foco",
-      label: "Mais resistente por conta do foco"
-    },
-    {
-      v: "prefere_manter_foco_atuais",
-      label: "Prefere manter o foco nas estratégias práticas atuais"
-    },
-    {
-      v: "aceita_sugestoes_limitacoes",
-      label:
-        "Aceita sugestões e parcerias, mas com limitações ou em áreas específicas do empreendimento"
     },
     {
       v: "avalia_interesse_planejamento_metas",
@@ -215,8 +203,20 @@ window.Card15 = (function () {
         "Avalia o interesse de novos parceiros com base na aderência ao planejamento e metas estabelecidas"
     },
     {
+      v: "mais_resistente_foco",
+      label: "Mais resistente por conta do foco"
+    },
+    {
       v: "prefere_atuar_sozinho_socios",
       label: "Prefere atuar sozinho ou somente com os sócios"
+    },
+    {
+      v: "prefere_manter_foco_atuais",
+      label: "Prefere manter o foco nas estratégias práticas atuais"
+    },
+    {
+      v: "reune_incorpora_informacoes",
+      label: "Reúne e incorpora Novas Informações"
     },
     { v: "outro", label: "Outro" }
   ];

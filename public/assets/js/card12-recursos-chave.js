@@ -24,19 +24,19 @@ window.Card12 = (function () {
   // ==== Opções (espelho do schema) ========================================
   const RC_OPTIONS = [
     { v: "capital_financeiro", label: "Capital financeiro (próprio ou de investidores)" },
+    { v: "conhecimento_comunidade", label: "Conhecimento sobre a comunidade e seus desafios" },
     { v: "doadores", label: "Doadores" },
+    { v: "financiamento_coletivo", label: "Financiamento coletivo" },
+    { v: "infraestrutura", label: "Infraestrutura (prédio, lojas, espaço físico, equipamentos)" },
+    { v: "mao_de_obra_local", label: "Mão de obra local (moradores da favela/comunidade)" },
+    { v: "parcerias_comercios_organizacoes", label: "Parcerias com comércios ou organizações locais" },
     { v: "patrocinadores_diretos", label: "Patrocinadores diretos" },
     { v: "patrocinadores_lei_incentivo", label: "Patrocinadores via lei de incentivo" },
-    { v: "financiamento_coletivo", label: "Financiamento coletivo" },
     { v: "pessoas_assalariadas", label: "Pessoas assalariadas (equipe, expertise)" },
-    { v: "voluntarios", label: "Voluntários" },
-    { v: "conhecimento_comunidade", label: "Conhecimento sobre a comunidade e seus desafios" },
-    { v: "parcerias_comercios_organizacoes", label: "Parcerias com comércios ou organizações locais" },
-    { v: "mao_de_obra_local", label: "Mão de obra local (moradores da favela/comunidade)" },
-    { v: "tecnologia", label: "Tecnologia (aplicativos, sites)" },
-    { v: "infraestrutura", label: "Infraestrutura (prédio, lojas, espaço físico, equipamentos)" },
     { v: "pessoas_equipe", label: "Pessoas (Equipe, expertise)" },
     { v: "propriedade_intelectual", label: "Propriedade intelectual (patentes, marcas)" },
+    { v: "tecnologia", label: "Tecnologia (aplicativos, sites)" },
+    { v: "voluntarios", label: "Voluntários" },
     { v: "outro", label: "Outro" },
   ];
 

@@ -14,8 +14,8 @@
                 placeholder: "Selecione uma opção",
                 required: true,
                 options: [
-                    { value: "conhecimento_experiencia", label: "Conhecimento ou experiência" },
                     { value: "conhecimento_territorio", label: "Conhecimento de território/mercado/setor" },
+                    { value: "conhecimento_experiencia", label: "Conhecimento ou experiência" },
                     { value: "equipamentos", label: "Equipamentos" },
                     { value: "experiencia_pratica", label: "Experiência prática como empreendedor" },
                     { value: "infraestrutura", label: "Infraestrutura" },
@@ -41,15 +41,15 @@
                 required: true,
                 options: [
                     { value: "economias_pessoais", label: "Economias pessoais (poupança)" },
-                    { value: "emprestimo_amigos", label: "Empréstimo com amigos" },
                     { value: "emprestimo_bancario", label: "Empréstimo bancário" },
+                    { value: "emprestimo_amigos", label: "Empréstimo com amigos" },
                     { value: "emprestimo_familiares", label: "Empréstimo com familiares" },
                     { value: "equipamento", label: "Equipamento" },
                     { value: "fgts", label: "FGTS" },
                     { value: "infraestrutura", label: "Infraestrutura" },
+                    { value: "investimento_terceiros", label: "Investimento de terceiros" },
                     { value: "investimento_informal", label: "Investimento Informal" },
                     { value: "investimento_proprios", label: "Investimento próprios" },
-                    { value: "investimento_terceiros", label: "Investimento de terceiros" },
                     { value: "recursos_pessoais", label: "Recursos financeiros pessoais" },
                     { value: "seguro_desemprego", label: "Seguro desemprego" },
                     { value: "outro", label: "Outro" }

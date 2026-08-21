@@ -27,19 +27,19 @@ window.Card9 = (function () {
   };
 
   const CH_OPTIONS = [
+    { v: "anuncios", label: "Anúncios" },
+    { v: "internet", label: "Internet" },
     {
       v: "lojas_franquias_marketing",
       label:
         "Lojas físicas, franquias ou por meio de canais de marketing como redes sociais",
     },
-    { v: "internet", label: "Internet" },
-    { v: "anuncios", label: "Anúncios" },
+    { v: "redes_sociais", label: "Redes sociais" },
     {
       v: "vendas_diretas_feiras_parcerias",
       label:
         "Vendas diretas de porta em porta, feiras locais ou parcerias com lideranças comunitárias",
     },
-    { v: "redes_sociais", label: "Redes sociais" },
     { v: "outro", label: "Outros" },
   ];
 

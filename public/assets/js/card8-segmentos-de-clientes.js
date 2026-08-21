@@ -29,10 +29,10 @@ window.Card8 = (function () {
 
   const SEG_OPTIONS = [
     { v: "faixa_etaria", label: "Consumidor final na faixa etária (jovens, adultos, idosos)" },
-    { v: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
     { v: "ocupacao", label: "Consumidor final por ocupação (trabalhadores informais, pequenos empresários, etc.)" },
-    { v: "pequenas_empresas", label: "Pequenas Empresas" },
+    { v: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
     { v: "grandes_empresas", label: "Grandes Empresas" },
+    { v: "pequenas_empresas", label: "Pequenas Empresas" },
     { v: "outro", label: "Outro" }
   ];
 

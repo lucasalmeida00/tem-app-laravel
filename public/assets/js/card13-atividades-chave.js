@@ -26,17 +26,17 @@ window.Card13 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const AK_OPTIONS = [
-    { v: "producao_produtos", label: "Produção de produtos" },
-    { v: "prestacao_servicos", label: "Prestação de Serviços" },
-    { v: "desenvolvimento_novos_produtos_servicos", label: "Desenvolvimento de novos produtos ou serviços" },
-    { v: "marketing_vendas", label: "Marketing e Vendas" },
-    { v: "logistica_distribuicao", label: "Logistica e distribuição" },
-    { v: "producao_fornecimento_produtos_essenciais", label: "Produção ou fornecimento de produtos essenciais" },
-    { v: "servicos_educacao_saude", label: "Prestação de serviços como educação ou saúde" },
-    { v: "capacitacao_treinamento_moradores", label: "Capacitação ou treinamento de moradores de favela/comunidade" },
-    { v: "engajamento_comunitario", label: "Engajamento comunitário" },
     { v: "acoes_vendas_locais", label: "Ações de vendas locais" },
+    { v: "capacitacao_treinamento_moradores", label: "Capacitação ou treinamento de moradores de favela/comunidade" },
+    { v: "desenvolvimento_novos_produtos_servicos", label: "Desenvolvimento de novos produtos ou serviços" },
+    { v: "engajamento_comunitario", label: "Engajamento comunitário" },
     { v: "eventos_parcerias_locais", label: "Eventos e parcerias locais" },
+    { v: "logistica_distribuicao", label: "Logistica e distribuição" },
+    { v: "marketing_vendas", label: "Marketing e Vendas" },
+    { v: "prestacao_servicos", label: "Prestação de Serviços" },
+    { v: "servicos_educacao_saude", label: "Prestação de serviços como educação ou saúde" },
+    { v: "producao_produtos", label: "Produção de produtos" },
+    { v: "producao_fornecimento_produtos_essenciais", label: "Produção ou fornecimento de produtos essenciais" },
     { v: "outro", label: "Outro" }
   ];
 

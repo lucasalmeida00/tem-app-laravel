@@ -19,9 +19,9 @@
             required: true,
             options: [
               { value: "amigo_familiar", label: "Amigo ou familiar" },
-              { value: "moradores_favela", label: "Moradores da favela (pessoas físicas)" },
               { value: "mercado_local", label: "Cliente de mercado local" },
               { value: "empreendimentos_locais", label: "Empreendimentos locais (comércio, pequenos empreendimentos)" },
+              { value: "moradores_favela", label: "Moradores da favela (pessoas físicas)" },
               { value: "ongs", label: "ONGs ou organizações comunitárias" },
               { value: "pessoas_fisicas", label: "Pessoas físicas" },
               { value: "pessoas_juridicas", label: "Pessoas jurídicas" },
@@ -45,8 +45,8 @@
             required: true,
             options: [
               { value: "faixa_etaria", label: "Consumidor final na faixa etária (jovens, adultos, idosos)" },
-              { value: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
               { value: "ocupacao", label: "Consumidor final por ocupação (trabalhadores informais, pequenos empresários, etc.)" },
+              { value: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
               { value: "grandes_empresas", label: "Grandes Empresas" },
               { value: "pequenas_empresas", label: "Pequenas Empresas" },
               { value: "outro", label: "Outro" }

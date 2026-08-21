@@ -314,16 +314,16 @@ window.Card3 = (function () {
 
   // ============== 3.7 — 3 selects encadeados (com “Outro” especial) ==============
   const STEP_OPTIONS = [
-    { value: "impulso", label: "Foi um impulso e comecei imediatamente" },
-    { value: "considerando_possibilidades", label: "Passei algum tempo considerando possibilidades" },
-    { value: "aos_poucos_ajustes", label: "Comecei aos poucos e fui ajustando conforme necessário" },
-    { value: "conversei_setor", label: "Conversei com pessoas do setor" },
-    { value: "conversei_amigos_familiares", label: "Conversei com amigos e/ou familiares" },
-    { value: "pesquisei_bastante", label: "Pesquisei bastante antes de iniciar" },
     { value: "entender_mercado_clientes", label: "Busquei entender o mercado e as necessidades dos clientes" },
     { value: "recursos_informacoes", label: "Busquei recursos e informações" },
+    { value: "aos_poucos_ajustes", label: "Comecei aos poucos e fui ajustando conforme necessário" },
+    { value: "conversei_amigos_familiares", label: "Conversei com amigos e/ou familiares" },
+    { value: "conversei_setor", label: "Conversei com pessoas do setor" },
     { value: "estrategias_iniciais", label: "Desenvolvi estratégias iniciais, estudei várias alternativas" },
     { value: "informal_ate_formalizar", label: "Fiz algo mais informal até formalizar" },
+    { value: "impulso", label: "Foi um impulso e comecei imediatamente" },
+    { value: "considerando_possibilidades", label: "Passei algum tempo considerando possibilidades" },
+    { value: "pesquisei_bastante", label: "Pesquisei bastante antes de iniciar" },
     { value: "outro", label: "Outro" }
   ];
 

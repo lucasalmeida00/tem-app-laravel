@@ -26,20 +26,20 @@ window.Card14 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const PARTNER_OPTIONS = [
-    { v: "fornecedores", label: "Fornecedores" },
-    { v: "distribuidores_revendedores", label: "Distribuidores e revendedores" },
-    { v: "logistica", label: "Logística" },
-    { v: "parceiros_tecnologia", label: "Parceiros de tecnologia (infraestrutura tecnológica, aplicativos ou plataformas online)" },
-    { v: "instituicoes_financeiras", label: "Instituições financeiras" },
-    { v: "mkt_publicidade", label: "Empreendimentos de marketing e publicidade" },
     { v: "centros_pesquisa_pdu", label: "Centros de pesquisa e desenvolvimento (P&D) ou universidades" },
-    { v: "entrada_socios", label: "Entrada de sócios" },
+    { v: "distribuidores_revendedores", label: "Distribuidores e revendedores" },
+    { v: "mkt_publicidade", label: "Empreendimentos de marketing e publicidade" },
     { v: "entrada_novos_investidores", label: "Entrada de novos investidores" },
-    { v: "ongs_nao_governamentais", label: "Organizações não governamentais (ONGs)" },
-    { v: "lideres_influenciadores", label: "Líderes ou influenciadores comunitários" },
-    { v: "pequenos_comerciantes_locais", label: "Pequenos comerciantes locais" },
-    { v: "investidores_publicos", label: "Investidores públicos" },
+    { v: "entrada_socios", label: "Entrada de sócios" },
+    { v: "fornecedores", label: "Fornecedores" },
+    { v: "instituicoes_financeiras", label: "Instituições financeiras" },
     { v: "investidores_privados", label: "Investidores privados" },
+    { v: "investidores_publicos", label: "Investidores públicos" },
+    { v: "lideres_influenciadores", label: "Líderes ou influenciadores comunitários" },
+    { v: "logistica", label: "Logística" },
+    { v: "ongs_nao_governamentais", label: "Organizações não governamentais (ONGs)" },
+    { v: "parceiros_tecnologia", label: "Parceiros de tecnologia (infraestrutura tecnológica, aplicativos ou plataformas online)" },
+    { v: "pequenos_comerciantes_locais", label: "Pequenos comerciantes locais" },
     { v: "outro", label: "Outro" }
   ];
 

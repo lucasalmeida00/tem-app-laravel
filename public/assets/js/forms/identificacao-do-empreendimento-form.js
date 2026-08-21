@@ -114,8 +114,8 @@
                 options: [
                     { value: "", label: "" },
                     { value: "dentro_favela", label: "Dentro de favela/comunidade" },
-                    { value: "fora_favela", label: "Fora de favela, mas com atuação direta em favelas/comunidades" },
                     { value: "fora_favela_sem_atuacao", label: "Fora de favela e sem atuação" },
+                    { value: "fora_favela", label: "Fora de favela, mas com atuação direta em favelas/comunidades" },
                     { value: "outro", label: "Outro" }
                 ]
             }]
@@ -435,16 +435,16 @@
                 "placeholder": "Selecione entre online, presencial ou híbrido",
                 "required": true,
                 "options": [{
+                    "value": "hibrido",
+                    "label": "Híbrido"
+                },
+                {
                     "value": "online",
                     "label": "Online"
                 },
                 {
                     "value": "presencial",
                     "label": "Presencial"
-                },
-                {
-                    "value": "hibrido",
-                    "label": "Híbrido"
                 }
                 ]
             }]

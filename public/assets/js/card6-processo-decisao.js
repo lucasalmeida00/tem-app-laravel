@@ -27,11 +27,11 @@ window.Card6 = (function () {
 
   // Opções de quem decide junto (para os selects)
   const WHO_OPTIONS = [
-    { v: "parceiros",  label: "Com parceiros ou colaboradores-chave" },
     { v: "familiares", label: "Com familiares ou amigos próximos" },
     { v: "mentores",   label: "Com mentores ou conselheiros" },
-    { v: "equipe",     label: "Em conjunto com uma equipe de funcionários" },
+    { v: "parceiros",  label: "Com parceiros ou colaboradores-chave" },
     { v: "socios",     label: "Em conjunto com socios" },
+    { v: "equipe",     label: "Em conjunto com uma equipe de funcionários" },
     { v: "outro",      label: "Outro" }
   ];
 

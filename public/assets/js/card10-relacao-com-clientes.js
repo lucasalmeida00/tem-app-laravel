@@ -25,7 +25,7 @@ window.Card10 = (function () {
   const FIDEL_OPTS = [
     { v: "atendimento_personalizado", label: "Atendimento personalizado" },
     { v: "programas_fidelidade", label: "programas de fidelidade" },
-    { v: "suporte_24_7", label: "Suporte 24/7" },
+    { v: "suporte_24_7", label: "Suporte disponível 24 horas por dia, 7 dias por semana." },
     { v: "boca_a_boca", label: "Incentivando o boca a boca e indicações" },
     { v: "comunidades_grupos", label: "Comunidades ou grupos online" },
     { v: "automacao_autoatendimento", label: "Automação e autoatendimento" },
@@ -155,16 +155,16 @@ window.Card10 = (function () {
     if (!$w1.length) {
       $w1 = $(`<div class="mb-1 rc-select-wrap card-select-row"></div>`);
       const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
-      
+
       // Coluna do select
       const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
       $s1.appendTo($colSelect);
-      
+
       // Coluna do input "outro"
       const $colOther = $(`<div class="col extra-${firstName}-other-inline d-none"></div>`);
       $colOther.html(`<input type="text" class="form-control" name="${firstName}__other" placeholder="Especifique" style="width: 100%;">`);
-      
+
       $rowDiv.append($colSelect, $colOther);
       $w1.append($rowDiv);
     }
@@ -243,7 +243,7 @@ window.Card10 = (function () {
 
       // 2) Limpa vazios sobrando (após preservar valores)
       $wraps = cleanupTrailingEmpties();
-      
+
       // 3) Recalcula savedValues após limpeza (mantém apenas os valores dos selects que restaram)
       const preservedValues = [];
       $wraps.each(function (idx) {
@@ -274,7 +274,7 @@ window.Card10 = (function () {
         const $sel = $wrap.find("select");
         const savedValue = preservedValues[idx] || "";
         const hasOptions = fillSelectDynamic($sel, chosen, options, otherValues, savedValue);
-        
+
         // Oculta o wrapper se não houver opções disponíveis
         if (!hasOptions) {
           $wrap.hide();

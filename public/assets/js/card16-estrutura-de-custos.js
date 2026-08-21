@@ -31,14 +31,14 @@ window.Card16 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const CS_OPTIONS = [
-    { v: "producao", label: "Produção" },
-    { v: "marketing_publicidade", label: "Marketing e Publicidade" },
-    { v: "tecnologia_infraestrutura", label: "Tecnologia e Infraestrutura" },
-    { v: "salarios_beneficios", label: "Salários e Benefícios" },
-    { v: "manutencao_precos_acessiveis", label: "Manutenção de preços acessíveis" },
-    { v: "investimento_logistica", label: "Investimento em Logística (entrega, transporte)" },
     { v: "contratacao_retencao_colaboradores", label: "Contratação e retenção de colaboradores qualificados" },
     { v: "custos_regulamentacoes_burocracia", label: "Custos com regulamentações e burocracia" },
+    { v: "investimento_logistica", label: "Investimento em Logística (entrega, transporte)" },
+    { v: "manutencao_precos_acessiveis", label: "Manutenção de preços acessíveis" },
+    { v: "marketing_publicidade", label: "Marketing e Publicidade" },
+    { v: "producao", label: "Produção" },
+    { v: "salarios_beneficios", label: "Salários e Benefícios" },
+    { v: "tecnologia_infraestrutura", label: "Tecnologia e Infraestrutura" },
     { v: "outro", label: "Outro" }
   ];
 

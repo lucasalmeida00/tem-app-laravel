@@ -28,13 +28,13 @@ window.Card5 = (function () {
   const REL_OPTIONS = [
     { v: "amigos", label: "Amigos" },
     { v: "colegas", label: "Colegas ou Ex-colegas" },
+    { v: "empregador", label: "Empregador (Antigo ou atual empregador que se torna parceiro, investidor ou sócio do empreendimento)" },
     { v: "familiares", label: "Familiares" },
     { v: "mentores", label: "Mentores ou conselheiros profissionais" },
-    { v: "empregador", label: "Empregador (Antigo ou atual empregador que se torna parceiro, investidor ou sócio do empreendimento)" },
-    { v: "outrosEmpreendedores", label: "Outros empreendedores" },
     { v: "nenhumPrevio", label: "Nenhum contato prévio, pois encontrei pessoas durante o processo" },
-    { v: "parceirosFornecedores", label: "Parceiros ou fornecedores já conhecidos" },
-    { v: "outrasRelacoes", label: "Outras relações (poder público, igreja, outras insituições, investidor, contatos via redes sociais etc.)" }
+    { v: "outrasRelacoes", label: "Outras relações (poder público, igreja, outras insituições, investidor, contatos via redes sociais etc.)" },
+    { v: "outrosEmpreendedores", label: "Outros empreendedores" },
+    { v: "parceirosFornecedores", label: "Parceiros ou fornecedores já conhecidos" }
   ];
 
   // ===== Metadados por categoria =====

@@ -26,14 +26,14 @@ window.Card7 = (function () {
   };
 
   const DIFF_OPTIONS = [
-    { v: "qualidade_superior", label: "Qualidade Superior" },
+    { v: "nicho_especifico", label: "Atende a um nicho específico" },
+    { v: "facilidade_acesso", label: "Facilidade de acesso (presença local, sem necessidade de deslocamento)" },
     { v: "facilidade_uso", label: "Facilidade de Uso" },
     { v: "eficiencia_rapidez", label: "Maior eficiência ou rapidez" },
-    { v: "nicho_especifico", label: "Atende a um nicho específico" },
     { v: "preco_acessivel", label: "Preço mais acessível" },
-    { v: "facilidade_acesso", label: "Facilidade de acesso (presença local, sem necessidade de deslocamento)" },
     { v: "nao_ofertado_favela", label: "produto não ofertado na favela" },
     { v: "melhor_qualidade", label: "Produto/Serviço de melhor qualidade" },
+    { v: "qualidade_superior", label: "Qualidade Superior" },
     { v: "solucao_mais_rapida", label: "Solução mais rápida ou eficiente" },
     { v: "outro", label: "Outro" }
   ];
