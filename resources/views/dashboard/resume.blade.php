@@ -138,9 +138,11 @@
                             <div class="timeline-item {{ $isBottom ? 'timeline-item--bottom' : '' }}"
                                 data-descbig="{{ e($fullDesc) }}"
                                 data-full-text="{{ e($fullDesc) }}"
-                                data-modal-title="Linha do tempo - {{ $year }}">
+                                data-modal-title="Linha do tempo - {{ $year }}"
+                                title="Clique para ler a íntegra">
                                 <div class="timeline-card">
                                     <span>{{ $year }}</span>
+                                    <i class="fas fa-book-open timeline-card-icon" aria-hidden="true"></i>
                                 </div>
                                 <p class="timeline-text">
                                     {{ $shortDesc }}
@@ -709,8 +711,12 @@
                             <div class="partnership-item"
                                 data-descbig="{{ e($fullDesc) }}"
                                 data-full-text="{{ e($fullDesc) }}"
-                                data-modal-title="Parcerias - {{ $year }}">
-                                <h4 class="fw-bold text-primary fs-4">{{ $year }}</h4>
+                                data-modal-title="Parcerias - {{ $year }}"
+                                title="Clique para ler a íntegra">
+                                <h4 class="fw-bold text-primary fs-4">
+                                    {{ $year }}
+                                    <i class="fas fa-book-open partnership-year-icon" aria-hidden="true"></i>
+                                </h4>
                                 <p class="text-center partnership-text">
                                     {{ $shortDesc }}
                                 </p>
