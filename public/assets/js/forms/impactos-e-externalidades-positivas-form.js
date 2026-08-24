@@ -30,7 +30,7 @@
             type: "text",
             name: "mainImpactOther",
             label: "Especifique:",
-            required: true,
+            requiredIf: { field: "mainImpact", value: "outro" },
             placeholder: "Descreva o impacto ou externalidade positiva"
           }
         ]

@@ -16,7 +16,6 @@
           {
             type: "text",
             name: "innovationDefinition",
-            required: true,
             placeholder: "Inovação é..."
           }
         ]
