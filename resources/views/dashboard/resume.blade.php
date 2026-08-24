@@ -138,8 +138,7 @@
                             <div class="timeline-item {{ $isBottom ? 'timeline-item--bottom' : '' }}"
                                 data-descbig="{{ e($fullDesc) }}"
                                 data-full-text="{{ e($fullDesc) }}"
-                                data-modal-title="Linha do tempo - {{ $year }}"
-                                title="Clique para ler a íntegra">
+                                data-modal-title="Linha do tempo - {{ $year }}">
                                 <div class="timeline-card">
                                     <span>{{ $year }}</span>
                                     <i class="fas fa-book-open timeline-card-icon" aria-hidden="true"></i>
@@ -711,8 +710,7 @@
                             <div class="partnership-item"
                                 data-descbig="{{ e($fullDesc) }}"
                                 data-full-text="{{ e($fullDesc) }}"
-                                data-modal-title="Parcerias - {{ $year }}"
-                                title="Clique para ler a íntegra">
+                                data-modal-title="Parcerias - {{ $year }}">
                                 <h4 class="fw-bold text-primary fs-4">
                                     {{ $year }}
                                     <i class="fas fa-book-open partnership-year-icon" aria-hidden="true"></i>
@@ -746,19 +744,6 @@
     </section>
     <!-- End Section Footer -->
 
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detalhes</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Conteúdo será preenchido via JavaScript -->
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 
