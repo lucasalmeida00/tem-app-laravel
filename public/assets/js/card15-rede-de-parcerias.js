@@ -48,11 +48,11 @@ window.Card15 = (function () {
     },
     { v: "hackathons_competicoes", label: "Hackathons e Competições" },
     { v: "incubadoras_aceleradoras", label: "Incubadoras e Aceleradoras" },
-    { v: "midias_sociais", label: "Mídias Sociais" },
+    { v: "midias_sociais", label: "Mídias Sociais (Blog, Youtube, Vimeo etc)" },
     { v: "novos_parceiros", label: "Novos Parceiros" },
     { v: "programas_mentoria", label: "Programas de Mentoria" },
     { v: "programas_televisao", label: "Programas de Televisão" },
-    { v: "redes_sociais", label: "Redes Sociais" },
+    { v: "redes_sociais", label: "Redes Sociais (Facebook, Linkedin, Instagram etc)" },
     { v: "universidades_pesquisa", label: "Universidades e centros de pesquisa" },
     { v: "outro", label: "Outro" }
   ];

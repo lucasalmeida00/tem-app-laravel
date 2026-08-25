@@ -28,6 +28,7 @@ window.Card12 = (function () {
     { v: "doadores", label: "Doadores" },
     { v: "financiamento_coletivo", label: "Financiamento coletivo" },
     { v: "infraestrutura", label: "Infraestrutura (prédio, lojas, espaço físico, equipamentos)" },
+    { v: "inteligencia_artificial", label: "Inteligência Artificial" },
     { v: "mao_de_obra_local", label: "Mão de obra local (moradores da favela/comunidade)" },
     { v: "parcerias_comercios_organizacoes", label: "Parcerias com comércios ou organizações locais" },
     { v: "patrocinadores_diretos", label: "Patrocinadores diretos" },

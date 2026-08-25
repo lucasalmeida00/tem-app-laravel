@@ -32,11 +32,11 @@
                 }]
             },
             {
-                titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão Social</h3>",
+                titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão social</h3>",
                 fields: [{
                     type: "text",
                     name: "corporateName",
-                    placeholder: "Digite a Razão social de sua empresa"
+                    placeholder: "Digite a razão social de sua empresa"
                 }]
             }
             ]
@@ -379,7 +379,7 @@
         },
 
         {
-            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Qual é o faturamento anual aproximado do empreendimento</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Qual é o faturamento anual aproximado do empreendimento?</h3>",
             "color": "success",
             "fields": [{
                 "type": "select",
