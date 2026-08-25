@@ -111,8 +111,13 @@ window.Card4 = (function () {
     function renderNfSelect($root, idx, chosenSet) {
         const base = `nfSelect${idx}`;
         const $first = $root.find(`select[name="${N.nf1}"]`);
-        const $wrap = wrapperFor($first);
-        const $holder = ensureContainer($wrap, "nf-selects-container"); // dentro do mesmo card
+        // Ancora no bloco do 1º select (irmão logo abaixo, já com mb-3) em vez de
+        // wrapperFor($first): depois que o 1º select é movido para dentro do
+        // .card-select-col, wrapperFor resolveria para essa mesma coluna, colando
+        // a 2ª resposta junto da 1ª sem espaçamento (e também sem reaproveitar o
+        // container correto usado pelo reset ao trocar o valor do select 1).
+        const $select1Item = $first.closest(".nf-select1-item");
+        const $holder = $select1Item.length ? ensureContainer($select1Item, "nf-selects-container", true) : ensureContainer(wrapperFor($first), "nf-selects-container");
 
         // cria markup do select com estrutura simples e vertical
         let $sel = $holder.find(`select[name="${base}"]`);
@@ -901,13 +906,14 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
     function renderRiskSelect($root, idx, chosenSet) {
         const base = `riskInvSelect${idx}`;
-        const $select1Item = $root.find(".risk-select1-item").first();
+        const $first = $root.find(`select[name="${N.r1}"]`);
         // Ancora no bloco do 1º select (irmão logo abaixo, já com mb-3) em vez de
         // wrapperFor($first): depois que o 1º select é movido para dentro do
         // .card-select-col, wrapperFor resolveria para essa mesma coluna, colando
-        // a 2ª resposta junto da 1ª sem espaçamento.
-        const $anchor = $select1Item.length ? $select1Item : wrapperFor($root.find(`select[name="${N.r1}"]`));
-        const $holder = ensureContainer($anchor, "risk-selects-container", true); // irmão, logo abaixo
+        // a 2ª resposta junto da 1ª sem espaçamento (e também sem reaproveitar o
+        // container correto usado pelo reset ao trocar o valor do select 1).
+        const $select1Item = $first.closest(".risk-select1-item");
+        const $holder = $select1Item.length ? ensureContainer($select1Item, "risk-selects-container", true) : ensureContainer(wrapperFor($first), "risk-selects-container");
 
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
