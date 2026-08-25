@@ -51,6 +51,30 @@
   background: #274db4;
 }
 
+.form .password-field {
+  position: relative;
+  margin: 0 auto 15px;
+}
+
+.form .password-field input {
+  margin: 0 !important;
+  padding-right: 40px !important;
+}
+
+.form .password-field .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #8c8c8c;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form .password-field .password-toggle:hover {
+  color: #1E3A8A;
+}
+
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;

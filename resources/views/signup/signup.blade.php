@@ -33,11 +33,17 @@
                 <input type="email" id="email" name="email" class="form-control w-270" required maxlength="255"
                     pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                     title="Informe um e-mail válido, por exemplo: nome@dominio.com" placeholder="Seu E-mail" />
-                <input type="password" id="password" name="password" class="form-control w-270" required minlength="8"
-                    maxlength="255" pattern=".{8,}" title="A senha deve ter pelo menos 8 caracteres." placeholder="Sua Senha" />
-                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control w-270"
-                    required minlength="8" maxlength="255" pattern=".{8,}"
-                    title="Repita a mesma senha informada acima." placeholder="Repita sua Senha" />
+                <div class="password-field w-270">
+                    <input type="password" id="password" name="password" class="form-control" required minlength="8"
+                        maxlength="255" pattern=".{8,}" title="A senha deve ter pelo menos 8 caracteres." placeholder="Sua Senha" />
+                    <i class="fa fa-eye password-toggle" data-target="password" title="Mostrar senha"></i>
+                </div>
+                <div class="password-field w-270">
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
+                        required minlength="8" maxlength="255" pattern=".{8,}"
+                        title="Repita a mesma senha informada acima." placeholder="Repita sua Senha" />
+                    <i class="fa fa-eye password-toggle" data-target="password_confirmation" title="Mostrar senha"></i>
+                </div>
 
                 <div class="lgpd-consent text-start my-3">
                     <p class="fw-bold mb-2" style="font-size: 13px;">Proteção de Dados e LGPD</p>

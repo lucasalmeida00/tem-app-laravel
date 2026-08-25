@@ -901,9 +901,13 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
     function renderRiskSelect($root, idx, chosenSet) {
         const base = `riskInvSelect${idx}`;
-        const $first = $root.find(`select[name="${N.r1}"]`);
-        const $wrap = wrapperFor($first);
-        const $holder = ensureContainer($wrap, "risk-selects-container"); // dentro
+        const $select1Item = $root.find(".risk-select1-item").first();
+        // Ancora no bloco do 1º select (irmão logo abaixo, já com mb-3) em vez de
+        // wrapperFor($first): depois que o 1º select é movido para dentro do
+        // .card-select-col, wrapperFor resolveria para essa mesma coluna, colando
+        // a 2ª resposta junto da 1ª sem espaçamento.
+        const $anchor = $select1Item.length ? $select1Item : wrapperFor($root.find(`select[name="${N.r1}"]`));
+        const $holder = ensureContainer($anchor, "risk-selects-container", true); // irmão, logo abaixo
 
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
