@@ -58,6 +58,17 @@
         </div>
     </div>
 
+    <!-- Overlay de loading ao trocar de versão/backup -->
+    <div id="temBackupLoadingOverlay" class="tem-loading-overlay" style="display: none;">
+        <div class="tem-loading-overlay__backdrop"></div>
+        <div class="tem-loading-overlay__content">
+            <div class="text-center">
+                <div class="spinner-border" role="status" aria-hidden="true"></div>
+                <div class="mt-3 fw-bold">Carregando versão do backup...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Start Section Header -->
     <section class="section-header">
         <div class="container">

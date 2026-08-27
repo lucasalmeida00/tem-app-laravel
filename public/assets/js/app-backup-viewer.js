@@ -34,8 +34,20 @@
         const container = document.querySelector(".section-forms .container");
         const prevBtn = document.getElementById("temBackupPrevBtn");
         const nextBtn = document.getElementById("temBackupNextBtn");
+        const loadingOverlay = document.getElementById("temBackupLoadingOverlay");
 
         if (!select || !container) return;
+
+        // A renderização de um card (principalmente 4/5, com selects em cascata
+        // e blocos dinâmicos) trava a thread principal por uma fração de
+        // segundo. Um loading cobre essa mini-travada visualmente, em vez de a
+        // tela ficar "paralisada" sem explicação.
+        function showLoading() {
+            if (loadingOverlay) loadingOverlay.style.display = "flex";
+        }
+        function hideLoading() {
+            if (loadingOverlay) loadingOverlay.style.display = "none";
+        }
 
         // Sempre que QUALQUER card for (re)renderizado (troca de backup, clique
         // num card, "Bloco anterior/próximo"...), reaplica o somente-leitura se
@@ -102,6 +114,7 @@
 
             isSwitching = true;
             updateNavButtonsState();
+            showLoading();
 
             try {
                 const url = window.temBackupShowUrlTemplate.replace("__ID__", backupId);
@@ -124,6 +137,11 @@
 
                 scheduleDisablePasses(container);
 
+                // O loading só precisa cobrir a renderização inicial (a parte
+                // que trava a thread); o bloqueio dos controles continua até o
+                // SETTLE_MS pra evitar empilhar trocas.
+                setTimeout(hideLoading, 400);
+
                 // Só libera os controles depois que as rotinas pesadas de cada
                 // card (ex.: resolveCard5Fixes, com seus próprios setTimeout em
                 // cadeia) tiveram tempo de acomodar, pra não empilhar ciclos.
@@ -137,6 +155,7 @@
                 select.value = "";
                 isSwitching = false;
                 updateNavButtonsState();
+                hideLoading();
             }
         });
 
