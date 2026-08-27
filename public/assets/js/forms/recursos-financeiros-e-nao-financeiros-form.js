@@ -174,8 +174,6 @@
                 ]
             }]
         },
-
-            ,
         {
             // 4.8 — Investidores (fase inicial)
             titleHtml: "<span class='c-green f-number'>4.8</span> <br/> <h3 class='c-black t-title'>Além de você, quem mais investiu no empreendimento na fase inicial (até 5 anos), detalhando ano/investimento?</h3>",

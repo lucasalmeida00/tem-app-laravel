@@ -4,6 +4,9 @@
     let currentCardId = 1;
 
     function loadAllData() {
+        if (window.temBackupOverrideData) {
+            return window.temBackupOverrideData;
+        }
         try {
             const raw = localStorage.getItem(STORAGE_KEY());
             if (!raw) return {};
@@ -309,6 +312,13 @@
 
     // 👉 Função de salvamento "real" (aqui entra sua lógica futura)
     function temPerformSave() {
+      // Enquanto estiver visualizando um backup antigo, não deixa o save normal
+      // sobrescrever os dados atuais (proteção extra, além do botão escondido).
+      if (window.temBackupOverrideData) {
+        console.warn("Visualizando um backup — save normal desabilitado.");
+        return;
+      }
+
       // Salva os campos do card atual no localStorage
       const allData = collectCardData(currentCardId);
 
@@ -564,27 +574,20 @@
         const allData = loadAllData();
         const freshCardData = allData["5"] || cardData;
         
-        console.log(`[Card5] resolveCard5Fixes chamado`);
-        console.log(`[Card5] cardData original tem ${Object.keys(cardData).length} campos`);
-        console.log(`[Card5] freshCardData tem ${Object.keys(freshCardData).length} campos`);
         
         // Usa os dados mais atualizados
         const finalCardData = freshCardData;
         
         // Verifica TODOS os campos relacionados a outrasRelacoes
         const todasOutrasRelacoesKeys = Object.keys(finalCardData).filter(k => k.includes('outrasRelacoes'));
-        console.log(`[Card5] TODOS os campos outrasRelacoes encontrados (${todasOutrasRelacoesKeys.length}):`, todasOutrasRelacoesKeys);
         todasOutrasRelacoesKeys.forEach(k => {
-            console.log(`[Card5]   ${k} =`, finalCardData[k]);
         });
         
         // Verifica especificamente os campos com índice 2
         const outrasRelacoes2Keys = Object.keys(finalCardData).filter(k => k.includes('outrasRelacoes') && (k.includes('_2') || k.match(/\[2\]/)));
-        console.log(`[Card5] Campos outrasRelacoes com índice 2:`, outrasRelacoes2Keys);
         if (outrasRelacoes2Keys.length === 0) {
             console.warn(`[Card5] ⚠️ NENHUM campo com índice 2 encontrado para outrasRelacoes!`);
         } else {
-            console.log(`[Card5] ✅ Encontrados ${outrasRelacoes2Keys.length} campos com índice 2!`);
         }
 
         // Helper genérico: garante quantidade de itens e preenche campos
@@ -649,8 +652,6 @@
 
         // Função auxiliar para popular todos os blocos de campos
         function populateAllBlockFields(prefixBase, selectBase, cardData) {
-            console.log(`[Card5] populateAllBlockFields chamado: prefixBase=${prefixBase}, selectBase=${selectBase}`);
-            console.log(`[Card5] Dados disponíveis:`, Object.keys(cardData).filter(k => k.startsWith(prefixBase) || k.startsWith(selectBase)));
             
             // Determina qual é o prefixo dos containers de blocos baseado no selectBase
             const isPost = selectBase.startsWith("relPostSelect");
@@ -661,10 +662,8 @@
                 const selKey = `${selectBase}${i}`;   // ex: relSelect1, relPostSelect2
                 const cat = cardData[selKey];
                 if (!cat) {
-                    console.log(`[Card5] Select ${selKey} não tem categoria selecionada`);
                     continue;
                 }
-                console.log(`[Card5] Processando select ${selKey} com categoria: ${cat}`);
 
                 // Função recursiva para tentar encontrar/criar o bloco
                 function tryPopulateBlock(attempts = 0) {
@@ -710,7 +709,6 @@
                     const $block = $(block);
                     $block.removeClass("d-none");
 
-                    console.log(`[Card5] Bloco encontrado para ${cat} (${selKey}) no container ${blocksContainerSelector}, populando campos...`);
 
                     // Popula os campos do bloco (usa cardData passado como parâmetro)
                     populateBlockFields(prefixBase, cat, cardData, block);
@@ -761,35 +759,29 @@
 
             if (!needed) return;
 
-            console.log(`[Card5] Bloco ${cat} (${prefixBase}): precisamos de ${needed} itens`);
 
             // Conta itens existentes
             const currentCount = list.querySelectorAll(".rel-item").length;
             const itemsToCreate = needed - currentCount;
 
             if (itemsToCreate <= 0) {
-                console.log(`[Card5] Todos os itens já existem, aplicando dados diretamente...`);
                 // Todos os itens já existem, aplica os dados diretamente
                 applyBlockFieldsDirectly(prefixBase, cat, cardData, block, needed);
                 return;
             }
 
-            console.log(`[Card5] Criando ${itemsToCreate} itens adicionais`);
 
             // Cria os itens faltantes clicando no botão
             let created = 0;
             function createNextItem() {
                 if (created >= itemsToCreate) {
-                    console.log(`[Card5] Todos os itens criados, verificando e aplicando dados...`);
                     // Aguarda um pouco mais para garantir que todos os itens estejam no DOM
                     // e então verifica se todos os itens necessários existem antes de aplicar
                     setTimeout(() => {
                         // Verifica se todos os itens necessários foram criados
                         const finalCount = list.querySelectorAll(".rel-item").length;
-                        console.log(`[Card5] Itens criados: ${finalCount}, necessários: ${needed}`);
                         
                         if (finalCount >= needed) {
-                            console.log(`[Card5] Todos os itens estão prontos, aplicando dados...`);
                             applyBlockFieldsDirectly(prefixBase, cat, cardData, block, needed);
                         } else {
                             console.warn(`[Card5] Ainda faltam itens (${finalCount} < ${needed}), tentando novamente...`);
@@ -800,7 +792,6 @@
                     return;
                 }
 
-                console.log(`[Card5] Criando item ${created + 1} de ${itemsToCreate}`);
                 btnAdd.click(); // Clica no botão
                 created++;
 
@@ -817,7 +808,6 @@
             const base = `${prefixBase}${cat}`;
             const container = document.querySelector(".section-forms .container");
             
-            console.log(`[Card5] Aplicando dados diretamente para ${base}, maxIdx=${maxIdx}`);
             
             // Busca os campos dentro do bloco específico, não no container principal
             const searchScope = block || container;
@@ -825,7 +815,6 @@
             // Função recursiva para aplicar dados com retry caso os campos não estejam prontos
             function applyDataForIndex(idx, attempt = 0) {
                 if (idx > maxIdx) {
-                    console.log(`[Card5] ✅ Todos os dados aplicados para ${base}`);
                     return;
                 }
                 
@@ -877,7 +866,6 @@
                     if (originInput) {
                         originInput.value = originVal;
                         originInput.dispatchEvent(new Event("input", { bubbles: true }));
-                        console.log(`[Card5] ✅ Aplicado origem ${idx}: ${originVal}`);
                     } else if (attempt < 8) {
                         setTimeout(() => applyDataForIndex(idx, attempt + 1), 150);
                         return;
@@ -893,7 +881,6 @@
                     if (tipoRadio) {
                         tipoRadio.checked = true;
                         tipoRadio.dispatchEvent(new Event("change", { bubbles: true }));
-                        console.log(`[Card5] ✅ Aplicado tipo ${idx}: ${tipoVal}`);
                     } else if (attempt < 8) {
                         setTimeout(() => applyDataForIndex(idx, attempt + 1), 150);
                         return;
@@ -908,7 +895,6 @@
                         if (tipoOutroInput) {
                             tipoOutroInput.value = tipoOutroVal;
                             tipoOutroInput.dispatchEvent(new Event("input", { bubbles: true }));
-                            console.log(`[Card5] ✅ Aplicado tipoOutro ${idx}: ${tipoOutroVal}`);
                         }
                     }, 200);
                 }
@@ -923,7 +909,6 @@
                         if (natCheckbox) {
                             natCheckbox.checked = true;
                             natCheckbox.dispatchEvent(new Event("change", { bubbles: true }));
-                            console.log(`[Card5] ✅ Aplicado natureza ${idx}: ${nat}`);
                         }
                     });
                 }
@@ -936,7 +921,6 @@
                         if (natOutroInput) {
                             natOutroInput.value = natOutroVal;
                             natOutroInput.dispatchEvent(new Event("input", { bubbles: true }));
-                            console.log(`[Card5] ✅ Aplicado naturezaOutro ${idx}: ${natOutroVal}`);
                         }
                     }, 300);
                 }
