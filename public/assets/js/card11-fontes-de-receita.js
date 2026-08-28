@@ -23,23 +23,23 @@ window.Card11 = (function () {
 
   // ==== Opções =============================================================
   const REV_OPTS = [
-    { v: "venda_direta_produtos", label: "Venda direta de produtos" },
-    { v: "prestacao_servicos", label: "Prestação de serviços" },
-    { v: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
-    { v: "taxas_transacao_comissoes", label: "Taxas de transação ou comissões" },
-    { v: "publicidade", label: "Publicidade" },
+    { v: "doacao", label: "Doação" },
     { v: "licenciamento", label: "Licenciamento" },
+    { v: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
     { v: "patrocinio_direto", label: "Patrocínio direito" },
     { v: "patrocinio_lei_incentivo", label: "Patrocínio via lei de incentivo" },
-    { v: "doacao", label: "Doação" },
+    { v: "prestacao_servicos", label: "Prestação de serviços" },
+    { v: "publicidade", label: "Publicidade" },
+    { v: "taxas_transacao_comissoes", label: "Taxas de transação ou comissões" },
+    { v: "venda_direta_produtos", label: "Venda direta de produtos" },
     { v: "outro", label: "Outro" }
   ];
 
   const MONET_OPTS = [
-    { v: "venda_unica", label: "Venda única" },
     { v: "assinatura_recorrente", label: "Assinatura recorrente" },
     { v: "freemium", label: "Modelo Freemium (gratuito com opções pagas)" },
     { v: "taxa_transacao_uso", label: "Taxa pro transação de uso" },
+    { v: "venda_unica", label: "Venda única" },
     { v: "outro", label: "Outro" }
   ];
 

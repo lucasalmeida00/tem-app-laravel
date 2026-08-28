@@ -48,8 +48,8 @@
             name: "impactEvaluationPerformed",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {

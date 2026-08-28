@@ -24,22 +24,22 @@ window.Card10 = (function () {
   // ==== Opções =============================================================
   const FIDEL_OPTS = [
     { v: "atendimento_personalizado", label: "Atendimento personalizado" },
+    { v: "automacao_autoatendimento", label: "Automação e autoatendimento" },
+    { v: "comunidades_grupos", label: "Comunidades ou grupos online" },
+    { v: "boca_a_boca", label: "Incentivando o boca a boca e indicações" },
     { v: "programas_fidelidade", label: "programas de fidelidade" },
     { v: "suporte_24_7", label: "Suporte disponível 24 horas por dia, 7 dias por semana." },
-    { v: "boca_a_boca", label: "Incentivando o boca a boca e indicações" },
-    { v: "comunidades_grupos", label: "Comunidades ou grupos online" },
-    { v: "automacao_autoatendimento", label: "Automação e autoatendimento" },
     { v: "outro", label: "Outro" }
   ];
 
   const CAPTA_OPTS = [
     { v: "publicidade_marketing_digital", label: "Através de publicidade e marketing digital" },
-    { v: "parcerias_indicacoes", label: "Parcerias e indicações" },
-    { v: "promocoes_descontos", label: "Oferecendo promoções e descontos" },
-    { v: "por_meio_atendimento", label: "Por meio de atendimento" },
     { v: "redes_sociais_comunicacao", label: "Através de redes sociais e comunicação digital" },
-    { v: "promocoes_novos_clientes", label: "Promoções e descontos para novos clientes" },
+    { v: "promocoes_descontos", label: "Oferecendo promoções e descontos" },
     { v: "parcerias_locais", label: "Parcerias com outros empreendimentos locais" },
+    { v: "parcerias_indicacoes", label: "Parcerias e indicações" },
+    { v: "por_meio_atendimento", label: "Por meio de atendimento" },
+    { v: "promocoes_novos_clientes", label: "Promoções e descontos para novos clientes" },
     { v: "outros", label: "Outros" }
   ];
 

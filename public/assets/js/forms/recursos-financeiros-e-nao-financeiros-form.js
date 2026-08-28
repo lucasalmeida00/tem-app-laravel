@@ -66,12 +66,12 @@
                 name: "renouncedSalaries",
                 required: true,
                 options: [{
-                    value: "sim",
-                    label: "Sim"
-                },
-                {
                     value: "nao",
                     label: "Não"
+                },
+                {
+                    value: "sim",
+                    label: "Sim"
                 }
                 ]
             }]
@@ -103,16 +103,16 @@
                 required: true,
                 placeholder: "Selecione uma opção",
                 options: [{
+                    value: "nao",
+                    label: "Não"
+                },
+                {
                     value: "fixa",
                     label: "Sim de forma fixa"
                 },
                 {
                     value: "sob_demanda",
                     label: "Sim, sob demanda por projetos"
-                },
-                {
-                    value: "nao",
-                    label: "Não"
                 }
                 ]
             }]
@@ -126,10 +126,6 @@
                 name: "viabilityTime",
                 required: true,
                 options: [{
-                    value: "ate_6m",
-                    label: "Até 6 meses"
-                },
-                {
                     value: "ano1",
                     label: "1° ano"
                 },
@@ -144,6 +140,10 @@
                 {
                     value: "ano4",
                     label: "4° ano"
+                },
+                {
+                    value: "ate_6m",
+                    label: "Até 6 meses"
                 },
                 {
                     value: "outro",
@@ -219,12 +219,12 @@
                 name: "subsidies",
                 required: true,
                 options: [{
-                    value: "sim",
-                    label: "Sim"
-                },
-                {
                     value: "nao",
                     label: "Não"
+                },
+                {
+                    value: "sim",
+                    label: "Sim"
                 }
                 ]
             }]

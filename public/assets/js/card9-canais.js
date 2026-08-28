@@ -46,8 +46,8 @@ window.Card9 = (function () {
   const SOCIALS = [
     { v: "facebook", label: "Facebook" },
     { v: "instagram", label: "Instagram" },
-    { v: "twitter", label: "Twitter" },
     { v: "linkedin", label: "LinkedIn" },
+    { v: "twitter", label: "Twitter" },
     { v: "whatsapp", label: "Whatsapp" },
   ];
 
