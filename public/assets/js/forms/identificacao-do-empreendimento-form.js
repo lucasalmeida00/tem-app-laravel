@@ -32,11 +32,11 @@
                 }]
             },
             {
-                titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão Social</h3>",
+                titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão social</h3>",
                 fields: [{
                     type: "text",
                     name: "corporateName",
-                    placeholder: "Digite a Razão Social de sua empresa"
+                    placeholder: "Digite a razão social de sua empresa"
                 }]
             }
             ]
@@ -114,8 +114,8 @@
                 options: [
                     { value: "", label: "" },
                     { value: "dentro_favela", label: "Dentro de favela/comunidade" },
-                    { value: "fora_favela", label: "Fora de favela, mas com atuação direta em favelas/comunidades" },
                     { value: "fora_favela_sem_atuacao", label: "Fora de favela e sem atuação" },
+                    { value: "fora_favela", label: "Fora de favela, mas com atuação direta em favelas/comunidades" },
                     { value: "outro", label: "Outro" }
                 ]
             }]
@@ -195,11 +195,11 @@
                             label: "AL"
                         },
                         {
-                            value: "AP",
-                            label: "AP"
-                        }, {
                             value: "AM",
                             label: "AM"
+                        }, {
+                            value: "AP",
+                            label: "AP"
                         },
                         {
                             value: "BA",
@@ -223,15 +223,15 @@
                             label: "MA"
                         },
                         {
-                            value: "MT",
-                            label: "MT"
+                            value: "MG",
+                            label: "MG"
                         }, {
                             value: "MS",
                             label: "MS"
                         },
                         {
-                            value: "MG",
-                            label: "MG"
+                            value: "MT",
+                            label: "MT"
                         }, {
                             value: "PA",
                             label: "PA"
@@ -240,15 +240,15 @@
                             value: "PB",
                             label: "PB"
                         }, {
-                            value: "PR",
-                            label: "PR"
-                        },
-                        {
                             value: "PE",
                             label: "PE"
-                        }, {
+                        },
+                        {
                             value: "PI",
                             label: "PI"
+                        }, {
+                            value: "PR",
+                            label: "PR"
                         },
                         {
                             value: "RJ",
@@ -258,25 +258,25 @@
                             label: "RN"
                         },
                         {
-                            value: "RS",
-                            label: "RS"
-                        }, {
                             value: "RO",
                             label: "RO"
-                        },
-                        {
+                        }, {
                             value: "RR",
                             label: "RR"
+                        },
+                        {
+                            value: "RS",
+                            label: "RS"
                         }, {
                             value: "SC",
                             label: "SC"
                         },
                         {
-                            value: "SP",
-                            label: "SP"
-                        }, {
                             value: "SE",
                             label: "SE"
+                        }, {
+                            value: "SP",
+                            label: "SP"
                         },
                         {
                             value: "TO",
@@ -349,10 +349,6 @@
                         label: "0 a 4"
                     },
                     {
-                        value: "5-9",
-                        label: "5 a 9"
-                    },
-                    {
                         value: "10-19",
                         label: "10 a 19"
                     },
@@ -363,6 +359,10 @@
                     {
                         value: "30-49",
                         label: "30 a 49"
+                    },
+                    {
+                        value: "5-9",
+                        label: "5 a 9"
                     },
                     {
                         value: "50-99",
@@ -379,26 +379,55 @@
         },
 
         {
-            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Número de faturamento Anual</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.14</span> <br/> <h3 class='c-black t-title'>Qual é o faturamento anual aproximado do empreendimento?</h3>",
             "color": "success",
             "fields": [{
                 "type": "select",
                 "name": "annualRevenueLevel",
                 "placeholder": "Selecione o nível",
                 "required": true,
-                "options": [{
-                    "value": "ate_360k",
-                    "label": "Até 360,000.00 mil reais"
-                },
-                {
-                    "value": "acima_360k",
-                    "label": "Acima de 360,000.00 mil reais"
-                }
+                "options": [
+                    {
+                        "value": "acima_6000k",
+                        "label": "Acima de R$ 6.000.000"
+                    },
+                    {
+                        "value": "ate_24k",
+                        "label": "Até R$ 24.000"
+                    },
+                    {
+                        "value": "de_1200k_a_3000k",
+                        "label": "De R$ 1.200.001 a R$ 3.000.000"
+                    },
+                    {
+                        "value": "de_120k_a_240k",
+                        "label": "De R$ 120.001 a R$ 240.000"
+                    },
+                    {
+                        "value": "de_24k_a_60k",
+                        "label": "De R$ 24.001 a R$ 60.000"
+                    },
+                    {
+                        "value": "de_240k_a_600k",
+                        "label": "De R$ 240.001 a R$ 600.000"
+                    },
+                    {
+                        "value": "de_3000k_a_6000k",
+                        "label": "De R$ 3.000.001 a R$ 6.000.000"
+                    },
+                    {
+                        "value": "de_60k_a_120k",
+                        "label": "De R$ 60.001 a R$ 120.000"
+                    },
+                    {
+                        "value": "de_600k_a_1200k",
+                        "label": "De R$ 600.001 a R$ 1.200.000"
+                    },
                 ]
             }]
         },
         {
-            "titleHtml": "<span class='c-green f-number'>1.15</span> <br/> <h3 class='c-black t-title'>O empreendimento é de natureza Online, Presencial ou Híbrido?</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.15</span> <br/> <h3 class='c-black t-title'>O empreendimento é de natureza online, presencial ou híbrido?</h3>",
             "color": "success",
             "fields": [{
                 "type": "select",
@@ -406,22 +435,22 @@
                 "placeholder": "Selecione entre online, presencial ou híbrido",
                 "required": true,
                 "options": [{
+                    "value": "hibrido",
+                    "label": "Híbrido"
+                },
+                {
                     "value": "online",
                     "label": "Online"
                 },
                 {
                     "value": "presencial",
                     "label": "Presencial"
-                },
-                {
-                    "value": "hibrido",
-                    "label": "Híbrido"
                 }
                 ]
             }]
         },
         {
-            "titleHtml": "<span class='c-green f-number'>1.16</span> <br/> <h3 class='c-black t-title'>Redes Sociais</h3>",
+            "titleHtml": "<span class='c-green f-number'>1.16</span> <br/> <h3 class='c-black t-title'>Redes sociais</h3>",
             "color": "success",
             "fields": [{
                 "type": "row",

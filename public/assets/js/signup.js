@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const email = form.elements['email'].value.trim();
         const password = form.elements['password'].value;
         const passwordConfirmation = form.elements['password_confirmation'].value;
+        const lgpdConsent = form.elements['lgpd_consent'].checked;
 
         // name
         if (!name) {
@@ -49,6 +50,11 @@ document.addEventListener('DOMContentLoaded', function () {
             messages.push('A confirmação de senha é obrigatória.');
         } else if (password !== passwordConfirmation) {
             messages.push('As senhas não conferem.');
+        }
+
+        // lgpd consent
+        if (!lgpdConsent) {
+            messages.push('É necessário aceitar os termos da LGPD para se cadastrar.');
         }
 
         return {

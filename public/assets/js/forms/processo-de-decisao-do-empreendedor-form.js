@@ -18,8 +18,8 @@
             name: "decisionMain",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           }
           // Os 3 selects encadeados serão criados dinamicamente pelo card6-processo-decisao.js

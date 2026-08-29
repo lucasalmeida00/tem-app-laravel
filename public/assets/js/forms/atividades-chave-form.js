@@ -51,12 +51,12 @@
             label: "Prestação de serviços como educação ou saúde"
           },
           {
-            value: "producao_fornecimento_produtos_essenciais",
-            label: "Produção ou fornecimento de produtos essenciais"
-          },
-          {
             value: "producao_produtos",
             label: "Produção de produtos"
+          },
+          {
+            value: "producao_fornecimento_produtos_essenciais",
+            label: "Produção ou fornecimento de produtos essenciais"
           },
           {
             value: "outro",

@@ -20,7 +20,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.form input {
+.form input:not([type="checkbox"]) {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -51,6 +51,30 @@
   background: #274db4;
 }
 
+.form .password-field {
+  position: relative;
+  margin: 0 auto 15px;
+}
+
+.form .password-field input {
+  margin: 0 !important;
+  padding-right: 40px !important;
+}
+
+.form .password-field .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #8c8c8c;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.form .password-field .password-toggle:hover {
+  color: #1E3A8A;
+}
+
 .form .message {
   margin: 15px 0 0;
   color: #b3b3b3;
@@ -60,6 +84,24 @@
 .form .message a {
   color: #274db4;
   text-decoration: none;
+}
+
+.form .lgpd-consent .lgpd-text {
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #4d4d4d;
+  padding-right: 6px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 10px;
+  background: #f9f9f9;
+}
+
+.form .lgpd-consent .form-check-label {
+  font-size: 12px;
+  color: #4d4d4d;
 }
 
 .form .register-form {

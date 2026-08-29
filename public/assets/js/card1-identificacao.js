@@ -62,23 +62,42 @@ window.Card1 = (function () {
     const $wrapper = $select.closest(".mb-2, .col, .col-12");
     if (!$wrapper.length) return;
 
+    // Garante que o wrapper seja flex para alinhar o input ao lado
+    if (!$wrapper.hasClass("d-flex")) {
+      $wrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
+    }
+
+    // Ajusta o select para ter largura menor quando "outro" for selecionado
+    const isOther = String($select.val()).toLowerCase() === "outro";
+    if (isOther) {
+      // Define largura máxima menor para o select quando "outro" está selecionado
+      $select.css({
+        "max-width": "250px",
+        "flex": "0 0 auto"
+      });
+    } else {
+      // Remove restrições quando não é "outro"
+      $select.css({
+        "max-width": "",
+        "flex": ""
+      });
+    }
+
     let $extra = $wrapper.find(".extra-specify-container").first();
     if (!$extra.length) {
-      $extra = $(`<div class="extra-specify-container mt-2"></div>`);
+      $extra = $(`<div class="extra-specify-container" style="flex: 1 1 0; min-width: 250px;"></div>`);
       $wrapper.append($extra);
     }
 
-    const isOther = String($select.val()).toLowerCase() === "outro";
     if (!isOther) {
-      $extra.empty();
+      $extra.addClass("d-none").empty();
       return;
     }
 
-    $extra.html(`
-      <label class="form-label fw-semibold d-block">Especifique</label>
-      <input type="text" class="form-control"
+    $extra.removeClass("d-none").html(`
+      <input type="text" class="form-control" style="width: 100%;"
              name="${$select.attr("name")}__other"
-             placeholder="Descreva aqui" />
+             placeholder="Especifique">
     `);
   }
 

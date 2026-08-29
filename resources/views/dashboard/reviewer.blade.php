@@ -26,6 +26,9 @@
                     <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link" aria-current="page">Início</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">Sair</a></li>
                 </ul>
+                <div class="ms-3 d-flex align-items-center">
+                    @include('partials.google-translate')
+                </div>
             </header>
         </div>
     </section>

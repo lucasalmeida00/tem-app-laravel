@@ -46,41 +46,44 @@ window.Card4 = (function () {
                 $c = $(`<div class="${cls}"></div>`).appendTo($wrap);
             }
         }
+        // Força o container nf-selects-container a ser um bloco simples
+        if (cls === "nf-selects-container") {
+            $c.css({
+                "display": "block",
+                "width": "100%"
+            }).removeClass("d-flex d-grid row col");
+        }
         return $c;
     }
 
     // ---------- 4.1 NÃO FINANCEIROS ----------
     const NF_OPTIONS = [{
-            v: "conhecimento_experiencia",
-            l: "Conhecimento ou experiência"
+            v: "conhecimento_territorio",
+            l: "Conhecimento de território/mercado/setor"
         },
         {
-            v: "experiencia_pratica",
-            l: "Experiência prática como empreendedor"
+            v: "conhecimento_experiencia",
+            l: "Conhecimento ou experiência"
         },
         {
             v: "equipamentos",
             l: "Equipamentos"
         },
         {
-            v: "rede_contatos",
-            l: "Rede de Contatos"
+            v: "experiencia_pratica",
+            l: "Experiência prática como empreendedor"
         },
         {
             v: "infraestrutura",
             l: "Infraestrutura"
         },
         {
-            v: "conhecimento_territorio",
-            l: "Conhecimento de território/mercado/setor"
-        },
-        {
             v: "parcerias_locais",
             l: "Parcerias com empresas locais e/ou outras"
         },
         {
-            v: "trabalho_voluntario_terceiros",
-            l: "Trabalho voluntário de terceiros"
+            v: "rede_contatos",
+            l: "Rede de Contatos"
         },
         {
             v: "tempo_integral",
@@ -95,6 +98,10 @@ window.Card4 = (function () {
             l: "Trabalho não remunerado dos sócios"
         },
         {
+            v: "trabalho_voluntario_terceiros",
+            l: "Trabalho voluntário de terceiros"
+        },
+        {
             v: "outro",
             l: "Outro"
         }
@@ -104,38 +111,74 @@ window.Card4 = (function () {
     function renderNfSelect($root, idx, chosenSet) {
         const base = `nfSelect${idx}`;
         const $first = $root.find(`select[name="${N.nf1}"]`);
-        const $wrap = wrapperFor($first);
-        const $holder = ensureContainer($wrap, "nf-selects-container"); // dentro do mesmo card
+        // Ancora no bloco do 1º select (irmão logo abaixo, já com mb-3) em vez de
+        // wrapperFor($first): depois que o 1º select é movido para dentro do
+        // .card-select-col, wrapperFor resolveria para essa mesma coluna, colando
+        // a 2ª resposta junto da 1ª sem espaçamento (e também sem reaproveitar o
+        // container correto usado pelo reset ao trocar o valor do select 1).
+        const $select1Item = $first.closest(".nf-select1-item");
+        const $holder = $select1Item.length ? ensureContainer($select1Item, "nf-selects-container", true) : ensureContainer(wrapperFor($first), "nf-selects-container");
 
-        // cria markup do select + espaço para “Outro” logo abaixo
+        // cria markup do select com estrutura simples e vertical
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
-            $holder.append(`
-        <select class="form-select mb-2" name="${base}">
-          <option value="" disabled selected hidden>selecione uma opção</option>
-        </select>
-        <div class="extra-${base}-other" style="margin-bottom:10px;"></div>
+            // Estrutura simples: select em uma linha, botão X, input "outro" na linha abaixo
+            const $selectWrap = $(`<div class="mb-3 nf-select-item card-select-row"></div>`);
+            $selectWrap.append(`
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${base}">
+              <option value="">-- Selecione --</option>
+            </select>
+          </div>
+          <div class="col extra-${base}-other-inline d-none">
+            <input type="text" class="form-control" name="${base}__other" placeholder="Especifique">
+          </div>
+        </div>
+        <div class="extra-${base}-special mt-2"></div>
       `);
-            $sel = $holder.find(`select[name="${base}"]`);
+            $holder.append($selectWrap);
+            $sel = $selectWrap.find(`select[name="${base}"]`);
         }
 
-        // popula com opções disponíveis (exceto já escolhidas, mantendo “outro”)
+        // popula com opções disponíveis (exceto já escolhidas, mantendo "outro")
         const options = NF_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
-        // estado “Outro” / sub-checkboxes especiais
+        // estado "Outro" / sub-checkboxes especiais
         function ensureNfOther($selLocal, name) {
-            const $extra = $holder.find(`.extra-${name}-other`).first();
-            if (String($selLocal.val()) === "outro") {
-                $extra.html(`<input class="form-control" name="${name}__other" placeholder="especifique" style="margin-bottom:10px;">`);
+            const $selectWrap = $selLocal.closest(".nf-select-item");
+            const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
+            const isOther = String($selLocal.val()) === "outro";
+
+            if (isOther) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+                $extra.removeClass("d-none");
             } else {
-                $extra.empty();
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+                $extra.addClass("d-none");
+                // Limpa o valor do input quando "outro" é desmarcado
+                $extra.find("input").val("");
             }
         }
 
         $sel.off("change.nf").on("change.nf", function () {
             ensureNfOther($sel, base);
+
+            if (!$sel.val()) {
+                // Se este select foi limpo, remove todos os selects seguintes
+                const currentIdx = parseInt(base.replace("nfSelect", ""));
+                for (let i = currentIdx + 1; i <= 5; i++) {
+                    const $nextItem = $holder.find(`.nf-select-item:has(select[name="nfSelect${i}"])`);
+                    if ($nextItem.length) {
+                        $nextItem.remove();
+                    }
+                }
+            }
 
             // Agora pega TODOS os nfSelect (1..5) a partir da raiz do card
             const chosen = new Set(
@@ -146,8 +189,8 @@ window.Card4 = (function () {
                     .filter(Boolean)
             );
 
-            // desenha o próximo até o 5º
-            if (idx < 5) {
+            // desenha o próximo até o 5º apenas se o atual tiver valor
+            if ($sel.val() && idx < 5) {
                 renderNfSelect($root, idx + 1, chosen);
             }
 
@@ -155,7 +198,7 @@ window.Card4 = (function () {
             renderNfSpecialCheckboxes($root, chosen);
         });
 
-        // estado inicial “Outro”
+        // estado inicial "Outro"
         ensureNfOther($sel, base);
     }
 
@@ -169,18 +212,18 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         const base  = $sel.attr("name"); // ex: nfSelect1, nfSelect2...
         if (!base) return;
 
-        // 🔹 Queremos inserir SEMPRE após:
-        // 1) o div.extra-nfSelectX-other, se existir
-        // 2) senão, logo após o próprio <select>
-        const extraClass  = `extra-${base}-other`;
-        const $extra      = $sel.nextAll(`.${extraClass}`).first();
-        let   $anchor     = $extra.length ? $extra : $sel;
+        // Encontra o container .nf-select-item ou .nf-select1-item
+        let $selectItem = $sel.closest(".nf-select-item, .nf-select1-item");
+        if (!$selectItem.length) return;
 
-        const cls    = `nf-special-${base}`;
-        let   $below = $anchor.nextAll(`.${cls}`).first();
+        // O container especial fica dentro de .extra-{base}-special
+        const specialClass = `extra-${base}-special`;
+        let $below = $selectItem.find(`.${specialClass}`);
+
         if (!$below.length) {
-            // cria o container ESPECÍFICO desse select, imediatamente depois do anchor
-            $below = $(`<div class="${cls}"></div>`).insertAfter($anchor);
+            // Se não encontrou, cria um
+            $below = $(`<div class="${specialClass} mt-2"></div>`);
+            $selectItem.append($below);
         }
 
         // Se o valor NÃO é um dos especiais, limpa o container e sai
@@ -203,12 +246,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             html = `
         <div class="mb-3 nf-block-equip">
           <label class="form-label fw-semibold d-block">Especifique o equipamento:</label>
-          <div class="d-flex flex-wrap gap-3">
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
-                     name="nf_equip_doados" value="doados" id="nf_equip_doados">
-              <label class="form-check-label" for="nf_equip_doados">Doados</label>
-            </div>
+          <div class="d-flex flex-wrap gap-3 justify-content-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_equip_comprados" value="comprados" id="nf_equip_comprados">
@@ -216,13 +254,18 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_equip_materiais_proprios" value="materiais_proprios" id="nf_equip_materiais_proprios">
-              <label class="form-check-label" for="nf_equip_materiais_proprios">Materiais próprios</label>
+                     name="nf_equip_conhecimento_experiencia" value="conhecimento_experiencia" id="nf_equip_conhecimento_experiencia">
+              <label class="form-check-label" for="nf_equip_conhecimento_experiencia">Conhecimento ou experiência</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
-                     name="nf_equip_conhecimento_experiencia" value="conhecimento_experiencia" id="nf_equip_conhecimento_experiencia">
-              <label class="form-check-label" for="nf_equip_conhecimento_experiencia">Conhecimento ou experiência</label>
+                     name="nf_equip_doados" value="doados" id="nf_equip_doados">
+              <label class="form-check-label" for="nf_equip_doados">Doados</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_equip_materiais_proprios" value="materiais_proprios" id="nf_equip_materiais_proprios">
+              <label class="form-check-label" for="nf_equip_materiais_proprios">Materiais próprios</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
@@ -237,31 +280,31 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             html = `
         <div class="mb-3 nf-block-rede">
           <label class="form-label fw-semibold d-block">Especifique a rede de contatos:</label>
-          <div class="d-flex flex-wrap gap-3">
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
-                     name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
-              <label class="form-check-label" for="nf_rede_mentores">Mentores</label>
-            </div>
-            <div class="form-check me-3">
-              <input class="form-check-input" type="checkbox"
-                     name="nf_rede_parceiros" value="parceiros" id="nf_rede_parceiros">
-              <label class="form-check-label" for="nf_rede_parceiros">Parceiros</label>
-            </div>
+          <div class="d-flex flex-wrap gap-3 align-items-center">
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_amigos" value="amigos" id="nf_rede_amigos">
-              <label class="form-check-label" for="nf_rede_amigos">Amigos</label>
+              <label class="form-check-label" for="nf_rede_amigos">1. Amigos</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_familiares" value="familiares" id="nf_rede_familiares">
-              <label class="form-check-label" for="nf_rede_familiares">Familiares</label>
+              <label class="form-check-label" for="nf_rede_familiares">2. Familiares</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_rede_mentores" value="mentores" id="nf_rede_mentores">
+              <label class="form-check-label" for="nf_rede_mentores">3. Mentores</label>
+            </div>
+            <div class="form-check me-3">
+              <input class="form-check-input" type="checkbox"
+                     name="nf_rede_parceiros" value="parceiros" id="nf_rede_parceiros">
+              <label class="form-check-label" for="nf_rede_parceiros">4. Parceiros</label>
             </div>
             <div class="form-check me-3">
               <input class="form-check-input" type="checkbox"
                      name="nf_rede_outro" value="outro" id="nf_rede_outro">
-              <label class="form-check-label" for="nf_rede_outro">Outro</label>
+              <label class="form-check-label" for="nf_rede_outro">5. Outro</label>
             </div>
           </div>
           <div class="nf-rede-other mt-2"></div>
@@ -322,22 +365,38 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             if (!$target.length) return;
 
             if (outroChecked) {
-                const label = isEquip
-                    ? "Especifique o equipamento:"
-                    : isRede
-                    ? "Especifique a rede de contatos:"
-                    : "Especifique a infraestrutura:";
-                const name = isEquip
-                    ? "nf_equip_outro"
-                    : isRede
-                    ? "nf_rede_outro"
-                    : "nf_infra_outro";
+                // Encontra o checkbox "outro" e seu container .form-check
+                const $outroCheckbox = $b.find('input[type="checkbox"][value="outro"]');
+                const $formCheck = $outroCheckbox.closest(".form-check");
 
-                $target.html(`
-        <label class="form-label mt-2">${label}</label>
-        <input class="form-control" name="${name}" placeholder="especifique">
-      `);
+                if ($formCheck.length) {
+                    // Adiciona o input inline ao lado do checkbox "outro"
+                    let $inlineHolder = $formCheck.find(".nf-special-other-inline");
+                    if (!$inlineHolder.length) {
+                        $inlineHolder = $(`<div class="nf-special-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
+                        $formCheck.after($inlineHolder);
+                    }
+
+                    const name = isEquip
+                        ? "nf_equip_outro"
+                        : isRede
+                        ? "nf_rede_outro"
+                        : "nf_infra_outro";
+
+                    $inlineHolder.html(`
+                        <input type="text" class="form-control" name="${name}" placeholder="Especifique" style="width: 100%; display: block; box-sizing: border-box;">
+                    `);
+                }
+
+                // Remove o target antigo (compatibilidade)
+                $target.empty();
             } else {
+                // Remove o holder inline e limpa o valor
+                const $inlineInput = $b.find(".nf-special-other-inline input");
+                if ($inlineInput.length) {
+                    $inlineInput.val("");
+                }
+                $b.find(".nf-special-other-inline").remove();
                 $target.empty();
             }
         });
@@ -356,20 +415,53 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
             // zera cadeia e especiais
             const $holder = $wrap.find(".nf-selects-container");
-            $holder.find('select[name^="nfSelect"]:not([name="nfSelect1"]), .extra-nfSelect2-other, .extra-nfSelect3-other, .extra-nfSelect4-other, .extra-nfSelect5-other').remove();
+            $holder.find('.nf-select-item').remove();
 
             // se por acaso algum container duplicado já existia, remova-o
             $wrap.nextAll(".nf-special-container").remove();
 
-            // “Outro” do 1º select (sem label)
-            const cls = "extra-nfSelect1-other";
-            let $extra1 = $holder.find(`.${cls}`);
-            if (!$extra1.length) {
-                $extra1 = $(`<div class="${cls}" style="margin-bottom:10px;"></div>`);
-                $holder.prepend($extra1);
+            // Cria estrutura para o select 1 se não existir
+            let $select1Item = $wrap.find(".nf-select1-item");
+            if (!$select1Item.length) {
+                $select1Item = $(`<div class="mb-3 nf-select1-item card-select-row"></div>`);
+                const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+
+                // Coluna do select
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
+                $s1.appendTo($colSelect);
+
+                // Coluna do input "outro"
+                const $colOther = $(`<div class="col extra-nfSelect1-other-inline d-none"></div>`);
+                $colOther.html(`<input type="text" class="form-control" name="nfSelect1__other" placeholder="Especifique">`);
+
+                $rowDiv.append($colSelect, $colOther);
+                $select1Item.append($rowDiv);
+
+                // Container para checkboxes especiais
+                $select1Item.append(`<div class="extra-nfSelect1-special mt-2"></div>`);
+
+                // Insere antes do holder
+                $holder.before($select1Item);
             }
-            if (v === "outro") $extra1.html(`<input class="form-control" name="nfSelect1__other" placeholder="especifique" style="margin-bottom:10px;">`);
-            else $extra1.empty();
+
+            // Mostra/esconde o input "outro" do select 1
+            const $extra1 = $wrap.find(".extra-nfSelect1-other-inline");
+            const $colSelect1 = $wrap.find(".nf-select1-item .card-select-col");
+            const isOther = v === "outro";
+            if (isOther) {
+                $wrap.find(".nf-select1-item").addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
+                $extra1.removeClass("d-none");
+            } else {
+                $wrap.find(".nf-select1-item").removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
+                $extra1.addClass("d-none");
+                // Limpa o valor do input quando "outro" é desmarcado
+                $extra1.find("input").val("");
+                // Limpa os checkboxes especiais quando o select 1 é limpo
+                const $special1 = $wrap.find(".extra-nfSelect1-special");
+                $special1.empty().removeAttr("data-nf-kind");
+            }
 
             if (!v) return;
             const chosen = new Set([v]);
@@ -392,26 +484,6 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Empréstimo bancário"
         },
         {
-            v: "investimento_terceiros",
-            l: "Investimento de terceiros"
-        },
-        {
-            v: "investimento_informal",
-            l: "Investimento Informal"
-        },
-        {
-            v: "recursos_pessoais",
-            l: "Recursos financeiros pessoais"
-        },
-        {
-            v: "fgts",
-            l: "FGTS"
-        },
-        {
-            v: "seguro_desemprego",
-            l: "Seguro desemprego"
-        },
-        {
             v: "emprestimo_amigos",
             l: "Empréstimo com amigos"
         },
@@ -420,12 +492,36 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Empréstimo com familiares"
         },
         {
+            v: "equipamento",
+            l: "Equipamento"
+        },
+        {
+            v: "fgts",
+            l: "FGTS"
+        },
+        {
             v: "infraestrutura",
             l: "Infraestrutura"
         },
         {
-            v: "equipamento",
-            l: "Equipamento"
+            v: "investimento_terceiros",
+            l: "Investimento de terceiros"
+        },
+        {
+            v: "investimento_informal",
+            l: "Investimento Informal"
+        },
+        {
+            v: "investimento_proprios",
+            l: "Investimento próprios"
+        },
+        {
+            v: "recursos_pessoais",
+            l: "Recursos financeiros pessoais"
+        },
+        {
+            v: "seguro_desemprego",
+            l: "Seguro desemprego"
         },
         {
             v: "outro",
@@ -436,37 +532,65 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
     function renderFSelect($root, idx, chosenSet) {
         const base = `fSelect${idx}`;
         const $first = $root.find(`select[name="${N.f1}"]`);
-        const $wrap = wrapperFor($first);
-        const $holder = ensureContainer($wrap, "f-selects-container");
+        const $select1Item = $first.closest(".f-select1-item");
+        const $holder = $select1Item.length ? ensureContainer($select1Item, "f-selects-container", true) : ensureContainer(wrapperFor($first), "f-selects-container");
 
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
-            $holder.append(`
-        <select class="form-select mb-2" name="${base}">
-          <option value="" disabled selected hidden>selecione uma opção</option>
-        </select>
-        <div class="extra-${base}-other" style="margin-bottom:10px;"></div>
+            // Estrutura Bootstrap Grid (igual ao 4.1)
+            const $selectWrap = $(`<div class="mb-3 f-select-item card-select-row"></div>`);
+            $selectWrap.append(`
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${base}">
+              <option value="">-- Selecione --</option>
+            </select>
+          </div>
+          <div class="col extra-${base}-other-inline d-none">
+            <input type="text" class="form-control" name="${base}__other" placeholder="Especifique">
+          </div>
+          <div class="col extra-${base}-inv-inline d-none">
+            <input type="text" class="form-control" name="${base}__inv_terceiros" placeholder="Especifique o Investimento">
+          </div>
+        </div>
       `);
-            $sel = $holder.find(`select[name="${base}"]`);
+            $holder.append($selectWrap);
+            $sel = $selectWrap.find(`select[name="${base}"]`);
         }
 
         const options = F_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
         function ensureFOther($selLocal, name) {
-            const $extra = $holder.find(`.extra-${name}-other`).first();
+            const $selectWrap = $selLocal.closest(".f-select-item");
+            const $extraOther = $selectWrap.find(`.extra-${name}-other-inline`);
+            const $extraInv = $selectWrap.find(`.extra-${name}-inv-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
             const v = $selLocal.val();
+            const hasOtherOrInv = v === "outro" || v === "investimento_terceiros";
 
-            if (v === "outro") {
-                $extra.html(`<input class="form-control" name="${name}__other" placeholder="especifique" style="margin-bottom:10px;">`);
-            } else if (v === "investimento_terceiros") {
-                $extra.html(`
-          <label class="form-label fw-semibold d-block">Especifique o Investimento de Terceiros:</label>
-          <input class="form-control" name="${name}__inv_terceiros" placeholder="Descreva" />
-        `);
+            if (hasOtherOrInv) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
             } else {
-                $extra.empty();
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+            }
+            if (v === "outro") {
+                $extraOther.removeClass("d-none");
+                $extraInv.addClass("d-none");
+            } else if (v === "investimento_terceiros") {
+                $extraOther.addClass("d-none");
+                $extraInv.removeClass("d-none");
+                // Limpa o valor do input "outro" quando muda para investimento
+                $extraOther.find("input").val("");
+            } else {
+                $extraOther.addClass("d-none");
+                $extraInv.addClass("d-none");
+                // Limpa os valores dos inputs quando outra opção é selecionada
+                $extraOther.find("input").val("");
+                $extraInv.find("input").val("");
             }
         }
 
@@ -474,10 +598,22 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             const v = $(this).val();
             ensureFOther($sel, base);
 
+            if (!$sel.val()) {
+                // Se este select foi limpo, remove todos os selects seguintes
+                const currentIdx = parseInt(base.replace("fSelect", ""));
+                for (let i = currentIdx + 1; i <= 3; i++) {
+                    const $nextItem = $holder.find(`.f-select-item:has(select[name="fSelect${i}"])`);
+                    if ($nextItem.length) {
+                        $nextItem.remove();
+                    }
+                }
+            }
+
             const chosen = new Set(
                 [1, 2, 3].map(i => $holder.find(`select[name="fSelect${i}"]`).val()).filter(Boolean)
             );
-            if (idx < 3) renderFSelect($root, idx + 1, chosen);
+            // desenha o próximo apenas se o atual tiver valor
+            if ($sel.val() && idx < 3) renderFSelect($root, idx + 1, chosen);
         });
 
         ensureFOther($sel, base);
@@ -486,33 +622,64 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
     function initFinancial($root) {
         const $s1 = $root.find(`select[name="${N.f1}"]`);
         if (!$s1.length) return;
-        const $wrap = wrapperFor($s1);
-        ensureContainer($wrap, "f-selects-container");
 
         $s1.off("change.f1").on("change.f1", function () {
             const v = $(this).val();
 
-            // “Outro”/terceiros do 1º
-            const cls = "extra-fSelect1-other";
-            const $holder = $wrap.find(".f-selects-container");
-            let $extra1 = $holder.find(`.${cls}`);
-            if (!$extra1.length) {
-                $extra1 = $(`<div class="${cls}" style="margin-bottom:10px;"></div>`);
-                $holder.prepend($extra1);
-            }
-            if (v === "outro") {
-                $extra1.html(`<input class="form-control" name="fSelect1__other" placeholder="especifique" style="margin-bottom:10px;">`);
-            } else if (v === "investimento_terceiros") {
-                $extra1.html(`
-          <label class="form-label fw-semibold d-block">Especifique o Investimento de Terceiros:</label>
-          <input class="form-control" name="fSelect1__inv_terceiros" placeholder="Descreva" />
-        `);
-            } else {
-                $extra1.empty();
+            // Cria estrutura para o select 1 se não existir (container fica logo abaixo da row, não dentro dela)
+            let $select1Item = $s1.closest(".f-select1-item");
+            if (!$select1Item.length) {
+                $select1Item = $(`<div class="mb-3 f-select1-item card-select-row"></div>`);
+                const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
+                $s1.after($select1Item);
+                $s1.appendTo($colSelect);
+
+                const $colOther = $(`<div class="col extra-fSelect1-other-inline d-none"></div>`);
+                $colOther.html(`<input type="text" class="form-control" name="fSelect1__other" placeholder="Especifique">`);
+
+                const $colInv = $(`<div class="col extra-fSelect1-inv-inline d-none"></div>`);
+                $colInv.html(`<input type="text" class="form-control" name="fSelect1__inv_terceiros" placeholder="Especifique o Investimento">`);
+
+                $rowDiv.append($colSelect, $colOther, $colInv);
+                $select1Item.append($rowDiv);
+                $select1Item.parent().removeClass("mb-2").addClass("mb-1");
             }
 
-            // zera cadeia 2..3
-            $holder.find('select[name="fSelect2"], select[name="fSelect3"], .extra-fSelect2-other, .extra-fSelect3-other').remove();
+            const $holder = ensureContainer($select1Item, "f-selects-container", true);
+            $holder.find('.f-select-item').remove();
+
+            // Mostra/esconde os inputs do select 1
+            const $extraOther = $select1Item.find(".extra-fSelect1-other-inline");
+            const $extraInv = $select1Item.find(".extra-fSelect1-inv-inline");
+            const $colSelect1 = $select1Item.find(".card-select-col");
+            const hasOtherOrInv = v === "outro" || v === "investimento_terceiros";
+
+            if (hasOtherOrInv) {
+                $select1Item.addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
+            } else {
+                $select1Item.removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
+            }
+            if (v === "outro") {
+                $extraOther.removeClass("d-none");
+                $extraInv.addClass("d-none");
+                // Limpa o valor do input de investimento quando muda para "outro"
+                $extraInv.find("input").val("");
+            } else if (v === "investimento_terceiros") {
+                $extraOther.addClass("d-none");
+                $extraInv.removeClass("d-none");
+                // Limpa o valor do input "outro" quando muda para investimento
+                $extraOther.find("input").val("");
+            } else {
+                $extraOther.addClass("d-none");
+                $extraInv.addClass("d-none");
+                // Limpa os valores dos inputs quando outra opção é selecionada
+                $extraOther.find("input").val("");
+                $extraInv.find("input").val("");
+            }
 
             if (!v) return;
             const chosen = new Set([v]);
@@ -639,17 +806,58 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
         const $wrap = wrapperFor($rad.first());
         const $extra = ensureContainer($wrap, "viability-extra", true);
+        const $outroRadio = $rad.filter('[value="outro"]');
+        const $otherInput = $root.find('input[name="viabilityOther"]');
 
         function render() {
             const v = $root.find(`input[name="${N.viab}"]:checked`).val();
             if (v === "outro") {
-                $extra.html(`
-        <div class="mt-2">
-          <input type="text" class="form-control" name="viabilityOther" placeholder="Especifique" />
-        </div>
-      `);
+                // Esconde o wrapper original
+                $extra.hide();
+
+                // Encontra o label ou .form-check que contém o radio "outro"
+                let $radioContainer = $outroRadio.closest("label");
+                if (!$radioContainer.length) {
+                    $radioContainer = $outroRadio.closest(".form-check");
+                }
+
+                if ($radioContainer.length) {
+                    // Encontra o wrapper pai que contém todos os radios
+                    const $parentWrapper = $radioContainer.closest(".mb-2, .col, .col-12");
+
+                    if ($parentWrapper.length) {
+                        // Garante que o wrapper seja flex
+                        if (!$parentWrapper.hasClass("d-flex")) {
+                            $parentWrapper.addClass("d-flex align-items-center gap-2 flex-wrap");
+                        }
+
+                        // Procura ou cria o container do textarea
+                        let $inlineHolder = $parentWrapper.find(".viability-other-inline");
+                        if (!$inlineHolder.length) {
+                            $inlineHolder = $(`<div class="viability-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
+                            $parentWrapper.append($inlineHolder);
+                        }
+
+                        const $inlineInput = $(`<input type="text" class="form-control" name="viabilityOther" placeholder="Especifique" style="width: 100%;">`);
+                        $inlineInput.val($otherInput.val() || "");
+                        $inlineHolder.html($inlineInput);
+
+                        // Sincroniza valores entre input inline e input original
+                        $inlineInput.off("input").on("input", function() {
+                            $otherInput.val($(this).val());
+                        });
+                    }
+                }
             } else {
-                $extra.empty();
+                // Remove o input inline quando outro radio é selecionado
+                $root.find(".viability-other-inline").remove();
+                $otherInput.val("");
+
+                // Remove as classes flex do wrapper se existirem
+                const $parentWrapper = $rad.first().closest(".mb-2, .col, .col-12");
+                if ($parentWrapper.hasClass("d-flex")) {
+                    $parentWrapper.removeClass("d-flex align-items-center gap-2 flex-wrap");
+                }
             }
         }
 
@@ -659,20 +867,8 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
 
     // ---------- 4.7 RISCOS & INVESTIMENTOS (3 selects) ----------
     const RISK_OPTIONS = [{
-            v: "investiu_capital_proprio",
-            l: "Investiu capital próprio"
-        },
-        {
-            v: "investiu_apenas_que_poderia_perder",
-            l: "Investiu somente o que vocêr poderia arriscar e perder"
-        },
-        {
-            v: "nao_investiu_dinheiro",
-            l: "Não investiu dinheiro inicial"
-        },
-        {
-            v: "contratou_emprestimo",
-            l: "Contratou emprestimo"
+            v: "buscou_amigos_familiares",
+            l: "Buscou amigos e familiares"
         },
         {
             v: "buscou_edital",
@@ -687,8 +883,20 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             l: "Buscou parceiros"
         },
         {
-            v: "buscou_amigos_familiares",
-            l: "Buscou amigos e familiares"
+            v: "contratou_emprestimo",
+            l: "Contratou emprestimo"
+        },
+        {
+            v: "investiu_capital_proprio",
+            l: "Investiu capital próprio"
+        },
+        {
+            v: "investiu_apenas_que_poderia_perder",
+            l: "Investiu somente o que vocêr poderia arriscar e perder"
+        },
+        {
+            v: "nao_investiu_dinheiro",
+            l: "Não investiu dinheiro inicial"
         },
         {
             v: "outro",
@@ -699,45 +907,81 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
     function renderRiskSelect($root, idx, chosenSet) {
         const base = `riskInvSelect${idx}`;
         const $first = $root.find(`select[name="${N.r1}"]`);
-        const $wrap = wrapperFor($first);
-        const $holder = ensureContainer($wrap, "risk-selects-container"); // dentro
+        // Ancora no bloco do 1º select (irmão logo abaixo, já com mb-3) em vez de
+        // wrapperFor($first): depois que o 1º select é movido para dentro do
+        // .card-select-col, wrapperFor resolveria para essa mesma coluna, colando
+        // a 2ª resposta junto da 1ª sem espaçamento (e também sem reaproveitar o
+        // container correto usado pelo reset ao trocar o valor do select 1).
+        const $select1Item = $first.closest(".risk-select1-item");
+        const $holder = $select1Item.length ? ensureContainer($select1Item, "risk-selects-container", true) : ensureContainer(wrapperFor($first), "risk-selects-container");
 
         let $sel = $holder.find(`select[name="${base}"]`);
         if (!$sel.length) {
-            $holder.append(`
-      <select class="form-select mb-2" name="${base}">
-        <option value="" disabled selected hidden>Selecione uma opção</option>
-      </select>
-      <div class="extra-${base}-other" style="margin-bottom:10px;"></div>
-    `);
-            $sel = $holder.find(`select[name="${base}"]`);
+            // Estrutura Bootstrap Grid (igual ao 4.1)
+            const $selectWrap = $(`<div class="mb-3 risk-select-item card-select-row"></div>`);
+            $selectWrap.append(`
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${base}">
+              <option value="">-- Selecione --</option>
+            </select>
+          </div>
+          <div class="col extra-${base}-other-inline d-none">
+            <input type="text" class="form-control" name="${base}__other" placeholder="Especifique">
+          </div>
+        </div>
+      `);
+            $holder.append($selectWrap);
+            $sel = $selectWrap.find(`select[name="${base}"]`);
         }
 
         const options = RISK_OPTIONS.filter(o => !chosenSet.has(o.v) || o.v === "outro");
-        $sel.empty().append(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+        $sel.empty().append(`<option value="">-- Selecione --</option>`);
         options.forEach(o => $sel.append(`<option value="${o.v}">${o.l}</option>`));
 
         function ensureOther($selLocal, name) {
-            const $extra = $holder.find(`.extra-${name}-other`).first();
-            if (String($selLocal.val()) === "outro") {
-                $extra.html(`<input class="form-control" name="${name}__other" placeholder="Especifique" style="margin-bottom:10px;">`);
+            const $selectWrap = $selLocal.closest(".risk-select-item");
+            const $extra = $selectWrap.find(`.extra-${name}-other-inline`);
+            const $colSelect = $selLocal.closest(".card-select-col");
+            const isOther = String($selLocal.val()) === "outro";
+
+            if (isOther) {
+                $selectWrap.addClass("has-other");
+                $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+                $extra.removeClass("d-none");
             } else {
-                $extra.empty();
+                $selectWrap.removeClass("has-other");
+                $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+                $extra.addClass("d-none");
+                // Limpa o valor do input quando "outro" é desmarcado
+                $extra.find("input").val("");
             }
         }
 
         $sel.off("change.risk").on("change.risk", function () {
             ensureOther($sel, base);
 
+            if (!$sel.val()) {
+                // Se este select foi limpo, remove todos os selects seguintes
+                const currentIdx = parseInt(base.replace("riskInvSelect", ""));
+                for (let i = currentIdx + 1; i <= 3; i++) {
+                    const $nextItem = $holder.find(`.risk-select-item:has(select[name="riskInvSelect${i}"])`);
+                    if ($nextItem.length) {
+                        $nextItem.remove();
+                    }
+                }
+            }
+
             const chosen = new Set(
                 [1, 2, 3]
                 .map(i => $holder.find(`select[name="riskInvSelect${i}"]`).val())
                 .filter(Boolean)
             );
-            if (idx < 3) renderRiskSelect($root, idx + 1, chosen);
+            // desenha o próximo apenas se o atual tiver valor
+            if ($sel.val() && idx < 3) renderRiskSelect($root, idx + 1, chosen);
         });
 
-        // estado inicial “Outro”
+        // estado inicial "Outro"
         ensureOther($sel, base);
     }
 
@@ -752,18 +996,45 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
             const v = $(this).val();
             const $holder = $wrap.find(".risk-selects-container");
 
-            // Outro do 1º
-            const cls = "extra-riskInvSelect1-other";
-            let $extra1 = $holder.find(`.${cls}`);
-            if (!$extra1.length) {
-                $extra1 = $(`<div class="${cls}" style="margin-bottom:10px;"></div>`);
-                $holder.prepend($extra1);
-            }
-            if (v === "outro") $extra1.html(`<input class="form-control" name="riskInvSelect1__other" placeholder="Especifique" style="margin-bottom:10px;">`);
-            else $extra1.empty();
-
             // reset 2 e 3
-            $holder.find('select[name="riskInvSelect2"], select[name="riskInvSelect3"], .extra-riskInvSelect2-other, .extra-riskInvSelect3-other').remove();
+            $holder.find('.risk-select-item').remove();
+
+            // Cria estrutura para o select 1 se não existir
+            let $select1Item = $wrap.find(".risk-select1-item");
+            if (!$select1Item.length) {
+                $select1Item = $(`<div class="mb-3 risk-select1-item card-select-row"></div>`);
+                const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+
+                // Coluna do select
+                const $colSelect = $(`<div class="col card-select-col"></div>`);
+                $s1.appendTo($colSelect);
+
+                // Coluna do input "outro"
+                const $colOther = $(`<div class="col extra-riskInvSelect1-other-inline d-none"></div>`);
+                $colOther.html(`<input type="text" class="form-control" name="riskInvSelect1__other" placeholder="Especifique">`);
+
+                $rowDiv.append($colSelect, $colOther);
+                $select1Item.append($rowDiv);
+
+                // Insere antes do holder
+                $holder.before($select1Item);
+            }
+
+            // Mostra/esconde o input "outro" do select 1
+            const $extra1 = $wrap.find(".extra-riskInvSelect1-other-inline");
+            const $colSelect1 = $wrap.find(".risk-select1-item .card-select-col");
+            const isOther = v === "outro";
+            if (isOther) {
+                $wrap.find(".risk-select1-item").addClass("has-other");
+                $colSelect1.removeClass("col").addClass("col-auto").css("max-width", "350px");
+                $extra1.removeClass("d-none");
+            } else {
+                $wrap.find(".risk-select1-item").removeClass("has-other");
+                $colSelect1.removeClass("col-auto").addClass("col").css("max-width", "");
+                $extra1.addClass("d-none");
+                // Limpa o valor do input quando "outro" é desmarcado
+                $extra1.find("input").val("");
+            }
 
             if (!v) return;
             renderRiskSelect($root, 2, new Set([v]));
@@ -876,7 +1147,7 @@ function renderNfSpecialCheckboxes($root, _chosenSet) {
         // 1) Usa o wrapper do "Ano" como âncora para inserir o bloco dinâmico
         renderInvestorsBlock($wrapY, {
             prefix: "invInit",
-            max: 3,
+            max: 5,
             blockClass: "investors-init-block"
         });
 

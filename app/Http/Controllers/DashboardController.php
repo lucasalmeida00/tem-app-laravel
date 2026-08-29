@@ -69,10 +69,72 @@ class DashboardController extends Controller
 
         $businessData = json_decode($business->business_data_json ?: '{}', true) ?? [];
 
+        $backups = BusinessDataBackup::where('business_id', $business->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(50)
+            ->get(['id', 'created_at']);
+
         return view('dashboard.business', [
             'business' => $business,
             'businessData' => $businessData,
+            'backups' => $backups,
         ]);
+    }
+
+    // GET /dashboard/{url_hash}/backups/{backup}
+    public function backupShow(string $url_hash, BusinessDataBackup $backup)
+    {
+        $business = Business::where('url_hash', $url_hash)
+            ->where('id_user', Auth::id())
+            ->firstOrFail();
+
+        if ($backup->business_id !== $business->id) {
+            abort(403);
+        }
+
+        return response()->json([
+            'id' => $backup->id,
+            'created_at' => $backup->created_at,
+            'data' => json_decode($backup->business_data_json ?: '{}', true) ?? [],
+        ]);
+    }
+
+    // POST /dashboard/{url_hash}/backups/{backup}/restore
+    public function backupRestore(string $url_hash, BusinessDataBackup $backup)
+    {
+        $business = Business::where('url_hash', $url_hash)
+            ->where('id_user', Auth::id())
+            ->firstOrFail();
+
+        if ($backup->business_id !== $business->id) {
+            abort(403);
+        }
+
+        // Guarda o estado atual antes de sobrescrever, como rede de segurança extra.
+        BusinessDataBackup::create([
+            'business_id' => $business->id,
+            'business_data_json' => $business->business_data_json ?: '{}',
+            'created_at' => Carbon::now(),
+        ]);
+
+        $business->business_data_json = $backup->business_data_json;
+
+        try {
+            $decoded = json_decode($backup->business_data_json, true);
+            $business->is_complete = BusinessCompletionService::isBusinessComplete($decoded);
+        } catch (\Throwable $e) {
+            $business->is_complete = false;
+        }
+
+        $business->save();
+
+        BusinessDataBackup::create([
+            'business_id' => $business->id,
+            'business_data_json' => $business->business_data_json,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['ok' => true]);
     }
 
     // DELETE /dashboard/business/{business}

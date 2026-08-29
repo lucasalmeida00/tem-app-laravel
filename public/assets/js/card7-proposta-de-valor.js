@@ -26,14 +26,14 @@ window.Card7 = (function () {
   };
 
   const DIFF_OPTIONS = [
-    { v: "qualidade_superior", label: "Qualidade Superior" },
+    { v: "nicho_especifico", label: "Atende a um nicho específico" },
+    { v: "facilidade_acesso", label: "Facilidade de acesso (presença local, sem necessidade de deslocamento)" },
     { v: "facilidade_uso", label: "Facilidade de Uso" },
     { v: "eficiencia_rapidez", label: "Maior eficiência ou rapidez" },
-    { v: "nicho_especifico", label: "Atende a um nicho específico" },
     { v: "preco_acessivel", label: "Preço mais acessível" },
-    { v: "facilidade_acesso", label: "Facilidade de acesso (presença local, sem necessidade de deslocamento)" },
     { v: "nao_ofertado_favela", label: "produto não ofertado na favela" },
     { v: "melhor_qualidade", label: "Produto/Serviço de melhor qualidade" },
+    { v: "qualidade_superior", label: "Qualidade Superior" },
     { v: "solucao_mais_rapida", label: "Solução mais rápida ou eficiente" },
     { v: "outro", label: "Outro" }
   ];
@@ -41,40 +41,54 @@ window.Card7 = (function () {
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 vp-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${DIFF_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 vp-other-box d-none"></div>
+      <div class="mb-1 vp-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+              ${DIFF_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
 
   // “Outro” NUNCA sai da lista (como no Card 6)
+  // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     DIFF_OPTIONS.forEach(o => {
-      if (!chosenSet.has(o.v) || o.v === "outro") {
+      // se já foi escolhido em outro select, só deixa se for o valor atual
+      if (!chosenSet.has(o.v) || o.v === keep) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
       }
     });
-    if (keep && (!chosenSet.has(keep) || keep === "outro")) {
+    if (keep && (!chosenSet.has(keep) || keep === $sel.val())) {
       $sel.val(keep);
     }
   }
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".vp-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.vpOther").on("change.vpOther", "select", renderOther);
@@ -89,15 +103,25 @@ window.Card7 = (function () {
   // Garante que o s1 tenha um wrapper .vp-select-wrap (sem criar um novo select)
   let $w1 = $s1.closest('.vp-select-wrap');
   if (!$w1.length) {
-    $w1 = $(`<div class="mb-2 vp-select-wrap"></div>`);
+    $w1 = $(`<div class="mb-1 vp-select-wrap card-select-row"></div>`);
+    const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+    
+    // Coluna do select
+    const $colSelect = $(`<div class="col card-select-col"></div>`);
     $s1.after($w1);           // insere o wrapper logo após o s1
-    $w1.append($s1);          // move o s1 para dentro do wrapper
-    $w1.append(`<div class="mt-2 vp-other-box d-none"></div>`);
+    $s1.appendTo($colSelect); // move o s1 para dentro da coluna
+    
+    // Coluna do input "outro"
+    const $colOther = $(`<div class="col extra-${N.d1}-other-inline d-none"></div>`);
+    $colOther.html(`<input type="text" class="form-control" name="${N.d1}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">`);
+    
+    $rowDiv.append($colSelect, $colOther);
+    $w1.append($rowDiv);
   }
 
-  const $wrap1 = wrapperFor($s1);
-  // Container para s2 e s3, logo abaixo do primeiro
-  const $selects = ensureContainer($wrap1, "vp-selects-container", true);
+  // Container para s2 e s3, logo abaixo da primeira row (não dentro dela)
+  const $selects = ensureContainer($w1, "vp-selects-container", true);
+  $w1.parent().removeClass("mb-2").addClass("mb-1");
 
   // Cria s2/s3 se não existirem
   let $w2 = $selects.find(`.vp-select-wrap:has(select[name="${N.d2}"])`);
@@ -125,20 +149,36 @@ window.Card7 = (function () {
     const chosen = getChosen();
 
     // Preenche s2/s3 excluindo escolhidas (mantendo “outro”)
-    fillSelect($s2, new Set([...chosen].filter(v => v !== $s2.val())));
-    fillSelect($s3, new Set([...chosen].filter(v => v !== $s3.val())));
+    // Para cada select, excluímos apenas os valores dos OUTROS selects
+    fillSelect($s1, new Set([$s2.val(), $s3.val()].filter(Boolean)));
+    fillSelect($s2, new Set([$s1.val(), $s3.val()].filter(Boolean)));
+    fillSelect($s3, new Set([$s1.val(), $s2.val()].filter(Boolean)));
 
     // Encadeamento (usa SEMPRE $s1, não query global)
+    // Mostra/oculta select 2 baseado no select 1, mas não limpa o valor
     $w2.toggle(!!$s1.val());
-    if (!$s1.val()) $s2.val("");
+    
+    // Se o select 2 está oculto (porque o select 1 está vazio), limpa apenas o select 2
+    if (!$s1.val() && $s2.val()) {
+      $s2.val("");
+      // Limpa o input "outro" do select 2 quando o select 1 é limpo
+      $w2.find(`.extra-${N.d2}-other-inline`).addClass("d-none").find("input").val("");
+    }
 
+    // Mostra/oculta select 3 baseado no select 2, mas não limpa o valor
     $w3.toggle(!!$s2.val());
-    if (!$s2.val()) $s3.val("");
+    
+    // Se o select 3 está oculto (porque o select 2 está vazio), limpa apenas o select 3
+    if (!$s2.val() && $s3.val()) {
+      $s3.val("");
+      // Limpa o input "outro" do select 3 quando o select 2 é limpo
+      $w3.find(`.extra-${N.d3}-other-inline`).addClass("d-none").find("input").val("");
+    }
 
     // Atualiza “Especifique” dos 3 selects
-    $w1.triggerHandler("change.vpOther");
-    $w2.triggerHandler("change.vpOther");
-    $w3.triggerHandler("change.vpOther");
+    $s1.trigger("change.vpOther");
+    $s2.trigger("change.vpOther");
+    $s3.trigger("change.vpOther");
   }
 
   // Estado inicial

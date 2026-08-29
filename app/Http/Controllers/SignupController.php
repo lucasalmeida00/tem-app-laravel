@@ -25,6 +25,7 @@ class SignupController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'is_reviewer' => false,
+            'lgpd_accepted_at' => now(),
         ]);
 
         // Faz login na sessão web (se quiser já logar o usuário)

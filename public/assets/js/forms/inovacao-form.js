@@ -16,7 +16,6 @@
           {
             type: "text",
             name: "innovationDefinition",
-            required: true,
             placeholder: "Inovação é..."
           }
         ]
@@ -34,8 +33,8 @@
             name: "hasPatents",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {
@@ -59,8 +58,8 @@
             name: "hasInnovationAward",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {
@@ -138,8 +137,8 @@
             name: "interactsUniversities",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {
@@ -229,8 +228,8 @@
             name: "monitorTechTrends",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {
@@ -260,8 +259,8 @@
             name: "usesScientificKnowledge",
             required: true,
             options: [
-              { value: "sim", label: "Sim" },
-              { value: "nao", label: "Não" }
+              { value: "nao", label: "Não" },
+              { value: "sim", label: "Sim" }
             ]
           },
           {

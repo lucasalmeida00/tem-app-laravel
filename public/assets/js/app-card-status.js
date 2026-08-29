@@ -58,9 +58,9 @@
                 // Se já existe o campo, transforma em array ou adiciona ao array
                 if (formData[name] !== undefined) {
                     if (Array.isArray(formData[name])) {
-                        if (input.checked) formData[name].push(value || true);
+                        if (input.checked) formData[name].push(input.value || true);
                     } else {
-                        formData[name] = [formData[name], input.checked ? (value || true) : null].filter(Boolean);
+                        formData[name] = [formData[name], input.checked ? (input.value || true) : null].filter(Boolean);
                     }
                     return;
                 }
@@ -93,6 +93,20 @@
         });
 
         return formData;
+    }
+
+    // Um campo pode ser sempre obrigatório (`required: true`) ou obrigatório apenas
+    // quando outro campo do mesmo card tiver um valor específico (`requiredIf`).
+    // Ex.: um campo "Especifique" só é obrigatório se o select relacionado estiver em "outro".
+    function isFieldRequired(field, cardData) {
+        if (field.required) return true;
+        if (field.requiredIf) {
+            const depValue = cardData[field.requiredIf.field];
+            const expected = field.requiredIf.value;
+            if (Array.isArray(expected)) return expected.includes(depValue);
+            return depValue === expected;
+        }
+        return false;
     }
 
     function computeStatusForCard(cardId, allData) {
@@ -174,7 +188,7 @@
                             block.fields.forEach(field => {
                                 if (field.type === "row" && Array.isArray(field.cols)) {
                                     field.cols.forEach(col => {
-                                        if (col.field && col.field.required) {
+                                        if (col.field && isFieldRequired(col.field, cardData)) {
                                             totalRequiredCount++;
                                             const value = cardData[col.field.name];
                                             let isFilled = false;
@@ -191,7 +205,7 @@
                                             if (!isFilled) missingRequired.push(col.field.name);
                                         }
                                     });
-                                } else if (field.required) {
+                                } else if (isFieldRequired(field, cardData)) {
                                     totalRequiredCount++;
                                     const value = cardData[field.name];
                                     let isFilled = false;
@@ -216,7 +230,7 @@
                     group.fields.forEach(field => {
                         if (field.type === "row" && Array.isArray(field.cols)) {
                             field.cols.forEach(col => {
-                                if (col.field && col.field.required) {
+                                if (col.field && isFieldRequired(col.field, cardData)) {
                                     totalRequiredCount++;
                                     const value = cardData[col.field.name];
                                     let isFilled = false;
@@ -232,7 +246,7 @@
                                     }
                                 }
                             });
-                        } else if (field.required) {
+                        } else if (isFieldRequired(field, cardData)) {
                             totalRequiredCount++;
                             const value = cardData[field.name];
                             let isFilled = false;

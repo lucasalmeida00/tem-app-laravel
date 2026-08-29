@@ -16,6 +16,10 @@
 
 <body>
 
+    <div class="text-center pt-3">
+        @include('partials.google-translate')
+    </div>
+
     <div class="login-page">
         <div class="form">
             <form class="login-form" id="login-form">
@@ -25,9 +29,12 @@
                 </a>
                 <input type="email" id="email" name="email" class="form-control w-270" required maxlength="255"
                     pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
-                    title="Informe um e-mail válido, por exemplo: nome@dominio.com" placeholder="Seu E-mail" />
-                <input type="password" id="password" name="password" class="form-control w-270" required minlength="8"
-                    maxlength="255" pattern=".{1,}" title="A senha deve ter pelo menos 1 caracteres." placeholder="Sua Senha" />
+                    title="Informe um e-mail válido, por exemplo: nome@dominio.com" placeholder="E-mail" />
+                <div class="password-field w-270">
+                    <input type="password" id="password" name="password" class="form-control" required minlength="8"
+                        maxlength="255" pattern=".{1,}" title="A senha deve ter pelo menos 1 caracteres." placeholder="Senha" />
+                    <i class="fa fa-eye password-toggle" data-target="password" title="Mostrar senha"></i>
+                </div>
                 <button type="submit" id="login-submit" class="btn-tem w-100">
                     Entrar
                 </button>
@@ -45,8 +52,8 @@
 </body>
 
 <!-- JS Scripts -->
- <script>
-    window.loginUrl     = "{{ route('login.attempt') }}";
+<script>
+    window.loginUrl = "{{ route('login.attempt') }}";
     window.dashboardUrl = "{{ route('dashboard') }}";
     window.recaptchaSiteKey = "{{ config('services.recaptcha.site_key') }}";
 </script>
@@ -56,4 +63,5 @@
 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 
 <script src="{{ asset('assets/js/login.js') }}"></script>
+
 </html>

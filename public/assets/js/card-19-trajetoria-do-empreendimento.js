@@ -58,6 +58,16 @@ window.Card19 = (function () {
     const $groupCard = $desc.closest(".border-card");
     const $title = $groupCard.children().first(); // h3 do título do grupo
 
+    // Aviso clicável: marcos podem ser informados em qualquer ordem (a ordenação é automática)
+    const $hintBtn = $groupCard.find(".trajectory-order-hint-btn");
+    const $hintText = $groupCard.find(".trajectory-order-hint-text");
+    if ($hintBtn.length && $hintText.length) {
+      $hintBtn.off("click.card19_hint").on("click.card19_hint", function () {
+        $hintText.toggleClass("d-none");
+        $hintBtn.attr("aria-expanded", $hintText.hasClass("d-none") ? "false" : "true");
+      });
+    }
+
     // Container onde os cards de marcos serão renderizados (cinza)
     let $list = $groupCard.find(".trajectory-milestones-list");
     if (!$list.length) {

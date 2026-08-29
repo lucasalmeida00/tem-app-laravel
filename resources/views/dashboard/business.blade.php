@@ -40,6 +40,10 @@
 
         // URL para autosave
         window.temAutosaveUrl = "{{ route('dashboard.business.autosave', $business->url_hash) }}";
+
+        // Templates de URL para visualizar/restaurar backups (o ID é trocado em runtime)
+        window.temBackupShowUrlTemplate = "{{ route('dashboard.business.backups.show', ['url_hash' => $business->url_hash, 'backup' => '__ID__']) }}";
+        window.temBackupRestoreUrlTemplate = "{{ route('dashboard.business.backups.restore', ['url_hash' => $business->url_hash, 'backup' => '__ID__']) }}";
     </script>
 
     <!-- Overlay de loading da TEM -->
@@ -50,6 +54,17 @@
                 <div class="spinner-border" role="status" aria-hidden="true"></div>
                 <div class="mt-3 fw-bold">Carregando seu formulário...</div>
                 <div class="text-muted small">Aguarde um instante</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de loading ao trocar de versão/backup -->
+    <div id="temBackupLoadingOverlay" class="tem-loading-overlay" style="display: none;">
+        <div class="tem-loading-overlay__backdrop"></div>
+        <div class="tem-loading-overlay__content">
+            <div class="text-center">
+                <div class="spinner-border" role="status" aria-hidden="true"></div>
+                <div class="mt-3 fw-bold">Carregando versão do backup...</div>
             </div>
         </div>
     </div>
@@ -65,10 +80,24 @@
                     <li class="nav-item"><a href="/dashboard" class="nav-link" aria-current="page">Início</a></li>
                     <li class="nav-item"><a href="/logout" class="nav-link">Sair</a></li>
                 </ul>
+                <!-- <x-backup-version-selector :backups="$backups" /> -->
+                <div class="ms-3 d-flex align-items-center">
+                    @include('partials.google-translate')
+                </div>
             </header>
         </div>
     </section>
     <!-- End Section Header -->
+
+    <div id="temBackupViewBanner" class="d-none alert alert-warning rounded-0 mb-0 d-flex flex-wrap justify-content-center align-items-center gap-2 py-2">
+        <span>
+            Visualizando backup #<strong id="temBackupViewId"></strong>
+            de <strong id="temBackupViewDate"></strong> — somente leitura
+        </span>
+        <button type="button" id="temBackupRestoreBtn" class="btn btn-sm btn-warning">
+            <i class="fas fa-clock-rotate-left me-1"></i> Restaurar este backup como atual
+        </button>
+    </div>
 
     <!-- Start Section Cards -->
     <section class="section-cards py-5">
@@ -614,6 +643,7 @@
 <script src="{{ asset('assets/js/app-navigation-buttons.js') }}"></script>
 <script src="{{ asset('assets/js/app-save-later.js') }}"></script>
 <script src="{{ asset('assets/js/app-card-status.js') }}"></script>
+<script src="{{ asset('assets/js/app-backup-viewer.js') }}"></script>
 
 
 <script>
