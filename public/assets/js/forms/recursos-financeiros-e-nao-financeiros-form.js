@@ -160,7 +160,6 @@
                 type: "select",
                 name: "riskInvSelect1",
                 placeholder: "Selecione uma opção",
-                required: true,
                 options: [
                     { value: "buscou_amigos_familiares", label: "Buscou amigos e familiares" },
                     { value: "buscou_edital", label: "Buscou edital de fomento" },

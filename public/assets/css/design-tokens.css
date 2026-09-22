@@ -1,0 +1,181 @@
+/* ==========================================================================
+   TEM - Design System & Tokens (Figma Reference)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  /* --- Brand & Action Colors --- */
+  --color-primary: #1E3A8A;
+  --color-primary-hover: #172554;
+  --color-primary-light: #EFF6FF;
+  --color-primary-50: #F0F5FF;
+  --color-secondary: #0EA5E9;
+  
+  /* --- Feedback & Status Colors --- */
+  --color-success: #10B981;
+  --color-success-bg: #ECFDF5;
+  --color-danger: #DC2626;
+  --color-danger-bg: #FEF2F2;
+  --color-warning: #F97316;
+  --color-warning-bg: #FFF7ED;
+  --color-info: #0EA5E9;
+  --color-info-bg: #F0F9FF;
+
+  /* --- Neutrals & Surfaces --- */
+  --bg-body: #FAFAFA;
+  --bg-card: #FFFFFF;
+  --bg-muted: #F4F4F5;
+  --bg-input: #FFFFFF;
+  
+  --border-color: #E4E4E7;
+  --border-dark: #D4D4D8;
+  --border-focus: #1E3A8A;
+
+  /* --- Text Colors --- */
+  --text-primary: #09090B;
+  --text-secondary: #27272A;
+  --text-body: #3F3F46;
+  --text-muted: #71717A;
+  --text-placeholder: #A1A1AA;
+  --text-white: #FFFFFF;
+
+  /* --- Typography --- */
+  --font-main: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* --- Border Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-card: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(30, 58, 138, 0.18);
+  
+  /* --- Transitions --- */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+}
+
+/* Base resets with modern design tokens */
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-body);
+  color: var(--text-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Inputs & Form Controls */
+.form-control, .form-select {
+  font-family: var(--font-main);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 15px;
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+  background-color: var(--bg-card);
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: var(--text-placeholder);
+  font-weight: 400;
+}
+
+.form-label {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required-asterisk {
+  color: var(--color-danger);
+  font-weight: bold;
+}
+
+/* Primary Button */
+.btn-tem, .btn-primary {
+  background-color: var(--color-primary) !important;
+  color: var(--text-white) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  padding: 12px 24px !important;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast) !important;
+  cursor: pointer;
+}
+
+.btn-tem:hover, .btn-primary:hover {
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-tem:active, .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Outline Button */
+.btn-outline-tem {
+  background-color: transparent !important;
+  color: var(--color-primary) !important;
+  border: 1.5px solid var(--color-primary) !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  padding: 10px 20px !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.btn-outline-tem:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--text-white) !important;
+}
+
+/* Cards */
+.tem-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  transition: box-shadow var(--transition-fast);
+}
+
+.tem-card-muted {
+  background: var(--bg-muted);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  padding: 24px;
+}

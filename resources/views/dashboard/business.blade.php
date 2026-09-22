@@ -70,23 +70,24 @@
     </div>
 
     <!-- Start Section Header -->
-    <section class="section-header">
+    <header class="section-header">
         <div class="container">
-            <header class="d-flex flex-wrap justify-content-center">
-                <a href="/dashboard" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                    <img class="tem-logo" src="{{ asset('assets/img/tem-logo.png') }}" />
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <a href="/dashboard" class="d-flex align-items-center text-dark text-decoration-none">
+                    <img class="tem-logo" src="{{ asset('assets/img/tem-logo.png') }}" alt="Logo TEM" />
                 </a>
-                <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="/dashboard" class="nav-link" aria-current="page">Início</a></li>
-                    <li class="nav-item"><a href="/logout" class="nav-link">Sair</a></li>
-                </ul>
-                <!-- <x-backup-version-selector :backups="$backups" /> -->
-                <div class="ms-3 d-flex align-items-center">
-                    @include('partials.google-translate')
+                <div class="d-flex align-items-center gap-3">
+                    <ul class="nav nav-pills mb-0">
+                        <li class="nav-item"><a href="/dashboard" class="nav-link">Início</a></li>
+                        <li class="nav-item"><a href="/logout" class="nav-link text-danger">Sair</a></li>
+                    </ul>
+                    <div class="ms-2 d-flex align-items-center">
+                        @include('partials.google-translate')
+                    </div>
                 </div>
-            </header>
+            </div>
         </div>
-    </section>
+    </header>
     <!-- End Section Header -->
 
     <div id="temBackupViewBanner" class="d-none alert alert-warning rounded-0 mb-0 d-flex flex-wrap justify-content-center align-items-center gap-2 py-2">
@@ -113,12 +114,12 @@
                     <div class="swiper-slide" data-card="1">
                         <div class="cards-card is-selected">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-landmark"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">01</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Identificação do
+                            <h3 class="cards-title text-center">Identificação do
                                 Empreendimento</h3>
                             <div class="cards-chip" id="card-tem-1">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -131,12 +132,12 @@
                     <div class="swiper-slide" data-card="2">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-id-card"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">02</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Identificação do Empreendedor
+                            <h3 class="cards-title text-center">Identificação do Empreendedor
                                 Principal</h3>
                             <div class="cards-chip" id="card-tem-2">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -149,12 +150,12 @@
                     <div class="swiper-slide" data-card="3">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-book-open"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">03</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Experiência e Conhecimentos
+                            <h3 class="cards-title text-center">Experiência e Conhecimentos
                                 do Empreendedor</h3>
                             <div class="cards-chip" id="card-tem-3">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -167,12 +168,12 @@
                     <div class="swiper-slide" data-card="4">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-wallet"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">04</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Recursos Financeiros e não
+                            <h3 class="cards-title text-center">Recursos Financeiros e não
                                 Financeiros</h3>
                             <div class="cards-chip" id="card-tem-4">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -185,12 +186,12 @@
                     <div class="swiper-slide" data-card="5">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-globe"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">05</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Rede de Relações do Empreendedor
+                            <h3 class="cards-title text-center">Rede de Relações do Empreendedor
                             </h3>
                             <div class="cards-chip" id="card-tem-5">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -203,12 +204,12 @@
                     <div class="swiper-slide" data-card="6">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-compass"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">06</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Processo de Decisão do
+                            <h3 class="cards-title text-center">Processo de Decisão do
                                 Empreendedor</h3>
                             <div class="cards-chip" id="card-tem-6">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -221,12 +222,12 @@
                     <div class="swiper-slide" data-card="7">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-award"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">07</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Proposta de Valor</h3>
+                            <h3 class="cards-title text-center">Proposta de Valor</h3>
                             <div class="cards-chip" id="card-tem-7">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -238,12 +239,12 @@
                     <div class="swiper-slide" data-card="8">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-tag"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">08</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Segmentos de Clientes</h3>
+                            <h3 class="cards-title text-center">Segmentos de Clientes</h3>
                             <div class="cards-chip" id="card-tem-8">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -255,12 +256,12 @@
                     <div class="swiper-slide" data-card="9">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-shopping-cart"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">09</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Canais</h3>
+                            <h3 class="cards-title text-center">Canais</h3>
                             <div class="cards-chip" id="card-tem-9">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -272,12 +273,12 @@
                     <div class="swiper-slide" data-card="10">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-handshake"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">10</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Relação com Clientes</h3>
+                            <h3 class="cards-title text-center">Relação com Clientes</h3>
                             <div class="cards-chip" id="card-tem-10">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -289,12 +290,12 @@
                     <div class="swiper-slide" data-card="11">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-wallet"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">11</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Fonte de Receitas</h3>
+                            <h3 class="cards-title text-center">Fonte de Receitas</h3>
                             <div class="cards-chip" id="card-tem-11">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -306,12 +307,12 @@
                     <div class="swiper-slide" data-card="12">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-key"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">12</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Recursos-chave</h3>
+                            <h3 class="cards-title text-center">Recursos-chave</h3>
                             <div class="cards-chip" id="card-tem-12">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -323,12 +324,12 @@
                     <div class="swiper-slide" data-card="13">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-chart-line"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">13</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Atividades-chave</h3>
+                            <h3 class="cards-title text-center">Atividades-chave</h3>
                             <div class="cards-chip" id="card-tem-13">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -340,12 +341,12 @@
                     <div class="swiper-slide" data-card="14">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-handshake"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">14</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Parcerias-chave</h3>
+                            <h3 class="cards-title text-center">Parcerias-chave</h3>
                             <div class="cards-chip" id="card-tem-14">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -357,12 +358,12 @@
                     <div class="swiper-slide" data-card="15">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-project-diagram"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">15</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Rede de Parcerias</h3>
+                            <h3 class="cards-title text-center">Rede de Parcerias</h3>
                             <div class="cards-chip" id="card-tem-15">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -374,12 +375,12 @@
                     <div class="swiper-slide" data-card="16">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-wallet"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">16</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Estrutura de Custos</h3>
+                            <h3 class="cards-title text-center">Estrutura de Custos</h3>
                             <div class="cards-chip" id="card-tem-16">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -391,12 +392,12 @@
                     <div class="swiper-slide" data-card="17">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-lightbulb"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">17</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Inovação</h3>
+                            <h3 class="cards-title text-center">Inovação</h3>
                             <div class="cards-chip" id="card-tem-17">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -408,12 +409,12 @@
                     <div class="swiper-slide" data-card="18">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-globe"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">18</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Impactos e Externalidades
+                            <h3 class="cards-title text-center">Impactos e Externalidades
                                 Positivas</h3>
                             <div class="cards-chip" id="card-tem-18">
                                 <small class="tem-card-status-label badge rounded-pill">
@@ -426,12 +427,12 @@
                     <div class="swiper-slide" data-card="19">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-clock"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">19</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Trajetória do Empreendimento</h3>
+                            <h3 class="cards-title text-center">Trajetória do Empreendimento</h3>
                             <div class="cards-chip" id="card-tem-19">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -443,12 +444,12 @@
                     <div class="swiper-slide" data-card="20">
                         <div class="cards-card">
                             <div class="cards-icon">
-                                <div class="icon-circle bg-secondary text-white">
+                                <div class="icon-circle">
                                     <i class="fas fa-handshake"></i>
                                     <span class="icon-badge bg-secondary text-white fw-bold">20</span>
                                 </div>
                             </div>
-                            <h3 class="cards-title text-secondary fw-bold text-center">Parcerias</h3>
+                            <h3 class="cards-title text-center">Parcerias</h3>
                             <div class="cards-chip" id="card-tem-20">
                                 <small class="tem-card-status-label badge rounded-pill">
         Não iniciado
@@ -477,38 +478,42 @@
     <!-- End Section Cards -->
 
     <!-- Start Section Navigation -->
-    <section class="section-navigation py-3 border-top">
+    <section class="section-navigation py-4 bg-white border-top shadow-sm">
         <div class="container">
-            <div class="d-flex flex-wrap justify-content-end gap-2">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
 
                 <!-- Bloco Anterior -->
-                <button type="button"
-                        class="btn btn-success d-flex align-items-center gap-2"
-                        id="btnPrevBlock">
-                    <i class="fas fa-chevron-left"></i>
-                    <span id="prevBlockLabel">Bloco anterior: (1/20)</span>
-                </button>
+                <div>
+                    <button type="button"
+                            class="btn btn-outline-secondary d-flex align-items-center gap-2 px-3 py-2"
+                            id="btnPrevBlock">
+                        <i class="fas fa-chevron-left"></i>
+                        <span id="prevBlockLabel">Bloco anterior: (1/20)</span>
+                    </button>
+                </div>
 
-                <!-- Salvar e continuar mais tarde -->
-                <button type="button"
-                        class="btn btn-dark d-flex align-items-center gap-2"
-                        id="btnSaveLater">
-                    <i class="fas fa-save"></i>
-                    <span>Salvar e continuar mais tarde</span>
-                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <!-- Salvar e continuar mais tarde -->
+                    <button type="button"
+                            class="btn btn-outline-tem d-flex align-items-center gap-2 px-3 py-2"
+                            id="btnSaveLater">
+                        <i class="fas fa-save"></i>
+                        <span>Salvar e continuar mais tarde</span>
+                    </button>
 
-                <!-- Próximo bloco -->
-                <button type="button"
-                        class="btn btn-danger d-flex align-items-center gap-2"
-                        id="btnNextBlock">
-                    <span id="nextBlockLabel">Próximo bloco: (2/20)</span>
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                    <!-- Próximo bloco -->
+                    <button type="button"
+                            class="btn btn-tem d-flex align-items-center gap-2 px-4 py-2"
+                            id="btnNextBlock">
+                        <span id="nextBlockLabel">Próximo bloco: (2/20)</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
 
-                <!-- Bloco de Finalizar -->
-                <button type="button" id="btnFinish" class="btn btn-primary d-none">
-                    <i class="fas fa-check me-2"></i> Finalizar
-                </button>
+                    <!-- Bloco de Finalizar -->
+                    <button type="button" id="btnFinish" class="btn btn-success d-none align-items-center gap-2 px-4 py-2">
+                        <i class="fas fa-check me-1"></i> Finalizar Questionário
+                    </button>
+                </div>
 
             </div>
         </div>

@@ -1,149 +1,198 @@
-/* Login Forms */
+@import url('./design-tokens.css');
 
-.login-page {
+/* ==========================================================================
+   Login & Signup Page Styles (Figma Reference)
+   ========================================================================== */
+
+.auth-page {
+  min-height: 100vh;
   width: 100%;
-  height: 100vh;
-  display:flex;
-  justify-content: center;
+  background-image: linear-gradient(rgba(17, 24, 39, 0.25), rgba(17, 24, 39, 0.35)), url("../img/bg-tem.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  margin: auto;
+  padding: 2rem 1rem 1.5rem;
 }
 
-.form {
+.auth-card {
   position: relative;
-  z-index: 1;
+  z-index: 10;
+  background: var(--bg-card);
+  max-width: 440px;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  margin: auto 0;
+  transition: all var(--transition-normal);
+}
+
+.auth-card-lg {
+  max-width: 540px;
+}
+
+.auth-card .tem-logo {
+  width: 180px;
+  margin: 0 auto 1.75rem;
+  display: block;
+}
+
+.auth-card .form-group {
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.auth-card .form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.auth-card .form-control {
+  width: 100%;
   background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-.form input:not([type="checkbox"]) {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 11px 16px;
   font-size: 14px;
+  color: var(--text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background-color: #1E3A8A;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+.auth-card .form-control:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }
 
-.form button:hover,.form button:active,.form button:focus {
-  background: #274db4;
-}
-
-.form .password-field {
+.auth-card .password-field {
   position: relative;
-  margin: 0 auto 15px;
 }
 
-.form .password-field input {
-  margin: 0 !important;
-  padding-right: 40px !important;
+.auth-card .password-field .form-control {
+  padding-right: 42px;
 }
 
-.form .password-field .password-toggle {
+.auth-card .password-field .password-toggle {
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 14px;
   transform: translateY(-50%);
-  color: #8c8c8c;
+  color: var(--text-placeholder);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  transition: color var(--transition-fast);
 }
 
-.form .password-field .password-toggle:hover {
-  color: #1E3A8A;
+.auth-card .password-field .password-toggle:hover {
+  color: var(--color-primary);
 }
 
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-
-.form .message a {
-  color: #274db4;
-  text-decoration: none;
-}
-
-.form .lgpd-consent .lgpd-text {
-  max-height: 160px;
-  overflow-y: auto;
-  font-size: 12px;
-  line-height: 1.4;
-  color: #4d4d4d;
-  padding-right: 6px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 8px 10px;
-  background: #f9f9f9;
-}
-
-.form .lgpd-consent .form-check-label {
-  font-size: 12px;
-  color: #4d4d4d;
-}
-
-.form .register-form {
-  display: none;
-}
-
-.container {
-  position: relative;
-  z-index: 1;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.container:before, .container:after {
-  content: "";
+.auth-card .forgot-password-link {
   display: block;
-  clear: both;
+  text-align: right;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-top: 6px;
+  transition: color var(--transition-fast);
 }
 
-.container .info {
-  margin: 50px auto;
+.auth-card .forgot-password-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.auth-card .btn-submit {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.auth-card .btn-submit:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.auth-card .auth-footer-message {
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: var(--text-muted);
   text-align: center;
 }
 
-.container .info h1 {
-  margin: 0 0 15px;
-  padding: 0;
-  font-size: 36px;
-  font-weight: 300;
-  color: #1a1a1a;
-}
-
-.container .info span {
-  color: #4d4d4d;
-  font-size: 12px;
-}
-
-.container .info span a {
-  color: #000000;
+.auth-card .auth-footer-message a {
+  color: var(--color-primary);
+  font-weight: 600;
   text-decoration: none;
 }
 
-.container .info span .fa {
-  color: #EF3B3A;
+.auth-card .auth-footer-message a:hover {
+  text-decoration: underline;
+}
+
+/* LGPD Consent Box */
+.lgpd-consent-box {
+  background: var(--bg-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin: 1.25rem 0;
+  text-align: left;
+}
+
+.lgpd-consent-box .lgpd-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.lgpd-consent-box .lgpd-text {
+  max-height: 120px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  padding-right: 6px;
+}
+
+.lgpd-consent-box .form-check-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* Page Footer Logos */
+.auth-footer-partners {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.auth-footer-partners img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  opacity: 0.92;
 }

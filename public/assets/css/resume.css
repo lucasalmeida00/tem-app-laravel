@@ -1,286 +1,355 @@
-/* ===========================
-   Resume / Timeline Section
-   =========================== */
+@import url('./design-tokens.css');
 
-/* Azul brand igual aos títulos */
-.border-blue-900 {
-  border-color: #0b3a82 !important;
+/* ==========================================================================
+   Resume / Timeline / Canvas / Report Styles
+   ========================================================================== */
+
+.tem-resume-page {
+  width: 100%;
+  min-height: calc(100vh - 160px);
+  background-color: var(--bg-body);
+  padding: 2.5rem 0 4rem;
 }
 
-/* Caixa da timeline (equivalente a border-blue-900 border-2 rounded-xl p-2) */
+.tem-resume-page .container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* Resume Hero / Header Card */
+.resume-hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.resume-hero-card .tem-title {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin-bottom: 0;
+}
+
+.resume-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.resume-hero-meta a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color var(--transition-fast);
+}
+
+.resume-hero-meta a:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+.summary-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+.summary-text {
+  color: var(--text-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* Section Title */
+.resume-section-title {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Timeline
+   ========================================================================== */
 .timeline-wrapper {
-  border: 2px solid #0b3a82;
-  border-radius: 0.75rem; /* ~ rounded-xl */
-  padding: 0.5rem;
-  background-color: #ffffff;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  background-color: var(--bg-card);
   max-width: 100%;
+  box-shadow: var(--shadow-card);
 }
 
-/* Área com rolagem horizontal (overflow) */
 .timeline-scroll {
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Faixa interna que contém TODOS os itens.
-   Ela é quem define a largura total da timeline. */
 .timeline-track {
   position: relative;
   display: flex;
-  align-items: center;       /* centraliza verticalmente os itens */
-  gap: 1rem;                 /* espaço horizontal entre colunas */
-  padding: 3rem 4rem;        /* respiro em cima/baixo e nas laterais (~ 20px+) */
-  min-width: max-content;    /* faz a largura acompanhar o conteúdo (linha vai até o fim) */
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3.5rem 4rem;
+  min-width: max-content;
 }
 
-/* Linha horizontal contínua passando por trás de todos os itens */
 .timeline-line {
   position: absolute;
   left: 0;
   right: 0;
   top: 50%;
   height: 4px;
-  background-color: #0b3a82; /* azul */
+  background-color: var(--color-primary);
   transform: translateY(-50%);
   z-index: 0;
 }
 
-/* Cada "coluna" da timeline */
 .timeline-item {
-  top:45px;
+  top: 45px;
   position: relative;
   display: flex;
-  flex-direction: column;   /* padrão: ano no meio, texto embaixo (primeiro item) */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  width: 14rem;             /* ~ w-56 */
+  width: 14rem;
   min-width: 14rem;
   text-align: center;
   cursor: pointer;
   user-select: none;
-  z-index: 1;               /* acima da linha */
+  z-index: 1;
 }
 
-/* Para os itens onde o texto fica EM CIMA do ano
-   (equivalente ao flex-col-reverse do exemplo Tailwind) */
 .timeline-item--bottom {
-  top:-35px;
+  top: -35px;
   flex-direction: column-reverse;
 }
 
-/* Cartão do ano (todos azuis, 90px de altura) */
 .timeline-card {
   position: relative;
-  width: 80px;
-  height: 90px;               /* ajustado para 90px */
+  width: 84px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #ffffff;
-  background-color: #0b3a82;
-  border-radius: 999px 999px 0 0;   /* topo arredondado (primeiro item) */
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+  border-radius: 999px 999px 0 0;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast);
 }
 
-/* Selo indicando que o ano é clicável (abre a íntegra) */
 .timeline-card-icon {
   position: absolute;
   bottom: -4px;
   right: -4px;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.65rem;
-  color: #0b3a82;
-  background-color: #ffffff;
-  border: 1px solid #0b3a82;
+  font-size: 0.7rem;
+  color: var(--color-primary);
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--color-primary);
   border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-xs);
 }
 
-/* Itens "de baixo" têm a bolha invertida (arredondado embaixo) */
 .timeline-item--bottom .timeline-card {
   border-radius: 0 0 999px 999px;
 }
 
-/* Texto resumido (limitado visualmente, ~300 chars) */
 .timeline-text {
   font-size: 0.875rem;
-  max-height: 5.25rem;        /* ~ 84px, próximo das 4 linhas do exemplo */
+  max-height: 5.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text-secondary);
 }
 
-/* Hover sutil no ano */
 .timeline-item:hover .timeline-card {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
+  transform: scale(1.08);
 }
 
-/* Pequeno ajuste em telas muito pequenas */
 @media (max-width: 575.98px) {
   .timeline-track {
     padding-inline: 1.5rem;
   }
-
   .timeline-item {
     width: 12rem;
     min-width: 12rem;
   }
 }
 
-/* ===========================
-   Business Model Canvas
-   =========================== */
+/* ==========================================================================
+   Business Model Canvas (Figma Node 530:1669 / 530:1659 Match)
+   ========================================================================== */
 
 .bmodel-board {
-  border: 2px solid #0b3a82;
-  border-radius: 0.75rem;
-  background-color: #ffffff;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-card);
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 45rem; /* altura mínima, mas pode crescer */
-  font-weight: 700;
-  color: #0b3a82;
+  min-height: 45rem;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
-/* Topo: parte principal do canvas */
 .bmodel-top {
   flex: 2 1 0;
   display: flex;
 }
 
-/* Base: estrutura de custos + fontes de receita */
 .bmodel-bottom {
   flex: 1 1 0;
   display: flex;
 }
 
-/* Colunas principais */
 .bmodel-cell {
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
 }
 
-/* Colunas com duas metades (topo/baixo) */
 .bmodel-cell-split {
   display: flex;
   flex-direction: column;
 }
 
-/* Metades internas (Atividades / Recursos, Relação / Canais) */
 .bmodel-cell-half {
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
 }
 
-/* Cabeçalho de cada bloco */
 .bmodel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.75rem;
-  background-color: #1d4ed8; /* azul forte (similar ao bg-blue-800) */
-  color: #ffffff;
-  border-bottom: 2px solid #0b3a82;
+  padding: 0.65rem 0.85rem;
+  color: #172554;
+  border-bottom: 1px solid var(--border-color);
   font-size: 0.95rem;
-}
-
-/* Cantos arredondados topo-esquerda e topo-direita */
-.bmodel-header-left {
-  border-top-left-radius: 0.75rem;
-}
-.bmodel-header-right {
-  border-top-right-radius: 0.75rem;
+  font-weight: 700;
+  background-color: #E2E8F0;
 }
 
 .bmodel-header i {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  color: #172554;
 }
 
-/* Corpo de cada bloco */
+/* BMC Header Themes from Figma */
+.bmodel-header-partners {
+  background-color: #FDE68A !important; /* amber-200 */
+}
+
+.bmodel-header-activities {
+  background-color: #F5D0FE !important; /* fuchsia-200 */
+}
+
+.bmodel-header-resources {
+  background-color: #FED7AA !important; /* orange-200 */
+}
+
+.bmodel-header-value {
+  background-color: #FECDD3 !important; /* rose-200 */
+}
+
+.bmodel-header-relationship {
+  background-color: #A7F3D0 !important; /* emerald-200 */
+}
+
+.bmodel-header-channels {
+  background-color: #E5E7EB !important; /* gray-200 */
+}
+
+.bmodel-header-segments {
+  background-color: #D9F99D !important; /* lime-200 */
+}
+
+.bmodel-header-costs {
+  background-color: #BFDBFE !important; /* blue-200 */
+}
+
+.bmodel-header-revenue {
+  background-color: #DDD6FE !important; /* purple-200 */
+}
+
 .bmodel-body {
   flex: 1 1 0;
-  padding: 0.75rem;
+  padding: 0.85rem;
   font-weight: 400;
-  color: #111827;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   line-height: 1.5;
+  background: #FFFFFF;
 }
 
-/* Títulos internos (h4) */
 .bmodel-subtitle {
   font-size: 0.875rem;
-  margin-bottom: 0.25rem;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  font-weight: 600;
+  color: #172554;
+  margin-bottom: 0.35rem;
 }
 
-/* Divisor interno */
 .bmodel-divider {
   margin: 0.75rem 0;
   border: 0;
-  border-top: 2px solid #0b3a82;
+  border-top: 1.5px solid var(--border-color);
 }
 
-/* Listas */
 .bmodel-body ul {
   padding-left: 1.25rem;
   margin-bottom: 0.5rem;
 }
+
 .bmodel-body li {
   margin-bottom: 0.25rem;
 }
 
-/* Ajustes responsivos */
 @media (max-width: 991.98px) {
-  .bmodel-body {
-      flex: 1 !important;
-  }
-
-  .bmodel-board {
-    height: auto;            /* deixa crescer naturalmente em telas menores */
-  }
-
   .bmodel-top,
   .bmodel-bottom {
-    flex-direction: column;  /* empilha as colunas no mobile */
+    flex-direction: column;
   }
-
-  .bmodel-cell,
-  .bmodel-cell-split {
-    border-left: 0 !important;
-    border-top: 1px solid #0b3a82;
-  }
-
-  .bmodel-header-left {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
-  }
-
-  .bmodel-header-right {
-    border-top-right-radius: 0.75rem;
-    border-top-left-radius: 0.75rem;
+  .bmodel-board {
+    min-height: auto;
   }
 }
 
-/* ===========================
-   Partnerships Section
-   =========================== */
+/* ==========================================================================
+   Parcerias Timeline (Horizontal Track)
+   ========================================================================== */
 
 .partnership-wrapper {
-  border: 2px solid #0b3a82;
-  border-radius: 0.75rem;
-  padding: 0.5rem;
-  background: #ffffff;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-card);
   max-width: 100%;
 }
 
@@ -291,77 +360,60 @@
 }
 
 .partnership-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
   min-width: max-content;
-  padding: 3rem 4rem;
+  padding: 0.5rem 0.25rem;
 }
 
 .partnership-item {
-  width: 13rem;
-  min-width: 13rem;
-  background: #f4f4f5;
-  border: 2px solid #0b3a82;
-  border-radius: 0.75rem;
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  width: 230px;
+  min-width: 230px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  user-select: none;
+  transition: transform var(--transition-fast);
 }
 
 .partnership-item:hover {
-  transform: scale(1.08);
+  transform: translateY(-2px);
+}
+
+.partnership-year {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.partnership-year-icon {
+  font-size: 1.25rem;
+  color: var(--color-primary);
 }
 
 .partnership-text {
   font-size: 0.875rem;
+  color: var(--text-body);
   line-height: 1.4;
-  max-height: 6rem; /* ~4 linhas */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0;
+  word-break: break-word;
 }
 
-.partnership-item h4 {
-  margin-bottom: 0.5rem;
-}
-
-/* Ícone indicando que o ano é clicável (abre a íntegra) */
-.partnership-year-icon {
-  font-size: 0.75rem;
-  margin-left: 0.35rem;
-  vertical-align: middle;
-}
-
-.partnership-track i {
-  flex: 0 0 auto;
-}
-
-/* ===========================
-   Balão de detalhe (marco / parceria)
-   Substitui o modal centralizado: abre sobreposto ao item clicado,
-   funciona igual em desktop (mouse) e mobile (toque).
-   =========================== */
-.detail-popover-overlay {
-  position: fixed;
-  z-index: 1080;
-  max-width: 320px;
-  width: max-content;
-  background: #ffffff;
-  border: 2px solid #0b3a82;
-  border-radius: 0.75rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  padding: 0.9rem 1.75rem 0.9rem 0.9rem;
-}
-
-.detail-popover-close {
-  position: absolute;
-  top: 0.55rem;
-  right: 0.55rem;
-  font-size: 0.6rem;
-}
-
-.detail-popover-text {
-  font-size: 0.875rem;
-  line-height: 1.45;
-  max-height: 14rem;
-  overflow-y: auto;
-  white-space: pre-wrap;
+.partnership-separator {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
 }
