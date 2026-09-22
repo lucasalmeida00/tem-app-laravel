@@ -1,289 +1,596 @@
+@import url('./design-tokens.css');
+
+/* ==========================================================================
+   Dashboard & App Layout
+   ========================================================================== */
+
 .tem-wrap {
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background: #f4f4f5;
+  min-height: calc(100vh - 160px);
+  background-color: var(--bg-body);
+  padding: 2.5rem 0 4rem;
 }
 
 .tem-wrap .container {
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 2.5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
 }
 
-.tem-title {
-  color: #0b3a82;
+.dashboard-hero-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.25rem 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-hero-card .tem-title {
+  color: var(--color-primary);
   font-weight: 700;
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  margin-bottom: 1rem;
+}
+
+.dashboard-hero-card p {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  margin-bottom: 1rem;
+}
+
+.dashboard-features-list {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style: none;
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
+
+.dashboard-feature-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+}
+
+.dashboard-feature-item i {
+  font-size: 1rem;
+}
+
+/* Dashboard Action Bar */
+.dashboard-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dashboard-section-heading {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
   margin: 0;
 }
 
-.tem-list {
-  margin-left: 2.5rem;
-  list-style: disc;
-}
-
-.tem-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  user-select: none;
-  margin-left: auto;
-  margin-bottom: .5rem;
-}
-
-.btn-brand {
-  background-color: #0b3a82;
-  color: #fff;
-  font-weight: 700;
-  border-radius: .6rem;
-  padding: .75rem 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  border: 0;
-}
-.btn-brand:hover,
-.btn-brand:focus {
-  background-color: #0a3373;
-  color: #fff;
-}
-.btn-brand.btn-xs {
-  padding: .35rem .65rem;
-  font-size: .75rem;
-  border-radius: .4rem;
-}
-
-.tem-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  background: #d1d5db;
-  border-radius: .5rem;
-  padding: .75rem 1rem;
-  min-height: 3.25rem;
-  transition: background-color .2s ease;
-  user-select: none;
-}
-.tem-item:hover {
-  background: #e5e7eb;
-}
-
-.tem-item__left {
-  flex: 1;
-  text-align: left;
-}
-
-.tem-item__right {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-
-
-@media (min-width: 992px) {
-  .tem-container { padding-left: 4rem; padding-right: 4rem; }
-}
-@media (min-width: 1536px) {
-  .tem-container { padding-left: 12rem; padding-right: 12rem; }
-}
-
-/* Section Cards */
-
-/* espaçamentos laterais (mx-16/32/60) */
-.section-cards .container {}
-
-/* track + slides */
-/* Carrossel: quem rola é o wrapper */
-.cards-track-wrapper {
-  position: relative;
-  overflow-x: auto;        /* <- habilita a rolagem horizontal */
-  overflow-y: hidden;
-  scroll-behavior: smooth; /* rolagem suave */
-  -webkit-overflow-scrolling: touch;
-}
-
-
-.cards-track {
-  scroll-behavior: smooth;
-  will-change: transform;
-  transition: transform .25s ease;
-}
-
-/* cada "slide" ocupa 100% / 33.333% / 20% conforme breakpoint */
-.cards-slide {
-  flex: 0 0 100%;
-  padding-left: 1rem; /* ~ pl-4 */
-}
-@media (min-width: 768px) {   /* md */
-  .cards-slide { flex-basis: 33.3333%; }
-}
-@media (min-width: 1200px) {  /* xl */
-  .cards-slide { flex-basis: 20%; }
-}
-
-/* card visual */
-.cards-card {
-  height: 15rem; /* ~ h-60 */
-  border: 1px solid #a1a1aa; /* zinc-400 */
-  border-radius: 1rem;       /* rounded-2xl */
-  padding: 1rem;             /* p-4 */
+/* Business Card List */
+.business-grid {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-  background: #fff;
+  gap: 1rem;
 }
 
-/* ícone redondo + badge número sobreposto */
-.icon-circle {
-  position: relative;
-  border-radius: 999px;
-  width: auto;
+.business-card-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  transition: all var(--transition-fast);
+}
+
+.business-card-item:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.business-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.business-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.business-card-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.business-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-action-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF !important;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-action-primary:hover {
+  background-color: var(--color-primary-hover);
+  color: #FFFFFF !important;
+}
+
+.btn-action-outline {
+  background-color: transparent;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-action-outline:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary) !important;
+}
+
+.btn-action-danger {
+  background-color: transparent;
+  color: var(--color-danger) !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  padding: 8px 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;          /* p-4 */
-  font-size: 2rem;        /* ~ size-9 */
-  line-height: 1;
-}
-.icon-circle i { color: #fff; }
-
-.icon-badge {
-  position: absolute;
-  bottom: -0.25rem;       /* mb-[calc(-30px+0.5rem)] equivalente aproximada */
-  left: -0.75rem;         /* -ml-6 aproximado */
-  width: 30px; height: 30px;
-  border-radius: 999px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .8rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
-/* título e "chip" de status */
-.cards-title {
-  font-size: 1.25rem;     /* text-xl */
-  margin: 0;
-}
-.cards-chip {
-  height: 1.5rem;         /* h-6 */
-  display: inline-flex;
-  align-items: center;
-  padding: 0 .75rem;      /* px-4 ~ ajustado */
-  border-radius: .375rem; /* rounded */
-  border: 1px solid #27272a;       /* border-zinc-800 */
-  background: rgba(39,39,42,.3);   /* bg-zinc-800/30 */
-  color: #27272a;
-  font-weight: 700;
-  font-size: .75rem;      /* text-xs */
+.btn-action-danger:hover {
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger);
 }
 
-/* controles (bolinhas laterais) */
-#cardsCarousel .cards-prev,
-#cardsCarousel .cards-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2.25rem; height: 2.25rem;
-  border-radius: 999px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: #fff;
+.empty-state-card {
+  background: var(--bg-card);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  color: var(--text-muted);
 }
-#cardsCarousel .cards-prev { left: -1.75rem; }
-#cardsCarousel .cards-next { right: -1.75rem; }
 
-/* ===== Drag-to-scroll ===== */
-/* Carrossel: quem rola é o wrapper */
-.cards-track-wrapper{
+.empty-state-icon {
+  font-size: 3rem;
+  color: var(--text-placeholder);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Questionnaire / Form Cards Carousel (Cards 1 to 20)
+   ========================================================================== */
+
+.section-cards {
+  background-color: var(--bg-body);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2rem 0 1rem;
+}
+
+.section-cards .container {
   position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: auto;      /* <- drag em tempo real */
-  -webkit-overflow-scrolling: touch;
-  cursor: grab;
-  user-select: none;          /* evita seleção de texto enquanto arrasta */
-  touch-action: none;         /* permite controlar o pan via JS */
-}
-.cards-track-wrapper.is-dragging{ cursor: grabbing; }
-
-/* ===== Estado selecionado ===== */
-.cards-card.is-selected {
-  border-color: #198754 !important; /* success */
-}
-.cards-card.is-selected .cards-title {
-  color: #198754 !important;        /* textos verdes */
-}
-.cards-card.is-selected .icon-circle,
-.cards-card.is-selected .icon-badge {
-  background-color: #198754 !important; /* ícone e badge verdes */
-}
-.cards-card.is-selected .icon-circle i {
-  color: #fff !important;             /* mantém ícone branco */
+  max-width: 1200px;
 }
 
-/* prev/next "fora" como no -left-12/-right-12 (ajuste em telas pequenas) */
-@media (max-width: 575.98px) {
-  #cardsCarousel .cards-prev { left: .25rem; }
-  #cardsCarousel .cards-next { right: .25rem; }
-}
-
-/* SUBSTITUA o código de botão anterior por ESTE no seu app.css */
-
-/* Resetando os padrões do Swiper (esta parte continua igual) */
+/* Swiper navigation buttons */
 .swiper-button-prev,
 .swiper-button-next {
-    width: auto;
-    height: auto;
-    margin-top: 0;
-    background-image: none;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  color: var(--text-muted) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all var(--transition-fast) !important;
+  margin-top: 0 !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
 }
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
-    display: none;
+  display: none !important;
 }
 
-/* NOVO posicionamento inteligente para os botões */
-#cardsCarousel .swiper-button-prev,
-#cardsCarousel .swiper-button-next {
-    position: absolute;
-    top: 50%;
-    /* Apenas o centramento vertical fica no transform inicial */
-    transform: translateY(-50%); 
+.swiper-button-prev {
+  left: -18px !important;
 }
 
-#cardsCarousel .swiper-button-prev {
-    left: 0;
-    /* Move o botão para a esquerda (o seu próprio tamanho + 10px de espaço) */
-    transform: translateY(-50%) translateX(calc(-100% - 10px));
+.swiper-button-next {
+  right: -18px !important;
 }
 
-#cardsCarousel .swiper-button-next {
-    right: 0;
-    /* Move o botão para a direita (o seu próprio tamanho + 10px de espaço) */
-    transform: translateY(-50%) translateX(calc(100% + 10px));
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: #FFFFFF !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.15) !important;
 }
 
-/* O media query antigo pode ser REMOVIDO, pois esta solução é naturalmente responsiva */
-
-.c-green{
-color: rgb(21 128 61);
+.swiper-button-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 
-.c-black{
-  color: black;
+/* Swiper container and padding to prevent hover/active borders from clipping */
+.section-cards .swiper {
+  padding: 10px 4px 14px;
+  margin: -10px -4px -14px;
+  overflow: hidden;
 }
 
-.f-number{
-    font-weight: 600;
-    font-size: 16px;
+/* Card Category Theming (PDF Requirement Item 2) */
+.swiper-slide {
+  --card-theme: var(--color-primary);
+  height: auto;
+  display: flex;
 }
 
-.t-title{
+.swiper-slide[data-card="1"] { --card-theme: #1E3A8A; }
+.swiper-slide[data-card="2"] { --card-theme: #2563EB; }
+.swiper-slide[data-card="3"] { --card-theme: #4338CA; }
+.swiper-slide[data-card="4"] { --card-theme: #059669; }
+.swiper-slide[data-card="5"] { --card-theme: #D97706; }
+.swiper-slide[data-card="6"] { --card-theme: #0D9488; }
+.swiper-slide[data-card="7"] { --card-theme: #EA580C; }
+.swiper-slide[data-card="8"] { --card-theme: #16A34A; }
+.swiper-slide[data-card="9"] { --card-theme: #7C3AED; }
+.swiper-slide[data-card="10"] { --card-theme: #E11D48; }
+.swiper-slide[data-card="11"] { --card-theme: #6D28D9; }
+.swiper-slide[data-card="12"] { --card-theme: #C2410C; }
+.swiper-slide[data-card="13"] { --card-theme: #C026D3; }
+.swiper-slide[data-card="14"] { --card-theme: #CA8A04; }
+.swiper-slide[data-card="15"] { --card-theme: #B45309; }
+.swiper-slide[data-card="16"] { --card-theme: #0284C7; }
+.swiper-slide[data-card="17"] { --card-theme: #DC2626; }
+.swiper-slide[data-card="18"] { --card-theme: #0891B2; }
+.swiper-slide[data-card="19"] { --card-theme: #1E3A8A; }
+.swiper-slide[data-card="20"] { --card-theme: #2563EB; }
+
+/* Carousel Cards */
+.cards-card {
+  width: 100%;
+  height: 155px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 16px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  background: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.cards-card:hover {
+  border-color: var(--card-theme);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.icon-circle {
+  position: relative;
+  border-radius: var(--radius-pill);
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background-color: var(--bg-muted);
+  color: var(--card-theme);
+  transition: all var(--transition-fast);
+}
+
+.icon-badge {
+  display: none !important;
+}
+
+.cards-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-body);
+  margin: 6px 0;
+  line-height: 1.3;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Active & Status States */
+.cards-card.is-selected {
+  border: 2px solid var(--card-theme) !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.cards-card.is-selected .cards-title {
+  color: var(--card-theme) !important;
+  font-weight: 700 !important;
+}
+
+.cards-card.is-selected .icon-circle {
+  background-color: var(--card-theme) !important;
+  color: #FFFFFF !important;
+}
+
+/* Status Labels & Chips */
+.tem-card-status-label {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 4px 14px !important;
+  border-radius: 4px !important;
+  text-transform: none !important;
+  letter-spacing: 0.2px;
+}
+
+.tem-status-completed,
+.bg-success {
+  background-color: #84CC16 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #15803D !important;
+}
+
+.tem-status-in-progress,
+.bg-warning {
+  background-color: #FBBF24 !important;
+  color: #78350F !important;
+  border: 1px solid #CA8A04 !important;
+}
+
+.tem-status-not-started,
+.bg-secondary {
+  background-color: #27272A !important;
+  color: #FAFAFA !important;
+  border: 1px solid #27272A !important;
+}
+
+/* ==========================================================================
+   Questionnaire Forms (Cards 1 to 20 Form Blocks)
+   ========================================================================== */
+
+.section-forms {
+  padding: 2rem 0 3rem;
+  background-color: var(--bg-body);
+}
+
+.section-forms .container {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* Card Description Banner */
+.card-description-banner {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card-description-title {
+  font-size: 1.25rem;
   font-weight: 700;
-  font-size: 20px;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
 }
 
+.card-description-text {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Question Cards */
+.tem-card.border-card {
+  background: #F4F4F5;
+  border: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: none;
+  padding: 2rem 2.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.tem-card.border-card h3.t-title,
+.tem-card.border-card .text-primary {
+  color: var(--text-primary) !important;
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.f-number {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primary) !important;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.c-green {
+  color: var(--color-primary) !important;
+}
+
+.c-black {
+  color: var(--text-primary) !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.form-field-wrap label.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.form-field-wrap .form-control,
+.form-field-wrap .form-select {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 15px;
+  color: var(--text-primary);
+  min-height: 44px;
+}
+
+.form-field-wrap .form-control:focus,
+.form-field-wrap .form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--text-placeholder);
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form-check-label {
+  font-size: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+/* Card select row */
+.card-select-row .row {
+  flex-wrap: nowrap;
+}
+
+.card-select-row .form-select {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.card-select-row.has-other .form-select {
+  max-width: 350px !important;
+}
+
+/* Navigation bottom bar */
+.section-navigation {
+  background: var(--bg-body);
+  border-top: 1px solid var(--border-color);
+  position: sticky;
+  bottom: 0;
+  z-index: 900;
+  padding: 1.5rem 0 2.5rem;
+}
+
+.section-navigation .btn-outline-secondary,
+.section-navigation .btn-outline-tem {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 10px 22px !important;
+  font-size: 15px !important;
+}
+
+.section-navigation .btn-outline-secondary:hover,
+.section-navigation .btn-outline-tem:hover {
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-primary) !important;
+}
+
+.section-navigation .btn-tem {
+  background-color: var(--color-primary) !important;
+  border: 1.5px solid var(--color-primary) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 10px 28px !important;
+  font-size: 15px !important;
+}
+
+.section-navigation .btn-tem:hover {
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+}
+
+.section-navigation .btn-success {
+  background-color: #15803D !important;
+  border: 1.5px solid #15803D !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 10px 28px !important;
+  font-size: 15px !important;
+}
