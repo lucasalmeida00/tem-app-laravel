@@ -29,13 +29,58 @@ window.Card18 = (function () {
     if (!$radios.length || !$otherInput.length) return;
 
     const $otherWrap = wrapperFor($otherInput);
+    const $outroRadio = $radios.filter('[value="outro"]');
 
     function sync() {
       const val = $radios.filter(":checked").val();
       const show = val === "outro";
 
-      $otherWrap.toggle(!!show);
-      if (!show) {
+      if (show) {
+        // Esconde o wrapper original
+        $otherWrap.hide();
+        
+        // Encontra o label do radio button
+        const $outroLabel = $outroRadio.closest("label");
+        
+        if ($outroLabel.length) {
+          // Cria ou atualiza o holder externo (após o label)
+          let $externalHolder = $outroLabel.nextAll(".main-impact-radio-outro-external").first();
+          if (!$externalHolder.length) {
+            $externalHolder = $(`<div class="main-impact-radio-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+            $outroLabel.after($externalHolder);
+          }
+          
+          const $inlineInput = $(`<input type="text" class="form-control" name="mainImpactOther" placeholder="Especifique" style="width: 100%; display: block;">`);
+          $inlineInput.val($otherInput.val() || "");
+          $externalHolder.html($inlineInput);
+          
+          // Sincroniza valores entre input inline e input original
+          $externalHolder.find("input").off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+            $otherInput.val($(this).val());
+          });
+        } else {
+          // Fallback: tenta encontrar o .form-check
+          const $formCheck = $outroRadio.closest(".form-check");
+          if ($formCheck.length) {
+            let $externalHolder = $formCheck.nextAll(".main-impact-radio-outro-external").first();
+            if (!$externalHolder.length) {
+              $externalHolder = $(`<div class="main-impact-radio-outro-external" style="display: block; width: 100%; margin-top: 0.5rem;"></div>`);
+              $formCheck.after($externalHolder);
+            }
+            
+            const $inlineInput = $(`<input type="text" class="form-control" name="mainImpactOther" placeholder="Especifique" style="width: 100%; display: block;">`);
+            $inlineInput.val($otherInput.val() || "");
+            $externalHolder.html($inlineInput);
+            
+            // Sincroniza valores entre input inline e input original
+            $externalHolder.find("input").off("input.card18_mainImpact_sync").on("input.card18_mainImpact_sync", function() {
+              $otherInput.val($(this).val());
+            });
+          }
+        }
+      } else {
+        // Remove o holder externo quando outro radio é selecionado
+        $root.find(".main-impact-radio-outro-external").remove();
         $otherInput.val("");
       }
     }

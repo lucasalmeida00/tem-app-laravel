@@ -19,9 +19,9 @@
             placeholder: "Selecione uma opção",
             required: true,
             options: [
-              { value: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
               { value: "doacao", label: "Doação" },
               { value: "licenciamento", label: "Licenciamento" },
+              { value: "assinatura_adesao", label: "Modelos de assinatura ou adesão" },
               { value: "patrocinio_direto", label: "Patrocínio direito" },
               { value: "patrocinio_lei_incentivo", label: "Patrocínio via lei de incentivo" },
               { value: "prestacao_servicos", label: "Prestação de serviços" },

@@ -114,7 +114,7 @@ window.Card2 = (function () {
     $extra.html(`
       <label class="form-label fw-semibold d-block">Naturalidade</label>
       <select class="form-select" name="${$select.attr("name")}__naturalidade">
-        <option value="" disabled selected hidden>Selecione a naturalidade</option>
+        <option value="">-- Selecione --</option>
         ${UFS.map(uf => `<option value="${uf.value}">${uf.label}</option>`).join("")}
       </select>
     `);

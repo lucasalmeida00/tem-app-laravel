@@ -27,23 +27,29 @@ window.Card6 = (function () {
 
   // Opções de quem decide junto (para os selects)
   const WHO_OPTIONS = [
-    { v: "parceiros",  label: "Com parceiros ou colaboradores-chave" },
     { v: "familiares", label: "Com familiares ou amigos próximos" },
     { v: "mentores",   label: "Com mentores ou conselheiros" },
-    { v: "equipe",     label: "Em conjunto com uma equipe de funcionários" },
+    { v: "parceiros",  label: "Com parceiros ou colaboradores-chave" },
     { v: "socios",     label: "Em conjunto com socios" },
+    { v: "equipe",     label: "Em conjunto com uma equipe de funcionários" },
     { v: "outro",      label: "Outro" }
   ];
 
   // ==== Builders dos selects + “Especifique” quando for “outro” ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 dm-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 dm-other-box d-none"></div>
+      <div class="mb-1 dm-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+              ${WHO_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="max-width: 700px; width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
@@ -52,7 +58,7 @@ function fillSelect($sel, chosenSet) {
   const keep = $sel.val();
 
   // reset mantendo o placeholder
-  $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+  $sel.html(`<option value="">-- Selecione --</option>`);
 
   WHO_OPTIONS.forEach(o => {
     // “outro” NUNCA sai da lista, mesmo que esteja em chosenSet
@@ -70,25 +76,33 @@ function fillSelect($sel, chosenSet) {
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".dm-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
 
     $wrap.off("change.dmOther").on("change.dmOther", "select", function () {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     });
 
     // estado inicial (edição)
     if ($sel.val() === "outro") {
-      $box.removeClass("d-none").html(
-        `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-      );
+      $wrap.addClass("has-other");
+      $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+      $box.removeClass("d-none");
     } else {
-      $box.addClass("d-none").empty();
+      $wrap.removeClass("has-other");
+      $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+      $box.addClass("d-none");
     }
   }
 
@@ -135,9 +149,12 @@ function fillSelect($sel, chosenSet) {
       if (!isNo) {
         // Se marcou “Sim”, limpa estado
         $s1.val(""); $s2.val(""); $s3.val("");
-        $w1.find(".dm-other-box").addClass("d-none").empty();
-        $w2.find(".dm-other-box").addClass("d-none").empty();
-        $w3.find(".dm-other-box").addClass("d-none").empty();
+        $w1.find(`.extra-${N.who1}-other-inline`).addClass("d-none").find("input").val("");
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
+        $s1.trigger("change.dmOther");
+        $s2.trigger("change.dmOther");
+        $s3.trigger("change.dmOther");
         $w2.hide();
         $w3.hide();
         return;
@@ -151,15 +168,23 @@ function fillSelect($sel, chosenSet) {
 
       // encadeamento visual
       $w2.toggle(!!$s1.val());
-      if (!$s1.val()) $s2.val("");
+      if (!$s1.val()) {
+        $s2.val("");
+        // Limpa o input "outro" do select 2 quando o select 1 é limpo
+        $w2.find(`.extra-${N.who2}-other-inline`).addClass("d-none").find("input").val("");
+      }
 
       $w3.toggle(!!$s2.val());
-      if (!$s2.val()) $s3.val("");
+      if (!$s2.val()) {
+        $s3.val("");
+        // Limpa o input "outro" do select 3 quando o select 2 é limpo
+        $w3.find(`.extra-${N.who3}-other-inline`).addClass("d-none").find("input").val("");
+      }
 
       // atualizar campos “Especifique” caso algum seja “outro”
-      $w1.triggerHandler("change.dmOther");
-      $w2.triggerHandler("change.dmOther");
-      $w3.triggerHandler("change.dmOther");
+      $s1.trigger("change.dmOther");
+      $s2.trigger("change.dmOther");
+      $s3.trigger("change.dmOther");
     }
 
     // Estado inicial

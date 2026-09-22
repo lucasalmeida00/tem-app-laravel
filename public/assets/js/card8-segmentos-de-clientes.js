@@ -29,10 +29,10 @@ window.Card8 = (function () {
 
   const SEG_OPTIONS = [
     { v: "faixa_etaria", label: "Consumidor final na faixa etária (jovens, adultos, idosos)" },
-    { v: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
     { v: "ocupacao", label: "Consumidor final por ocupação (trabalhadores informais, pequenos empresários, etc.)" },
-    { v: "pequenas_empresas", label: "Pequenas Empresas" },
+    { v: "tipo_renda", label: "Consumidor final por tipo de renda (baixa, média, alta)" },
     { v: "grandes_empresas", label: "Grandes Empresas" },
+    { v: "pequenas_empresas", label: "Pequenas Empresas" },
     { v: "outro", label: "Outro" }
   ];
 
@@ -41,19 +41,62 @@ window.Card8 = (function () {
     const $rad = $root.find(`input[name="${N.first}"]`);
     if (!$rad.length) return;
 
-    const $wrap = wrapperFor($rad.first());
-    const $extra = ensureContainer($wrap, "first-client-extra", true);
+    // Encontra o radio button "outro"
+    const $outroRadio = $root.find(`input[name="${N.first}"][value="outro"]`);
+    if (!$outroRadio.length) return;
 
     function render() {
       const v = $root.find(`input[name="${N.first}"]:checked`).val();
+      
       if (v === "outro") {
-        $extra.html(`
-          <div class="mt-2">
-            <input type="text" class="form-control" name="firstClientOther" placeholder="Especifique" />
-          </div>
-        `);
+        // Encontra o container .form-check que contém o radio "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        
+        if ($formCheck.length) {
+          // Transforma o parent do .form-check em flex container
+          const $parent = $formCheck.parent();
+          if (!$parent.hasClass("d-flex")) {
+            $parent.addClass("d-flex align-items-start gap-2 flex-wrap");
+          }
+          
+          // Cria ou encontra o holder inline
+          let $inlineHolder = $parent.find(".first-client-other-inline");
+          if (!$inlineHolder.length) {
+            $inlineHolder = $(`<div class="first-client-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
+            $formCheck.after($inlineHolder);
+          }
+          
+          $inlineHolder.html(
+            `<input type="text" class="form-control" name="firstClientOther" placeholder="Especifique" style="width: 100%; display: block;">`
+          );
+        } else {
+          // Fallback: tenta encontrar o label (caso a estrutura seja diferente)
+          const $outroLabel = $outroRadio.closest("label");
+          if ($outroLabel.length) {
+            const $parent = $outroLabel.parent();
+            if (!$parent.hasClass("d-flex")) {
+              $parent.addClass("d-flex align-items-start gap-2 flex-wrap");
+            }
+            
+            let $inlineHolder = $parent.find(".first-client-other-inline");
+            if (!$inlineHolder.length) {
+              $inlineHolder = $(`<div class="first-client-other-inline" style="flex: 1 1 auto; min-width: 250px;"></div>`);
+              $outroLabel.after($inlineHolder);
+            }
+            $inlineHolder.html(
+              `<input type="text" class="form-control" name="firstClientOther" placeholder="Especifique" style="width: 100%; display: block;">`
+            );
+          }
+        }
       } else {
-        $extra.empty();
+        // Remove o holder inline e as classes flex quando outro radio é selecionado
+        $root.find(".first-client-other-inline").remove();
+        // Remove as classes flex do parent se não for "outro"
+        const $formCheck = $outroRadio.closest(".form-check");
+        if ($formCheck.length) {
+          const $parent = $formCheck.parent();
+          $parent.removeClass("d-flex align-items-start gap-2 flex-wrap");
+        }
       }
     }
 
@@ -64,12 +107,18 @@ window.Card8 = (function () {
   // ==== 8.2 — 3 selects encadeados com "Outro" permanente ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 sc-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 sc-other-box d-none"></div>
+      <div class="mb-1 sc-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+              ${SEG_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
@@ -77,7 +126,7 @@ window.Card8 = (function () {
   // “outro” nunca some (mesma regra dos cards 6/7)
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     SEG_OPTIONS.forEach(o => {
       if (!chosenSet.has(o.v) || o.v === "outro") {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
@@ -88,14 +137,20 @@ window.Card8 = (function () {
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".sc-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.scOther").on("change.scOther", "select", renderOther);
@@ -109,14 +164,25 @@ window.Card8 = (function () {
     // garante wrapper para s1 (sem duplicar select)
     let $w1 = $s1.closest(".sc-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 sc-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-1 sc-select-wrap card-select-row"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 sc-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col extra-${N.s1}-other-inline d-none"></div>`);
+      $colOther.html(`<input type="text" class="form-control" name="${N.s1}__other" placeholder="Especifique" style="width: 100%;">`);
+      
+      $rowDiv.append($colSelect, $colOther);
+      $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    const $selects = ensureContainer($wrap1, "sc-selects-container", true);
+    // Container para s2/s3, logo abaixo da primeira row (não dentro dela)
+    const $selects = ensureContainer($w1, "sc-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // cria s2/s3
     let $w2 = $selects.find(`.sc-select-wrap:has(select[name="${N.s2}"])`);
@@ -148,15 +214,22 @@ window.Card8 = (function () {
 
       // encadeamento visual
       $w2.toggle(!!$s1.val());
-      if (!$s1.val()) $s2.val("");
+      if (!$s1.val()) {
+        $s2.val("");
+        $w2.find(`.extra-${N.s2}-other-inline`).addClass("d-none").find("input").val("");
+      }
 
       $w3.toggle(!!$s2.val());
-      if (!$s2.val()) $s3.val("");
+      if (!$s2.val()) {
+        $s3.val("");
+        $w3.find(`.extra-${N.s3}-other-inline`).addClass("d-none").find("input").val("");
+      }
+
 
       // atualiza “Especifique”
-      $w1.triggerHandler("change.scOther");
-      $w2.triggerHandler("change.scOther");
-      $w3.triggerHandler("change.scOther");
+      $s1.trigger("change.scOther");
+      $s2.trigger("change.scOther");
+      $s3.trigger("change.scOther");
     }
 
     // estado inicial
@@ -169,6 +242,7 @@ window.Card8 = (function () {
     // binds
     $s1.off("change.sc_s1").on("change.sc_s1", sync);
     $selects.off("change.sc").on("change.sc", "select[name^='segGroup']", sync);
+
 
     sync();
   }

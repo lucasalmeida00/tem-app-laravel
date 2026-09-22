@@ -80,8 +80,8 @@
                         labelHtml: "<p class='mb-1'>Você já tinha experiência como empreendedor?</p>",
                         required: true,
                         options: [
-                            { value: "sim", label: "Sim" },
-                            { value: "nao", label: "Não" }
+                            { value: "nao", label: "Não" },
+                            { value: "sim", label: "Sim" }
                         ]
                     }
                 ]
@@ -97,9 +97,9 @@
                         placeholder: "Selecione uma opção",
                         required: true,
                         options: [
+                            { value: "caminho_novo", label: "Decidi seguir um caminho novo sem muitas certezas" },
                             { value: "analise_previa", label: "Fiz uma análise antes de começar" },
                             { value: "identifiquei_problema", label: "Identifiquei um problema" },
-                            { value: "caminho_novo", label: "Decidi seguir um caminho novo sem muitas certezas" },
                             { value: "ideia_antiga", label: "Segui uma ideia que já tinha em mente há algum tempo" },
                             { value: "ideia_explorar", label: "Tive uma ideia e quis explorar" },
                             { value: "outro", label: "Outro" }
@@ -137,16 +137,16 @@
                         placeholder: "Selecione uma opção",
                         required: true,
                         options: [
+                            { value: "entender_mercado_clientes", label: "Busquei entender o mercado e as necessidades dos clientes" },
+                            { value: "recursos_informacoes", label: "Busquei recursos e informações" },
                             { value: "aos_poucos_ajustes", label: "Comecei aos poucos e fui ajustando conforme necessário" },
-                            { value: "considerando_possibilidades", label: "Passei algum tempo considerando possibilidades" },
                             { value: "conversei_amigos_familiares", label: "Conversei com amigos e/ou familiares" },
                             { value: "conversei_setor", label: "Conversei com pessoas do setor" },
-                            { value: "entender_mercado_clientes", label: "Busquei entender o mercado e as necessidades dos clientes" },
                             { value: "estrategias_iniciais", label: "Desenvolvi estratégias iniciais, estudei várias alternativas" },
                             { value: "informal_ate_formalizar", label: "Fiz algo mais informal até formalizar" },
                             { value: "impulso", label: "Foi um impulso e comecei imediatamente" },
+                            { value: "considerando_possibilidades", label: "Passei algum tempo considerando possibilidades" },
                             { value: "pesquisei_bastante", label: "Pesquisei bastante antes de iniciar" },
-                            { value: "recursos_informacoes", label: "Busquei recursos e informações" },
                             { value: "outro", label: "Outro" }
                         ]
                     }

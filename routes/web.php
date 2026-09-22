@@ -36,10 +36,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
     Route::get('/dashboard/{url_hash}', [DashboardController::class, 'show'])->name('dashboard.business.show');
     Route::get('/dashboard/{url_hash}/resume', [DashboardController::class, 'resume'])->name('dashboard.business.resume');
+    Route::get('/dashboard/{url_hash}/backups/{backup}', [DashboardController::class, 'backupShow'])->name('dashboard.business.backups.show');
 
     /* POST Routes */
     Route::post('/dashboard/business', [DashboardController::class, 'store'])->name('dashboard.business.store');
     Route::post('/dashboard/{url_hash}/autosave', [DashboardController::class, 'autosave'])->name('dashboard.business.autosave');
+    Route::post('/dashboard/{url_hash}/backups/{backup}/restore', [DashboardController::class, 'backupRestore'])->name('dashboard.business.backups.restore');
 
     /* DELETE Routes */
     Route::delete('/dashboard/business/{business}', [DashboardController::class, 'destroy'])->name('dashboard.business.destroy');

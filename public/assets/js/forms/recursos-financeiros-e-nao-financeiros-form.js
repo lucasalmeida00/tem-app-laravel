@@ -14,8 +14,8 @@
                 placeholder: "Selecione uma opção",
                 required: true,
                 options: [
-                    { value: "conhecimento_experiencia", label: "Conhecimento ou experiência" },
                     { value: "conhecimento_territorio", label: "Conhecimento de território/mercado/setor" },
+                    { value: "conhecimento_experiencia", label: "Conhecimento ou experiência" },
                     { value: "equipamentos", label: "Equipamentos" },
                     { value: "experiencia_pratica", label: "Experiência prática como empreendedor" },
                     { value: "infraestrutura", label: "Infraestrutura" },
@@ -41,15 +41,15 @@
                 required: true,
                 options: [
                     { value: "economias_pessoais", label: "Economias pessoais (poupança)" },
-                    { value: "emprestimo_amigos", label: "Empréstimo com amigos" },
                     { value: "emprestimo_bancario", label: "Empréstimo bancário" },
+                    { value: "emprestimo_amigos", label: "Empréstimo com amigos" },
                     { value: "emprestimo_familiares", label: "Empréstimo com familiares" },
                     { value: "equipamento", label: "Equipamento" },
                     { value: "fgts", label: "FGTS" },
                     { value: "infraestrutura", label: "Infraestrutura" },
+                    { value: "investimento_terceiros", label: "Investimento de terceiros" },
                     { value: "investimento_informal", label: "Investimento Informal" },
                     { value: "investimento_proprios", label: "Investimento próprios" },
-                    { value: "investimento_terceiros", label: "Investimento de terceiros" },
                     { value: "recursos_pessoais", label: "Recursos financeiros pessoais" },
                     { value: "seguro_desemprego", label: "Seguro desemprego" },
                     { value: "outro", label: "Outro" }
@@ -66,12 +66,12 @@
                 name: "renouncedSalaries",
                 required: true,
                 options: [{
-                    value: "sim",
-                    label: "Sim"
-                },
-                {
                     value: "nao",
                     label: "Não"
+                },
+                {
+                    value: "sim",
+                    label: "Sim"
                 }
                 ]
             }]
@@ -88,7 +88,7 @@
                 options: [
                     { value: "divide_tempo", label: "Divide tempo com outro trabalho em paralelo com o empreendimento" },
                     { value: "integral", label: "Tempo dedicado integralmente" },
-                    { value: "parcial", label: "Tempo parcialmente ao empreendimento" }
+                    { value: "parcial", label: "Tempo parcialmente dedicado ao empreendimento" }
                 ]
             }]
         },
@@ -103,16 +103,16 @@
                 required: true,
                 placeholder: "Selecione uma opção",
                 options: [{
+                    value: "nao",
+                    label: "Não"
+                },
+                {
                     value: "fixa",
                     label: "Sim de forma fixa"
                 },
                 {
                     value: "sob_demanda",
                     label: "Sim, sob demanda por projetos"
-                },
-                {
-                    value: "nao",
-                    label: "Não"
                 }
                 ]
             }]
@@ -126,10 +126,6 @@
                 name: "viabilityTime",
                 required: true,
                 options: [{
-                    value: "ate_6m",
-                    label: "Até 6 meses"
-                },
-                {
                     value: "ano1",
                     label: "1° ano"
                 },
@@ -144,6 +140,10 @@
                 {
                     value: "ano4",
                     label: "4° ano"
+                },
+                {
+                    value: "ate_6m",
+                    label: "Até 6 meses"
                 },
                 {
                     value: "outro",
@@ -168,14 +168,12 @@
                     { value: "buscou_parceiros", label: "Buscou parceiros" },
                     { value: "contratou_emprestimo", label: "Contratou emprestimo" },
                     { value: "investiu_capital_proprio", label: "Investiu capital próprio" },
-                    { value: "investiu_apenas_que_poderia_perder", label: "Investiu somente o que vocêr poderia arriscar e perder" },
+                    { value: "investiu_apenas_que_poderia_perder", label: "Investiu somente o que você poderia arriscar e perder" },
                     { value: "nao_investiu_dinheiro", label: "Não investiu dinheiro inicial" },
                     { value: "outro", label: "Outro" }
                 ]
             }]
         },
-
-            ,
         {
             // 4.8 — Investidores (fase inicial)
             titleHtml: "<span class='c-green f-number'>4.8</span> <br/> <h3 class='c-black t-title'>Além de você, quem mais investiu no empreendimento na fase inicial (até 5 anos), detalhando ano/investimento?</h3>",
@@ -221,12 +219,12 @@
                 name: "subsidies",
                 required: true,
                 options: [{
-                    value: "sim",
-                    label: "Sim"
-                },
-                {
                     value: "nao",
                     label: "Não"
+                },
+                {
+                    value: "sim",
+                    label: "Sim"
                 }
                 ]
             }]

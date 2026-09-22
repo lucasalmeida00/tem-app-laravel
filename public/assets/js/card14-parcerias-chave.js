@@ -26,60 +26,73 @@ window.Card14 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const PARTNER_OPTIONS = [
-    { v: "fornecedores", label: "Fornecedores" },
-    { v: "distribuidores_revendedores", label: "Distribuidores e revendedores" },
-    { v: "logistica", label: "Logística" },
-    { v: "parceiros_tecnologia", label: "Parceiros de tecnologia (infraestrutura tecnológica, aplicativos ou plataformas online)" },
-    { v: "instituicoes_financeiras", label: "Instituições financeiras" },
-    { v: "mkt_publicidade", label: "Empreendimentos de marketing e publicidade" },
     { v: "centros_pesquisa_pdu", label: "Centros de pesquisa e desenvolvimento (P&D) ou universidades" },
-    { v: "entrada_socios", label: "Entrada de sócios" },
+    { v: "distribuidores_revendedores", label: "Distribuidores e revendedores" },
+    { v: "mkt_publicidade", label: "Empreendimentos de marketing e publicidade" },
     { v: "entrada_novos_investidores", label: "Entrada de novos investidores" },
-    { v: "ongs_nao_governamentais", label: "Organizações não governamentais (ONGs)" },
-    { v: "lideres_influenciadores", label: "Líderes ou influenciadores comunitários" },
-    { v: "pequenos_comerciantes_locais", label: "Pequenos comerciantes locais" },
-    { v: "investidores_publicos", label: "Investidores públicos" },
+    { v: "entrada_socios", label: "Entrada de sócios" },
+    { v: "fornecedores", label: "Fornecedores" },
+    { v: "instituicoes_financeiras", label: "Instituições financeiras" },
     { v: "investidores_privados", label: "Investidores privados" },
+    { v: "investidores_publicos", label: "Investidores públicos" },
+    { v: "lideres_influenciadores", label: "Líderes ou influenciadores comunitários" },
+    { v: "logistica", label: "Logística" },
+    { v: "ongs_nao_governamentais", label: "Organizações não governamentais (ONGs)" },
+    { v: "parceiros_tecnologia", label: "Parceiros de tecnologia (infraestrutura tecnológica, aplicativos ou plataformas online)" },
+    { v: "pequenos_comerciantes_locais", label: "Pequenos comerciantes locais" },
     { v: "outro", label: "Outro" }
   ];
 
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 pk-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${PARTNER_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 pk-other-box d-none"></div>
+      <div class="mb-1 pk-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+              ${PARTNER_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
 
-  // “Outro” NUNCA sai da lista
+  // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     PARTNER_OPTIONS.forEach(o => {
-      if (!chosenSet.has(o.v) || o.v === "outro") {
+      // se já foi escolhido em outro select, só deixa se for o valor atual
+      if (!chosenSet.has(o.v) || o.v === keep) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
       }
     });
-    if (keep && (!chosenSet.has(keep) || keep === "outro")) {
+    if (keep && (!chosenSet.has(keep) || keep === $sel.val())) {
       $sel.val(keep);
     }
   }
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".pk-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.pkOther").on("change.pkOther", "select", renderOther);
@@ -94,11 +107,23 @@ window.Card14 = (function () {
   // 1) garante wrapper pro s1 (sem duplicar select)
   let $w1 = $s1.closest(".pk-select-wrap");
   if (!$w1.length) {
-    $w1 = $(`<div class="mb-2 pk-select-wrap"></div>`);
+    $w1 = $(`<div class="mb-1 pk-select-wrap card-select-row"></div>`);
+    const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+    
+    // Coluna do select
+    const $colSelect = $(`<div class="col card-select-col"></div>`);
     $s1.after($w1);
-    $w1.append($s1);
-    $w1.append(`<div class="mt-2 pk-other-box d-none"></div>`);
+    $s1.appendTo($colSelect);
+    
+    // Botão X para limpar
+    // Coluna do input "outro"
+    const $colOther = $(`<div class="col extra-${N.p1}-other-inline d-none"></div>`);
+    $colOther.html(`<input type="text" class="form-control" name="${N.p1}__other" placeholder="Especifique" style="width: 100%;">`);
+    
+    $rowDiv.append($colSelect, $colOther);
+    $w1.append($rowDiv);
   }
+  $w1.parent().removeClass("mb-2").addClass("mb-1");
 
   // 2) container dos filhos ANCORADO no wrapper do s1
   const $selects = ensureContainer($w1, "pk-selects-container", true);
@@ -112,7 +137,7 @@ window.Card14 = (function () {
   const $s2 = $w2.find("select");
   const $s3 = $w3.find("select");
 
-  // 4) “Outro” -> “Especifique” em cada select
+  // 4) "Outro" -> "Especifique" em cada select
   wireOtherFor($w1);
   wireOtherFor($w2);
   wireOtherFor($w3);
@@ -129,7 +154,7 @@ window.Card14 = (function () {
     // ⚠️ sempre use a referência DIRETA $s1 (evita pegar um select oculto/duplicado)
     const chosen = getChosen();
 
-    // popula s2/s3 excluindo repetidos (mantendo “outro”)
+    // popula s2/s3 excluindo repetidos (incluindo "outro")
     fillSelect($s2, new Set([...chosen].filter(v => v !== $s2.val())));
     fillSelect($s3, new Set([...chosen].filter(v => v !== $s3.val())));
 
@@ -144,10 +169,10 @@ window.Card14 = (function () {
     $w3.toggle(hasS2);
     if (!hasS2) $s3.val("");
 
-    // atualiza campos “Especifique” quando “Outro”
-    $w1.triggerHandler("change.pkOther");
-    $w2.triggerHandler("change.pkOther");
-    $w3.triggerHandler("change.pkOther");
+    // atualiza "Especifique" e estado has-other/col (disparar no select para o handler delegado rodar)
+    $s1.trigger("change.pkOther");
+    $s2.trigger("change.pkOther");
+    $s3.trigger("change.pkOther");
   }
 
   // 5) estado inicial

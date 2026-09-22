@@ -26,55 +26,68 @@ window.Card13 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const AK_OPTIONS = [
-    { v: "producao_produtos", label: "Produção de produtos" },
-    { v: "prestacao_servicos", label: "Prestação de Serviços" },
-    { v: "desenvolvimento_novos_produtos_servicos", label: "Desenvolvimento de novos produtos ou serviços" },
-    { v: "marketing_vendas", label: "Marketing e Vendas" },
-    { v: "logistica_distribuicao", label: "Logistica e distribuição" },
-    { v: "producao_fornecimento_produtos_essenciais", label: "Produção ou fornecimento de produtos essenciais" },
-    { v: "servicos_educacao_saude", label: "Prestação de serviços como educação ou saúde" },
-    { v: "capacitacao_treinamento_moradores", label: "Capacitação ou treinamento de moradores de favela/comunidade" },
-    { v: "engajamento_comunitario", label: "Engajamento comunitário" },
     { v: "acoes_vendas_locais", label: "Ações de vendas locais" },
+    { v: "capacitacao_treinamento_moradores", label: "Capacitação ou treinamento de moradores de favela/comunidade" },
+    { v: "desenvolvimento_novos_produtos_servicos", label: "Desenvolvimento de novos produtos ou serviços" },
+    { v: "engajamento_comunitario", label: "Engajamento comunitário" },
     { v: "eventos_parcerias_locais", label: "Eventos e parcerias locais" },
+    { v: "logistica_distribuicao", label: "Logistica e distribuição" },
+    { v: "marketing_vendas", label: "Marketing e Vendas" },
+    { v: "prestacao_servicos", label: "Prestação de Serviços" },
+    { v: "servicos_educacao_saude", label: "Prestação de serviços como educação ou saúde" },
+    { v: "producao_produtos", label: "Produção de produtos" },
+    { v: "producao_fornecimento_produtos_essenciais", label: "Produção ou fornecimento de produtos essenciais" },
     { v: "outro", label: "Outro" }
   ];
 
   // ==== Builders ====
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 ak-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-          ${AK_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
-        </select>
-        <div class="mt-2 ak-other-box d-none"></div>
+      <div class="mb-1 ak-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+              ${AK_OPTIONS.map(o => `<option value="${o.v}">${o.label}</option>`).join("")}
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
 
-  // “outro” permanece sempre disponível
+  // Nenhuma opção pode ser repetida (incluindo "outro")
   function fillSelect($sel, chosenSet) {
     const keep = $sel.val();
-    $sel.html(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.html(`<option value="">-- Selecione --</option>`);
     AK_OPTIONS.forEach(o => {
-      if (!chosenSet.has(o.v) || o.v === "outro") {
+      // se já foi escolhido em outro select, só deixa se for o valor atual
+      if (!chosenSet.has(o.v) || o.v === keep) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
       }
     });
-    if (keep && (!chosenSet.has(keep) || keep === "outro")) $sel.val(keep);
+    if (keep && (!chosenSet.has(keep) || keep === $sel.val())) $sel.val(keep);
   }
 
   function wireOtherFor($wrap) {
     const $sel = $wrap.find("select");
-    const $box = $wrap.find(".ak-other-box");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
     function renderOther() {
       if ($sel.val() === "outro") {
-        $box.removeClass("d-none").html(
-          `<input type="text" class="form-control" name="${$sel.attr("name")}__other" placeholder="Especifique" />`
-        );
+        $wrap.addClass("has-other");
+        $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+        $box.removeClass("d-none");
       } else {
-        $box.addClass("d-none").empty();
+        $wrap.removeClass("has-other");
+        $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
+        $box.addClass("d-none");
+        // Limpa o valor do input quando "outro" é desmarcado
+        $box.find("input").val("");
       }
     }
     $wrap.off("change.akOther").on("change.akOther", "select", renderOther);
@@ -89,14 +102,26 @@ window.Card13 = (function () {
     // garante wrapper para s1 (sem duplicar o select)
     let $w1 = $s1.closest(".ak-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 ak-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-1 ak-select-wrap card-select-row"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 ak-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Botão X para limpar
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col extra-${N.a1}-other-inline d-none"></div>`);
+      $colOther.html(`<input type="text" class="form-control" name="${N.a1}__other" placeholder="Especifique" style="width: 100%;">`);
+      
+      $rowDiv.append($colSelect, $colOther);
+      $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    const $selects = ensureContainer($wrap1, "ak-selects-container", true);
+    // Container para s2/s3, logo abaixo da primeira row (não dentro dela)
+    const $selects = ensureContainer($w1, "ak-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     // cria s2/s3
     let $w2 = $selects.find(`.ak-select-wrap:has(select[name="${N.a2}"])`);
@@ -134,10 +159,11 @@ window.Card13 = (function () {
       $w3.toggle(!!$s2.val());
       if (!$s2.val()) $s3.val("");
 
+
       // atualiza “Especifique”
-      $w1.triggerHandler("change.akOther");
-      $w2.triggerHandler("change.akOther");
-      $w3.triggerHandler("change.akOther");
+      $s1.trigger("change.akOther");
+      $s2.trigger("change.akOther");
+      $s3.trigger("change.akOther");
     }
 
     // estado inicial

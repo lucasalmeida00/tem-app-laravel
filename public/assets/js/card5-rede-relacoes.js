@@ -28,13 +28,13 @@ window.Card5 = (function () {
   const REL_OPTIONS = [
     { v: "amigos", label: "Amigos" },
     { v: "colegas", label: "Colegas ou Ex-colegas" },
+    { v: "empregador", label: "Empregador (Antigo ou atual empregador que se torna parceiro, investidor ou sócio do empreendimento)" },
     { v: "familiares", label: "Familiares" },
     { v: "mentores", label: "Mentores ou conselheiros profissionais" },
-    { v: "empregador", label: "Empregador (Antigo ou atual empregador que se torna parceiro, investidor ou sócio do empreendimento)" },
-    { v: "outrosEmpreendedores", label: "Outros empreendedores" },
     { v: "nenhumPrevio", label: "Nenhum contato prévio, pois encontrei pessoas durante o processo" },
-    { v: "parceirosFornecedores", label: "Parceiros ou fornecedores já conhecidos" },
-    { v: "outrasRelacoes", label: "Outras relações (poder público, igreja, outras insituições, investidor, contatos via redes sociais etc.)" }
+    { v: "outrasRelacoes", label: "Outras relações (poder público, igreja, outras insituições, investidor, contatos via redes sociais etc.)" },
+    { v: "outrosEmpreendedores", label: "Outros empreendedores" },
+    { v: "parceirosFornecedores", label: "Parceiros ou fornecedores já conhecidos" }
   ];
 
   // ===== Metadados por categoria =====
@@ -44,16 +44,16 @@ window.Card5 = (function () {
       itemBase: "Amigo",
       originLabel: "Origem",
       originPh: "Especifique a origem da amizade",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
         "Apoio financeiro",
-        "Habilidades ou conhecimentos técnicos",
-        "Suporte emocional/motivacional",
-        "Equipamentos ou Infraestrutura",
-        "Conversa ou troca de ideias",
         "Conhecimento de mercado e de potencias clientes e parceiros",
-        "mentoria e aconselhamento",
         "Conhecimento e experiência de gestão",
+        "Conversa ou troca de ideias",
+        "Equipamentos ou Infraestrutura",
+        "Habilidades ou conhecimentos técnicos",
+        "mentoria e aconselhamento",
+        "Suporte emocional/motivacional",
         "Outro"
       ],
       addBtn: "Adicionar Contato"
@@ -63,8 +63,8 @@ window.Card5 = (function () {
       itemBase: "Colega",
       originLabel: "Origem",
       originPh: "Especifique a origem do colega",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Outro"],
-      nature: ["Experiência profissional relevante", "Consultoria ou orientação", "Colaboração em atividades específicas", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Outro"],
+      nature: ["Colaboração em atividades específicas", "Consultoria ou orientação", "Experiência profissional relevante", "Outro"],
       addBtn: "Adicionar Contato"
     },
     familiares: {
@@ -72,13 +72,13 @@ window.Card5 = (function () {
       itemBase: "Familiar",
       originLabel: "Origem",
       originPh: "Especifique a origem",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
+        "Ajuda com infraestrutura (espaço, ferramentas)",
         "Apoio financeiro",
         "Contribuição com trabalho não remunerado",
-        "Ajuda com infraestrutura (espaço, ferramentas)",
-        "Rede de contatos",
         "Conversa ou troca de ideias",
+        "Rede de contatos",
         "Outro"
       ],
       addBtn: "Adicionar Contato"
@@ -88,12 +88,12 @@ window.Card5 = (function () {
       itemBase: "Mentor",
       originLabel: "Origem",
       originPh: "Informe a origem do mentor/conselheiro",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
-        "Experiência profissional ou habilidades específicas",
-        "Recursos materiais ou infraestrutura",
-        "Indicação para rede de contatos ou clientes",
         "Conhecimento de mercado",
+        "Experiência profissional ou habilidades específicas",
+        "Indicação para rede de contatos ou clientes",
+        "Recursos materiais ou infraestrutura",
         "Rede de contas para potenciais clientes",
         "Outro"
       ],
@@ -104,12 +104,12 @@ window.Card5 = (function () {
       itemBase: "Empregador",
       originLabel: "Origem",
       originPh: "Especifique a origem do empregador",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Outro"],
       nature: [
-        "Experiência profissional ou habilidades específicas",
-        "Recursos materiais ou infraestrutura",
-        "Indicação para rede de contatos ou clientes",
         "Conhecimento de mercado",
+        "Experiência profissional ou habilidades específicas",
+        "Indicação para rede de contatos ou clientes",
+        "Recursos materiais ou infraestrutura",
         "Rede de contas para potenciais clientes",
         "Outro"
       ],
@@ -120,14 +120,14 @@ window.Card5 = (function () {
       itemBase: "Empreendedor",
       originLabel: "Origem",
       originPh: "Especifique a origem do empreendedor",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
-        "Parcerias comerciais ou operacionais",
+        "Canais de Distribuição",
         "Compartilhamento de recursos e conhecimento",
         "Infraestrutura",
-        "Tecnologia",
-        "Canais de Distribuição",
         "Novos Mercados",
+        "Parcerias comerciais ou operacionais",
+        "Tecnologia",
         "Outro"
       ],
       addBtn: "Adicionar Contato"
@@ -137,7 +137,7 @@ window.Card5 = (function () {
       itemBase: "Contato",
       originLabel: "Origem",
       originPh: "Especifique a origem das pessoas encontradas",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: ["Mesmo setor", "Outro Setor", "Outro"],
       addBtn: "Adicionar Contato"
     },
@@ -146,14 +146,14 @@ window.Card5 = (function () {
       itemBase: "Parceiro/Fornecedor",
       originLabel: "Origem",
       originPh: "Especifique a origem do parceiro ou fornecedor",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
-        "Condições especiais em fornecimento de materiais/serviços",
         "Colaboração em projetos específicos",
+        "Condições especiais em fornecimento de materiais/serviços",
+        "Desenvolvimento e teste de equipamentos",
+        "Desenvolvimento e teste de novas matérias primas",
         "Desenvolvimento em conjunto de novo produto",
         "Teste de produto no mercado",
-        "Desenvolvimento e teste de novas matérias primas",
-        "Desenvolvimento e teste de equipamentos",
         "Outro"
       ],
       addBtn: "Adicionar Parceiro"
@@ -163,22 +163,22 @@ window.Card5 = (function () {
       itemBase: "Relação",
       originLabel: "Origem",
       originPh: "Especifique a origem da relação",
-      collab: ["Sócio", "Parceiro", "Colaborador", "Somente uma conversa", "Outro"],
+      collab: ["Colaborador", "Parceiro", "Sócio", "Somente uma conversa", "Outro"],
       nature: [
-        "Conexões facilitadas por redes sociais/profissionais",
-        "Parcerias institucionais (como com órgãos públicos, privados, coletivos ou ONGs)",
-        "Colaboração em projetos específicos",
-        "Edital de fomento",
         "Aceleradoras",
-        "Programas de treinamento",
-        "Fomento não reembolsável",
-        "Investimento de capital de risco",
-        "Investimento Anjo",
+        "Colaboração em projetos específicos",
+        "Conexões facilitadas por redes sociais/profissionais",
+        "Edital de fomento",
         "Financiamento bancário com taxas de mercado",
         "Financiamento bancário com taxas subsidiadas e especiais",
+        "Fomento não reembolsável",
         "Incubadoras de empresas",
-        "Investimentos de outra natureza",
+        "Investimento Anjo",
         "Investimento capital semente",
+        "Investimento de capital de risco",
+        "Investimentos de outra natureza",
+        "Parcerias institucionais (como com órgãos públicos, privados, coletivos ou ONGs)",
+        "Programas de treinamento",
         "Outro"
       ],
       addBtn: "Adicionar Contato"
@@ -189,7 +189,7 @@ window.Card5 = (function () {
   function buildSelect($holder, name) {
     const $sel = $(
       `<select class="form-select mb-2" name="${name}">
-        <option value="" disabled selected hidden>Selecione uma opção</option>
+        <option value="">-- Selecione --</option>
       </select>`
     );
     $holder.append($sel);
@@ -198,7 +198,7 @@ window.Card5 = (function () {
 
   function fillSelect($sel, chosenSet) {
     const current = $sel.val();
-    $sel.empty().append(`<option value="" disabled selected hidden>Selecione uma opção</option>`);
+    $sel.empty().append(`<option value="">-- Selecione --</option>`);
     REL_OPTIONS.forEach(o => {
       if (!chosenSet.has(o.v)) {
         $sel.append(`<option value="${o.v}">${o.label}</option>`);
@@ -228,6 +228,14 @@ window.Card5 = (function () {
     const radiosHtml = meta.collab
       .map(opt => {
         const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+        const isOutro = v === "outro";
+        // Para "outro", cria um wrapper inline que permite o input ao lado
+        if (isOutro) {
+          return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                    <input type="radio" name="${radioName}" value="${v}"> ${opt}
+                    <span class="rel-radio-outro-inline"></span>
+                  </label>`;
+        }
         return `<label class="me-3 mb-2"><input type="radio" name="${radioName}" value="${v}"> ${opt}</label>`;
       })
       .join("");
@@ -235,6 +243,14 @@ window.Card5 = (function () {
     const checksHtml = meta.nature
       .map(opt => {
         const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+        const isOutro = v === "outro" || v === "outro_setor";
+        // Para "outro" ou "outro_setor", cria um wrapper inline que permite o input ao lado
+        if (isOutro) {
+          return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                    <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
+                    <span class="rel-check-outro-inline"></span>
+                  </label>`;
+        }
         return `<label class="me-3 mb-2 d-inline-flex align-items-center">
                   <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
                 </label>`;
@@ -253,13 +269,13 @@ window.Card5 = (function () {
         <div class="mb-2">
           <label class="form-label">Tipo de Colaboração:</label><br/>
           ${radiosHtml}
-          <div class="mt-2 rel-radio-outro"></div>
+          <div class="mt-2 rel-radio-outro d-none"></div>
         </div>
 
         <div class="mb-1">
           <label class="form-label">Natureza de Recursos:</label><br/>
           ${checksHtml}
-          <div class="mt-2 rel-check-outro"></div>
+          <div class="mt-2 rel-check-outro d-none"></div>
         </div>
       </div>
     `;
@@ -275,33 +291,113 @@ window.Card5 = (function () {
     const $radioOutroHolder = $item.find(".rel-radio-outro");
     const $checkOutroHolder = $item.find(".rel-check-outro");
 
-    // Radio "Outro" -> text
+    // Radio "Outro" -> text (ao lado direito da opção)
     $item.off("change.relRadio").on("change.relRadio", `input[name="${radioName}"]`, function () {
       const val = (this.value || "").toLowerCase();
+      const $radio = $(this);
+
+      // Limpa todos os holders externos de radio deste grupo
+      $item.find(`input[name="${radioName}"]`).each(function() {
+        const $lbl = $(this).closest("label");
+        const $ext = $lbl.next(".rel-radio-outro-external");
+        if ($ext.length) {
+          $ext.remove();
+        }
+      });
+
       if (val === "outro") {
-        $radioOutroHolder.html(
-          `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique">`
+        const $label = $radio.closest("label");
+        // Cria um holder EXTERNO ao label (depois dele) apenas para "outro"
+        const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+
+        // Coloca o textarea no holder externo
+        $externalHolder.html(
+          `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
         );
+        $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
       } else {
         $radioOutroHolder.empty();
       }
     });
 
-    // Checkbox "outro"/"outro_setor" -> text
+    // Verifica estado inicial do radio para aplicar CSS se já estiver selecionado "outro"
+    const $checkedRadio = $item.find(`input[name="${radioName}"]:checked`);
+    if ($checkedRadio.length && ($checkedRadio.val() || "").toLowerCase() === "outro") {
+      const $label = $checkedRadio.closest("label");
+
+      // Cria um holder EXTERNO ao label apenas para "outro"
+      const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+      $label.after($externalHolder);
+
+      $externalHolder.html(
+        `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+      );
+    }
+
+    // Checkbox "outro"/"outro_setor" -> text (ao lado direito da opção)
     $item.off("change.relCheck").on("change.relCheck", `input[name='${checksName}']`, function () {
       const vals = $item
         .find(`input[name='${checksName}']:checked`)
         .map(function () { return this.value; })
         .get();
       const needsOther = vals.some(v => v === "outro" || v === "outro_setor");
+
+      // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
+      $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
+        const $checkbox = $(this);
+        const $label = $checkbox.closest("label");
+        const isChecked = $checkbox.is(":checked");
+
+        // Busca ou cria um holder EXTERNO ao label (ao lado dele)
+        let $externalHolder = $label.next(".rel-check-outro-external");
+        if (!$externalHolder.length) {
+          $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+          $label.after($externalHolder);
+        }
+
+      if (isChecked && needsOther) {
+          // Coloca o textarea no holder externo
+          $externalHolder.html(
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+          );
+      } else {
+        $externalHolder.empty();
+      }
+      });
+
+      // Limpa o holder antigo (compatibilidade)
       if (needsOther) {
-        $checkOutroHolder.html(
-          `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique">`
-        );
+        $checkOutroHolder.empty();
       } else {
         $checkOutroHolder.empty();
       }
     });
+
+    // Verifica estado inicial dos checkboxes para aplicar CSS se já tiverem "outro" marcado
+    const checkedVals = $item.find(`input[name='${checksName}']:checked`).map(function() {
+      return this.value;
+    }).get();
+    if (checkedVals.some(v => v === "outro" || v === "outro_setor")) {
+      $item.find(`input[name='${checksName}'][value="outro"]:checked, input[name='${checksName}'][value="outro_setor"]:checked`).each(function() {
+        const $checkbox = $(this);
+        const $label = $checkbox.closest("label");
+
+        // Busca ou cria um holder EXTERNO ao label
+        let $externalHolder = $label.next(".rel-check-outro-external");
+        if (!$externalHolder.length) {
+          $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+          $label.after($externalHolder);
+        }
+
+        // Se já tem textarea, garante que está visível
+        if ($externalHolder.find("input").length === 0) {
+          $externalHolder.html(
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+          );
+        }
+      });
+    }
   }
 
   function buildCategoryBlock($blocks, cat) {
@@ -352,17 +448,6 @@ window.Card5 = (function () {
   }
 
   function renderCategoryFor($container, cat) {
-        // 🔥 CRÍTICO: Salva os dados ANTES de fazer qualquer mudança de estado
-        // Isso garante que todos os dados sejam preservados mesmo se houver mudança rápida
-        if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-            // Força salvamento síncrono dos dados atuais antes de ocultar blocos
-            try {
-                window.temPerformSave();
-            } catch (e) {
-                console.warn("Erro ao salvar antes de mudar categoria:", e);
-            }
-        }
-
         // Encontra todos os blocos existentes (não apenas o primeiro)
         const $allExisting = $container.find(".rel-category-block");
         const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
@@ -391,18 +476,6 @@ window.Card5 = (function () {
             // Cria novo bloco
             buildCategoryBlock($container, cat);
         }
-
-        // 🔥 Salva novamente após a mudança para garantir que tudo está sincronizado
-        if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-            // Usa setTimeout para garantir que o DOM foi atualizado
-            setTimeout(() => {
-                try {
-                    window.temPerformSave();
-                } catch (e) {
-                    console.warn("Erro ao salvar após mudar categoria:", e);
-                }
-            }, 100);
-        }
   }
 
   //For 5.2
@@ -418,11 +491,27 @@ window.Card5 = (function () {
 
   const radiosHtml = meta.collab.map(opt => {
     const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+    const isOutro = v === "outro";
+    // Para "outro", cria um wrapper inline que permite o input ao lado
+    if (isOutro) {
+      return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                <input type="radio" name="${radioName}" value="${v}"> ${opt}
+                <span class="rel-radio-outro-inline"></span>
+              </label>`;
+    }
     return `<label class="me-3 mb-2"><input type="radio" name="${radioName}" value="${v}"> ${opt}</label>`;
   }).join("");
 
   const checksHtml = meta.nature.map(opt => {
     const v = opt.toLowerCase().replaceAll(/\s+/g, "_");
+    const isOutro = v === "outro" || v === "outro_setor";
+    // Para "outro" ou "outro_setor", cria um wrapper inline que permite o input ao lado
+    if (isOutro) {
+      return `<label class="me-3 mb-2 d-inline-flex align-items-center gap-2">
+                <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
+                <span class="rel-check-outro-inline"></span>
+              </label>`;
+    }
     return `<label class="me-3 mb-2 d-inline-flex align-items-center">
               <input type="checkbox" name="${checksName}" value="${v}" class="me-1"> ${opt}
             </label>`;
@@ -440,13 +529,13 @@ window.Card5 = (function () {
       <div class="mb-2">
         <label class="form-label">Tipo de Colaboração:</label><br/>
         ${radiosHtml}
-        <div class="mt-2 rel-radio-outro"></div>
+        <div class="mt-2 rel-radio-outro d-none"></div>
       </div>
 
       <div class="mb-1">
         <label class="form-label">Natureza de Recursos:</label><br/>
         ${checksHtml}
-        <div class="mt-2 rel-check-outro"></div>
+        <div class="mt-2 rel-check-outro d-none"></div>
       </div>
     </div>
   `;
@@ -464,22 +553,106 @@ function wireItemBehaviorsPost($item, cat, idx) {
 
   $item.off("change.relRadioPost").on("change.relRadioPost", `input[name="${radioName}"]`, function () {
     const val = (this.value || "").toLowerCase();
+    const $radio = $(this);
+
+    // Limpa todos os holders externos de radio deste grupo
+    $item.find(`input[name="${radioName}"]`).each(function() {
+      const $lbl = $(this).closest("label");
+      const $ext = $lbl.next(".rel-radio-outro-external");
+      if ($ext.length) {
+        $ext.remove();
+      }
+    });
+
     if (val === "outro") {
-      $radioOutroHolder.html(`<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique">`);
+      const $label = $radio.closest("label");
+      // Cria um holder EXTERNO ao label (depois dele) apenas para "outro"
+      const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+      $label.after($externalHolder);
+
+      // Coloca o textarea no holder externo
+      $externalHolder.html(
+        `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+      );
+      $radioOutroHolder.empty(); // Limpa o holder antigo (compatibilidade)
     } else {
       $radioOutroHolder.empty();
     }
   });
 
+  // Verifica estado inicial do radio para aplicar CSS se já estiver selecionado "outro"
+  const $checkedRadio = $item.find(`input[name="${radioName}"]:checked`);
+  if ($checkedRadio.length && ($checkedRadio.val() || "").toLowerCase() === "outro") {
+    const $label = $checkedRadio.closest("label");
+
+    // Cria um holder EXTERNO ao label apenas para "outro"
+    const $externalHolder = $('<div class="rel-radio-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+    $label.after($externalHolder);
+
+    $externalHolder.html(
+      `<input type="text" class="form-control" name="${otherRadioName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+    );
+  }
+
   $item.off("change.relCheckPost").on("change.relCheckPost", `input[name='${checksName}']`, function () {
     const vals = $item.find(`input[name='${checksName}']:checked`).map(function(){return this.value;}).get();
     const needsOther = vals.some(v => v === "outro" || v === "outro_setor");
+
+    // Encontra todos os labels com "outro" ou "outro_setor" e atualiza seus holders inline
+    $item.find(`input[name='${checksName}'][value="outro"], input[name='${checksName}'][value="outro_setor"]`).each(function() {
+      const $checkbox = $(this);
+      const $label = $checkbox.closest("label");
+      const isChecked = $checkbox.is(":checked");
+
+      // Busca ou cria um holder EXTERNO ao label (ao lado dele)
+      let $externalHolder = $label.next(".rel-check-outro-external");
+      if (!$externalHolder.length) {
+        $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+      }
+
+      if (isChecked && needsOther) {
+          // Coloca o textarea no holder externo
+          $externalHolder.html(
+            `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+          );
+      } else {
+        $externalHolder.empty();
+      }
+    });
+
+    // Limpa o holder antigo (compatibilidade)
     if (needsOther) {
-      $checkOutroHolder.html(`<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique">`);
+      $checkOutroHolder.empty();
     } else {
       $checkOutroHolder.empty();
     }
   });
+
+  // Verifica estado inicial dos checkboxes para aplicar CSS se já tiverem "outro" marcado
+  const checkedVals = $item.find(`input[name='${checksName}']:checked`).map(function() {
+    return this.value;
+  }).get();
+  if (checkedVals.some(v => v === "outro" || v === "outro_setor")) {
+    $item.find(`input[name='${checksName}'][value="outro"]:checked, input[name='${checksName}'][value="outro_setor"]:checked`).each(function() {
+      const $checkbox = $(this);
+      const $label = $checkbox.closest("label");
+
+      // Busca ou cria um holder EXTERNO ao label
+      let $externalHolder = $label.next(".rel-check-outro-external");
+      if (!$externalHolder.length) {
+        $externalHolder = $('<div class="rel-check-outro-external" style="width: 100%; margin-top: 0.5rem;"></div>');
+        $label.after($externalHolder);
+      }
+
+      // Se já tem textarea, garante que está visível
+      if ($externalHolder.find("input").length === 0) {
+        $externalHolder.html(
+          `<input type="text" class="form-control" name="${otherCheckName}" placeholder="Especifique" style="max-width: 700px; width: 100%; display: block;">`
+        );
+      }
+    });
+  }
 }
 
 function buildCategoryBlockPost($blocks, cat) {
@@ -528,17 +701,6 @@ function buildCategoryBlockPost($blocks, cat) {
 }
 
 function renderCategoryForPost($container, cat) {
-  // 🔥 CRÍTICO: Salva os dados ANTES de fazer qualquer mudança de estado
-  // Isso garante que todos os dados sejam preservados mesmo se houver mudança rápida
-  if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-    // Força salvamento síncrono dos dados atuais antes de ocultar blocos
-    try {
-      window.temPerformSave();
-    } catch (e) {
-      console.warn("Erro ao salvar antes de mudar categoria:", e);
-    }
-  }
-
   // Encontra todos os blocos existentes (não apenas o primeiro)
   const $allExisting = $container.find(".rel-category-block");
   const existingCat = $allExisting.length ? $allExisting.first().data("cat") : null;
@@ -566,18 +728,6 @@ function renderCategoryForPost($container, cat) {
   } else {
     // Cria novo bloco
     buildCategoryBlockPost($container, cat);
-  }
-
-  // 🔥 Salva novamente após a mudança para garantir que tudo está sincronizado
-  if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-    // Usa setTimeout para garantir que o DOM foi atualizado
-    setTimeout(() => {
-      try {
-        window.temPerformSave();
-      } catch (e) {
-        console.warn("Erro ao salvar após mudar categoria:", e);
-      }
-    }, 100);
   }
 }
 
@@ -611,15 +761,6 @@ function renderCategoryForPost($container, cat) {
   }
 
   function sync() {
-    // 🔥 Salva dados ANTES de qualquer mudança
-    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-      try {
-        window.temPerformSave();
-      } catch (e) {
-        console.warn("Erro ao salvar antes de sync (5.1):", e);
-      }
-    }
-
     const chosen = getChosen();
 
     // Não refaça as opções do select 1 aqui, para não perder a seleção do usuário
@@ -641,17 +782,6 @@ function renderCategoryForPost($container, cat) {
     renderCategoryFor($blocks1, v1);
     renderCategoryFor($blocks2, v2);
     renderCategoryFor($blocks3, v3);
-
-    // 🔥 Salva novamente após todas as mudanças
-    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-      setTimeout(() => {
-        try {
-          window.temPerformSave();
-        } catch (e) {
-          console.warn("Erro ao salvar após sync (5.1):", e);
-        }
-      }, 150);
-    }
   }
 
   // estado inicial
@@ -697,15 +827,6 @@ function renderCategoryForPost($container, cat) {
   }
 
   function sync() {
-    // 🔥 Salva dados ANTES de qualquer mudança
-    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-      try {
-        window.temPerformSave();
-      } catch (e) {
-        console.warn("Erro ao salvar antes de sync (5.2):", e);
-      }
-    }
-
     const chosen = getChosen();
 
     // não mexa nas opções do s1; apenas s2/s3 excluem já escolhidos
@@ -724,17 +845,6 @@ function renderCategoryForPost($container, cat) {
     renderCategoryForPost($blocks1, v1);
     renderCategoryForPost($blocks2, v2);
     renderCategoryForPost($blocks3, v3);
-
-    // 🔥 Salva novamente após todas as mudanças
-    if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-      setTimeout(() => {
-        try {
-          window.temPerformSave();
-        } catch (e) {
-          console.warn("Erro ao salvar após sync (5.2):", e);
-        }
-      }, 150);
-    }
   }
 
   // estado inicial
@@ -766,25 +876,6 @@ function renderCategoryForPost($container, cat) {
 
     // 5.2 (pós-inicial)
     initRelationsPost($root);
-
-    // 🔥 Listener adicional para garantir salvamento quando há mudanças nos campos
-    // Isso é uma camada extra de proteção para o card 5
-    $root.off("input.card5save change.card5save").on("input.card5save change.card5save",
-      "input, select, textarea",
-      function() {
-        // Debounce para evitar salvamentos excessivos
-        clearTimeout(window.card5SaveTimer);
-        window.card5SaveTimer = setTimeout(() => {
-          if (window.temPerformSave && typeof window.temPerformSave === 'function') {
-            try {
-              window.temPerformSave();
-            } catch (e) {
-              console.warn("Erro ao salvar no card 5:", e);
-            }
-          }
-        }, 500); // 500ms de debounce
-      }
-    );
   }
 
 

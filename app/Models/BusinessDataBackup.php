@@ -13,4 +13,8 @@ class BusinessDataBackup extends Model
         'business_data_json',
         'created_at',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
 }

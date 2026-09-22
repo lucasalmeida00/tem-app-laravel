@@ -19,8 +19,8 @@
             placeholder: "Selecione uma opção",
             required: true,
             options: [
-              { value: "internet", label: "Internet" },
               { value: "anuncios", label: "Anúncios" },
+              { value: "internet", label: "Internet" },
               { value: "lojas_franquias_marketing", label: "Lojas físicas, franquias ou por meio de canais de marketing como redes sociais" },
               { value: "redes_sociais", label: "Redes sociais" },
               { value: "vendas_diretas_feiras_parcerias", label: "Vendas diretas de porta em porta, feiras locais ou parcerias com lideranças comunitárias" },

@@ -24,19 +24,20 @@ window.Card12 = (function () {
   // ==== Opções (espelho do schema) ========================================
   const RC_OPTIONS = [
     { v: "capital_financeiro", label: "Capital financeiro (próprio ou de investidores)" },
+    { v: "conhecimento_comunidade", label: "Conhecimento sobre a comunidade e seus desafios" },
     { v: "doadores", label: "Doadores" },
+    { v: "financiamento_coletivo", label: "Financiamento coletivo" },
+    { v: "infraestrutura", label: "Infraestrutura (prédio, lojas, espaço físico, equipamentos)" },
+    { v: "inteligencia_artificial", label: "Inteligência Artificial" },
+    { v: "mao_de_obra_local", label: "Mão de obra local (moradores da favela/comunidade)" },
+    { v: "parcerias_comercios_organizacoes", label: "Parcerias com comércios ou organizações locais" },
     { v: "patrocinadores_diretos", label: "Patrocinadores diretos" },
     { v: "patrocinadores_lei_incentivo", label: "Patrocinadores via lei de incentivo" },
-    { v: "financiamento_coletivo", label: "Financiamento coletivo" },
-    { v: "pessoas_assalariadas", label: "Pessoas assalariadas (equipe, expertise)" },
-    { v: "voluntarios", label: "Voluntários" },
-    { v: "conhecimento_comunidade", label: "Conhecimento sobre a comunidade e seus desafios" },
-    { v: "parcerias_comercios_organizacoes", label: "Parcerias com comércios ou organizações locais" },
-    { v: "mao_de_obra_local", label: "Mão de obra local (moradores da favela/comunidade)" },
-    { v: "tecnologia", label: "Tecnologia (aplicativos, sites)" },
-    { v: "infraestrutura", label: "Infraestrutura (prédio, lojas, espaço físico, equipamentos)" },
     { v: "pessoas_equipe", label: "Pessoas (Equipe, expertise)" },
+    { v: "pessoas_assalariadas", label: "Pessoas assalariadas (equipe, expertise)" },
     { v: "propriedade_intelectual", label: "Propriedade intelectual (patentes, marcas)" },
+    { v: "tecnologia", label: "Tecnologia (aplicativos, sites)" },
+    { v: "voluntarios", label: "Voluntários" },
     { v: "outro", label: "Outro" },
   ];
 
@@ -47,28 +48,35 @@ window.Card12 = (function () {
   // ==== Builders ===========================================================
   function buildSelect(name) {
     return $(`
-      <div class="mb-2 rk-select-wrap">
-        <select class="form-select" name="${name}">
-          <option value="" disabled selected hidden>Selecione uma opção</option>
-        </select>
-        <div class="mt-2 rk-other-box d-none"></div>
+      <div class="mb-1 rk-select-wrap card-select-row">
+        <div class="row g-2 align-items-center">
+          <div class="col card-select-col">
+            <select class="form-select" name="${name}">
+              <option value="">-- Selecione --</option>
+            </select>
+          </div>
+          <div class="col extra-${name}-other-inline d-none">
+            <input type="text" class="form-control" name="${name}__other" placeholder="Especifique" style="width: 100%;">
+          </div>
+        </div>
       </div>
     `);
   }
 
   /**
    * Preenche um <select> com as opções disponíveis:
-   * - nenhuma opção normal (≠ outro) é repetida entre selects
-   * - "outro" sempre disponível (pode repetir infinito)
+   * - Nenhuma opção pode ser repetida entre selects (incluindo "outro").
+   * - Se uma opção já foi escolhida em outro select, só aparece se for o valor atual deste select.
+   * Retorna true se há opções disponíveis, false caso contrário.
    */
-  function fillSelectDynamic($sel, chosenNonOtherSet, currentValue) {
+  function fillSelectDynamic($sel, chosenSet, currentValue) {
     const placeholder =
-      '<option value="" disabled hidden>Selecione uma opção</option>';
+      '<option value="">-- Selecione --</option>';
 
     const html = RC_OPTIONS
       .map((o) => {
-        const isOther = (o.v === OTHER_VALUE);
-        if (!isOther && chosenNonOtherSet.has(o.v) && o.v !== currentValue) {
+        // se já foi escolhido em outro select, só deixa se for o valor atual
+        if (chosenSet.has(o.v) && o.v !== currentValue) {
           return "";
         }
         return `<option value="${o.v}">${o.label}</option>`;
@@ -82,33 +90,30 @@ window.Card12 = (function () {
     } else {
       $sel.val("");
     }
+
+    // Verifica se há opções disponíveis (além do placeholder)
+    const hasOptions = $sel.find('option:not([value=""])').length > 0;
+    return hasOptions;
   }
 
   // ==== "Outro" (input de texto, infinito) =================================
 
   function renderOtherBox($wrap, on) {
-    const $box = $wrap.find(".rk-other-box");
+    const $sel = $wrap.find("select");
+    const name = $sel.attr("name");
+    const $box = $wrap.find(`.extra-${name}-other-inline`);
+    const $colSelect = $sel.closest(".card-select-col");
 
     if (on) {
-      // Se já existe input "outro" pra esse select, só mostra
-      const existing = $box.find("input[type='text']");
-      if (existing.length) {
-        $box.removeClass("d-none");
-        return;
-      }
-
-      const nameBase = $wrap.find("select").attr("name") + "__other";
-
-      $box
-        .removeClass("d-none")
-        .html(
-          `<input type="text" class="form-control"
-                  name="${nameBase}"
-                  placeholder="Especifique" />`
-        );
+      $wrap.addClass("has-other");
+      $colSelect.removeClass("col").addClass("col-auto").css("max-width", "350px");
+      $box.removeClass("d-none");
     } else {
-      // Só esconde; NÃO apaga o conteúdo pra não perder o texto digitado
+      $wrap.removeClass("has-other");
+      $colSelect.removeClass("col-auto").addClass("col").css("max-width", "");
       $box.addClass("d-none");
+      // Limpa o valor do input quando "outro" é desmarcado
+      $box.find("input").val("");
     }
   }
 
@@ -131,14 +136,26 @@ window.Card12 = (function () {
     // garante wrapper para o primeiro select
     let $w1 = $s1.closest(".rk-select-wrap");
     if (!$w1.length) {
-      $w1 = $(`<div class="mb-2 rk-select-wrap"></div>`);
+      $w1 = $(`<div class="mb-1 rk-select-wrap card-select-row"></div>`);
+      const $rowDiv = $(`<div class="row g-2 align-items-center"></div>`);
+      
+      // Coluna do select
+      const $colSelect = $(`<div class="col card-select-col"></div>`);
       $s1.after($w1);
-      $w1.append($s1);
-      $w1.append(`<div class="mt-2 rk-other-box d-none"></div>`);
+      $s1.appendTo($colSelect);
+      
+      // Botão X para limpar
+      // Coluna do input "outro"
+      const $colOther = $(`<div class="col extra-${FIRST_NAME}-other-inline d-none"></div>`);
+      $colOther.html(`<input type="text" class="form-control" name="${FIRST_NAME}__other" placeholder="Especifique" style="width: 100%;">`);
+      
+      $rowDiv.append($colSelect, $colOther);
+      $w1.append($rowDiv);
     }
 
-    const $wrap1 = wrapperFor($s1);
-    const $container = ensureContainer($wrap1, "rk-selects-container", true);
+    // Container para selects dinâmicos, logo abaixo da primeira row (não dentro dela)
+    const $container = ensureContainer($w1, "rk-selects-container", true);
+    $w1.parent().removeClass("mb-2").addClass("mb-1");
 
     function allWraps() {
       return $w1.add($container.find(".rk-select-wrap"));
@@ -201,35 +218,56 @@ window.Card12 = (function () {
     function fullSync() {
       let $wraps = allWraps();
 
-      // 1) limpa vazios sobrando
-      $wraps = cleanupTrailingEmpties();
-
-      // 2) conjunto de opções normais já usadas
-      const chosenNonOther = new Set();
+      // 1) PRESERVA todos os valores ANTES de qualquer atualização
+      const savedValues = [];
       $wraps.each(function () {
-        const v = $(this).find("select").val();
-        if (v && v !== OTHER_VALUE) {
-          chosenNonOther.add(v);
-        }
+        const $sel = $(this).find("select");
+        savedValues.push($sel.val() || "");
       });
 
-      // 3) se o último tiver valor, cria mais um select vazio
+      // 2) Limpa vazios sobrando (após preservar valores)
+      $wraps = cleanupTrailingEmpties();
+      
+      // 3) Recalcula savedValues após limpeza (mantém apenas os valores dos selects que restaram)
+      const preservedValues = [];
+      $wraps.each(function (idx) {
+        // Se o índice existe no array salvo, usa ele; senão usa vazio
+        preservedValues.push(savedValues[idx] || "");
+      });
+
+      // 4) Calcula quais opções já foram usadas (incluindo "outro")
+      const chosen = new Set();
+      preservedValues.forEach(v => {
+        if (v) chosen.add(v);
+      });
+
+      // 5) Se o último tiver valor, cria mais um select vazio
       $wraps = allWraps();
-      const $last = $wraps.last();
-      const lastVal = $last.find("select").val();
+      const lastVal = preservedValues[preservedValues.length - 1];
       if (lastVal) {
         createNewRow();
         $wraps = allWraps();
+        // Adiciona valor vazio para o novo select criado
+        preservedValues.push("");
       }
 
-      // 4) atualiza opções de todos os selects
-      $wraps.each(function () {
-        const $sel = $(this).find("select");
-        const current = $sel.val();
-        fillSelectDynamic($sel, chosenNonOther, current);
+      // 6) Atualiza opções de todos os selects respeitando chosen (incluindo "outro")
+      // e restaura os valores preservados
+      $wraps.each(function (idx) {
+        const $wrap = $(this);
+        const $sel = $wrap.find("select");
+        const savedValue = preservedValues[idx] || "";
+        const hasOptions = fillSelectDynamic($sel, chosen, savedValue);
+        
+        // Oculta o wrapper se não houver opções disponíveis
+        if (!hasOptions) {
+          $wrap.hide();
+        } else {
+          $wrap.show();
+        }
       });
 
-      // 5) atualiza caixas "Outro" de todos
+      // 7) Atualiza caixas "Outro" de todos
       $wraps.each(function () {
         const $w = $(this);
         const val = $w.find("select").val();
