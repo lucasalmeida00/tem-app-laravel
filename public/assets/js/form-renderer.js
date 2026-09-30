@@ -174,11 +174,19 @@
 
     if (group.titleHtml) {
       const $title = elHTML("div", group.titleHtml, { class: "group-title-wrap mb-3" });
+      if (group.requiredMark) {
+        const $heading = $title.querySelector(".t-title, h3, h2, h4");
+        if ($heading) {
+          $heading.appendChild(el("span", { class: "required-asterisk ms-1 text-danger" }, "*"));
+        } else {
+          $title.appendChild(el("span", { class: "required-asterisk ms-1 text-danger" }, "*"));
+        }
+      }
       $wrap.appendChild($title);
     } else if (group.title && group.title.trim()) {
       const $title = el("h3", { class: "h5 fw-bold mb-3 pb-2 text-primary" }, [
         group.title,
-        group.requiredMark ? el("span", { class: "required-asterisk ms-1" }, "*") : null
+        group.requiredMark ? el("span", { class: "required-asterisk ms-1 text-danger" }, "*") : null
       ]);
       $wrap.appendChild($title);
     }
@@ -281,28 +289,20 @@
     if (!targetEl) return;
     targetEl.innerHTML = "";
 
-    if (cardId && CARD_DESCRIPTIONS[cardId]) {
-      const desc = CARD_DESCRIPTIONS[cardId];
-      const $banner = el("div", { class: "card-description-banner" }, [
-        el("h2", { class: "card-description-title" }, `${cardId}. ${desc.title}`),
-        el("p", { class: "card-description-text" }, desc.description)
-      ]);
-      targetEl.appendChild($banner);
-    }
-
     if (!schema) {
       targetEl.appendChild(el("div", { class: "alert alert-info" }, "Nenhum formulário para este card ainda."));
       return;
-    }
-
-    if (schema.title) {
-      targetEl.appendChild(el("h2", { class: "h4 text-primary fw-bold mb-3" }, schema.title));
     }
 
     (schema.groups || []).forEach(g => targetEl.appendChild(groupCard(g)));
   }
 
   window.renderDynamicForm = function renderDynamicFormByCard(cardId) {
+    const sectionForms = document.querySelector(".section-forms");
+    if (sectionForms && cardId) {
+      sectionForms.setAttribute("data-card", String(cardId));
+    }
+
     const container = document.querySelector(".section-forms .container");
     const schema = window.FormSchemas?.[String(cardId)] || null;
 

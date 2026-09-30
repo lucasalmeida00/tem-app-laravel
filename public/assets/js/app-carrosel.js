@@ -63,8 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
                 // centraliza o slide clicado
-                if (typeof swiper.slideTo === "function" && typeof swiper.clickedIndex === "number") {
-                swiper.slideTo(swiper.clickedIndex, 300);
+                const slideIndex = Array.from(swiper.slides).indexOf(slide);
+                if (slideIndex >= 0 && typeof swiper.slideTo === "function") {
+                    swiper.slideTo(slideIndex, 300);
                 }
             }
         }

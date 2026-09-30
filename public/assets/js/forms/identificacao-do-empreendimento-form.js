@@ -3,44 +3,37 @@
     window.FormSchemas = window.FormSchemas || {};
     window.FormSchemas["1"] = {
         title: "",
-        groups: [{
-            title: "",
+        groups: [
+        {
+            titleHtml: "<span class='c-green f-number'>1.1</span> <br/> <h3 class='c-black t-title'>Empresa Formalizada</h3>",
+            color: "success",
+            requiredMark: true,
+            fields: [{
+                type: "radio",
+                name: "formalizedCompany",
+                required: true,
+                options: [
+                    { value: "true", label: "Formal" },
+                    { value: "false", label: "Informal" }
+                ]
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.2</span> <br/> <h3 class='c-black t-title'>CNPJ</h3>",
             color: "success",
             fields: [{
-                type: "row",
-                cols: [
-                    {
-                        col: 4,
-                        field: {
-                            type: "radio",
-                            name: "formalizedCompany",
-                            required: true,
-                            labelHtml: "<span class='c-green f-number'>1.1</span> <h3 class='c-black t-title mb-2'>Empresa Formalizada</h3>",
-                            options: [
-                                { value: "true", label: "Formal" },
-                                { value: "false", label: "Informal" }
-                            ]
-                        }
-                    },
-                    {
-                        col: 4,
-                        field: {
-                            type: "text",
-                            name: "cnpj",
-                            labelHtml: "<span class='c-green f-number'>1.2</span> <h3 class='c-black t-title mb-2'>CNPJ</h3>",
-                            placeholder: "00.000.000/0001-00"
-                        }
-                    },
-                    {
-                        col: 4,
-                        field: {
-                            type: "text",
-                            name: "corporateName",
-                            labelHtml: "<span class='c-green f-number'>1.3</span> <h3 class='c-black t-title mb-2'>Razão social</h3>",
-                            placeholder: "Digite a razão social de sua empresa"
-                        }
-                    }
-                ]
+                type: "text",
+                name: "cnpj",
+                placeholder: "00.000.000/0001-00"
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão social</h3>",
+            color: "success",
+            fields: [{
+                type: "text",
+                name: "corporateName",
+                placeholder: "Digite a razão social de sua empresa"
             }]
         },
         {
@@ -328,40 +321,33 @@
             }]
         },
         {
-            title: "",
+            titleHtml: "<span class='c-green f-number'>1.12</span> <br/> <h3 class='c-black t-title'>Número de sócios</h3>",
             color: "success",
+            requiredMark: true,
             fields: [{
-                type: "row",
-                cols: [
-                    {
-                        col: 6,
-                        field: {
-                            type: "number",
-                            name: "partnersCount",
-                            labelHtml: "<span class='c-green f-number'>1.12</span> <h3 class='c-black t-title mb-2'>Número de sócios</h3>",
-                            placeholder: "Digite o número de sócios",
-                            required: true
-                        }
-                    },
-                    {
-                        col: 6,
-                        field: {
-                            type: "select",
-                            name: "directEmployeesRange",
-                            labelHtml: "<span class='c-green f-number'>1.13</span> <h3 class='c-black t-title mb-2'>Número de funcionários diretos</h3>",
-                            placeholder: "Selecione a faixa",
-                            required: true,
-                            options: [
-                                { value: "0-4", label: "0 a 4" },
-                                { value: "5-9", label: "5 a 9" },
-                                { value: "10-19", label: "10 a 19" },
-                                { value: "20-29", label: "20 a 29" },
-                                { value: "30-49", label: "30 a 49" },
-                                { value: "50-99", label: "50 a 99" },
-                                { value: "100plus", label: "A partir de 100" }
-                            ]
-                        }
-                    }
+                type: "number",
+                name: "partnersCount",
+                placeholder: "Digite o número de sócios",
+                required: true
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.13</span> <br/> <h3 class='c-black t-title'>Número de funcionários diretos</h3>",
+            color: "success",
+            requiredMark: true,
+            fields: [{
+                type: "select",
+                name: "directEmployeesRange",
+                placeholder: "Selecione a faixa",
+                required: true,
+                options: [
+                    { value: "0-4", label: "0 a 4" },
+                    { value: "5-9", label: "5 a 9" },
+                    { value: "10-19", label: "10 a 19" },
+                    { value: "20-29", label: "20 a 29" },
+                    { value: "30-49", label: "30 a 49" },
+                    { value: "50-99", label: "50 a 99" },
+                    { value: "100plus", label: "A partir de 100" }
                 ]
             }]
         },

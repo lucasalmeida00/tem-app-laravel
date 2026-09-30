@@ -46,3 +46,12 @@ Route::middleware('auth:sanctum')->group(function () {
     /* DELETE Routes */
     Route::delete('/dashboard/business/{business}', [DashboardController::class, 'destroy'])->name('dashboard.business.destroy');
 });
+
+if (app()->environment('local')) {
+    Route::get('/_test_login/{userId}', function ($userId) {
+        $user = \App\Models\User::findOrFail($userId);
+        auth()->login($user);
+        return redirect()->intended('/dashboard');
+    });
+}
+
