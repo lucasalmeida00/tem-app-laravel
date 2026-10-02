@@ -510,7 +510,7 @@
                     </button>
 
                     <!-- Bloco de Finalizar -->
-                    <button type="button" id="btnFinish" class="btn btn-success d-none align-items-center gap-2 px-4 py-2">
+                    <button type="button" id="btnFinish" class="btn btn-primary d-none align-items-center gap-2 px-4 py-2">
                         <i class="fas fa-check me-1"></i> Finalizar Questionário
                     </button>
                 </div>
@@ -548,7 +548,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="trajEditDesc" class="form-label">Descrição do marco:</label>
-                    <textarea class="form-control" id="trajEditDesc" name="trajEditDesc" rows="4" maxlength="1000"></textarea>
+                    <textarea class="form-control" id="trajEditDesc" name="trajEditDesc" rows="6" maxlength="1000" placeholder="Digite a descrição completa do marco"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -577,7 +577,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="partEditDesc" class="form-label">Descrição da parceria:</label>
-                    <textarea class="form-control" id="partEditDesc" name="partEditDesc" rows="4" maxlength="1000"></textarea>
+                    <textarea class="form-control" id="partEditDesc" name="partEditDesc" rows="6" maxlength="1000" placeholder="Digite a descrição completa da parceria"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
