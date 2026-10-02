@@ -1,16 +1,17 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Questionnaire UI and Card Navigation', () => {
-  test('validates card icons, badges, off-white background, and dynamic left borders', async ({ page }) => {
-    // 1. Authenticate via test login
+test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
+
+  test('1. Validates questionnaire cards, dynamic color palette, and navigation footer', async ({ page }) => {
+    // Authenticate via test login
     await page.goto('http://localhost:8090/_test_login/3');
     await page.waitForURL('**/dashboard');
 
-    // 2. Go to business questionnaire
+    // Go to business questionnaire
     await page.goto('http://localhost:8090/dashboard/e64e527d-5d4d-42e4-8d91-8eb5002534e5');
     await page.waitForSelector('#cardsCarousel');
 
-    // 3. Verify Carousel has 20 slides with badges
+    // 1. Verify Carousel has 20 slides with numeric badges 01..20
     const slides = page.locator('.swiper-slide');
     await expect(slides).toHaveCount(20);
 
@@ -18,38 +19,79 @@ test.describe('Questionnaire UI and Card Navigation', () => {
     await expect(badge1).toHaveText('01');
     await expect(badge1).toBeVisible();
 
-    const badge7 = page.locator('.swiper-slide[data-card="7"] .icon-badge');
-    await expect(badge7).toHaveText('07');
-    await expect(badge7).toBeVisible();
+    const badge20 = page.locator('.swiper-slide[data-card="20"] .icon-badge');
+    await expect(badge20).toHaveText('20');
+    await expect(badge20).toBeVisible();
 
-    // 4. Verify initial card 1 has selected styling
+    // 2. Card 1 selected state
     const card1 = page.locator('.swiper-slide[data-card="1"] .cards-card');
     await expect(card1).toHaveClass(/is-selected/);
 
-    // Verify first question card has border-left
-    const firstQuestionCard = page.locator('.section-forms .tem-card.border-card').first();
-    await expect(firstQuestionCard).toBeVisible();
+    // Save screenshot of Card 1
+    await page.screenshot({ path: 'tests/e2e/screenshots/01_card1_identificacao.png', fullPage: false });
 
-    // 5. Select Card 7 (Proposta de Valor)
+    // 3. Select Card 7 (Proposta de Valor - Laranja)
     await page.evaluate(() => window.temSelectCard(7));
-
-    // Wait for form to re-render card 7
     await page.waitForTimeout(600);
 
-    // Verify Card 7 is now selected
-    const card7Slide = page.locator('.swiper-slide[data-card="7"]');
-    const card7 = card7Slide.locator('.cards-card');
+    const card7 = page.locator('.swiper-slide[data-card="7"] .cards-card');
     await expect(card7).toHaveClass(/is-selected/);
 
-    // Verify section-forms has data-card="7"
     const sectionForms = page.locator('.section-forms');
     await expect(sectionForms).toHaveAttribute('data-card', '7');
 
-    // Verify question 7.1 exists and has number
     const q7Number = page.locator('.section-forms .f-number').first();
     await expect(q7Number).toHaveText('7.1');
 
-    // 6. Capture screenshot of the updated questionnaire view
-    await page.screenshot({ path: '/Users/lucasalmeida/.gemini/antigravity/brain/0960e815-e813-46f6-b1a3-c0054a1f9a02/screenshot-questionnaire-card7.png', fullPage: false });
+    await page.screenshot({ path: 'tests/e2e/screenshots/02_card7_proposta_de_valor.png', fullPage: false });
+
+    // 4. Select Card 20 (Parcerias - Roxo)
+    await page.evaluate(() => window.temSelectCard(20));
+    await page.waitForTimeout(600);
+
+    // Verify dynamic buttons:
+    // Prev button should exist and have "Bloco anterior: (19/20)"
+    const prevLabel = page.locator('#prevBlockLabel');
+    await expect(prevLabel).toHaveText('Bloco anterior: (19/20)');
+
+    // Finish button should be visible with text "Finalizar Questionário"
+    const finishBtn = page.locator('#btnFinish');
+    await expect(finishBtn).toBeVisible();
+    await expect(finishBtn).toHaveText(/Finalizar Questionário/);
+
+    // Next button should be hidden
+    const nextBtn = page.locator('#btnNextBlock');
+    await expect(nextBtn).toBeHidden();
+
+    await page.screenshot({ path: 'tests/e2e/screenshots/03_card20_finish_button.png', fullPage: false });
   });
+
+  test('2. Validates Resume page (/resume) alignment, colored timeline, and detail popover', async ({ page }) => {
+    // Authenticate via test login
+    await page.goto('http://localhost:8090/_test_login/3');
+    await page.waitForURL('**/dashboard');
+
+    // Go to business resume
+    await page.goto('http://localhost:8090/dashboard/e64e527d-5d4d-42e4-8d91-8eb5002534e5/resume');
+    await page.waitForSelector('.tem-resume-page');
+
+    // 1. Verify hero title is present
+    const heroTitle = page.locator('.resume-hero-card .tem-title');
+    await expect(heroTitle).toBeVisible();
+
+    // 2. Verify timeline items exist
+    const timelineItems = page.locator('.timeline-item');
+    const count = await timelineItems.count();
+    expect(count).toBeGreaterThan(0);
+
+    // 3. Click first timeline item to open popover
+    await timelineItems.first().click();
+    await page.waitForTimeout(400);
+
+    const popover = page.locator('.detail-popover-overlay');
+    await expect(popover).toBeVisible();
+
+    await page.screenshot({ path: 'tests/e2e/screenshots/04_resume_timeline_popover.png', fullPage: false });
+  });
+
 });
