@@ -1,6 +1,94 @@
-@media (min-width: 1536px) { /* ~ 2xl */
+/* ==========================================================================
+   TEM - Responsive Utilities and Media Queries
+   ========================================================================== */
+
+/* Mobile & Small Screens (< 768px) */
+@media (max-width: 767.98px) {
+  .section-header .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .section-header .tem-logo {
+    width: 150px;
+  }
+
+  .section-header .nav-pills {
+    gap: 6px;
+  }
+
+  .section-header .nav-pills .nav-link {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .section-hero {
+    min-height: 400px;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+  }
+
+  .section-content {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+
   .section-content .content-wrap {
-    padding-left: 24rem;  /* ~ px-96 */
-    padding-right: 24rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .partners {
+    gap: 2rem;
+  }
+
+  .partner-logo {
+    height: 45px;
+    max-width: 130px;
+  }
+
+  .auth-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .dashboard-hero-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .business-card-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .business-card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Medium & Tablets (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .section-content .content-wrap {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .partners {
+    gap: 3rem;
+  }
+}
+
+/* Large Screens (>= 1200px) */
+@media (min-width: 1200px) {
+  .section-content .content-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }

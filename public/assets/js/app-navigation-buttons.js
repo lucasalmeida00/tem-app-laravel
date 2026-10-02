@@ -18,14 +18,47 @@
     return 1;
   }
 
+  const BLOCK_COLORS = {
+    1: '#16A34A', // Verde
+    2: '#7C3AED', // Roxo
+    3: '#DB2777', // Rosa
+    4: '#2563EB', // Azul
+    5: '#D97706', // Amarelo
+    6: '#DC2626', // Vermelho
+    7: '#EA580C', // Laranja
+    8: '#0D9488', // Teal
+    9: '#4F46E5', // Índigo
+    10: '#16A34A', // Verde
+    11: '#7C3AED', // Roxo
+    12: '#DB2777', // Rosa
+    13: '#2563EB', // Azul
+    14: '#D97706', // Amarelo
+    15: '#DC2626', // Vermelho
+    16: '#EA580C', // Laranja
+    17: '#0D9488', // Teal
+    18: '#4F46E5', // Índigo
+    19: '#16A34A', // Verde
+    20: '#7C3AED'  // Roxo
+  };
+
   function updateButtons() {
     const prevBtn   = document.getElementById('btnPrevBlock');
     const nextBtn   = document.getElementById('btnNextBlock');
+    const saveBtn   = document.getElementById('btnSaveLater');
     const prevLabel = document.getElementById('prevBlockLabel');
     const nextLabel = document.getElementById('nextBlockLabel');
     const finishBtn = document.getElementById('btnFinish');
 
     if (!prevBtn || !nextBtn) return;
+
+    const currentColor = BLOCK_COLORS[currentCardId] || '#16A34A';
+
+    // Botão Salvar e continuar mais tarde (cor do bloco atual)
+    if (saveBtn) {
+      saveBtn.style.backgroundColor = currentColor;
+      saveBtn.style.borderColor = currentColor;
+      saveBtn.style.color = '#FFFFFF';
+    }
 
     // Bloco anterior
     if (currentCardId <= 1) {
@@ -33,6 +66,10 @@
     } else {
       prevBtn.classList.remove('d-none');
       const prev = currentCardId - 1;
+      const prevColor = BLOCK_COLORS[prev] || '#16A34A';
+      prevBtn.style.backgroundColor = prevColor;
+      prevBtn.style.borderColor = prevColor;
+      prevBtn.style.color = '#FFFFFF';
       if (prevLabel) {
         prevLabel.textContent = `Bloco anterior: (${prev}/${TOTAL_BLOCKS})`;
       }
@@ -44,6 +81,9 @@
       nextBtn.classList.add('d-none');
       if (finishBtn) {
         finishBtn.classList.remove('d-none');
+        finishBtn.style.backgroundColor = '#2563EB';
+        finishBtn.style.borderColor = '#1D4ED8';
+        finishBtn.style.color = '#FFFFFF';
       }
     } else {
       // Qualquer outro card: mostra "Próximo" e esconde "Finalizar"
@@ -53,6 +93,10 @@
       }
 
       const next = currentCardId + 1;
+      const nextColor = BLOCK_COLORS[next] || '#7C3AED';
+      nextBtn.style.backgroundColor = nextColor;
+      nextBtn.style.borderColor = nextColor;
+      nextBtn.style.color = '#FFFFFF';
       if (nextLabel) {
         nextLabel.textContent = `Próximo bloco: (${next}/${TOTAL_BLOCKS})`;
       }
