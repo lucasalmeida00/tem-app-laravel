@@ -250,53 +250,16 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.65rem 0.85rem;
-  color: #172554;
+  color: var(--text-white);
   border-bottom: 1px solid var(--border-color);
   font-size: 0.95rem;
   font-weight: 700;
-  background-color: #E2E8F0;
+  background-color: var(--color-primary);
 }
 
 .bmodel-header i {
   font-size: 1.05rem;
-  color: #172554;
-}
-
-/* BMC Header Themes from Figma */
-.bmodel-header-partners {
-  background-color: #FDE68A !important; /* amber-200 */
-}
-
-.bmodel-header-activities {
-  background-color: #F5D0FE !important; /* fuchsia-200 */
-}
-
-.bmodel-header-resources {
-  background-color: #FED7AA !important; /* orange-200 */
-}
-
-.bmodel-header-value {
-  background-color: #FECDD3 !important; /* rose-200 */
-}
-
-.bmodel-header-relationship {
-  background-color: #A7F3D0 !important; /* emerald-200 */
-}
-
-.bmodel-header-channels {
-  background-color: #E5E7EB !important; /* gray-200 */
-}
-
-.bmodel-header-segments {
-  background-color: #D9F99D !important; /* lime-200 */
-}
-
-.bmodel-header-costs {
-  background-color: #BFDBFE !important; /* blue-200 */
-}
-
-.bmodel-header-revenue {
-  background-color: #DDD6FE !important; /* purple-200 */
+  color: var(--text-white);
 }
 
 .bmodel-body {

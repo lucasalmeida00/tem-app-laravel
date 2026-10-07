@@ -94,4 +94,27 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     await page.screenshot({ path: 'tests/e2e/screenshots/04_resume_timeline_popover.png', fullPage: false });
   });
 
+  test('3. Validates Business Model Canvas headers use the single app brand blue', async ({ page }) => {
+    // Authenticate via test login
+    await page.goto('http://localhost:8090/_test_login/3');
+    await page.waitForURL('**/dashboard');
+
+    // Go to business resume
+    await page.goto('http://localhost:8090/dashboard/e64e527d-5d4d-42e4-8d91-8eb5002534e5/resume');
+    await page.waitForSelector('.bmodel-board');
+
+    // Every BMC header must use the same brand blue (var(--color-primary): #1E3A8A),
+    // not the per-section rainbow palette this PR had introduced.
+    const headers = page.locator('.bmodel-board .bmodel-header');
+    const count = await headers.count();
+    expect(count).toBeGreaterThan(0);
+
+    for (let i = 0; i < count; i++) {
+      const bg = await headers.nth(i).evaluate(el => getComputedStyle(el).backgroundColor);
+      expect(bg).toBe('rgb(30, 58, 138)'); // #1E3A8A
+    }
+
+    await page.locator('.bmodel-board').screenshot({ path: 'tests/e2e/screenshots/05_resume_bmc_blue.png' });
+  });
+
 });
