@@ -117,7 +117,7 @@
     <div class="modal fade" id="newBusinessModal" tabindex="-1" aria-labelledby="newBusinessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form id="newBusinessForm">
+                <form id="new-business-form">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="newBusinessModalLabel"><i class="fas fa-building text-primary me-2"></i>Novo Empreendimento</h5>
@@ -150,11 +150,12 @@
                             <div class="invalid-feedback">CNPJ inválido.</div>
                         </div>
 
-                        <div id="modal-error-alert" class="alert alert-danger d-none" role="alert"></div>
+                        <div id="new-business-errors" class="text-danger small"></div>
+                        <div id="new-business-success" class="text-success small mt-2"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn-tem" id="btnSaveBusiness">
+                        <button type="submit" class="btn-tem" id="new-business-submit">
                             <i class="fas fa-check"></i> Criar e Iniciar
                         </button>
                     </div>
@@ -172,12 +173,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Tem certeza de que deseja excluir o empreendimento <strong id="deleteBusinessName"></strong>?</p>
+                    <p>Tem certeza de que deseja excluir o empreendimento <strong id="delete-business-name"></strong>?</p>
                     <p class="text-muted small mb-0">Esta ação apagará todas as respostas e dados coletados até o momento e não poderá ser desfeita.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="btnConfirmDelete">
+                    <button type="button" class="btn btn-danger" id="confirm-delete-business">
                         <i class="fas fa-trash-alt me-1"></i> Sim, Excluir
                     </button>
                 </div>
@@ -202,7 +203,7 @@
 
     <!-- JS Scripts -->
     <script>
-        window.businessStoreUrl = "{{ route('dashboard.business.store') }}";
+        window.dashboardBusinessStoreUrl = "{{ route('dashboard.business.store') }}";
     </script>
     <script src="{{ asset('assets/vendor/jquery-3.7.1/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap-5.3.8/js/bootstrap.bundle.min.js') }}"></script>
