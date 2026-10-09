@@ -2,26 +2,26 @@
     // Quantidade mínima de campos preenchidos para considerar "Concluído"
     // Você pode ajustar manualmente esses números, card por card.
     const MIN_KEYS_BY_CARD = {
-        1: 25,  // CARD 1 tem 25 campos válidos preenchidos
-        2: 7,   // Nome, gênero, nascimento, nacionalidade, CPF, email, telefone
-        3: 10,  // Educação, papel, funções (array), motivação, situação, passos, inovação...
-        4: 20,  // Bastante campos fixos + dedicações + investidores
-        5: 15,  // Relações e natureza de contatos
-        6: 1,   // "decisionMain" apenas (mínimo do mínimo)
-        7: 4,   // Problema, diferenciais, etc.
-        8: 2,   // firstClient + segGroup1 (segGroup2 e segGroup3 são opcionais)
-        9: 3,
-        10: 6,
-        11: 6,
-        12: 3,
-        13: 3,
-        14: 4,
-        15: 7,
-        16: 3,
-        17: 10,
+        1: 8,   // Empresa, CNPJ, Razão, Ano, Natureza, Setor, Localização, Endereço...
+        2: 5,   // Nome, gênero, nascimento, nacionalidade, CPF, email, telefone
+        3: 5,   // Educação, papel, funções, motivação, situação...
+        4: 6,   // Recursos não financeiros, financeiros, salários, dedicação, voluntários, viabilidade
+        5: 5,   // Relações e contatos
+        6: 1,   // "decisionMain" apenas
+        7: 2,   // Problema, diferenciais
+        8: 2,   // firstClient + segGroup1
+        9: 2,
+        10: 3,
+        11: 3,
+        12: 2,
+        13: 2,
+        14: 2,
+        15: 4,
+        16: 2,
+        17: 5,
         18: 2,
-        19: 1,  // Apenas 1 marco exigido (milestones array)
-        20: 1   // Apenas 1 parceria exigida (partnerships array)
+        19: 1,  // Apenas 1 marco exigido
+        20: 1   // Apenas 1 parceria exigida
     };
 
     function getAllDataSafe() {
