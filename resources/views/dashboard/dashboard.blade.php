@@ -205,7 +205,6 @@
     <script>
         window.dashboardBusinessStoreUrl = "{{ route('dashboard.business.store') }}";
     </script>
-    <script src="{{ asset('assets/vendor/jquery-3.7.1/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap-5.3.8/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 

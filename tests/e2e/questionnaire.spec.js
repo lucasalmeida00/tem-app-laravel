@@ -66,7 +66,7 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     await page.screenshot({ path: 'tests/e2e/screenshots/03_card20_finish_button.png', fullPage: false });
   });
 
-  test('2. Validates Resume page (/resume) alignment, colored timeline, and detail popover', async ({ page }) => {
+  test('2. Validates Resume page (/resume) alignment, single-blue timeline, and detail popover', async ({ page }) => {
     // Authenticate via test login
     await page.goto('http://localhost:8090/_test_login/3');
     await page.waitForURL('**/dashboard');
@@ -83,6 +83,13 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     const timelineItems = page.locator('.timeline-item');
     const count = await timelineItems.count();
     expect(count).toBeGreaterThan(0);
+
+    // Every timeline badge uses the app brand blue (#1E3A8A), no per-item palette
+    for (let i = 0; i < count; i++) {
+      const bg = await timelineItems.nth(i).locator('.timeline-card').evaluate(el => getComputedStyle(el).backgroundColor);
+      expect(bg).toBe('rgb(30, 58, 138)');
+    }
+    await page.locator('.timeline-wrapper').screenshot({ path: 'tests/e2e/screenshots/06_resume_timeline_blue.png' });
 
     // 3. Click first timeline item to open popover
     await timelineItems.first().click();
@@ -115,6 +122,18 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     }
 
     await page.locator('.bmodel-board').screenshot({ path: 'tests/e2e/screenshots/05_resume_bmc_blue.png' });
+  });
+
+  test('4. Dashboard loads without 404 assets (removed missing local jQuery)', async ({ page }) => {
+    const failed = [];
+    page.on('response', r => { if (r.status() >= 400 && r.url().startsWith('http://localhost:8090')) failed.push(`${r.status()} ${r.url()}`); });
+
+    await page.goto('http://localhost:8090/_test_login/3');
+    await page.waitForURL('**/dashboard');
+    await page.waitForLoadState('networkidle');
+
+    expect(failed).toEqual([]);
+    await expect(page.locator('script[src*="jquery-3.7.1/jquery.min.js"]')).toHaveCount(0);
   });
 
 });
