@@ -117,21 +117,26 @@
                         <div class="timeline-track">
                             <div class="timeline-line"></div>
 
+                            @php
+                            $timelineColors = ['#0D9488', '#7C3AED', '#16A34A', '#2563EB', '#DB2777', '#0284C7', '#EA580C', '#D97706'];
+                            @endphp
+
                             @foreach ($milestones as $index => $milestone)
                             @php
                             $year = $milestone['year'] ?? '';
                             $fullDesc = $milestone['description'] ?? '';
                             $shortDesc = \Illuminate\Support\Str::limit($fullDesc, 60, '...');
                             $isBottom = $index % 2 === 1;
+                            $itemColor = $timelineColors[$index % count($timelineColors)];
                             @endphp
 
                             <div class="timeline-item {{ $isBottom ? 'timeline-item--bottom' : '' }}"
                                 data-descbig="{{ e($fullDesc) }}"
                                 data-full-text="{{ e($fullDesc) }}"
                                 data-modal-title="Linha do tempo - {{ $year }}">
-                                <div class="timeline-card">
+                                <div class="timeline-card" style="background-color: {{ $itemColor }};">
                                     <span>{{ $year }}</span>
-                                    <i class="fas fa-book-open timeline-card-icon" aria-hidden="true"></i>
+                                    <i class="fas fa-book-open timeline-card-icon" style="color: {{ $itemColor }}; border-color: {{ $itemColor }};" aria-hidden="true"></i>
                                 </div>
                                 <p class="timeline-text">
                                     {{ $shortDesc }}

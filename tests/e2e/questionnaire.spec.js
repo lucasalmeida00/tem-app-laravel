@@ -66,7 +66,7 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     await page.screenshot({ path: 'tests/e2e/screenshots/03_card20_finish_button.png', fullPage: false });
   });
 
-  test('2. Validates Resume page (/resume) alignment, single-blue timeline, and detail popover', async ({ page }) => {
+  test('2. Validates Resume page (/resume) alignment, colored timeline, and detail popover', async ({ page }) => {
     // Authenticate via test login
     await page.goto('http://localhost:8090/_test_login/3');
     await page.waitForURL('**/dashboard');
@@ -84,12 +84,16 @@ test.describe('TEM Questionnaire and Resume E2E Visual Verification', () => {
     const count = await timelineItems.count();
     expect(count).toBeGreaterThan(0);
 
-    // Every timeline badge uses the app brand blue (#1E3A8A), no per-item palette
+    // Timeline badges cycle through the colored palette (#0D9488, #7C3AED, #16A34A, #2563EB, ...)
+    const palette = [
+      'rgb(13, 148, 136)', 'rgb(124, 58, 237)', 'rgb(22, 163, 74)', 'rgb(37, 99, 235)',
+      'rgb(219, 39, 119)', 'rgb(2, 132, 199)', 'rgb(234, 88, 12)', 'rgb(217, 119, 6)',
+    ];
     for (let i = 0; i < count; i++) {
       const bg = await timelineItems.nth(i).locator('.timeline-card').evaluate(el => getComputedStyle(el).backgroundColor);
-      expect(bg).toBe('rgb(30, 58, 138)');
+      expect(bg).toBe(palette[i % palette.length]);
     }
-    await page.locator('.timeline-wrapper').screenshot({ path: 'tests/e2e/screenshots/06_resume_timeline_blue.png' });
+    await page.locator('.timeline-wrapper').screenshot({ path: 'tests/e2e/screenshots/06_resume_timeline_colored.png' });
 
     // 3. Click first timeline item to open popover
     await timelineItems.first().click();
