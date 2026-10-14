@@ -17,6 +17,10 @@ class RecaptchaRule implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (app()->environment('local')) {
+            return;
+        }
+
         $secret = config('services.recaptcha.secret_key');
 
         $response = Http::asForm()->post(

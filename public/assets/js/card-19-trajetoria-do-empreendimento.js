@@ -200,17 +200,17 @@ window.Card19 = (function () {
 
       const $btnEdit = $(`
         <button type="button"
-                class="btn btn-sm btn-outline-secondary trajectory-edit"
-                aria-label="Editar marco">
+                class="btn btn-sm btn-primary trajectory-edit p-1 px-2"
+                aria-label="Editar marco" title="Editar marco">
           <i class="fas fa-pen"></i>
         </button>
       `);
 
       const $btnDel = $(`
         <button type="button"
-                class="btn btn-sm btn-outline-danger trajectory-delete"
-                aria-label="Remover marco">
-          &times;
+                class="btn btn-sm btn-danger trajectory-delete p-1 px-2"
+                aria-label="Remover marco" title="Remover marco">
+          <i class="fas fa-trash-alt"></i>
         </button>
       `);
 

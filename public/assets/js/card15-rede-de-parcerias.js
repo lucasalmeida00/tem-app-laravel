@@ -20,39 +20,39 @@ window.Card15 = (function () {
 
   // ==== Opções (espelho do schema) ====
   const HOW_PARTNER_OPTIONS = [
-    { v: "agencia_fomento", label: "Agência de Fomento" },
-    { v: "associacoes_profissionais", label: "Associações Profissionais" },
-    { v: "clientes_ex_clientes", label: "Clientes e Ex-Clientes" },
-    { v: "comunidade_religiosa", label: "Comunidade Religiosa" },
+    { v: "agencia_fomento", label: "Agência de fomento" },
+    { v: "associacoes_profissionais", label: "Associações profissionais" },
+    { v: "clientes_ex_clientes", label: "Clientes e ex-clientes" },
+    { v: "comunidade_religiosa", label: "Comunidade religiosa" },
     {
       v: "comunidades_foruns_online",
-      label: "Comunidades e Fóruns Online"
+      label: "Comunidades e fóruns online"
     },
-    { v: "conhecidos_rede_profissional", label: "Conhecidos e Rede Profissional" },
+    { v: "conhecidos_rede_profissional", label: "Conhecidos e rede profissional" },
     { v: "consultorias", label: "Consultorias" },
     {
       v: "coworking_espacos_compartilhados",
-      label: "Coworking e Espaços de trabalho compartilhado"
+      label: "Coworking e espaços de trabalho compartilhado"
     },
-    { v: "eventos_networking", label: "Eventos de Networking" },
-    { v: "eventos_setor", label: "Eventos do Setor" },
-    { v: "familia_amigos", label: "Família e Amigos" },
-    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
+    { v: "eventos_networking", label: "Eventos de networking" },
+    { v: "eventos_setor", label: "Eventos do setor" },
+    { v: "familia_amigos", label: "Família e amigos" },
+    { v: "feiras_exposicoes", label: "Feiras e exposições" },
     {
       v: "fundos_investimento_capital_risco",
-      label: "Fundos de Investimento e Capital de Risco"
+      label: "Fundos de investimento e capital de risco"
     },
     {
       v: "grupos_associacoes_comunitaria",
-      label: "Grupos e Associações Comunitária"
+      label: "Grupos e associações comunitárias"
     },
-    { v: "hackathons_competicoes", label: "Hackathons e Competições" },
-    { v: "incubadoras_aceleradoras", label: "Incubadoras e Aceleradoras" },
-    { v: "midias_sociais", label: "Mídias Sociais (Blog, Youtube, Vimeo etc)" },
-    { v: "novos_parceiros", label: "Novos Parceiros" },
-    { v: "programas_mentoria", label: "Programas de Mentoria" },
-    { v: "programas_televisao", label: "Programas de Televisão" },
-    { v: "redes_sociais", label: "Redes Sociais (Facebook, Linkedin, Instagram etc)" },
+    { v: "hackathons_competicoes", label: "Hackathons e competições" },
+    { v: "incubadoras_aceleradoras", label: "Incubadoras e aceleradoras" },
+    { v: "midias_sociais", label: "Mídias sociais (blog, YouTube, Vimeo etc.)" },
+    { v: "novos_parceiros", label: "Novos parceiros" },
+    { v: "programas_mentoria", label: "Programas de mentoria" },
+    { v: "programas_televisao", label: "Programas de televisão" },
+    { v: "redes_sociais", label: "Redes sociais (Facebook, LinkedIn, Instagram etc.)" },
     { v: "universidades_pesquisa", label: "Universidades e centros de pesquisa" },
     { v: "outro", label: "Outro" }
   ];
@@ -60,40 +60,40 @@ window.Card15 = (function () {
   const PARTNERSHIPS_BOOST_SALES_OPTIONS = [
     {
       v: "colaboracao_ongs_comunidade",
-      label: "Colaboração com ONGs e Organizações Comunitárias"
+      label: "Colaboração com ONGs e organizações comunitárias"
     },
     {
       v: "colaboracao_organizacoes_empreendedorismo",
-      label: "Colaboração com Organizações de Empreendedorismo"
+      label: "Colaboração com organizações de empreendedorismo"
     },
     {
       v: "descontos_beneficios_vizinhos",
-      label: "Descontos ou Benefícios para Vizinhos e Famílias do Bairro"
+      label: "Descontos ou benefícios para vizinhos e famílias do bairro"
     },
     {
       v: "parcerias_escolas_associacoes_igrejas",
-      label: "Parcerias com Escolas, Associações de Moradores, Igrejas"
+      label: "Parcerias com escolas, associações de moradores, igrejas"
     },
     {
       v: "parcerias_influenciadores",
-      label: "Parcerias com Influenciadores"
+      label: "Parcerias com influenciadores"
     },
     {
       v: "parcerias_outros_empreendimentos",
-      label: "Parcerias com Outros Empreendimentos para Vendas Conjuntas"
+      label: "Parcerias com outros empreendimentos para vendas conjuntas"
     },
     {
       v: "eventos_capacitacao_empoderamento",
-      label: "Participação em Eventos de Capitalização e Empoderamento Comunitário"
+      label: "Participação em eventos de capacitação e empoderamento comunitário"
     },
     {
       v: "promocoes_lancamento_parcerias",
       label:
-        "Promoções de Lançamento de Produtos/Serviços (parcerias com organizações ou outros negócios)"
+        "Promoções de lançamento de produtos/serviços (parcerias com organizações ou outros negócios)"
     },
     {
       v: "venda_grupos_compras_coletivas",
-      label: "Venda em Grupos de Compras Coletivas e Redes Locais de Consumo"
+      label: "Venda em grupos de compras coletivas e redes locais de consumo"
     },
     { v: "outro", label: "Outro" }
   ];
@@ -101,62 +101,62 @@ window.Card15 = (function () {
   const SALES_BOOST_OPPORTUNITIES_OPTIONS = [
     {
       v: "abordagens_diretas",
-      label: "Abordagens Diretas"
+      label: "Abordagens diretas"
     },
     { v: "anuncios_publicidade", label: "Anúncios" },
     {
       v: "boca_a_boca_indicacao",
-      label: "Boca a Boca e Indicação de Clientes"
+      label: "Boca a boca e indicação de clientes"
     },
     {
       v: "campanhas_marketing_digital",
-      label: "Campanhas de Marketing Digital"
+      label: "Campanhas de marketing digital"
     },
     {
       v: "conteudo_digital",
-      label: "Criação de Conteúdo Digital (Blog, Youtube, Podcasts)"
+      label: "Criação de conteúdo digital (blog, YouTube, podcasts)"
     },
     {
       v: "descontos_promocoes_sazonais",
-      label: "Descontos e Promoções Sazonais"
+      label: "Descontos e promoções sazonais"
     },
     {
       v: "amostras_gratis",
-      label: "Distribuição de Amostras Grátis"
+      label: "Distribuição de amostras grátis"
     },
     {
       v: "email_whatsapp_marketing",
-      label: "E-mail Marketing e Whatsapp Marketing"
+      label: "E-mail marketing e WhatsApp marketing"
     },
     {
       v: "equipe_vendas_ativa",
-      label: "Equipe de Vendas Ativa"
+      label: "Equipe de vendas ativa"
     },
-    { v: "eventos_setor", label: "Eventos do Setor" },
-    { v: "feiras_exposicoes", label: "Feiras e Exposições" },
+    { v: "eventos_setor", label: "Eventos do setor" },
+    { v: "feiras_exposicoes", label: "Feiras e exposições" },
     {
       v: "panfletagem_alto_movimento",
-      label: "Panfletagem em Locais de Alto Movimento"
+      label: "Panfletagem em locais de alto movimento"
     },
     {
       v: "conferencias_congressos",
-      label: "Participação em Conferências e Congressos"
+      label: "Participação em conferências e congressos"
     },
     {
       v: "grupos_comunidades_online",
-      label: "Participação em Grupos e Comunidades Online"
+      label: "Participação em grupos e comunidades online"
     },
     {
       v: "hackathon_aceleracao",
-      label: "Participação em Hackathon e Programas de Aceleração"
+      label: "Participação em hackathons e programas de aceleração"
     },
     {
       v: "licitacoes_concorrencias_publicas",
-      label: "Participação em Licitações e Concorrências Públicas"
+      label: "Participação em licitações e concorrências públicas"
     },
     {
       v: "programa_indicacao",
-      label: "Programa de Indicação (Indique e Ganhe)"
+      label: "Programa de indicação (indique e ganhe)"
     },
     {
       v: "promocoes_clientes_atuais",
@@ -164,29 +164,32 @@ window.Card15 = (function () {
     },
     {
       v: "promocoes_personalizadas",
-      label: "Promoções Personalizadas (baseadas em dados de clientes)"
+      label: "Promoções personalizadas (baseadas em dados de clientes)"
     },
     {
       v: "publicidade_redes_sociais",
-      label: "Publicidade em Redes Sociais"
+      label: "Publicidade em redes sociais"
     },
     {
       v: "publicidade_revistas_jornais_radio",
       label:
-        "Publicidade em Revistas, Jornais e Rádio (incluindo rádios comunitárias)"
+        "Publicidade em revistas, jornais e rádio (incluindo rádios comunitárias)"
     },
     {
       v: "testes_gratuitos_novos_clientes",
-      label: "Testes Gratuitos para Novos Clientes"
+      label: "Testes gratuitos para novos clientes"
     },
-    { v: "webinares_lives", label: "Webinares e Lives" },
+    {
+      v: "webinares_lives",
+      label: "Webinares e lives"
+    },
     { v: "outro", label: "Outro" }
   ];
 
   const RECEPTIVITY_OPTIONS = [
     {
       v: "aceita_colaboracoes",
-      label: "Aceita Colaborações de potenciais parceiros"
+      label: "Aceita colaborações de potenciais parceiros"
     },
     {
       v: "aceita_sugestoes_limitacoes",
@@ -216,7 +219,7 @@ window.Card15 = (function () {
     },
     {
       v: "reune_incorpora_informacoes",
-      label: "Reúne e incorpora Novas Informações"
+      label: "Reúne e incorpora novas informações"
     },
     { v: "outro", label: "Outro" }
   ];

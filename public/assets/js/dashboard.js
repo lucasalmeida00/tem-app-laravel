@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const url  = businessToDeleteButton.dataset.url;
-            const row  = businessToDeleteButton.closest('.tem-item');
+            const row  = businessToDeleteButton.closest('.business-card-item');
 
             confirmDeleteBtn.disabled = true;
             confirmDeleteBtn.textContent = 'Excluindo...';

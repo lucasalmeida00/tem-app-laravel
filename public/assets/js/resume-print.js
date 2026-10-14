@@ -320,7 +320,7 @@
   // ========== 8) Hook no botão "Imprimir Formulário" ==========
 
   onReady(() => {
-    const btn = document.querySelector('.tem-actions .btn.btn-brand');
+    const btn = document.getElementById('btnDownloadReport');
     if (!btn) return;
 
     btn.addEventListener('click', function (e) {

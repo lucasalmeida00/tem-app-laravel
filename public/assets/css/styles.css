@@ -1,167 +1,305 @@
-body{
-    background-color: #fafafa;
+@import url('./design-tokens.css');
+
+/* ==========================================================================
+   Global Layout & Header
+   ========================================================================== */
+
+body {
+    background-color: var(--bg-body);
+    font-family: var(--font-main);
+    color: var(--text-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.w-270{
-  width: 270px !important;
+.w-270 {
+    width: 270px !important;
 }
 
-.section-header{
+/* Header Navbar */
+.section-header {
     width: 100%;
-    min-height: 93px;
-    height: auto;
-    border-bottom:1px solid rgb(161 161 170);
+    min-height: 80px;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.section-header .container{
-    padding-top:12px;
+.section-header .container {
+    padding-top: 14px;
+    padding-bottom: 14px;
 }
 
-.section-header .nav-pills{
+.section-header .nav-pills {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 12px;
 }
 
-.section-header .nav-pills .nav-link{
-    color: #1e3a8a;
-        font-weight: 700;
+.section-header .nav-pills .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
 }
 
-.tem-logo{
-    width: 214px;
+.section-header .nav-pills .nav-link:hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
 }
 
-/* Home Section Hero */
+.section-header .nav-pills .nav-link.active,
+.section-header .nav-pills .nav-link-btn {
+    background-color: var(--color-primary);
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
 
+.section-header .nav-pills .nav-link-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.tem-logo {
+    width: 190px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   Home Page Sections
+   ========================================================================== */
+
+/* Hero Section */
 .section-hero {
-  background-image: url("../img/bg-tem.png");
-  padding: 5rem;
-  height: 536px;
+    background-image: linear-gradient(rgba(17, 24, 39, 0.25), rgba(17, 24, 39, 0.4)), url("../img/bg-tem.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    padding: 4rem 1.5rem;
+    position: relative;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hero-content {
+    max-width: 650px;
 }
 
 .hero-title {
-  margin-bottom: 1rem;
+    font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 600;
+    color: #F3F4F6;
+    margin-bottom: 1.25rem;
 }
 
 .hero-text {
-  margin-bottom: 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #E5E7EB;
+    margin-bottom: 2rem;
 }
 
-/* Content Section */
+.hero-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary) !important;
+    color: #FFFFFF !important;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: all var(--transition-fast);
+    border: none;
+}
 
+.hero-cta-btn:hover {
+    background-color: var(--color-primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Content Sections */
 .section-content {
-  padding-top: 2.5rem;
-  padding-bottom: 5rem;
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+    flex-grow: 1;
 }
 
 .section-content .content-wrap {
-  padding-left: 8rem;
-  padding-right: 8rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
-
-.content-block { 
-  margin-bottom: 5rem;
+.content-block {
+    margin-bottom: 4.5rem;
 }
 
-.content-block:last-child { 
-  margin-bottom: 0; 
+.content-block:last-child {
+    margin-bottom: 0;
 }
-
 
 .section-title {
-  color: #0b3a82;        
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3rem); 
-  margin-bottom: 2rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+    margin-bottom: 1.5rem;
+}
+
+.section-text {
+    max-width: 840px;
+    margin: 0 auto;
 }
 
 .section-text p {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  margin: 0 0 1rem 0;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-body);
+    margin: 0 0 1.25rem 0;
 }
 
-.section-text p:last-child { margin-bottom: 0; }
+.section-text ul {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-body);
+    margin-bottom: 1.5rem;
+}
 
+.section-text ul li {
+    margin-bottom: 0.5rem;
+}
 
-.feature-row { margin: 3rem 0; }
+/* Feature 3-Cards Row */
+.feature-row {
+    margin: 3.5rem 0;
+}
 
 .feature-card {
-  height: 100%;
-  border-radius: 1rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
+    height: 100%;
+    border-radius: var(--radius-lg);
+    padding: 2.25rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--bg-muted);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
-.feature-muted { background: #e5e7eb; }
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    background: #FFFFFF;
+}
+
+.feature-icon-wrapper {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
 
 .feature-icon {
-  font-size: 5rem;
-  color: #0b3a82;
-  line-height: 1;
+    font-size: 2rem;
+    color: var(--color-primary);
 }
 
 .feature-text {
-  font-size: 1.25rem;
-  margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-body);
+    margin: 0;
 }
 
+/* Partners Section */
 .partners {
-  display: flex;
-  align-items: center;
-  justify-content: center;   
-  gap: 5rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .partner-logo {
-  height: 80px;
-  width: auto;
-  object-fit: contain;
-  filter: none;
+    height: 64px;
+    max-width: 180px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(15%);
+    opacity: 0.9;
+    transition: all var(--transition-fast);
 }
 
-.mb-20{
-  margin-bottom:20px;
+.partner-logo:hover {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.05);
 }
 
-/* Overlay full-screen */
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   Loading Overlay
+   ========================================================================== */
 .tem-loading-overlay {
     position: fixed;
-    inset: 0; /* top:0; right:0; bottom:0; left:0 */
-    z-index: 2000; /* acima de navbar, modais, etc */
+    inset: 0;
+    z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: auto;
 }
 
-/* Fundo esbranquiçado */
 .tem-loading-overlay__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
 }
 
-/* Conteúdo central */
 .tem-loading-overlay__content {
     position: relative;
     z-index: 1;
-    padding: 1.5rem 2rem;
-    border-radius: .75rem;
-    background: #ffffff;
-    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.15);
+    padding: 2rem 2.5rem;
+    border-radius: var(--radius-lg);
+    background: #FFFFFF;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
 }
 
-/* Animação de fade-out */
 .tem-loading-overlay.fade-out {
     animation: temOverlayFadeOut .25s ease-out forwards;
 }
@@ -171,40 +309,37 @@ body{
     to   { opacity: 0; visibility: hidden; }
 }
 
-/*
- * Padrão dos selects com "Outro" (cards 4, 6–16):
- * - Wrapper da row: classe .card-select-row (e .has-other quando "Outro" ativo).
- * - Coluna do select: .col.card-select-col (100% da linha); com "Outro" o JS troca para
- *   .col-auto + max-width 350px para o input "Especifique" ficar ao lado.
- * - Ao limpar/ocultar "Outro": remover .has-other e restaurar .col na coluna (e disparar
- *   o handler ou resetar manualmente para não deixar estado inconsistente).
- */
+/* ==========================================================================
+   Selects with "Outro" helper
+   ========================================================================== */
 .card-select-row .row {
-  flex-wrap: nowrap;
-}
-.card-select-row .form-select {
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 2.375rem !important;
-  min-height: 2.375rem !important;
-}
-/* Inputs ao lado do select (Especifique / Investimento) mesma altura e alinhamento */
-.card-select-row .card-select-col + .col .form-control,
-.card-select-row .card-select-col ~ .col .form-control {
-  height: 2.375rem;
-  min-height: 2.375rem;
-}
-.card-select-row .card-select-col ~ .col {
-  min-width: 0;
-}
-.card-select-row.has-other .form-select {
-  max-width: 350px !important;
+    flex-wrap: nowrap;
 }
 
-/* Alinhamento dos blocos especiais 4.1 (Rede de contatos, Equipamentos, Infraestrutura) */
+.card-select-row .form-select {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 2.6rem !important;
+    min-height: 2.6rem !important;
+}
+
+.card-select-row .card-select-col + .col .form-control,
+.card-select-row .card-select-col ~ .col .form-control {
+    height: 2.6rem;
+    min-height: 2.6rem;
+}
+
+.card-select-row .card-select-col ~ .col {
+    min-width: 0;
+}
+
+.card-select-row.has-other .form-select {
+    max-width: 350px !important;
+}
+
 .nf-block-rede,
 .nf-block-equip,
 .nf-block-infra {
-  margin-left: 0;
-  padding-left: 0;
+    margin-left: 0;
+    padding-left: 0;
 }

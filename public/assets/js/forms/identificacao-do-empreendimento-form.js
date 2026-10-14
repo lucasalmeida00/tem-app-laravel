@@ -3,43 +3,38 @@
     window.FormSchemas = window.FormSchemas || {};
     window.FormSchemas["1"] = {
         title: "",
-        groups: [{
-            title: "",
+        groups: [
+        {
+            titleHtml: "<span class='c-green f-number'>1.1</span> <br/> <h3 class='c-black t-title'>Empresa Formalizada</h3>",
             color: "success",
-            blocks: [{
-                titleHtml: "<span class='c-green f-number'>1.1</span> <br/> <h3 class='c-black t-title'>Qual o status do empreendimento?</h3>",
-                fields: [{
-                    type: "radio",
-                    name: "formalizedCompany",
-                    required: true,
-                    options: [{
-                        value: "true",
-                        label: "Formal"
-                    },
-                    {
-                        value: "false",
-                        label: "Informal"
-                    }
-                    ]
-                }]
-            },
-            {
-                titleHtml: "<span class='c-green f-number'>1.2</span> <br/> <h3 class='c-black t-title'>CNPJ</h3>",
-                fields: [{
-                    type: "text",
-                    name: "cnpj",
-                    placeholder: "00.000.000/0001-00"
-                }]
-            },
-            {
-                titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão social</h3>",
-                fields: [{
-                    type: "text",
-                    name: "corporateName",
-                    placeholder: "Digite a razão social de sua empresa"
-                }]
-            }
-            ]
+            requiredMark: true,
+            fields: [{
+                type: "radio",
+                name: "formalizedCompany",
+                required: true,
+                options: [
+                    { value: "true", label: "Formal" },
+                    { value: "false", label: "Informal" }
+                ]
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.2</span> <br/> <h3 class='c-black t-title'>CNPJ</h3>",
+            color: "success",
+            fields: [{
+                type: "text",
+                name: "cnpj",
+                placeholder: "00.000.000/0001-00"
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.3</span> <br/> <h3 class='c-black t-title'>Razão social</h3>",
+            color: "success",
+            fields: [{
+                type: "text",
+                name: "corporateName",
+                placeholder: "Digite a razão social de sua empresa"
+            }]
         },
         {
             titleHtml: "<span class='c-green f-number'>1.4</span> <br/> <h3 class='c-black t-title'>Nome fantasia do seu empreendimento</h3>",
@@ -326,56 +321,35 @@
             }]
         },
         {
-            title: "",
+            titleHtml: "<span class='c-green f-number'>1.12</span> <br/> <h3 class='c-black t-title'>Número de sócios</h3>",
             color: "success",
-            blocks: [{
-                titleHtml: "<span class='c-green f-number'>1.12</span> <br/> <h3 class='c-black t-title'>Número de sócios</h3>",
-                fields: [{
-                    type: "number",
-                    name: "partnersCount",
-                    placeholder: "",
-                    required: true
-                }]
-            },
-            {
-                titleHtml: "<span class='c-green f-number'>1.13</span> <br/> <h3 class='c-black t-title'>Número de funcionários diretos</h3>",
-                fields: [{
-                    type: "select",
-                    name: "directEmployeesRange",
-                    placeholder: "Selecione a faixa",
-                    required: true,
-                    options: [{
-                        value: "0-4",
-                        label: "0 a 4"
-                    },
-                    {
-                        value: "10-19",
-                        label: "10 a 19"
-                    },
-                    {
-                        value: "20-29",
-                        label: "20 a 29"
-                    },
-                    {
-                        value: "30-49",
-                        label: "30 a 49"
-                    },
-                    {
-                        value: "5-9",
-                        label: "5 a 9"
-                    },
-                    {
-                        value: "50-99",
-                        label: "50 a 99"
-                    },
-                    {
-                        value: "100plus",
-                        label: "A partir de 100"
-                    }
-                    ]
-                }]
-            }
-            ]
+            requiredMark: true,
+            fields: [{
+                type: "number",
+                name: "partnersCount",
+                placeholder: "Digite o número de sócios",
+                required: true
+            }]
+        },
+        {
+            titleHtml: "<span class='c-green f-number'>1.13</span> <br/> <h3 class='c-black t-title'>Número de funcionários diretos</h3>",
+            color: "success",
+            requiredMark: true,
+            fields: [{
+                type: "select",
+                name: "directEmployeesRange",
+                placeholder: "Selecione a faixa",
+                required: true,
+                options: [
+                    { value: "0-4", label: "0 a 4" },
+                    { value: "5-9", label: "5 a 9" },
+                    { value: "10-19", label: "10 a 19" },
+                    { value: "20-29", label: "20 a 29" },
+                    { value: "30-49", label: "30 a 49" },
+                    { value: "50-99", label: "50 a 99" },
+                    { value: "100plus", label: "A partir de 100" }
+                ]
+            }]
         },
 
         {
@@ -385,44 +359,43 @@
                 "type": "select",
                 "name": "annualRevenueLevel",
                 "placeholder": "Selecione o nível",
-                "required": true,
                 "options": [
                     {
-                        "value": "acima_6000k",
-                        "label": "Acima de R$ 6.000.000"
-                    },
-                    {
                         "value": "ate_24k",
-                        "label": "Até R$ 24.000"
-                    },
-                    {
-                        "value": "de_1200k_a_3000k",
-                        "label": "De R$ 1.200.001 a R$ 3.000.000"
-                    },
-                    {
-                        "value": "de_120k_a_240k",
-                        "label": "De R$ 120.001 a R$ 240.000"
+                        "label": "De 0 a R$ 24.000"
                     },
                     {
                         "value": "de_24k_a_60k",
                         "label": "De R$ 24.001 a R$ 60.000"
                     },
                     {
+                        "value": "de_60k_a_120k",
+                        "label": "De R$ 60.001 a R$ 120.000"
+                    },
+                    {
+                        "value": "de_120k_a_240k",
+                        "label": "De R$ 120.001 a R$ 240.000"
+                    },
+                    {
                         "value": "de_240k_a_600k",
                         "label": "De R$ 240.001 a R$ 600.000"
+                    },
+                    {
+                        "value": "de_600k_a_1200k",
+                        "label": "De R$ 600.001 a R$ 1.200.000"
+                    },
+                    {
+                        "value": "de_1200k_a_3000k",
+                        "label": "De R$ 1.200.001 a R$ 3.000.000"
                     },
                     {
                         "value": "de_3000k_a_6000k",
                         "label": "De R$ 3.000.001 a R$ 6.000.000"
                     },
                     {
-                        "value": "de_60k_a_120k",
-                        "label": "De R$ 60.001 a R$ 120.000"
-                    },
-                    {
-                        "value": "de_600k_a_1200k",
-                        "label": "De R$ 600.001 a R$ 1.200.000"
-                    },
+                        "value": "acima_6000k",
+                        "label": "Acima de R$ 6.000.000"
+                    }
                 ]
             }]
         },

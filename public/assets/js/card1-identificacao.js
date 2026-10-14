@@ -16,7 +16,9 @@ window.Card1 = (function () {
       const $byFor = $root.find(`label[for="${id}"]`).first();
       if ($byFor.length) return $byFor;
     }
-    const $near = $input.closest(".mb-2").find("label").first();
+    const $cardHeading = $input.closest(".tem-card").find("h3.t-title, .t-title, h3, h2, h4").first();
+    if ($cardHeading.length) return $cardHeading;
+    const $near = $input.closest(".mb-2, .form-field-wrap").find("label").first();
     return $near.length ? $near : $();
   }
 
@@ -29,11 +31,12 @@ window.Card1 = (function () {
     ].forEach(({ name }) => {
       const $inp = $root.find(`[name="${name}"]`).first();
       if (!$inp.length) return;
+      const $card = $inp.closest(".tem-card");
+      // remove antigos dentro do card
+      $card.find(".asterisk-dynamic").remove();
       const $label = getLabel($root, $inp);
-      // remove antigos
-      $label.find(".asterisk-dynamic").remove();
       if (isFormal) {
-        $label.append(`<span class="asterisk-dynamic text-danger ms-1">*</span>`);
+        $label.append(`<span class="asterisk-dynamic required-asterisk text-danger ms-1">*</span>`);
         $inp.attr("required", "true");
       } else {
         $inp.removeAttr("required");

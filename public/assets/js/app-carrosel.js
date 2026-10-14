@@ -63,8 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
                 // centraliza o slide clicado
-                if (typeof swiper.slideTo === "function" && typeof swiper.clickedIndex === "number") {
-                swiper.slideTo(swiper.clickedIndex, 300);
+                const slideIndex = Array.from(swiper.slides).indexOf(slide);
+                if (slideIndex >= 0 && typeof swiper.slideTo === "function") {
+                    swiper.slideTo(slideIndex, 300);
                 }
             }
         }
@@ -72,4 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 👉 Deixa o Swiper acessível globalmente
     window.cardsSwiper = swiper;
+
+    window.temSelectCard = function(cardId) {
+        const targetSlide = document.querySelector(`.swiper-slide[data-card="${cardId}"]`);
+        if (!targetSlide) return;
+
+        document.querySelectorAll('.swiper-slide .cards-card').forEach(c => c.classList.remove('is-selected'));
+        targetSlide.querySelector('.cards-card')?.classList.add('is-selected');
+
+        const index = Array.from(swiper.slides).indexOf(targetSlide);
+        if (index >= 0 && typeof swiper.slideTo === 'function') {
+            swiper.slideTo(index, 300);
+        }
+
+        window.dispatchEvent(new CustomEvent('card:selected', { detail: { cardId: Number(cardId) } }));
+        if (window.renderDynamicForm) {
+            window.renderDynamicForm(Number(cardId));
+        }
+    };
 });

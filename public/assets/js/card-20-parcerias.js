@@ -171,17 +171,17 @@ window.Card20 = (function () {
 
       const $btnEdit = $(`
         <button type="button"
-                class="btn btn-sm btn-outline-secondary partnership-edit"
-                aria-label="Editar parceria">
+                class="btn btn-sm btn-primary partnership-edit p-1 px-2"
+                aria-label="Editar parceria" title="Editar parceria">
           <i class="fas fa-pen"></i>
         </button>
       `);
 
       const $btnDel = $(`
         <button type="button"
-                class="btn btn-sm btn-outline-danger partnership-delete"
-                aria-label="Remover parceria">
-          &times;
+                class="btn btn-sm btn-danger partnership-delete p-1 px-2"
+                aria-label="Remover parceria" title="Remover parceria">
+          <i class="fas fa-trash-alt"></i>
         </button>
       `);
 
